@@ -3,34 +3,26 @@ package com.lawal.transit.middleware.abstracts;
 import java.util.Objects;
 
 public abstract class DuplexPath extends NamedEntity {
-    private SimplexPath forwardPath;
+    private SimplexPath path;
     private SimplexPath reversePath;
 
-    public DuplexPath(int id, String name, SimplexPath forwardPath, SimplexPath reversePath) {
+    public DuplexPath(int id, String name, SimplexPath path) {
         super(id, name);
-        this.forwardPath = forwardPath;
-        this.reversePath = reversePath;
-    }
+        this.path = path;
+        this.reversePath = path.oppositePath();
+    } //
 
-    public SimplexPath getForwardPath () {
-        return forwardPath;
+    public SimplexPath getPath () {
+        return path;
     }
 
     public SimplexPath getReversePath () {
         return reversePath;
     }
 
-    public void setForwardPath (SimplexPath forward) {
-        this.forwardPath = forward;
-    }
-
-    public void setReversePath (SimplexPath reverse) {
-        this.reversePath = reverse;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), forwardPath, reversePath);
+        return Objects.hash(super.hashCode(), path, reversePath);
     }
 
     @Override
@@ -38,7 +30,7 @@ public abstract class DuplexPath extends NamedEntity {
         if (object instanceof DuplexPath) {
             DuplexPath duplexPath = (DuplexPath) object;
             if (super.equals(duplexPath)) {
-                if (forwardPath.equals(duplexPath.getForwardPath()) && reversePath.equals(duplexPath.getReversePath())) {
+                if (path.equals(duplexPath.getPath()) && reversePath.equals(duplexPath.getReversePath())) {
                     return true;
                 }
             }

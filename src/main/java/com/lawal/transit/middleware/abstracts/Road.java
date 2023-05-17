@@ -1,5 +1,6 @@
 package com.lawal.transit.middleware.abstracts;
 
+import com.lawal.transit.middleware.enums.Direction;
 import com.lawal.transit.middleware.enums.RoadCategory;
 import com.lawal.transit.middleware.enums.RoadDirection;
 import com.lawal.transit.middleware.singletons.Stations;
@@ -8,41 +9,54 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Road extends DuplexPath {
-    public RoadCategory roadCategory;
-    public RoadDirection roadDirection;
+    private Direction curb;
+    private Direction oppositeCurb;
 
-    public Road(int id, String name, SimplexPath forwardPath, SimplexPath reversePath, RoadDirection roadDirection, RoadCategory roadCategory) {
-        super(id, name, forwardPath, reversePath);
-        this.roadDirection = roadDirection;
-        this.roadCategory = roadCategory;
+    public Road(int id, String name, SimplexPath forwardPath) {
+        super(id, name, forwardPath);
+        this.curb = Direction.NONE;
+        this.oppositeCurb = Direction.NONE;
     }
 
-    public RoadCategory getRoadCategory () {
-        return roadCategory;
-    }
+    public SimplexPath getLane () {
+        return getPath();
+    } // close getLane
 
-    public RoadDirection getRoadDirection() {
-        return roadDirection;
-    }
+    public SimplexPath getOppositeLane () {
+        return getReversePath();
+    } // close getOppositeLane
 
-    public void setCategory (RoadCategory roadCategory) {
-        this.roadCategory = roadCategory;
-    }
+    public Direction getCurb () { return curb; }
+    public Direction getOppositeCurb () { return oppositeCurb; }
 
-    public void setRoadCategory(RoadCategory roadCategory) {
-        this.roadCategory = roadCategory;
-    }
+    public void setCurb () {
+        switch (getPath().getDirection()) {
+            case NORTH:
+                this.curb = Direction.WEST;
+                break;
+            case EAST:
+                this.curb = Direction.NORTH;
+                break;
+            case SOUTH:
+                this.curb = Direction.EAST;
+                break;
+            case WEST:
+                this.curb = Direction.SOUTH;
+                break;
+        }
+        setOppositeCurb ();
+    } // close setCurb
+
+    public void setOppositeCurb () {
+        this.oppositeCurb = curb.oppositeDirection();
+    } // close setOppositeCurb
 
     @Override
     public boolean equals(Object object) {
         if (object instanceof  Road) {
             Road road = (Road) object;
             if (super.equals(road)) {
-                if (roadCategory.compareTo(road.getRoadCategory()) == 0) {
-                    if (roadDirection.compareTo(road.getRoadDirection()) == 0) {
-                        return true;
-                    }
-                }
+                return true;
             }
         }
         return false;
@@ -50,16 +64,18 @@ public abstract class Road extends DuplexPath {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), roadCategory, roadDirection);
+        return Objects.hash(super.hashCode());
     } // close hashCode
 
     @Override
     public String toString () {
-        return getName() + " " + getRoadCategory().abbreviation();
+        String string = getClass().getSimpleName()
+                + " id:" + getId()
+                + " name:" + getName();
+        return string;
     } // close toString
-
     @Override
-    public String fullString () { return "id:" + getId() + " " + toString(); }
+    public String fullString () { return toString(); }
 
     public ArrayList<String> getStations () {
         return Stations.INSTANCE.filter(this);

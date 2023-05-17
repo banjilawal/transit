@@ -16,6 +16,10 @@ public class SimplexPath extends Entity {
         return direction;
     }
 
+    public SimplexPath oppositePath () {
+        return new SimplexPath(direction.oppositeDirection());
+    } // close oppositePath
+
     @Override
     public boolean equals(Object object) {
         if (object instanceof SimplexPath) {

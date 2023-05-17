@@ -7,19 +7,28 @@ import com.lawal.transit.middleware.enums.RoadCategory;
 import com.lawal.transit.middleware.enums.RoadDirection;
 
 public class Street extends Road {
-    public Street (int id, String name) {
-        this(id, name, (new SimplexPath(Direction.EAST)), (new SimplexPath(Direction.EAST.oppositeDirection())), RoadDirection.EAST_WEST, RoadCategory.STREET);
-    }
 
-    public Street (int id, String name, SimplexPath forwardPath, SimplexPath reversePath, RoadDirection roadDirection, RoadCategory roadCategory) {
-        super(id, name, forwardPath, reversePath, roadDirection, roadCategory);
+    public Street (int id, String name) {
+        super(id, name, new SimplexPath(Direction.EAST));
     }
 
     public SimplexPath getEastLane () {
-        return getForwardPath();
+        return getLane();
     }
 
     public SimplexPath getWestLane () {
-        return getReversePath();
+        return getOppositeLane();
     }
+
+    @Override
+    public boolean equals (Object object) {
+        if (object instanceof Street) {
+            Street street = (Street) object;
+            if (super.equals(street)) {
+                return true;
+            }
+        }
+        return false;
+    } // close equals
+
 } // end class Street
