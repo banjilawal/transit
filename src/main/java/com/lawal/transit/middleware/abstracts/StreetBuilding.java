@@ -1,4 +1,5 @@
 package com.lawal.transit.middleware.abstracts;
+import com.lawal.transit.middleware.entities.Building;
 import com.lawal.transit.middleware.entities.Street;
 import com.lawal.transit.middleware.enums.Direction;
 

@@ -2,6 +2,7 @@ package com.lawal.transit.middleware.abstracts;
 
 
 import com.lawal.transit.middleware.entities.Avenue;
+import com.lawal.transit.middleware.entities.Building;
 import com.lawal.transit.middleware.enums.Direction;;
 
 public abstract class AvenueBuilding extends Building {

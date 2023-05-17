@@ -24,9 +24,6 @@ public enum RoadPopulator implements Populator {
         Avenues avenues = Avenues.INSTANCE;
         Streets streets = Streets.INSTANCE;
         int totalNames = NameGenerator.INSTANCE.AVENUE_NAMES.length;
-
-//        avenues.add(new Avenue(100, "WestBorder"));
-//        streets.add(new Street(100, "NorthBorder"));
         addBorderRoads(START_BORDER_ID);
         for (int index = 0; index < totalNames; index++) {
             id = SerialNumberGenerator.INSTANCE.assignNumber(this);
@@ -36,9 +33,6 @@ public enum RoadPopulator implements Populator {
             streets.add(new Street(id, streetName));
         }
         addBorderRoads(END_BORDER_ID);
-//        avenues.add(new Avenue(200, "EastBorder"));
-//        streets.add(new Street(200, "SouthBorder"));
-//          System.out.println(avenues.fullString());
     } // close populate
 
     private void addBorderRoads (int borderID) {

@@ -52,7 +52,19 @@ public class Bag<E>  {
         return null;
     } // close search
 
-    public boolean add (NamedEntity namedEntity) {
+    public void add (NamedEntity namedEntity) {
+        if (!bag.contains(namedEntity)) {
+            add(bag.size(), namedEntity);
+        }
+    } // close
+
+    public void add (int index, NamedEntity namedEntity) {
+        if (!bag.contains(namedEntity)) {
+            bag.add(index, namedEntity);
+        }
+    } // close
+
+    public boolean booleanAdd (NamedEntity namedEntity) {
         if (bag.contains(namedEntity)) {
             return false;
         }

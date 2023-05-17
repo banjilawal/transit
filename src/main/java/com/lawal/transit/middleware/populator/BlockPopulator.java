@@ -43,15 +43,7 @@ public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
                 westAvenue = (Avenue) avenues.getBag().get(westIndex);
                 blockId = acceptNumber();
                 blockName = acceptName();
-                Block block = new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet);
-                blocks.add(block);
-//                System.out.print("id:" + blockId + " name:" + blockName);
-//                System.out.print(" north:" + northStreet + " east:" + eastAvenue);
-//                System.out.println(" south:" + southStreet + " west:" + westAvenue);
-//                System.out.println(Direction.NORTH.toString() + ": " + northIndex + " " + northStreet.getName());
-//                System.out.println("\t" + Direction.EAST.toString() + ": " + eastIndex + " " + eastAvenue.getName());
-//                System.out.println(Direction.SOUTH.toString() + ": " + southIndex + " " + southStreet.getName());
-//                System.out.println("\t" + Direction.WEST.toString() + ": " + westIndex + " " + westAvenue.getName());
+                blocks.add(new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet));
                 eastIndex += 1; //borderCount;
             }
             southIndex += 1; //borderCount; //streetCounter++;
