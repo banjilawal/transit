@@ -10,4 +10,4 @@ module com.lawal.transit {
 
     opens com.lawal.transit to javafx.fxml;
     exports com.lawal.transit;
-}
+} // close

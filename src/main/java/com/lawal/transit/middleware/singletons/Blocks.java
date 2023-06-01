@@ -1,79 +1,69 @@
 package com.lawal.transit.middleware.singletons;
 
+import com.lawal.transit.middleware.entities.Avenue;
 import com.lawal.transit.middleware.entities.Block;
 import com.lawal.transit.middleware.collections.Bag;
-import com.lawal.transit.middleware.interfaces.BagWrapper;
+import com.lawal.transit.middleware.entities.Street;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-public enum Blocks implements BagWrapper<Block> {
+public enum Blocks {
     INSTANCE;
-    private final Bag<Block> bag = new Bag<Block>();
-
-    public int size () { return bag.size(); }
+    public final Bag<Block> bag = new Bag<Block>();
 
     public Bag<Block> getBag() {
         return bag;
     }
+//
+//    public int size () { return bag.size(); }
+//
+//    public void add (Block block) {
+//        bag.add(block);
+//    }
+//
+//    public boolean remove (Block block) {
+//        return bag.remove(block.getId());
+//    }
+//
+//    public Iterator<Block> iterator () {
+//        return bag.iterator();
+//    }
 
-    public boolean add (Block block) {
-        return bag.add(block);
-    }
-
-    public boolean remove (Block block) {
-        return bag.remove(block.getId());
-    }
-
-    public Iterator<Block> iterator () {
-        return bag.iterator();
-    }
-
-    public String toString () {
-        return "Block" + " " + bag.toString();
-    }
-
-    public String fullString () {
-        return bag.fullString();
-    }
+//    public String fullString () {
+//        return bag.fullString();
+//    }
 
 
-     public  <Block> Iterator<Block> filterBlocks (Predicate<Block> predicate) {
-        return new FilteredIterator<>(getBag().iterator(), predicate);
-    } // close filter
+//     public  <Block> Iterator<Block> filterBlocks (Predicate<Block> predicate) {
+//        return new FilteredIterator<>(getBag().iterator(), predicate);
+//    } // close filter
 
-    private class FilteredIterator<Block> implements Iterator<Block> {
-        private Iterator<Block> iterator;
-        private Predicate<Block> predicate;
-        private Block nextBlock;
-
-        public FilteredIterator (Iterator<Block> iterator, Predicate<Block> predicate) {
-            System.out.println("line 147");
-            this.iterator = iterator;
-            this.predicate = predicate;
-        } // close constructor
-
-        @Override
-        public boolean hasNext () {
-            while (iterator.hasNext()) {
-                Block element = (Block) iterator.next();
-                if (predicate.test(element)) {
-                    nextBlock = element;
-                    return true;
-                }
+    public Iterator<Block> search (Predicate<Block> predicate) {
+        ArrayList<Block> blocks = new ArrayList<Block>();
+        for (Block block : bag.getBag()) {
+            if (predicate.test(block)) {
+                blocks.add(blocks.size(), block);
             }
-            return false;
-        } // close hasNext
+        }
+        return blocks.iterator();
+    } // close search
 
-        @Override
-        public Block next () {
-            if (nextBlock == null && !hasNext()) {
-                return null;
+    public Block search (Avenue westAvenue, Street northStreet, Avenue eastAvenue, Street southStreet) {
+        for (Block block : bag.getBag()) {
+            if (avenuesMatch(block, westAvenue, eastAvenue) && streetsMatch(block, northStreet, southStreet)) {
+                return block;
             }
-            Block element = nextBlock;
-            nextBlock = null;
-            return element;
-        } // close next
-    } // end class FilteredIterator
+        }
+        return null;
+    } // close search
 
+    private boolean avenuesMatch (Block block, Avenue westAvenue, Avenue eastAvenue) {
+        return (block.getWestAvenue().equals(westAvenue) && block.getEastAvenue().equals(eastAvenue));
+    } // close avenuesMatch
+
+    private boolean streetsMatch (Block block, Street northStreet, Street southStreet) {
+        return (block.getNorthStreet().equals(northStreet) && block.getSouthStreet().equals(southStreet));
+    } // close streetsMatch
 } // end class BLocks

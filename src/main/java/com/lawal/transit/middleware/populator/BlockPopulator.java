@@ -26,27 +26,25 @@ public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
     @Override
     public void populate () {
         Blocks blocks = Blocks.INSTANCE;
-        Streets streets = Streets.INSTANCE;
-        Avenues avenues = Avenues.INSTANCE;
         String blockName;
         int blockId;
 
         southIndex = 1;
-        while (southIndex < streets.size()) {
+        while (southIndex < Streets.INSTANCE.getBag().size()) {
             northIndex = southIndex - 1;
-            northStreet = (Street) streets.getBag().get(northIndex);
-            southStreet = (Street) streets.getBag().get(southIndex);
+            northStreet = Streets.INSTANCE.getBag().get(northIndex);
+            southStreet = Streets.INSTANCE.getBag().get(southIndex);
             eastIndex = 1;
-            while (eastIndex < avenues.size()) {
+            while (eastIndex < Avenues.INSTANCE.getBag().size()) {
                 westIndex = eastIndex - 1;
-                eastAvenue = (Avenue) avenues.getBag().get(eastIndex);
-                westAvenue = (Avenue) avenues.getBag().get(westIndex);
+                eastAvenue = Avenues.INSTANCE.getBag().get(eastIndex);
+                westAvenue = Avenues.INSTANCE.getBag().get(westIndex);
                 blockId = acceptNumber();
                 blockName = acceptName();
-                blocks.add(new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet));
-                eastIndex += 1; //borderCount;
+                blocks.getBag().add(new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet));
+                eastIndex++; //borderCount;
             }
-            southIndex += 1; //borderCount; //streetCounter++;
+            southIndex++; //borderCount; //streetCounter++;
         }
     } // close populate
 

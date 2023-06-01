@@ -14,12 +14,12 @@ public enum NameGenerator implements NameAssigner {
     INSTANCE;
     public static String[] AVENUE_NAMES = {
             "Alpha",
-//            "Bravo", "Charlie",
-//            "Delta", "Echo",
+            "Bravo", "Charlie",
+            "Delta", "Echo",
 //            "Foxtrot", "Golf", "Hotel", "Igloo",
 //            "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Rome",
 //            "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee",
-//            "Zeta"
+            "Zeta"
     };
 
     public String[] EXPRESS_BUS_ROUTE_NAMES = { "Downtown", "Midtown", "Uptown" };
@@ -73,15 +73,15 @@ public enum NameGenerator implements NameAssigner {
         return Integer.toString(buildingNumber);
     } //close
 
-    @Override
-    public String assignName (TransitRoutePopulator transitRoutePopulator) {
-        return getRegularBusRouteName();
-    } // close
+//    @Override
+//    public String assignName (TransitRoutePopulator transitRoutePopulator) {
+//        return getRegularBusRouteName();
+//    } // close
 
-    @Override
-    public String assignName (StationPopulator stationPopulator, int stationNumber) {
-        return "MT-" + Integer.toString(stationNumber);
-    } // close
+//    @Override
+//    public String assignName (StationPopulator stationPopulator, int stationNumber) {
+//        return "MT-" + Integer.toString(stationNumber);
+//    } // close
 
     private int getBlockNameComponent (Road road) {
         int id = road.getId();

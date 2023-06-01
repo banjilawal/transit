@@ -1,5 +1,6 @@
 package com.lawal.transit.middleware.abstracts;
 
+import com.lawal.transit.middleware.entities.Station;
 import com.lawal.transit.middleware.enums.TransitRouteCategory;
 import com.lawal.transit.middleware.singletons.Stations;
 
@@ -79,31 +80,31 @@ public abstract class TransitRoute extends NamedEntity implements Serializable {
         }
     } // close addStops
 
-    public boolean addStop (Station station) {
-        String stationName = station.getName();
-        if (Stations.INSTANCE.search(stationName) == null) {
-            boolean outcome = Stations.INSTANCE.add(station);
-        }
-        return stationNames.add(stationName);
-    } // close addStop
+//    public boolean addStop (Station station) {
+//        String stationName = station.getName();
+//        if (Stations.INSTANCE.search(stationName) == null) {
+//            boolean outcome = Stations.INSTANCE.add(station);
+//        }
+//        return stationNames.add(stationName);
+//    } // close addStop
 
-    public void addStops (ArrayList<Station> stations) {
-        for (Station station : stations) {
-            boolean outcome = addStop(station);
-        }
-    } // close addStops
-
-    public boolean removeStop (Station station) {
-        return Stations.INSTANCE.remove(station);
-    } // close
-
-    public void setStartTime (LocalTime startTime) {
-        this.startTime = startTime;
-    } //close setStartTime
-
-    public void setEndTime (LocalTime endTime) {
-        this.endTime = endTime;
-    } //close setEndTime
+//    public void addStops (ArrayList<Station> stations) {
+//        for (Station station : stations) {
+//            boolean outcome = addStop(station);
+//        }
+//    } // close addStops
+//
+//    public boolean removeStop (Station station) {
+//        return Stations.INSTANCE.remove(station);
+//    } // close
+//
+//    public void setStartTime (LocalTime startTime) {
+//        this.startTime = startTime;
+//    } //close setStartTime
+//
+//    public void setEndTime (LocalTime endTime) {
+//        this.endTime = endTime;
+//    } //close setEndTime
 
     @Override
     public boolean equals(Object object) {

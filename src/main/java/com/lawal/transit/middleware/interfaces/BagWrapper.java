@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 public interface BagWrapper<T> {
     int size();
-    boolean add (T t);
+    void add (T t);
     boolean remove (T t);
     Iterator<T> iterator ();
     String toString ();
-    String fullString ();
+//    String fullString ();
 } // end interface BagWrapper

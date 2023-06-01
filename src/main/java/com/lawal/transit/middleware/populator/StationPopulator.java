@@ -1,5 +1,5 @@
 package com.lawal.transit.middleware.populator;
-
+/*
 import com.lawal.transit.middleware.entities.*;
 import com.lawal.transit.middleware.interfaces.NameAcceptor;
 import com.lawal.transit.middleware.interfaces.NumberAcceptor;
@@ -33,7 +33,7 @@ public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor 
     } // close populate
 
     private void populateAvenues () {
-        AvenueStations avenueStations = AvenueStations.INSTANCE;
+        Stations stations = Stations.INSTANCE;
         Avenues avenues = Avenues.INSTANCE;
         for (Iterator<Avenue> iterator = avenues.iterator(); iterator.hasNext();) {
             avenue = (Avenue) iterator.next();
@@ -43,10 +43,10 @@ public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor 
                 blockId = blockKey.intValue();
                 stationId = acceptNumber();
                 stationName = NameGenerator.INSTANCE.assignName(this, westStationNumber);
-                avenueStations.add(new WestAvenueStation(stationId, stationName, blockId, avenue));
+                stations.add(new WestAvenueStation(stationId, stationName, blockId, avenue));
                 westStationNumber++;
                 stationName = NameGenerator.INSTANCE.assignName(this, eastStationNumber);
-                avenueStations.add(new EastAvenueStation(stationId, stationName, blockId, avenue));
+                stations.add(new EastAvenueStation(stationId, stationName, blockId, avenue));
                 eastStationNumber++;
             }
         }
@@ -96,3 +96,5 @@ public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor 
         return NameGenerator.INSTANCE.assignName(this, number);
     } // close acceptName
 } // end class StationPopulator
+
+ */

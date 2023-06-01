@@ -17,8 +17,8 @@ public enum RegularBusRoutes implements BagWrapper<RegularBusRoute> {
         return bag;
     }
 
-    public boolean add (RegularBusRoute regularBusRoute) {
-        return bag.add(regularBusRoute);
+    public void add (RegularBusRoute regularBusRoute) {
+        bag.add(regularBusRoute);
     }
 
     public boolean remove (RegularBusRoute regularBusRoute) {

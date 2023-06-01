@@ -17,8 +17,8 @@ public enum ExpressBusRoutes implements BagWrapper<ExpressBusRoute> {
         return bag;
     }
 
-    public boolean add (ExpressBusRoute expressBusRoute) {
-        return bag.add(expressBusRoute);
+    public void add (ExpressBusRoute expressBusRoute) {
+        bag.add(expressBusRoute);
     }
 
     public boolean remove (ExpressBusRoute expressBusRoute) {

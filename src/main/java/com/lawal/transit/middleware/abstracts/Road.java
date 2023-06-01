@@ -1,8 +1,6 @@
 package com.lawal.transit.middleware.abstracts;
 
 import com.lawal.transit.middleware.enums.Direction;
-import com.lawal.transit.middleware.enums.RoadCategory;
-import com.lawal.transit.middleware.enums.RoadDirection;
 import com.lawal.transit.middleware.singletons.Stations;
 
 import java.util.ArrayList;
@@ -77,7 +75,7 @@ public abstract class Road extends DuplexPath {
     @Override
     public String fullString () { return toString(); }
 
-    public ArrayList<String> getStations () {
-        return Stations.INSTANCE.filter(this);
-    } // close getStations
+//    public ArrayList<String> getStations () {
+//        return Stations.INSTANCE.filter(this);
+//    } // close getStations
 } // end class Road

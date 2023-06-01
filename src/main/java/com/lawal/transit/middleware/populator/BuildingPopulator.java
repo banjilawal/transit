@@ -1,6 +1,8 @@
 package com.lawal.transit.middleware.populator;
 
+import com.lawal.transit.middleware.abstracts.NamedEntity;
 import com.lawal.transit.middleware.entities.*;
+import com.lawal.transit.middleware.enums.Direction;
 import com.lawal.transit.middleware.interfaces.NameAcceptor;
 import com.lawal.transit.middleware.interfaces.NumberAcceptor;
 import com.lawal.transit.middleware.singletons.*;
@@ -13,83 +15,111 @@ import java.util.function.Predicate;
 
 public enum BuildingPopulator implements Populator, NumberAcceptor, NameAcceptor {
     INSTANCE;
-
-    private Avenue avenue;
-    private Street street;
-    String buildingName;
-
-    private int number;
-    private int blockId;
-    private int buildingId;
+    public static final int BUILDINGS_PER_BLOCK_BORDER = 1;
+    public static final int MULTIPLICATION_FACTOR = 1000;
+    public static final int ADDRESS_INTERVAL = 2;
+//    private int startBorderId = RoadPopulator.INSTANCE.START_BORDER_ID;
+//    private int endBorderId = RoadPopulator.INSTANCE.END_BORDER_ID;
     private int currentIndex;
-    private int endBorderId = RoadPopulator.INSTANCE.END_BORDER_ID;
-
-    public static int BUILDINGS_PER_BLOCK_BORDER = 1;
-    public static int MULTIPLICATION_FACTOR = 1000;
-    public static int ADDRESS_INTERVAL = 2;
+    private int buildingId = 0;
+    private int blockId = 0;
+    private int number = 0;
+    private int dexterNumber = 0;
+    private int sinisterNumber = 0;
+    private Avenue avenue = null;
+    private Street street = null;
+    private String buildingName = "";
+    private Direction curbSide = Direction.NONE;
 
     public void populate () {
         populateAvenues();
         populateStreets();
     } // close populate
 
+
     private void populateAvenues () {
-        AvenueBuildings avenueBuildings = AvenueBuildings.INSTANCE;
-        Avenues avenues = Avenues.INSTANCE;
-        for (Iterator<Avenue> iterator = avenues.iterator(); iterator.hasNext();) {
-            avenue = (Avenue) iterator.next();
-            number = avenue.getId() * MULTIPLICATION_FACTOR;
-            Predicate<Block> avenueMatch = block -> block.getEastAvenue().getId() != endBorderId && block.getEastAvenue().equals(avenue);
-            ArrayList<Integer> blockKeys = filterBlocks(avenueMatch);
-            for (Integer blockKey : blockKeys) {
-                blockId = blockKey.intValue();
-                for (int index = 0; index < BUILDINGS_PER_BLOCK_BORDER; index++) {
-                    buildingId = acceptNumber();
-                    buildingName = NameGenerator.INSTANCE.assignName(this, number);
-                    avenueBuildings.add(new WestAvenueBuilding(buildingId, buildingName, blockId, avenue));
-                    buildingName = NameGenerator.INSTANCE.assignName(this, (number + 1));
-                    avenueBuildings.add(new EastAvenueBuilding(buildingId, buildingName, blockId, avenue));
-                    number += ADDRESS_INTERVAL;
-                }
+        for (Avenue avenue : Avenues.INSTANCE.getBag().getBag()) {
+            if (avenue.getId() != GlobalConstant.START_BORDER_ID && avenue.getId() != GlobalConstant.END_BORDER_ID) {
+                resetSinisterDexter(avenue.getId());
+                populateBlock(avenue, null);
             }
         }
-//        System.out.println(avenueBuildings.toString());
     } // close populateAvenues
 
     private void populateStreets () {
-        StreetBuildings streetBuildings = StreetBuildings.INSTANCE;
-        Streets streets = Streets.INSTANCE;
-        for (Iterator<Street> iterator = streets.iterator(); iterator.hasNext();) {
-            street = (Street) iterator.next();
-            number = street.getId() * MULTIPLICATION_FACTOR;
-            Predicate<Block> streetMatch = block -> block.getSouthStreet().getId() != endBorderId && block.getSouthStreet().equals(street);
-            ArrayList<Integer> blockKeys = filterBlocks(streetMatch);
-            for (Integer blockKey : blockKeys) {
-                blockId = blockKey.intValue();
-                for (int index = 0; index < BUILDINGS_PER_BLOCK_BORDER; index++) {
-                    buildingId = acceptNumber();
-                    buildingName = NameGenerator.INSTANCE.assignName(this, number);
-                    streetBuildings.add(new SouthStreetBuilding(buildingId, buildingName, blockId, street));
-                    buildingName = NameGenerator.INSTANCE.assignName(this, (number + 1));
-                    streetBuildings.add(new NorthStreetBuilding(buildingId, buildingName, blockId, street));
-                    number += ADDRESS_INTERVAL;
-                }
+        for (Street street : Streets.INSTANCE.getBag().getBag()) {
+            if (street.getId() != GlobalConstant.START_BORDER_ID && street.getId() != GlobalConstant.END_BORDER_ID) {
+                populateBlock(null, street);
             }
         }
-//        System.out.println(streetBuildings.toString());
-    } // close populateStreets
+    } // close populateAvenues
 
-    public ArrayList<Integer> filterBlocks(Predicate<Block> predicate) {
-        Blocks blocks = Blocks.INSTANCE;
-        ArrayList<Integer> results = new ArrayList<>();
-        for (Iterator<Block> iterator = blocks.iterator(); iterator.hasNext();) {
-            Block block = (Block) iterator.next();
-            if (predicate.test(block)) { //.getWestAvenue().equals(avenue)) {
-                results.add(block.getId());
+    private void populateBlock (Avenue avenue, Street street) {
+        if (avenue != null) {
+            for (Block block : Blocks.INSTANCE.getBag().getBag()) {
+                buildingId = acceptNumber();
+                setAvenueBuildingFields(avenue, block);
+//                if (block.getWestAvenue().equals(avenue)) {
+//                    buildingName = NameGenerator.INSTANCE.assignName(this, dexterNumber);
+//                    curbSide = Direction.WEST;
+//                }
+//                if (block.getEastAvenue().equals(avenue)) {
+//                    buildingName = NameGenerator.INSTANCE.assignName(this, sinisterNumber);
+//                    curbSide = Direction.EAST;
+//                }
+                Buildings.INSTANCE.bag.add(new Building(buildingId, buildingName, block, curbSide));
+                updateSinisterDexter();
             }
         }
-        return results;
-    } // close process
+        if (street != null) {
+            for (Block block : Blocks.INSTANCE.bag.getBag()) {
+                buildingId = acceptNumber();
+                setStreetBuildingFields(street, block);
+//                if (block.getNorthStreet().equals(street)) {
+//                    buildingName = NameGenerator.INSTANCE.assignName(this, dexterNumber);
+//                    curbSide = Direction.NORTH;
+//                }
+//                if (block.getSouthStreet().equals(street)) {
+//                    buildingName = NameGenerator.INSTANCE.assignName(this, sinisterNumber);
+//                    curbSide = Direction.SOUTH;
+//                }
+                Buildings.INSTANCE.bag.add(new Building(buildingId, buildingName, block, curbSide));
+                updateSinisterDexter();
+            }
+        }
+    } // close populateBlock
+
+    private void setAvenueBuildingFields (Avenue avenue, Block block) {
+        if (block.getWestAvenue().equals(avenue)) {
+            buildingName = NameGenerator.INSTANCE.assignName(this, dexterNumber);
+            curbSide = Direction.WEST;
+        }
+        if (block.getEastAvenue().equals(avenue)) {
+            buildingName = NameGenerator.INSTANCE.assignName(this, sinisterNumber);
+            curbSide = Direction.EAST;
+        }
+    } // close setAvenueBuildingFields
+
+    private void setStreetBuildingFields (Street street, Block block) {
+        if (block.getNorthStreet().equals(street)) {
+            buildingName = NameGenerator.INSTANCE.assignName(this, dexterNumber);
+            curbSide = Direction.NORTH;
+        }
+        if (block.getSouthStreet().equals(street)) {
+            buildingName = NameGenerator.INSTANCE.assignName(this, sinisterNumber);
+            curbSide = Direction.SOUTH;
+        }
+    } // close setStreetBuildingFields
+
+    private void resetSinisterDexter (int roadId) {
+        dexterNumber = roadId * GlobalConstant.MULTIPLICATION_FACTOR;
+        sinisterNumber = dexterNumber + 1;
+    } // close resetSinisterDexter
+
+    private void updateSinisterDexter () {
+        dexterNumber += GlobalConstant.ADDRESS_INTERVAL;
+        sinisterNumber += GlobalConstant.ADDRESS_INTERVAL;
+    } // close updateSinisterDexter
 
     @Override
     public int acceptNumber () {

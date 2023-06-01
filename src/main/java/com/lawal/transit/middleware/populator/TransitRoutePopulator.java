@@ -1,8 +1,5 @@
 package com.lawal.transit.middleware.populator;
-
-import com.lawal.transit.middleware.abstracts.AvenueStation;
-import com.lawal.transit.middleware.abstracts.Station;
-import com.lawal.transit.middleware.abstracts.StreetStation;
+/*
 import com.lawal.transit.middleware.entities.Avenue;
 import com.lawal.transit.middleware.entities.ExpressBusRoute;
 import com.lawal.transit.middleware.entities.RegularBusRoute;
@@ -14,7 +11,6 @@ import com.lawal.transit.middleware.visitors.NameGenerator;
 import com.lawal.transit.middleware.visitors.SerialNumberGenerator;
 
 import java.util.Iterator;
-import java.util.jar.Attributes;
 
 public enum TransitRoutePopulator implements Populator, NumberAcceptor, NameAcceptor {
     INSTANCE;
@@ -79,7 +75,7 @@ public enum TransitRoutePopulator implements Populator, NumberAcceptor, NameAcce
     } // close populateExpressBusRoutes
 
     private void setStationBusRoutes () {
-        for (Iterator<AvenueStation> avenueStationIterator = AvenueStations.INSTANCE.iterator(); avenueStationIterator.hasNext();) {
+        for (Iterator<AvenueStation> avenueStationIterator = Stations.INSTANCE.iterator(); avenueStationIterator.hasNext();) {
             AvenueStation avenueStation = (AvenueStation) avenueStationIterator.next();
             for (Iterator<RegularBusRoute> busRouteIterator = RegularBusRoutes.INSTANCE.iterator(); busRouteIterator.hasNext();) {
                 RegularBusRoute regularBusRoute = (RegularBusRoute) busRouteIterator.next();
@@ -99,3 +95,5 @@ public enum TransitRoutePopulator implements Populator, NumberAcceptor, NameAcce
         }
     }
 } // end class TransitRoutePopulator
+
+ */

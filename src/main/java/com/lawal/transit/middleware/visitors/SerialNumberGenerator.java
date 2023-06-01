@@ -20,14 +20,14 @@ public enum SerialNumberGenerator implements NumberAssigner {
 //        return intersectionSerialNumber++;
 //    }
 //
-    @Override
-    public int assignNumber (TransitRoutePopulator transitRoutePopulator) { return transitRouteSerialNumber++; }
+//    @Override
+//    public int assignNumber (TransitRoutePopulator transitRoutePopulator) { return transitRouteSerialNumber++; }
     @Override
     public int assignNumber (BuildingPopulator buildingPopulator) { return buildingSerialNumber++; }
 
-
-    @Override
-    public int assignNumber (StationPopulator stationPopulator) { return stationSerialNumber++; }
+//
+//    @Override
+//    public int assignNumber (StationPopulator stationPopulator) { return stationSerialNumber++; }
 
     @Override
     public int assignNumber(BlockPopulator blockPopulator) {
