@@ -11,6 +11,8 @@ import com.lawal.transit.middleware.singletons.Streets;
 import com.lawal.transit.middleware.visitors.NameGenerator;
 import com.lawal.transit.middleware.visitors.SerialNumberGenerator;
 
+import java.util.ArrayList;
+
 public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
     INSTANCE;
     private Avenue westAvenue;
@@ -22,14 +24,17 @@ public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
     private int southIndex;
     private int westIndex;
     private int eastIndex;
+    private int blockId;
+    private String blockName;
 
     @Override
     public void populate () {
-        Blocks blocks = Blocks.INSTANCE;
-        String blockName;
-        int blockId;
+        createBlocks();
+    } // close populate
 
+    private Block createBlocks () {
         southIndex = 1;
+        Block block;
         while (southIndex < Streets.INSTANCE.getBag().size()) {
             northIndex = southIndex - 1;
             northStreet = Streets.INSTANCE.getBag().get(northIndex);
@@ -41,12 +46,28 @@ public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
                 westAvenue = Avenues.INSTANCE.getBag().get(westIndex);
                 blockId = acceptNumber();
                 blockName = acceptName();
-                blocks.getBag().add(new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet));
+                block = new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet);
+                Blocks.INSTANCE.bag.add(block);
+                ArrayList<Integer> neighborIndices = calculateNeighborIndices(Blocks.INSTANCE.bag.size());
+                addNeighbors(block, neighborIndices);
                 eastIndex++; //borderCount;
             }
             southIndex++; //borderCount; //streetCounter++;
         }
-    } // close populate
+    } // close createBlocks
+
+    private void addNeighbors (Block block, ArrayList<Integer> neighborIndices) {
+        for (Integer index : neighborIndices) {
+            Block neighbor = Blocks.INSTANCE.bag.get(index.intValue());
+            block.addNeighbor(neighbor);
+            neighbor.addNeighbor(block);
+        }
+    } // close addNeighbors
+
+    private ArrayList<Integer> calculateNeighborIndices (int arrayLocation) {
+        ArrayList<Integer> neighborIndices = new ArrayList<Integer>();
+        return neighborIndices;
+    } // close calculateNeighborIndices
 
     public String acceptName () {
         return NameGenerator.INSTANCE.assignName(this, northStreet, westAvenue);

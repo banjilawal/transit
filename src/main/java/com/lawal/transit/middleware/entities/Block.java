@@ -11,7 +11,7 @@ public class Block extends NamedEntity {
     private Street northStreet;
     private Street southStreet;
 
-    private ArrayList<Block> adjacentBlocks;
+    private ArrayList<Block> neighbors;
 
     public Block (int id, String name, Avenue westAvenue, Avenue eastAvenue, Street northStreet, Street southStreet) {
         super(id, name);
@@ -19,7 +19,7 @@ public class Block extends NamedEntity {
         this.eastAvenue = eastAvenue;
         this.northStreet = northStreet;
         this.southStreet = southStreet;
-        this.adjacentBlocks = new ArrayList<>();
+        this.neighbors = new ArrayList<Block>();
     } // close constructor
 
     public Avenue getWestAvenue () {
@@ -38,6 +38,10 @@ public class Block extends NamedEntity {
         return southStreet;
     }
 
+    public ArrayList<Block> getNeighbors () {
+        return neighbors;
+    }
+
     public void setWestAvenue (Avenue westAvenue) {
         this.westAvenue = westAvenue;
     }
@@ -53,6 +57,31 @@ public class Block extends NamedEntity {
     public void setSouthStreet (Street southStreet) {
         this.southStreet = southStreet;
     }
+
+    public void setNeighbors (ArrayList<Block> blocks) {
+        for (Block block : blocks) {
+            addNeighbor(block);
+        }
+    } // close setNeighbors
+
+    public void addNeighbor (Block block) {
+        if (!neighbors.contains(block)) {
+            neighbors.add(neighbors.size(), block);
+        }
+    } // close addNeighbor
+
+    public void removeNeigbors (ArrayList<Block> blocks) {
+        for (Block block : blocks) {
+            removeNeighbor(block);
+        }
+    } // close removeNeighbors
+
+    public void removeNeighbor (Block block) {
+        int index = neighbors.indexOf(block);
+        if (index >= 0) {
+            neighbors.remove(index);
+        }
+    } // close removeNeighbor
 
     @Override
     public boolean equals (Object object) {

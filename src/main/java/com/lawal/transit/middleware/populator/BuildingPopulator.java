@@ -36,7 +36,6 @@ public enum BuildingPopulator implements Populator, NumberAcceptor, NameAcceptor
         populateStreets();
     } // close populate
 
-
     private void populateAvenues () {
         for (Avenue avenue : Avenues.INSTANCE.getBag().getBag()) {
             if (avenue.getId() != GlobalConstant.START_BORDER_ID && avenue.getId() != GlobalConstant.END_BORDER_ID) {

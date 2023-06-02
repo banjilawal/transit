@@ -5,41 +5,25 @@ import com.lawal.transit.middleware.entities.Block;
 import com.lawal.transit.middleware.entities.Station;
 import com.lawal.transit.middleware.interfaces.BagWrapper;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
-public enum Stations implements BagWrapper<Station> {
+public enum Stations {
     INSTANCE;
-    private final Bag<Station> bag = new Bag<Station>();
-
-    public int size () { return bag.size(); }
+    public final Bag<Station> bag = new Bag<Station>();
 
     public Bag<Station> getBag() {
         return bag;
     } // close getBag
 
-    public void add (Station station) {
-        if (!bag.contains(station)) {
-            bag.add(size(), station);
+    public Iterator<Station> search (Predicate<Station> predicate) {
+        ArrayList<Station> stations = new ArrayList<Station>();
+        for (Station station : bag.getBag()) {
+            if (predicate.test(station)) {
+                stations.add(stations.size(), station);
+            }
         }
-    }
-
-    public boolean remove (Station station) {
-        return bag.remove(station.getId());
-    }
-
-    public Block getBlock (int blockId) {
-        return (Block) Blocks.INSTANCE.getBag().search(blockId);
-    } // close getBlock
-
-    public Iterator<Station> iterator () {
-        return bag.iterator();
-    }
-
-    public String toString () {
-        return "Station" + " " + bag.toString();
-    }
-//
-//    public String fullString () {
-//        return toString();
-//    }
-} // end class AvenueStations
+        return stations.iterator();
+    } // close search
+} // end class Stations

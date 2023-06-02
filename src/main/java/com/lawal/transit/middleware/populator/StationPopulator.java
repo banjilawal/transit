@@ -1,5 +1,5 @@
 package com.lawal.transit.middleware.populator;
-/*
+
 import com.lawal.transit.middleware.entities.*;
 import com.lawal.transit.middleware.interfaces.NameAcceptor;
 import com.lawal.transit.middleware.interfaces.NumberAcceptor;
@@ -25,13 +25,12 @@ public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor 
     private int eastStationNumber = 2000;
     private int southStationNumber = 3000;
     private int westStationNumber = 4000;
-    private int endBorderId = RoadPopulator.INSTANCE.END_BORDER_ID;
+    private int endBorderId = GlobalConstant.END_BORDER_ID;
 
     public void populate () {
-        populateAvenues();
-        populateStreets();
-    } // close populate
 
+    } // close populate
+/*
     private void populateAvenues () {
         Stations stations = Stations.INSTANCE;
         Avenues avenues = Avenues.INSTANCE;
@@ -85,7 +84,7 @@ public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor 
         }
         return results;
     } // close process
-
+ */
     @Override
     public int acceptNumber () {
         return SerialNumberGenerator.INSTANCE.assignNumber(this);
@@ -97,4 +96,4 @@ public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor 
     } // close acceptName
 } // end class StationPopulator
 
- */
+

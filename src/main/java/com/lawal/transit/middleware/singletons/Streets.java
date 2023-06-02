@@ -13,27 +13,4 @@ public enum Streets {
     public Bag<Street> getBag() {
         return bag;
     } // close getBag
-
-//    private Predicate<Street> predicate = null;
-//
-//    public int size () { return bag.size(); }
-//
-//
-//    public void add (Street street) {
-//        bag.add(street);
-//    }
-//
-//    public boolean remove (Street street) {
-//        return bag.remove(street.getName());
-//    }
-//
-//    public Iterator<Street> iterator () {
-//        return bag.iterator();
-//    }
-
-
-//    public String fullString () {
-//        return "Street" + " " + bag.fullString();
-//    }
-
 } // end class Streets

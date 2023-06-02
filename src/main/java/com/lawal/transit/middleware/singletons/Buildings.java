@@ -37,21 +37,4 @@ public enum Buildings {
         }
         return null;
     } // close search
-
-//    public int size () { return bag.size(); }
-//
-//    public Iterator<Building> iterator () {
-//        return bag.iterator();
-//    }
-//
-//    public void add (Building building) {
-//        bag.add(size(), building);
-//    }
-//
-//    public boolean remove (Building building) {
-//        return bag.remove(building.getName());
-//    }
-//    public String fullString () {
-//        return "Avenue" + " " + bag.fullString();
-//    }
 } // end class Buildings
