@@ -8,10 +8,9 @@ import com.lawal.transit.core.populator.*;
 
 public enum SerialNumberGenerator implements NumberAssigner {
     INSTANCE;
-    private int transitRouteSerialNumber = 1;
     private int regularBusRouteSerialNumber = 1;
     private int expressBusRouteSerialNumber = 1;
-    private int intersectionSerialNumber = 1;
+//    private int intersectionSerialNumber = 1;
     private int buildingSerialNumber = 1;
     private int stationSerialNumber = 1;
     private int blockSerialNumber = 1;

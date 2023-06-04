@@ -2,9 +2,11 @@ package com.lawal.transit.core.visitors;
 
 import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.entities.Avenue;
+import com.lawal.transit.core.entities.GlobalConstant;
 import com.lawal.transit.core.entities.Street;
 import com.lawal.transit.core.interfaces.NameAssigner;
 import com.lawal.transit.core.populator.*;
+import com.lawal.transit.core.singletons.ExpressBusRoutes;
 import com.lawal.transit.core.singletons.RegularBusRoutes;
 //import com.lawal.transit.middleware.populator.BuildingPopulator;
 //import com.lawal.transit.middleware.populator.IntersectionPopulator;
@@ -12,31 +14,31 @@ import com.lawal.transit.core.singletons.RegularBusRoutes;
 
 public enum NameGenerator implements NameAssigner {
     INSTANCE;
-    public static String[] AVENUE_NAMES = {
-            "Alpha",
-            "Bravo", "Charlie",
-            "Delta", "Echo",
+//    public static String[] AVENUE_NAMES = {
+//            "Alpha",
+//            "Bravo", "Charlie",
+//            "Delta", "Echo",
 //            "Foxtrot", "Golf", "Hotel", "Igloo",
 //            "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Rome",
 //            "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee",
-            "Zeta"
-    };
+//            "Zeta"
+//    };
 
-    public String[] EXPRESS_BUS_ROUTE_NAMES = { "Downtown", "Midtown", "Uptown" };
-
-    private String[] REGULAR_BUS_ROUTE_NAMES = {
-            "Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet", "Gold", "Olive",
-            "Juno", "Silver", "Pearl", "Oak", "Fig", "Pine", "Elm", "Cedar", "Venus", "Pluto",
-            "Neptune", "Cobalt", "Hemlock", "Saturn", "Mercury", "Mars", "Platinum", "Amber",
-            "Teak", "Iroko", "Ebony", "Mahogany", "Fir", "Cypress", "A", "B", "C", "D", "E",
-            "F", "G", "H", "J", "k", "L", "M", "N", "Q", "R", "S", "T", "U", "V", "W", "X",
-            "Y", "Z", "Alpha", "Beta", "Delta", "Epsilon", "Gamma", "Omega", "Sigma", "Theta",
-            "Lambda", "Zeta", "Kappa", "Tau", "Micron", "11", "22", "33", "44", "55", "66",
-            "77", "88", "99", "3", "4", "5", "6", "7", "9", "10", "12", "13", "14", "15", "16",
-            "17", "18", "19"
-    };
+//    public String[] EXPRESS_BUS_ROUTE_NAMES = { "Downtown", "Midtown", "Uptown" };
+//
+//    private String[] REGULAR_BUS_ROUTE_NAMES = {
+//            "Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet", "Gold", "Olive",
+//            "Juno", "Silver", "Pearl", "Oak", "Fig", "Pine", "Elm", "Cedar", "Venus", "Pluto",
+//            "Neptune", "Cobalt", "Hemlock", "Saturn", "Mercury", "Mars", "Platinum", "Amber",
+//            "Teak", "Iroko", "Ebony", "Mahogany", "Fir", "Cypress", "A", "B", "C", "D", "E",
+//            "F", "G", "H", "J", "k", "L", "M", "N", "Q", "R", "S", "T", "U", "V", "W", "X",
+//            "Y", "Z", "Alpha", "Beta", "Delta", "Epsilon", "Gamma", "Omega", "Sigma", "Theta",
+//            "Lambda", "Zeta", "Kappa", "Tau", "Micron", "11", "22", "33", "44", "55", "66",
+//            "77", "88", "99", "3", "4", "5", "6", "7", "9", "10", "12", "13", "14", "15", "16",
+//            "17", "18", "19"
+//    };
     private static int START_BORDER_ARRAY_INDEX = 0;
-    private static int END_BORDER_ID_ARRAY_INDEX = AVENUE_NAMES.length;
+    private static int END_BORDER_ID_ARRAY_INDEX = GlobalConstant.AVENUE_NAMES.length;
     private static final int CAPITAL_A_ASCII_VALUE = 65;
 
 //    @Override
@@ -55,7 +57,7 @@ public enum NameGenerator implements NameAssigner {
     public String assignName (RoadPopulator roadPopulator, Road road, int roadId) {
         String name = "";
         if (road instanceof Avenue) {
-            return AVENUE_NAMES[(roadId - 1)];
+            return GlobalConstant.AVENUE_NAMES[(roadId - 1)];
         }
         else if (road instanceof Street) {
             return Integer.toString(roadId);
@@ -73,6 +75,11 @@ public enum NameGenerator implements NameAssigner {
     public String assignName (RegularBusRoutePopulator busRoutePopulator) {
         return getRegularBusRouteName();
     } // close
+
+    @Override
+    public String assignName (ExpressBusRoutePopulator busRoutePopulator) {
+        return getExpressBusRouteName();
+    }
 
     @Override
     public String assignName (StationPopulator stationPopulator, int previousStationNumber) {
@@ -124,7 +131,7 @@ public enum NameGenerator implements NameAssigner {
      */
 
     public int expressRouteCount () {
-        return EXPRESS_BUS_ROUTE_NAMES.length;
+        return GlobalConstant.EXPRESS_BUS_ROUTE_NAMES.length;
     }
 
     private String randomStringArrayEntryName (String[] stringArray) {
@@ -133,10 +140,18 @@ public enum NameGenerator implements NameAssigner {
     } // close randomStringArrayEntryName
 
     private String getRegularBusRouteName () {
-        String name = randomStringArrayEntryName(REGULAR_BUS_ROUTE_NAMES);
+        String name = randomStringArrayEntryName(GlobalConstant.REGULAR_BUS_ROUTE_NAMES);
         while (RegularBusRoutes.INSTANCE.getRegularBusRoutes().search(name) != null) {
-            name = randomStringArrayEntryName(REGULAR_BUS_ROUTE_NAMES);
+            name = randomStringArrayEntryName(GlobalConstant.REGULAR_BUS_ROUTE_NAMES);
         }
         return  (name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase());
     } // close getRegularBusRouteName
+
+    private String getExpressBusRouteName () {
+        String name = randomStringArrayEntryName(GlobalConstant.EXPRESS_BUS_ROUTE_NAMES);
+        while (ExpressBusRoutes.INSTANCE.getExpressBusRoutes().search(name) != null) {
+            name = randomStringArrayEntryName(GlobalConstant.EXPRESS_BUS_ROUTE_NAMES);
+        }
+        return  (name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase());
+    } // close getExpressBusRouteName
 } // end class SerialNumberGenerator

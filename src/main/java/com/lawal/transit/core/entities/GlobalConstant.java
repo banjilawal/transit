@@ -25,4 +25,28 @@ public class GlobalConstant {
 
     public static LocalTime TRANSIT_START_TIME = LocalTime.of(6,0);
     public static LocalTime TRANSIT_END_TIME = LocalTime.of(2,30);
+
+    public static String[] AVENUE_NAMES = {
+            "Alpha",
+            "Bravo", "Charlie",
+            "Delta", "Echo",
+//            "Foxtrot", "Golf", "Hotel", "Igloo",
+//            "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Rome",
+//            "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee",
+            "Zeta"
+    };
+
+    public static String[] EXPRESS_BUS_ROUTE_NAMES = { "Downtown", "Midtown", "Uptown" };
+
+    public static String[] REGULAR_BUS_ROUTE_NAMES = {
+            "Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet", "Gold", "Olive",
+            "Juno", "Silver", "Pearl", "Oak", "Fig", "Pine", "Elm", "Cedar", "Venus", "Pluto",
+            "Neptune", "Cobalt", "Hemlock", "Saturn", "Mercury", "Mars", "Platinum", "Amber",
+            "Teak", "Iroko", "Ebony", "Mahogany", "Fir", "Cypress", "A", "B", "C", "D", "E",
+            "F", "G", "H", "J", "k", "L", "M", "N", "Q", "R", "S", "T", "U", "V", "W", "X",
+            "Y", "Z", "Alpha", "Beta", "Delta", "Epsilon", "Gamma", "Omega", "Sigma", "Theta",
+            "Lambda", "Zeta", "Kappa", "Tau", "Micron", "11", "22", "33", "44", "55", "66",
+            "77", "88", "99", "3", "4", "5", "6", "7", "9", "10", "12", "13", "14", "15", "16",
+            "17", "18", "19"
+    };
 } // end class GlobalConstant
