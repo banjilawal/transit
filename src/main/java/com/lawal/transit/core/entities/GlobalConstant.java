@@ -7,7 +7,7 @@ public class GlobalConstant {
     public static String[] AVENUE_NAMES = {
             "Alpha",
             "Bravo", "Charlie",
-            "Delta", "Echo",
+//            "Delta", "Echo",
 //            "Foxtrot", "Golf", "Hotel", "Igloo",
 //            "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Rome",
 //            "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee",

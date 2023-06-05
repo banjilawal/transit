@@ -36,7 +36,6 @@ public class Station extends Location implements DiGraphable<Station> {
         }
     } // close addBusRouteName
 
-
     public Iterator<Station> getIncomingNeighbors () {
         return incomingNeighbors.iterator();
     } // close getIncomingNeighbors
@@ -121,7 +120,7 @@ public class Station extends Location implements DiGraphable<Station> {
             string += station.getName() + " ";
         }
         return (string.trim() + "]");
-    } // close printBusRoutes
+    } // close printNeigbors
 
     public String printBusRoutes () {
         String string = "[BusRoutes:";

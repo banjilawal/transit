@@ -2,7 +2,6 @@ package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.collections.Bag;
 import com.lawal.transit.core.entities.RegularBusRoute;
-import com.lawal.transit.core.interfaces.BagWrapper;
 
 import java.util.Iterator;
 

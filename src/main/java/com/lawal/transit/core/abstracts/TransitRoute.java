@@ -1,7 +1,6 @@
 package com.lawal.transit.core.abstracts;
 
 import com.lawal.transit.core.entities.Station;
-import com.lawal.transit.core.enums.TransitRouteCategory;
 
 import java.io.Serializable;
 import java.time.LocalTime;

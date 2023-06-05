@@ -1,7 +1,5 @@
 package com.lawal.transit.core.abstracts;
 
-import com.lawal.transit.core.entities.RegularBusRoute;
-
 import java.time.LocalTime;
 
 public abstract class BusRoute extends TransitRoute {

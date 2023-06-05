@@ -8,8 +8,5 @@ public enum TransitRoutes {
     public String toString () {
         return "\t\t\tTransitRoutes\n\t\t--------------\n" + regularBusRoutes.getRegularBusRoutes().toString()
                 + "\n" + expressBusRoutes.getExpressBusRoutes().toString();
-    }
-    public String fullString () {
-        return toString();
-    }
+    } // close toString
 } // end class Roads

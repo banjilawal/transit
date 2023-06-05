@@ -4,14 +4,13 @@ import com.lawal.transit.core.entities.*;
 import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.interfaces.NameAcceptor;
 import com.lawal.transit.core.interfaces.NumberAcceptor;
+import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Avenues;
 import com.lawal.transit.core.singletons.Blocks;
 import com.lawal.transit.core.singletons.Stations;
 import com.lawal.transit.core.singletons.Streets;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
-
-import java.util.function.Predicate;
 
 public enum StationPopulator implements Populator, NumberAcceptor, NameAcceptor {
     INSTANCE;

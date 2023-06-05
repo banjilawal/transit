@@ -4,15 +4,16 @@ import com.lawal.transit.core.entities.*;
 import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.interfaces.NameAcceptor;
 import com.lawal.transit.core.interfaces.NumberAcceptor;
+import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.*;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 
 public enum BuildingPopulator implements Populator, NumberAcceptor, NameAcceptor {
     INSTANCE;
-    public static final int BUILDINGS_PER_BLOCK_BORDER = 1;
-    public static final int MULTIPLICATION_FACTOR = 1000;
-    public static final int ADDRESS_INTERVAL = 2;
+//    public static final int BUILDINGS_PER_BLOCK_BORDER = 1;
+//    public static final int MULTIPLICATION_FACTOR = 1000;
+//    public static final int ADDRESS_INTERVAL = 2;
 //    private int startBorderId = RoadPopulator.INSTANCE.START_BORDER_ID;
 //    private int endBorderId = RoadPopulator.INSTANCE.END_BORDER_ID;
     private int currentIndex;

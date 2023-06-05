@@ -6,14 +6,12 @@ import com.lawal.transit.core.entities.Block;
 import com.lawal.transit.core.entities.Street;
 import com.lawal.transit.core.interfaces.NameAcceptor;
 import com.lawal.transit.core.interfaces.NumberAcceptor;
-import com.lawal.transit.core.singletons.Avenues;
+import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Blocks;
 import com.lawal.transit.core.singletons.Roads;
-import com.lawal.transit.core.singletons.Streets;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
@@ -73,8 +71,6 @@ public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
 //            southIndex++; //borderCount; //streetCounter++;
 //        }
 //    } // close createBlocks
-
-
 
     public String acceptName () {
         return NameGenerator.INSTANCE.assignName(this, northStreet, westAvenue);

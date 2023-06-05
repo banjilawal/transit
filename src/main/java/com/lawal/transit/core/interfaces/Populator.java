@@ -1,4 +1,4 @@
-package com.lawal.transit.core.populator;
+package com.lawal.transit.core.interfaces;
 
 public interface Populator {
     void populate ();

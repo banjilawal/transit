@@ -1,15 +1,13 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.BusRoute;
-import com.lawal.transit.core.abstracts.TransitRoute;
-import com.lawal.transit.core.enums.TransitRouteCategory;
 
 public class RegularBusRoute extends BusRoute {
 
     public RegularBusRoute (int id, String name) {
         super(id, name, GlobalConstant.TRANSIT_START_TIME, GlobalConstant.TRANSIT_END_TIME,
                 GlobalConstant.REGULAR_MINIMUM_INTERARRIVAL_TIME); //, TransitRouteCategory.REGULAR);
-    }
+    } // close constructor
 
     @Override
     public void setInterArrivalTime (int interArrivalTime) {

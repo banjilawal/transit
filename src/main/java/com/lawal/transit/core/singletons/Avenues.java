@@ -16,7 +16,8 @@ public enum Avenues {
     }
 
     public Iterator<Avenue> iterator () {
-        Predicate<Avenue> predicate = (avenue) -> avenue.getId() != GlobalConstant.END_BORDER_ID && avenue.getId() != GlobalConstant.START_BORDER_ID;
+        Predicate<Avenue> predicate = (avenue) -> avenue.getId() != GlobalConstant.END_BORDER_ID
+                && avenue.getId() != GlobalConstant.START_BORDER_ID;
         return avenues.search(predicate);
     }
 } // end class Avenues

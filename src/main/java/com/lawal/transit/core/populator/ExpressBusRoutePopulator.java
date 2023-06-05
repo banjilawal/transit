@@ -4,6 +4,7 @@ import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.entities.*;
 import com.lawal.transit.core.interfaces.NameAcceptor;
 import com.lawal.transit.core.interfaces.NumberAcceptor;
+import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.*;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
