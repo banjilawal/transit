@@ -1,6 +1,6 @@
 package com.lawal.transit.core.singletons;
 
-public enum TransitRoutes {
+public enum Routes {
     INSTANCE;
     public RegularBusRoutes regularBusRoutes = RegularBusRoutes.INSTANCE;
     public ExpressBusRoutes expressBusRoutes = ExpressBusRoutes.INSTANCE;
