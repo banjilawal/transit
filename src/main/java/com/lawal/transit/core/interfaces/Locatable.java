@@ -7,5 +7,5 @@ import com.lawal.transit.core.enums.Direction;
 public interface Locatable {
     void setRoad (Direction curbSide);
     Road getRoad ();
-    SimplexPath getRoadLane ();
+   // SimplexPath getRoadLane ();
 } // end interface

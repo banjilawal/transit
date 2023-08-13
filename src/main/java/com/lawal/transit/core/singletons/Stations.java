@@ -1,35 +1,47 @@
 package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.collections.Bag;
-import com.lawal.transit.core.collections.GraphableBag;
 import com.lawal.transit.core.entities.Station;
 import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.core.interfaces.BagWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
-public enum Stations {
+public enum Stations implements BagWrapper<Station> {
     INSTANCE;
-    public final GraphableBag<Station> stations; // = new GraphableBag<Station>();
+    private final Bag<Station> stations = new Bag<Station>();
 
-    Stations () {
-        ArrayList<Direction> neighborDirections = getNeighborDirections();
-        this.stations = new GraphableBag<Station>(neighborDirections);
+    @Override
+    public int size() {
+        return stations.size();
     }
 
-    private ArrayList<Direction> getNeighborDirections () {
-        ArrayList<Direction> neighborDirections = new ArrayList<Direction>();
-        neighborDirections.add(neighborDirections.size(), Direction.NORTH);
-        neighborDirections.add(neighborDirections.size(), Direction.EAST);
-        neighborDirections.add(neighborDirections.size(), Direction.SOUTH);
-        neighborDirections.add(neighborDirections.size(), Direction.WEST);
-        return neighborDirections;
-    } //
+    @Override
+    public void add(Station station) {
+        stations.add(station);
+    }
 
-    public Bag<Station> getStations () {
+    @Override
+    public void remove(Station station) {
+        stations.remove(station);
+    }
+
+    @Override
+    public Bag<Station> getBag() {
         return stations;
-    } // close getBag
+    }
+
+    @Override
+    public Iterator<Station> iterator() {
+        return stations.iterator();
+    }
+
+    @Override
+    public ArrayList<Station> getBagContents() {
+        return stations.getContents();
+    }
+
 
 //    public Iterator<Station> search (Predicate<Station> predicate) {
 //        ArrayList<Station> stations = new ArrayList<Station>();

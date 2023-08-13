@@ -2,14 +2,51 @@ package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.collections.Bag;
 import com.lawal.transit.core.entities.ExpressBusRoute;
+import com.lawal.transit.core.entities.RegularBusRoute;
+import com.lawal.transit.core.interfaces.BagWrapper;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
-public enum ExpressBusRoutes {
+public enum ExpressBusRoutes implements BagWrapper<ExpressBusRoute> {
     INSTANCE;
-    public final Bag<ExpressBusRoute> routes = new Bag<ExpressBusRoute>();
+    private final Bag<ExpressBusRoute> routes = new Bag<ExpressBusRoute>();
 
-    public Bag<ExpressBusRoute> getExpressBusRoutes() {
+    @Override
+    public int size() {
+        return routes.size();
+    }
+
+    @Override
+    public void add(ExpressBusRoute expressBusRoute) {
+        routes.add(expressBusRoute);
+    }
+
+    @Override
+    public void remove(ExpressBusRoute expressBusRoute) {
+        routes.remove(expressBusRoute);
+    }
+
+    @Override
+    public Bag<ExpressBusRoute> getBag() {
         return routes;
     }
+
+    @Override
+    public Iterator<ExpressBusRoute> iterator() {
+        return routes.iterator();
+    }
+
+    @Override
+    public ArrayList<ExpressBusRoute> getBagContents() {
+        return routes.getContents();
+    }
+
+    public ArrayList<String> getRoutNames () {
+        ArrayList<String> names = new ArrayList<String>();
+        for (ExpressBusRoute route : routes.getContents()) {
+            names.add(names.size(), route.getName());
+        }
+        return names;
+    } //
 } // end enum ExpressBusRoutes

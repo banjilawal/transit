@@ -2,50 +2,47 @@ package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.collections.Bag;
-import com.lawal.transit.core.entities.Avenue;
+import com.lawal.transit.core.interfaces.BagWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
-public enum Roads {
+public enum Roads implements BagWrapper<Road> {
     INSTANCE;
-    public Bag<Road> roads = new Bag<Road>();
+    private Bag<Road> roads = new Bag<Road>();
 
-    public Bag<Road> getRoads () {
+    @Override
+    public int size () { return roads.size(); }
+
+    @Override
+    public Bag<Road> getBag () {
         return roads;
     }
 
+    @Override
+    public ArrayList<Road> getBagContents() { return roads.getContents(); }
+
+    @Override
+    public void add (Road road) { roads.add(road); }
+
+    @Override
+    public void remove (Road road) { roads.remove(road); }
+
+    @Override
+    public Iterator<Road> iterator () { return roads.getContents().iterator(); }
+
     public Road search (String roadName) {
-        Road road = Avenues.INSTANCE.getAvenues().search(roadName);
+        Road road = Avenues.INSTANCE.getBag().search(roadName);
         if (road == null) {
-            road = Streets.INSTANCE.getStreets().search(roadName);
+            road = Streets.INSTANCE.getBag().search(roadName);
         }
         return road;
     } // close search
 
-    public Iterator<Road> iterator (Predicate<Road> predicate) {
-        return roads.search(predicate);
-    } // close iterator
-
-    public ArrayList<ArrayList<Road>> roadPairs () {
-        Roads roads = Roads.INSTANCE;
-        ArrayList<ArrayList<Road>> roadPairs = new ArrayList<ArrayList<Road>>();
-        Avenue avenue;
-        int index = 0;
-        while (index < (roads.roads.size() - 1)) {
-            ArrayList<Road> roadPair = new ArrayList<Road>();
-            roadPair.add(roadPair.size(), roads.getRoads().get(index));
-            roadPair.add(roadPair.size(), roads.getRoads().get(index+1));
-            roadPairs.add(roadPairs.size(), roadPair);
-            index++;
-        }
-        return roadPairs;
-    } // close roadPairs
 
     public String toString () {
-        return "\t\t\tRoads\n\t\t--------------\n"
-                + Avenues.INSTANCE.getAvenues().toString()
-                + "\n" + Streets.INSTANCE.getStreets().toString();
+        return "\t\t\tRoads\n\t\t--------------" //\n"
+                + Avenues.INSTANCE.getBag().toString()
+                + "\n" + Streets.INSTANCE.getBag().toString();
     } //close toString
 } // end class Roads

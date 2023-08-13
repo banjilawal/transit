@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 public interface Graphable<T> {
     public Iterator<T> getNeighbors ();
+    public ArrayList<T> getNeighborList ();
     public void addNeighbors (ArrayList<T> neighbors);
     public void addNeighbor (T neighbor);
     public void removeNeighbors (ArrayList<T> neighbors);

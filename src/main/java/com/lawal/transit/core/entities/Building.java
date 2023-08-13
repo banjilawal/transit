@@ -5,18 +5,13 @@ import com.lawal.transit.core.enums.Direction;
 
 public class Building extends Location {
 
-    public Building (int id, String name, Block block, Direction curbSide) {
-        super(id, name, block, curbSide);
+    public Building (int id, String name, Block block, Direction orientation) {
+        super(id, name, block, orientation);
     }
 
     @Override
     public boolean equals (Object object) {
-        if (object instanceof Building) {
-            Building building = (Building) object;
-            if (super.equals(building)) {
-                return true;
-            }
-        }
+        if (object instanceof Building building) return super.equals(building);
         return false;
     } // close equals
 } // end class Building

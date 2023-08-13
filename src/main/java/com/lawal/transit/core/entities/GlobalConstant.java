@@ -2,16 +2,17 @@ package com.lawal.transit.core.entities;
 
 import java.time.LocalTime;
 
-public class GlobalConstant {
+public final class GlobalConstant {
 
     public static String[] AVENUE_NAMES = {
             "Alpha",
-            "Bravo", "Charlie",
+            "Bravo"
+//            "Charlie"
 //            "Delta", "Echo",
 //            "Foxtrot", "Golf", "Hotel", "Igloo",
 //            "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Rome",
 //            "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee",
-            "Zeta"
+//            "Zeta"
     };
 
     public static String[] EXPRESS_BUS_ROUTE_NAMES = { "Downtown", "Midtown", "Uptown", "Sundowner", "Nooner",
@@ -27,7 +28,7 @@ public class GlobalConstant {
             "Y", "Z", "Alpha", "Beta", "Delta", "Epsilon", "Gamma", "Omega", "Sigma", "Theta",
             "Lambda", "Zeta", "Kappa", "Tau", "Micron", "11", "22", "33", "44", "55", "66",
             "77", "88", "99", "3", "4", "5", "6", "7", "9", "10", "12", "13", "14", "15", "16",
-            "17", "18", "19", "Zaria", "Kano", "Yola", "Ogbomosho", "Manzikert", ""
+            "17", "18", "19", "Zaria", "Kano", "Yola", "Ogbomosho", "Manzikert"
     };
 
     private static int END_BORDER_ID_ARRAY_INDEX = AVENUE_NAMES.length;
@@ -40,6 +41,7 @@ public class GlobalConstant {
     public static final int EAST_STATION_STARTING_NUMBER = 2000;
     public static final int SOUTH_STATION_STARTING_NUMBER = 3000;
     public static final int WEST_STATION_STARTING_NUMBER = 4000;
+    public static final int STATION_BLOCK_INTERVAL = 1;
     public static final int BUILDINGS_PER_BLOCK_BORDER = 1;
     public static final int MULTIPLICATION_FACTOR = 1000;
     public static final int ADDRESS_INTERVAL = 2;
@@ -51,7 +53,7 @@ public class GlobalConstant {
     public static int REGULAR_MAXIMUM_INTERARRIVAL_TIME = 30;
     public static int EXPRESS_MINIMUM_INTERARRIVAL_TIME = 8;
     public static int EXPRESS_MAXIMUM_INTERARRIVAL_TIME = 15;
-    private static int CAPITAL_A_ASCII_VALUE = 65;
+    public static int CAPITAL_A_ASCII_VALUE = 65;
 
     public static LocalTime TRANSIT_START_TIME = LocalTime.of(6,0);
     public static LocalTime TRANSIT_END_TIME = LocalTime.of(2,30);

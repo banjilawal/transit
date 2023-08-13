@@ -26,9 +26,7 @@ public class SimplexPath extends Entity {
             SimplexPath simplexPath = (SimplexPath) object;
 
             if (super.equals(simplexPath)) {
-                if (direction.compareTo(simplexPath.getDirection()) == 0) {
-                    return true;
-                }
+                return (direction.compareTo(simplexPath.getDirection()) == 0);
             }
         }
         return false;

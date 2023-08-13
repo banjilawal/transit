@@ -2,13 +2,47 @@ package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.collections.Bag;
 import com.lawal.transit.core.entities.Building;
+import com.lawal.transit.core.interfaces.BagWrapper;
 
-public enum Buildings {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public enum Buildings implements BagWrapper<Building> {
     INSTANCE;
     public final Bag<Building> buildings = new Bag<Building>();
 
-    public Bag<Building> getBuildings () {
+   private Bag<Building> getBuildings () {
         return buildings;
+    }
+
+    @Override
+    public int size() {
+        return buildings.size();
+    }
+
+    @Override
+    public void add(Building building) {
+       buildings.add(building);
+    }
+
+    @Override
+    public void remove(Building building) {
+       buildings.remove(building);
+    }
+
+    @Override
+    public Bag<Building> getBag() {
+        return buildings;
+    }
+
+    @Override
+    public Iterator<Building> iterator() {
+        return buildings.iterator();
+    }
+
+    @Override
+    public ArrayList<Building> getBagContents() {
+        return  buildings.getContents();
     }
 
 //    public Iterator<Building> search (Predicate<Building> predicate) {

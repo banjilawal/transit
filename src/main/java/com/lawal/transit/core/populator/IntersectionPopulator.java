@@ -1,55 +1,53 @@
 package com.lawal.transit.core.populator;
-/*
-import com.lawal.transit.middleware.entities.Avenue;
-import com.lawal.transit.middleware.entities.Intersection;
-import com.lawal.transit.middleware.entities.Street;
-import com.lawal.transit.middleware.interfaces.NumberAcceptor;
-import com.lawal.transit.middleware.singletons.Avenues;
-import com.lawal.transit.middleware.singletons.Intersections;
-import com.lawal.transit.middleware.singletons.Streets;
-import com.lawal.transit.middleware.visitors.NameGenerator;
-import com.lawal.transit.middleware.visitors.SerialNumberGenerator;
 
-public enum IntersectionPopulator implements Populator, NumberAcceptor {
+import com.lawal.transit.core.entities.Avenue;
+import com.lawal.transit.core.entities.Intersection;
+import com.lawal.transit.core.entities.Street;
+import com.lawal.transit.core.interfaces.Populator;
+import com.lawal.transit.core.singletons.Avenues;
+import com.lawal.transit.core.singletons.Intersections;
+import com.lawal.transit.core.singletons.Streets;
+import com.lawal.transit.core.visitors.NameGenerator;
+import com.lawal.transit.core.visitors.SerialNumberGenerator;
+
+public enum IntersectionPopulator implements Populator {
     INSTANCE;
-    private Avenue avenue;
-    private Street street;
-    private Street southStreet;
-    private int streetBorderCount = 2;
-    private int avenueBorderCount = 2;
 
     @Override
     public void populate() {
-        Intersections intersections = Intersections.INSTANCE;
-        Streets streets = Streets.INSTANCE;
-        Avenues avenues = Avenues.INSTANCE;
-        int totalStreets = streets.size() - 1; //(streetBorderCount + 1);
-        int totalAvenues = avenues.size() - 1; //(avenueBorderCount + 1); //avenues.size();
-
-        int streetCounter = 0;
-        while (streetCounter < totalStreets) {
-            street = (Street) streets.getBag().get(streetCounter);
-            int avenueCounter = 0;
-            while (avenueCounter < totalAvenues) {
-                avenue = (Avenue) avenues.getBag().get(avenueCounter);
-                String name = acceptName();
-                int id = acceptNumber();
-                Intersection intersection = new Intersection(id, name, street, avenue);
-                intersections.add(intersection);
-                System.out.println(intersection.toString());
-                avenueCounter++;
+        /**
+         * ABOUT THE COORDINATES
+         * ------------------------
+         * Avenues are West-to-East (latitudes) so they are the x-coordinates.
+         * Streets are North-to-South (longitudes) so they are y-coordinates.
+         * We build these with nested for loops.
+         *
+         * Loop Configuration
+         * ---------------------
+         * Outer loop --> iterates y-coords
+         * Inner loop --> iterates x-coords
+         * Produces Intersection series in natural Cartesian order --> (0,0), (1,0), (2, 0),...(X_n-1, Y_n-1)
+         *
+         * WARNING
+         * ---------
+         * Changing this breaks Block ordering and just makes setting neighbors really hard for Blocks and Locations.
+         */
+        for (int yIndex = 0; yIndex < Streets.INSTANCE.size(); yIndex++) {
+            Street street = Streets.INSTANCE.getBagContents().get(yIndex);
+            for (int xIndex = 0; xIndex < Avenues.INSTANCE.size(); xIndex++) {
+                Avenue avenue = Avenues.INSTANCE.getBagContents().get(xIndex);
+                Intersections.INSTANCE.add(
+                    new Intersection(
+                        SerialNumberGenerator.INSTANCE.assignNumber(this),
+                        NameGenerator.INSTANCE.assignName(this, xIndex, yIndex),
+                        avenue,
+                        street,
+                        xIndex,
+                        yIndex
+                    )
+                );
             }
-            streetCounter++;
         }
-    } // close Populate
+    } // close populate
+} //end enum  IntersectionPopulator
 
-    public String acceptName () {
-        return NameGenerator.INSTANCE.assignName(this, street, avenue);
-    }
-
-     @Override
-    public int acceptNumber () {
-        return SerialNumberGenerator.INSTANCE.assignNumber(this);
-    }
-} // end enum IntersectionPopulator
- */

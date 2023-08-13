@@ -2,14 +2,44 @@ package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.collections.Bag;
 import com.lawal.transit.core.entities.RegularBusRoute;
+import com.lawal.transit.core.interfaces.BagWrapper;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
-public enum RegularBusRoutes  {
+public enum RegularBusRoutes implements BagWrapper<RegularBusRoute> {
     INSTANCE;
-    public Bag<RegularBusRoute> routes = new Bag<RegularBusRoute>();
+    private Bag<RegularBusRoute> routes = new Bag<RegularBusRoute>();
 
-    public Bag<RegularBusRoute> getRegularBusRoutes() {
+    @Override
+    public int size() { return routes.size(); }
+
+    @Override
+    public void add(RegularBusRoute regularBusRoute) { routes.add(regularBusRoute); }
+
+    @Override
+    public void remove(RegularBusRoute regularBusRoute) { routes.remove(regularBusRoute);}
+
+    @Override
+    public Bag<RegularBusRoute> getBag() {
         return routes;
     }
+
+    @Override
+    public Iterator<RegularBusRoute> iterator() {
+        return routes.iterator();
+    }
+
+    @Override
+    public ArrayList<RegularBusRoute> getBagContents() {
+        return routes.getContents();
+    }
+
+    public ArrayList<String> getRoutNames () {
+        ArrayList<String> names = new ArrayList<String>();
+        for (RegularBusRoute route : routes.getContents()) {
+            names.add(names.size(), route.getName());
+        }
+        return names;
+    } //
 } // end enum RegularBusRoutes

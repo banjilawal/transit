@@ -45,7 +45,7 @@ public class Bag<E>  {
     public Iterator<E> search (Predicate<E> predicate) {
        ArrayList<E> matches = new ArrayList<E>();
        for (E e : contents) {
-           if (predicate.test(e)) {
+           if (predicate.test(e) && !matches.contains(e)) {
                matches.add(matches.size(), e);
            }
        }
@@ -108,13 +108,14 @@ public class Bag<E>  {
         return false;
     } // close remove
 
-    public Iterator iterator () {
+    public Iterator<E> iterator () {
         return contents.iterator();
     }
 
     @Override
     public String toString () {
-        String string = this.getClass().getSimpleName() + "s\n---------------------------";
+        String string = "";
+
         for (E e : contents) {
             NamedEntity ne = (NamedEntity) e;
             string += "\n" + ne.toString(); //namedEntity.getName() + " " + namedEntity.getId();
@@ -122,12 +123,7 @@ public class Bag<E>  {
         return string;
     } // close to String
 
-    public String fullString () {
-        return toString();
-//        String string = this.getClass().getSimpleName() + "\n---------------------------";
-//        for (NamedEntity identifiableEntity : bag) {
-//            string += "\n[" + identifiableEntity.fullString() + "]";
-//        }
-//        return string;
-    } // close to String
+    private String getClasName (E e) {
+        return e.getClass().getSimpleName();
+    }
 } // end class Bag

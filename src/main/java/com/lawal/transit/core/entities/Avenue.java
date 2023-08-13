@@ -7,14 +7,14 @@ import com.lawal.transit.core.enums.Direction;
 public class Avenue extends Road {
 
     public Avenue(int id, String name) {
-        super(id, name, new SimplexPath(Direction.NORTH));
+        super(id, name, new SimplexPath(Direction.EAST));
     }
 
-    public SimplexPath getNorthLane () {
+    public SimplexPath getEastLane () {
         return getLane();
     }
 
-    public SimplexPath getSouthLane () {
+    public SimplexPath getWestLane () {
         return getOppositeLane();
     }
 

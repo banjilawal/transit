@@ -1,42 +1,36 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.Coordinate;
-import com.lawal.transit.core.abstracts.DuplexPath;
 
 public class Intersection extends Coordinate {
 
-    public Intersection (int id, String name, DuplexPath xCoordinate, DuplexPath yCoordinate) {
-        super(id, name, xCoordinate, yCoordinate);
-    }
-
-    public Street getStreet () {
-        return (Street) getXCoordinate();
-    } // close getStreet
+    public Intersection (int id, String name, Avenue xPath, Street yPath) {
+        this(id, name, xPath, yPath, 0, 0);
+    } // close
+    public Intersection (int id, String name, Avenue xPath, Street yPath, int xCoordinateIndex, int yCoordinateIndex) {
+        super(id, name, xPath, yPath, xCoordinateIndex, yCoordinateIndex);
+    } // close
 
     public Avenue getAvenue () {
-        return (Avenue) getYCoordinate();
+        return (Avenue) getXPath();
     } // close getStreet
 
+    public Street getStreet () { return (Street) getYPath(); } // close getStreet
+
     public void setStreet (Street street) {
-        setXCoordinate(street);
+        setYPath(street);
     } // close getStreet
 
     public void setAvenue (Avenue avenue) {
-        setYCoordinate(avenue);
+        setXPath(avenue);
     } // close getStreet
 
     @Override
     public boolean equals(Object object) {
-        boolean isEqual =  false;
         if (object instanceof Intersection intersection) {
-
-            if (this.getStreet().equals(intersection.getStreet())) {
-                if (this.getAvenue().equals(intersection.getAvenue())) {
-                    isEqual = true;
-                }
-            }
+            return super.equals(intersection) && sameAvenue(intersection.getAvenue()) && sameStreet(intersection.getStreet());
         }
-        return isEqual;
+        return false;
     } // close equals
 
     @Override
@@ -44,19 +38,7 @@ public class Intersection extends Coordinate {
         return super.hashCode();
     } // close hashCode
 
-    @Override
-    public String toString () {
-        String string = this.getClass().getSimpleName()
-                + " id:" + getId()
-                + " [" + getStreet().getName()
-                + " and " + getAvenue().getName() + "]";
-        return string;
-    } // close toString
+    private boolean sameStreet (Street street) { return getStreet().equals(street); }
 
-    public String fullString () {
-        String string = toString(); // + " id:" + getId()
-               // + " (street:" + getStreet().getName()
-               // + " avenue:" + getAvenue().getName() + ")";
-        return string;
-    }
+    private boolean sameAvenue (Avenue avenue) { return getAvenue().equals(avenue); }
 } // end class Intersection

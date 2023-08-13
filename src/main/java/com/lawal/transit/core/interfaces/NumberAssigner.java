@@ -8,6 +8,7 @@ public interface NumberAssigner {
     int assignNumber (StationPopulator stationPopulator);
     int assignNumber (BlockPopulator blockPopulator);
     int assignNumber (RoadPopulator roadPopulator);
+    int assignNumber (IntersectionPopulator intersectionPopulator);
     int assignNumber (RegularBusRoutePopulator busRoutePopulator);
     int assignNumber (ExpressBusRoutePopulator busRoutePopulator);
 } // end interface NumberAssigner

@@ -3,28 +3,48 @@ package com.lawal.transit.core.entities;
 import com.lawal.transit.core.abstracts.Location;
 import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.interfaces.DiGraphable;
-import com.lawal.transit.core.interfaces.Graphable;
+import org.w3c.dom.Node;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
-public class Station extends Location implements DiGraphable<Station> {
+public class Station extends Location { //mplements DiGraphable<Station> {
+
     private ArrayList<String> busRouteNames;
-    private ArrayList<Station> outgoingNeighbors;
-    private ArrayList<Station> incomingNeighbors;
+    private HashMap<Integer, Station> incomingNeighbors;
+    private HashMap<Integer, Station> outgoingNeighbors;
 
-    public Station (int id, String name, Block block, Direction curbSide) {
-        super(id, name, block, curbSide);
+    private Direction busDirection;
+
+    public Station (int id, String name, Block block, Direction busDirection) {
+        super(id, name, block, Block.borderOrientation(busDirection));
         this.busRouteNames = new ArrayList<>();
-        this.incomingNeighbors = new ArrayList<Station>();
-        this.outgoingNeighbors = new ArrayList<Station>();
+        this.incomingNeighbors = new HashMap<Integer, Station>();
+        this.outgoingNeighbors = new HashMap<Integer, Station>();
+        this.busDirection = busDirection;
     }
 
-    public ArrayList<String> getBusRouteNames () {
-        return busRouteNames;
+    public Direction getBlockBorderOrientation () { return getOrientation(); }
+
+    public Direction getBusDirection () { return busDirection; }
+
+    public HashMap<Integer, Station> getIncomingNeighbors () { return incomingNeighbors; }
+
+    public HashMap<Integer, Station> getOutgoingNeighbors () { return outgoingNeighbors; }
+
+    public ArrayList<String> getBusRouteNames () { return busRouteNames; }
+
+    public void addIncomigNeighbor (Station station) {
+        incomingNeighbors.put(station.getId(), station);
     }
 
-    public void setBusRouteNames (ArrayList<String> busRouteNames) {
+    public void addOutGoingNeighbor (Station station) {
+        outgoingNeighbors.put(station.getId(), station);
+    }
+
+    public void addBusRouteNames (ArrayList<String> busRouteNames) {
         for (String name : busRouteNames) {
             addBusRouteName(name);
         }
@@ -36,97 +56,54 @@ public class Station extends Location implements DiGraphable<Station> {
         }
     } // close addBusRouteName
 
-    public Iterator<Station> getIncomingNeighbors () {
-        return incomingNeighbors.iterator();
-    } // close getIncomingNeighbors
-
-    public void addIncomingNeighbors (ArrayList<Station> neighbors) {
-        for (Station neighbor : neighbors) {
-            addIncomingNeighbor(neighbor);
-        }
-    } // close addIncomingNeighbors
-
-    public void addIncomingNeighbor (Station neighbor) {
-        if (!incomingNeighbors.contains(neighbor)) {
-            incomingNeighbors.add(incomingNeighbors.size(), neighbor);
-        }
-    } // close addIncomingNeighbor
-
-    public void removeIncomingNeighbors (ArrayList<Station> neighbors) {
-        for (Station neighbor : neighbors) {
-            removeIncomingNeighbor(neighbor);
-        }
-    } // close removeIncomingNeighbors
-
-    public void removeIncomingNeighbor (Station neighbor) {
-        int index = incomingNeighbors.indexOf(neighbor);
-        if (index >= 0) {
-            incomingNeighbors.remove(index);
-        }
-    } // close removeIncomingNeighbor
-
-    public Iterator<Station> getOutgoingNeighbors () {
-        return outgoingNeighbors.iterator();
-    } // close getIncomingNeighbors
-
-    public void addOutgoingNeighbors (ArrayList<Station> neighbors) {
-        for (Station neighbor : neighbors) {
-            addOutgoingNeighbor(neighbor);
-        }
-    } // close addIncomingNeighbors
-
-    public void addOutgoingNeighbor (Station neighbor) {
-        if (!outgoingNeighbors.contains(neighbor)) {
-            outgoingNeighbors.add(incomingNeighbors.size(), neighbor);
-        }
-    } // close addIncomingNeighbor
-
-    public void removeOutgoingNeighbors (ArrayList<Station> neighbors) {
-        for (Station neighbor : neighbors) {
-            removeOutgoingNeighbor(neighbor);
-        }
-    } // close removeIncomingNeighbors
-
-    public void removeOutgoingNeighbor (Station neighbor) {
-        int index = outgoingNeighbors.indexOf(neighbor);
-        if (index >= 0) {
-            outgoingNeighbors.remove(index);
-        }
-    } // close removeIncomingNeighbor
-
     @Override
     public boolean equals (Object object) {
-        if (object instanceof Station) {
-            Station station = (Station) object;
-            if (super.equals(station)) {
-                return true;
-            }
+        if (object instanceof Station station) {
+            return super.equals(station) && sameRoutes(station);
         }
         return false;
     } // close equals
 
+    public boolean sameRoutes (Station station) {
+        if (busRouteNames.size() != station.getBusRouteNames().size()) return false;
+
+        if (busRouteNames.size() == station.getBusRouteNames().size()) {
+            for (String name : busRouteNames) {
+                if (!station.getBusRouteNames().contains(name)) return false;
+            }
+        }
+        return true;
+    } // close sameRoutes
+
     @Override
     public String toString () {
-        String string = super.toString()
-                + "\n" + printNeighbors("Incoming Neighbors", incomingNeighbors)
-                + "\n" + printNeighbors("Incoming Neighbors", outgoingNeighbors)
-                + "\n" + printBusRoutes();
-        return string;
+        return super.toString()
+                + " " + busDirection.print() + " bound"
+//            + " " + getOrientation().abbreviation()
+//            + " " + getRoad().toString()
+            + " " + printIncomingNeighbors()
+            + " " + printOutgoingNeighbors()
+            + " " + printBusRoutes();
     } // close toString
 
-    public String printNeighbors (String description, ArrayList<Station> stations) {
-        String string = "[" + description + ":";
-        for (Station station : stations) {
-            string += station.getName() + " ";
-        }
-        return (string.trim() + "]");
-    } // close printNeigbors
-
     public String printBusRoutes () {
-        String string = "[BusRoutes:";
+        StringBuilder string = new StringBuilder("[BusRoutes:");
         for (String busRouteName : busRouteNames) {
-            string += busRouteName + " ";
+            string.append(busRouteName).append(" ");
         }
-        return (string.trim() + "]");
+        return (string.toString().trim() + "]");
     } // close printBusRoutes
+
+    public String printIncomingNeighbors () { return  "[Incoming Neighbors-> " + printHashMap(incomingNeighbors) + "]"; }
+    public String printOutgoingNeighbors () { return  "[Outgoing Neighbors-> " + printHashMap(outgoingNeighbors) + "]"; }
+
+    private String printHashMap (HashMap<Integer, Station> map) {
+        StringBuilder builder = new StringBuilder();
+        for (HashMap.Entry<Integer, Station> entry : map.entrySet()) {
+            Integer stationId = entry.getKey();
+            Station station = entry.getValue();
+            builder.append(stationId).append(" ").append(station.getName()).append(station.getOrientation().abbreviation()).append(" ");
+        }
+        return (String) builder.toString().trim();
+    } // close printNeigbors
 } // end class Station

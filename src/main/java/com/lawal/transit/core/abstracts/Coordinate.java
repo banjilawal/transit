@@ -1,72 +1,73 @@
 package com.lawal.transit.core.abstracts;
 
+import java.util.Objects;
+
 import static java.util.Objects.hash;
 
 public abstract class Coordinate extends NamedEntity {
-    private DuplexPath xCoordinate;
-    private DuplexPath yCoordinate;
+    private DuplexPath xPath;
+    private DuplexPath yPath;
+    private int xCoordinateIndex;
+    private int yCoordinateIndex;
 
-    public Coordinate(int id, String name, DuplexPath xCoordinate, DuplexPath yCoordinate) {
+    public Coordinate (int id, String name, DuplexPath xPath, DuplexPath yPath) {
+        this(id, name, xPath, yPath, 0, 0);
+    }
+
+    public Coordinate (int id, String name, DuplexPath xPath, DuplexPath yPath, int xCoordinateIndex, int yCooordinateIndex) {
         super(id, name);
-        this.xCoordinate = xCoordinate; //validatePath(xCoordinate, yCoordinate);
-        this.yCoordinate = yCoordinate;
+        this.xPath = xPath;
+        this.yPath = yPath;
+        this.xCoordinateIndex = xCoordinateIndex;
+        this.yCoordinateIndex = yCooordinateIndex;
     } // close constructor
 
-    public DuplexPath getXCoordinate () {
-        return xCoordinate;
+    public DuplexPath getXPath( ) {
+        return xPath;
     }
 
-    public DuplexPath getYCoordinate () {
-        return yCoordinate;
+    public DuplexPath getYPath () {
+        return yPath;
     }
 
-    public void setXCoordinate (DuplexPath xCoordinate) {
-        this.xCoordinate = xCoordinate; //validatePath(xCoordinate, this.yCoordinate) ;
-    } //
+    public int getXCoordinateIndex () { return xCoordinateIndex; }
+    public int getYCoordinateIndex () { return yCoordinateIndex; }
 
-    public void setYCoordinate (DuplexPath yCoordinate) {
-        this.yCoordinate = yCoordinate; //validatePath(yCoordinate, this.xCoordinate);
-    } //
+    public void setXPath (DuplexPath xPath) {
+        this.xPath = xPath;
+    }
+
+    public void setYPath (DuplexPath yPath) {
+        this.yPath = yPath;
+    }
+
+    public void setXCoordinateIndex (int xCoordinateIndex) {
+        this.xCoordinateIndex = xCoordinateIndex;
+    }
+
+    public void setyCoordinateIndex (int yCoordinateIndex) {
+        this.yCoordinateIndex = yCoordinateIndex;
+    }
 
     @Override
     public boolean equals (Object object) {
         if (object instanceof Coordinate coordinate) {
-            if (this.sameXCoordinate(coordinate) && this.sameYCoordinate(coordinate)) {
-                return true;
-            }
+            return super.equals(coordinate) && sameXPath(coordinate) && sameYPath(coordinate) && sameIndices(coordinate);
         }
         return false;
     } // close equals
 
     @Override
-    public int hashCode () {
-        return hash(xCoordinate, yCoordinate);
-    } // close hashCode
+    public int hashCode() {
+        return hash(super.hashCode(), xPath, yPath, xCoordinateIndex, yCoordinateIndex);
+    }
+
+    public boolean sameXPath (Coordinate coordinate) { return xPath.equals(coordinate.getXPath()); } // close sameXCoordinate
+
+    public boolean sameYPath (Coordinate coordinate) { return yPath.equals(coordinate.getYPath()); } // close sameYCoordinate
+
+    public boolean sameIndices (Coordinate coord) { return xCoordinateIndex == coord.getXCoordinateIndex() && yCoordinateIndex == coord.getYCoordinateIndex(); } // close sameXCoordinate
 
     @Override
-    public String toString () {
-        String string = super.toString() + " (" + xCoordinate.toString() + ", " + yCoordinate.toString() + ")";
-        return string;
-    } // close toString
-
-    public boolean sameXCoordinate (Coordinate coordinate) {
-        return xCoordinate.equals(coordinate.getXCoordinate());
-    } // close sameXCoordinate
-
-    public boolean sameYCoordinate (Coordinate coordinate) {
-        return yCoordinate.equals(coordinate.getYCoordinate());
-    } // close sameYCoordinate
-    /*
-    private DuplexPath validatePath (DuplexPath path, DuplexPath crossPath) {
-        try {
-            if (path.equals(crossPath)) {
-                String errorMessage = generateErrorMessage("validatePath", "path-crossPath conflict",79, CoordinateException.PREFIX);
-                throw new CoordinateException(errorMessage);
-            }
-        } catch (CoordinateException e) {
-            System.err.println(e.getMessage());
-        }
-        return path;
-    } // close validatePath
-    */
+    public String toString () { return super.toString() + " xPath:" + xPath.toString() + ", yPath:" + yPath.toString(); } // close toString
 } // end class AnonymousCoordinate

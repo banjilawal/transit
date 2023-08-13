@@ -1,82 +1,128 @@
 package com.lawal.transit.core.populator;
 
-import com.lawal.transit.core.abstracts.Road;
-import com.lawal.transit.core.entities.Avenue;
-import com.lawal.transit.core.entities.Block;
-import com.lawal.transit.core.entities.Street;
-import com.lawal.transit.core.interfaces.NameAcceptor;
-import com.lawal.transit.core.interfaces.NumberAcceptor;
+import com.lawal.transit.core.entities.*;
+import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Blocks;
+import com.lawal.transit.core.singletons.Intersections;
 import com.lawal.transit.core.singletons.Roads;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 
-import java.util.ArrayList;
+import java.nio.file.DirectoryNotEmptyException;
+import java.util.concurrent.BlockingDeque;
 
-public enum BlockPopulator implements Populator, NumberAcceptor, NameAcceptor {
+public enum BlockPopulator implements Populator {
     INSTANCE;
-    private Avenue westAvenue;
-    private Avenue eastAvenue;
-    private Street northStreet;
-    private Street southStreet;
-    private int borderCount = 2;
-    private int northIndex;
-    private int southIndex;
-    private int westIndex;
-    private int eastIndex;
-    private int blockId;
-    private String blockName;
 
     @Override
     public void populate () {
-        createBlocks();
-        Blocks.INSTANCE.blocks.neighborProcessing();
+        processIntersections();
+        handleNeighbors();
     } // close populate
 
-    private void createBlocks () {
-        ArrayList<ArrayList<Road>> roadPairs = Roads.INSTANCE.roadPairs();
-        int index = 0;
-        while (index < (roadPairs.size() - 1)) {
-            Avenue eastAvenue = (Avenue) roadPairs.get(index).get(0);
-            Street northStreet = (Street) roadPairs.get(index).get(1);
+    private void processIntersections () {
+        int nodeTotal = Intersections.INSTANCE.getBagContents().size();
+        int gridDimension = (int) Math.sqrt(nodeTotal);
+        for (int nodeIndex = 0; nodeIndex < (nodeTotal - (gridDimension + 1)); nodeIndex++) {
+            int southWestIndex = nodeIndex + gridDimension;
 
-            Avenue westAvenue = (Avenue) roadPairs.get(index+1).get(0);
-            Street southStreet = (Street) roadPairs.get(index+1).get(1);
-            blockId = acceptNumber();
-            blockName = acceptName();
-            Block block = new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet);
-            Blocks.INSTANCE.blocks.add(block);
+            Intersection northWestCorner = Intersections.INSTANCE.getBagContents().get(nodeIndex);
+            Intersection northEastCorner = Intersections.INSTANCE.getBagContents().get(nodeIndex + 1);
+            Intersection southWestCorner = Intersections.INSTANCE.getBagContents().get(southWestIndex);
+            Intersection southEastCorner = Intersections.INSTANCE.getBagContents().get(southWestIndex + 1);
+
+            if (northWestCorner.getAvenue().getId() != GlobalConstant.END_BORDER_ID)
+                createBlock(northWestCorner, northEastCorner, southEastCorner, southWestCorner);
         }
-    } // close createBlocks
+    } // close processIntersections
 
-//    private void createBlocks () {
-//        southIndex = 1;
-//        Block block;
-//        while (southIndex < Streets.INSTANCE.streets.size()) {
-//            northIndex = southIndex - 1;
-//            northStreet = Streets.INSTANCE.streets.get(northIndex);
-//            southStreet = Streets.INSTANCE.streets.get(southIndex);
-//            eastIndex = 1;
-//            while (eastIndex < Avenues.INSTANCE.getAvenues().size()) {
-//                westIndex = eastIndex - 1;
-//                eastAvenue = Avenues.INSTANCE.getAvenues().get(eastIndex);
-//                westAvenue = Avenues.INSTANCE.getAvenues().get(westIndex);
-//                blockId = acceptNumber();
-//                blockName = acceptName();
-//                block = new Block(blockId, blockName, westAvenue, eastAvenue, northStreet, southStreet);
-//                Blocks.INSTANCE.blocks.add(block);
-//                eastIndex++; //borderCount;
-//            }
-//            southIndex++; //borderCount; //streetCounter++;
-//        }
-//    } // close createBlocks
 
-    public String acceptName () {
-        return NameGenerator.INSTANCE.assignName(this, northStreet, westAvenue);
-    }
+    private void handleNeighbors () {
+        int blockTotal = Blocks.INSTANCE.size();
+        int gridDimension = (int) Math.sqrt(blockTotal);
 
-    public int acceptNumber () {
-        return SerialNumberGenerator.INSTANCE.assignNumber(this);
-    }
+        for (Block block : Blocks.INSTANCE.getBagContents()) {
+            int currentArrayIndex = Blocks.INSTANCE.getBagContents().lastIndexOf(block);
+            int quotient = currentArrayIndex / gridDimension;
+            int remainder = currentArrayIndex % gridDimension;
+
+            // Handling the first row
+            if (currentArrayIndex > 0 && currentArrayIndex < gridDimension) {
+                int westernNeighborIndex = currentArrayIndex - 1;
+                Block westernNeighbor = Blocks.INSTANCE.getBagContents().get(westernNeighborIndex);
+                block.addNeighbor(Direction.WEST, westernNeighbor);
+                westernNeighbor.addNeighbor(Direction.EAST,block);
+            }
+
+            if (quotient > 0 && currentArrayIndex >= gridDimension) {
+                int northernNeighborIndex = currentArrayIndex - gridDimension;
+                Block northernNeighbor = Blocks.INSTANCE.getBagContents().get(northernNeighborIndex);
+                block.addNeighbor(Direction.NORTH,northernNeighbor);
+                northernNeighbor.addNeighbor(Direction.SOUTH, block);
+
+                if (remainder == 0) {
+                    int easternNeighborIndex = currentArrayIndex + 1;
+                    int northEasternNeighborIndex = northernNeighborIndex + 1;
+
+                    Block easterNeighbor = Blocks.INSTANCE.getBagContents().get(easternNeighborIndex);
+                    block.addNeighbor(Direction.EAST, easterNeighbor);
+                    easterNeighbor.addNeighbor(Direction.WEST, block);
+
+                    Block northEasternNeighbor = Blocks.INSTANCE.getBagContents().get(northEasternNeighborIndex);
+                    block.addNeighbor(Direction.NORTHEAST,northEasternNeighbor);
+                    northEasternNeighbor.addNeighbor(Direction.SOUTHWEST,block);
+                }
+
+                if (remainder == (gridDimension - 1)) {
+                    int westernNeighborIndex = currentArrayIndex - 1;
+                    int northWesternNeighborIndex = northernNeighborIndex - 1;
+
+                    Block westernNeighbor = Blocks.INSTANCE.getBagContents().get(westernNeighborIndex);
+                    block.addNeighbor(Direction.WEST, westernNeighbor);
+                    westernNeighbor.addNeighbor(Direction.EAST, block);
+
+                    Block northWesternNeighbor = Blocks.INSTANCE.getBagContents().get(northWesternNeighborIndex);
+                    block.addNeighbor(Direction.NORTHWEST, northWesternNeighbor);
+                    northWesternNeighbor.addNeighbor(Direction.SOUTHEAST,block);
+                }
+
+                if (remainder != 0 && remainder != (gridDimension -1)) {
+                    int easternNeighborIndex = currentArrayIndex + 1;
+                    int westernNeighborIndex = currentArrayIndex - 1;
+                    int northWesternNeighborIndex = northernNeighborIndex - 1;
+                    int northEasternNeighborIndex = northernNeighborIndex + 1;
+
+                    Block easterNeighbor = Blocks.INSTANCE.getBagContents().get(easternNeighborIndex);
+                    block.addNeighbor(Direction.EAST, easterNeighbor);
+                    easterNeighbor.addNeighbor(Direction.WEST, block);
+
+                    Block westernNeighbor = Blocks.INSTANCE.getBagContents().get(westernNeighborIndex);
+                    block.addNeighbor(Direction.WEST, westernNeighbor);
+                    westernNeighbor.addNeighbor(Direction.EAST,block);
+
+                    Block northEasternNeighbor = Blocks.INSTANCE.getBagContents().get(northEasternNeighborIndex);
+                    block.addNeighbor(Direction.NORTHEAST,northEasternNeighbor);
+                    northEasternNeighbor.addNeighbor(Direction.SOUTHWEST,block);
+
+                    Block northWesternNeighbor = Blocks.INSTANCE.getBagContents().get(northWesternNeighborIndex);
+                    block.addNeighbor(Direction.NORTHWEST, northWesternNeighbor);
+                    northWesternNeighbor.addNeighbor(Direction.SOUTHEAST,block);
+                }
+            }
+        }
+    } // close handleNeighbors
+
+    private void createBlock (Intersection northWestCorner, Intersection northEastCorner, Intersection southEastCorner, Intersection southWestCorner) {
+        int gridDimension = GlobalConstant.AVENUE_NAMES.length;
+        Block block = new Block(
+            SerialNumberGenerator.INSTANCE.assignNumber(this),
+            NameGenerator.INSTANCE.assignName(this, northWestCorner),
+            northWestCorner,
+            northEastCorner,
+            southEastCorner,
+            southWestCorner
+        );
+        Blocks.INSTANCE.add(block);
+    } // close createBlock
 } // end enum BlockPopulator

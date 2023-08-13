@@ -9,11 +9,8 @@ public abstract class BusRoute extends TransitRoute {
 
     @Override
     public boolean equals (Object object) {
-        if (object instanceof BusRoute) {
-            BusRoute busRoute = (BusRoute) object;
-            if (super.equals(busRoute)) {
-                return true;
-            }
+        if (object instanceof BusRoute busRoute) {
+            return super.equals(busRoute);
         }
         return false;
     } // close equals

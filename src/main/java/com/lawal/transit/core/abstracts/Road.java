@@ -1,5 +1,7 @@
 package com.lawal.transit.core.abstracts;
 
+import com.lawal.transit.core.entities.Avenue;
+import com.lawal.transit.core.entities.Street;
 import com.lawal.transit.core.enums.Direction;
 
 import java.util.Objects;
@@ -65,10 +67,15 @@ public abstract class Road extends DuplexPath {
 
     @Override
     public String toString () {
-        String string = getClass().getSimpleName()
-                + " id:" + getId()
-                + " name:" + getName();
-        return string;
+        StringBuilder builder = new StringBuilder();
+        if (this instanceof Avenue avenue) {
+            builder.append(avenue.getName()).append(" ").append(avenue.getClass().getSimpleName().substring(0, 3));
+        }
+        else {
+            Street street = (Street) this;
+            builder.append(street.getName()).append(" ").append(street.getClass().getSimpleName().substring(0, 2));
+        }
+        return builder.toString();
     } // close toString
     @Override
     public String fullString () { return toString(); }

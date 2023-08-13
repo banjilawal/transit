@@ -18,65 +18,51 @@ public enum Direction {
     }
 
     public Direction oppositeDirection () {
-        Direction opposite = NONE;
         switch (this) {
             case NORTH:
-                opposite = SOUTH;
-                break;
+                return SOUTH;
             case NORTHEAST:
-                opposite = SOUTHWEST;
-                break;
+                return SOUTHWEST;
             case EAST:
-                opposite = WEST;
-                break;
+                return WEST;
             case SOUTHEAST:
-                opposite = NORTHWEST;
-                break;
+                return NORTHWEST;
             case SOUTH:
-                opposite = NORTH;
-                break;
+                return NORTH;
             case SOUTHWEST:
-                opposite = NORTHEAST;
-                break;
+                return NORTHEAST;
             case WEST:
-                opposite = EAST;
+                return EAST;
             case NORTHWEST:
-                opposite = SOUTHEAST;
-                break;
+                return SOUTHEAST;
             default:
                 System.out.println("Direction line 31: oppositeDirection not set");
         }
-        return opposite;
+        return NONE;
     } // close oppositeDirection
 
     public String abbreviation () {
         String abbreviation = "";
         switch (this) {
             case NORTH:
-                abbreviation = "N";
-                break;
+                return "N";
             case NORTHEAST:
-                abbreviation = "NE";
-                break;
+                return "NE";
             case EAST:
-                abbreviation = "E";
+                return "E";
             case SOUTHEAST:
-                abbreviation = "SE";
+                return "SE";
             case SOUTH:
-                abbreviation = "S";
-                break;
+                return "S";
             case SOUTHWEST:
-                abbreviation = "SW";
-                break;
+                return "SW";
             case WEST:
-                abbreviation = "W";
-                break;
+                return "W";
             case NORTHWEST:
-                abbreviation = "NW";
-                break;
+                return "NW";
             default:
-                abbreviation = "Direction line 68: Direction abbreviation not set";
+                System.out.println("Direction line 68: Direction abbreviation not set");
         }
-        return abbreviation;
+        return "";
     } // close abbreviation
 } // end enum Direction

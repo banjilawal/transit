@@ -5,8 +5,8 @@ public enum Routes {
     public RegularBusRoutes regularBusRoutes = RegularBusRoutes.INSTANCE;
     public ExpressBusRoutes expressBusRoutes = ExpressBusRoutes.INSTANCE;
 
-    public String toString () {
-        return "\t\t\tTransitRoutes\n\t\t--------------\n" + regularBusRoutes.getRegularBusRoutes().toString()
-                + "\n" + expressBusRoutes.getExpressBusRoutes().toString();
-    } // close toString
+//    public String toString () {
+//        return "\t\t\tTransitRoutes\n\t\t--------------\n" + regularBusRoutes.getRegularBusRoutes().toString()
+//                + "\n" + expressBusRoutes.getExpressBusRoutes().toString();
+//    } // close toString
 } // end class Roads

@@ -19,11 +19,8 @@ public class RegularBusRoute extends BusRoute {
 
     @Override
     public boolean equals (Object object) {
-        if (object instanceof RegularBusRoute) {
-            RegularBusRoute regularBusRoute = (RegularBusRoute) object;
-            if (super.equals(regularBusRoute)) {
-                return true;
-            }
+        if (object instanceof RegularBusRoute regularBusRoute) {
+            return super.equals(regularBusRoute);
         }
         return false;
     } // close equals
