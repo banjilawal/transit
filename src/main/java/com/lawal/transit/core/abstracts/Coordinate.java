@@ -5,16 +5,16 @@ import java.util.Objects;
 import static java.util.Objects.hash;
 
 public abstract class Coordinate extends NamedEntity {
-    private DuplexPath xPath;
-    private DuplexPath yPath;
+    private Path xPath;
+    private Path yPath;
     private int xCoordinateIndex;
     private int yCoordinateIndex;
 
-    public Coordinate (int id, String name, DuplexPath xPath, DuplexPath yPath) {
+    public Coordinate (int id, String name, Path xPath, Path yPath) {
         this(id, name, xPath, yPath, 0, 0);
     }
 
-    public Coordinate (int id, String name, DuplexPath xPath, DuplexPath yPath, int xCoordinateIndex, int yCooordinateIndex) {
+    public Coordinate (int id, String name, Path xPath, Path yPath, int xCoordinateIndex, int yCooordinateIndex) {
         super(id, name);
         this.xPath = xPath;
         this.yPath = yPath;
@@ -22,22 +22,22 @@ public abstract class Coordinate extends NamedEntity {
         this.yCoordinateIndex = yCooordinateIndex;
     } // close constructor
 
-    public DuplexPath getXPath( ) {
+    public Path getXPath( ) {
         return xPath;
     }
 
-    public DuplexPath getYPath () {
+    public Path getYPath () {
         return yPath;
     }
 
     public int getXCoordinateIndex () { return xCoordinateIndex; }
     public int getYCoordinateIndex () { return yCoordinateIndex; }
 
-    public void setXPath (DuplexPath xPath) {
+    public void setXPath (Path xPath) {
         this.xPath = xPath;
     }
 
-    public void setYPath (DuplexPath yPath) {
+    public void setYPath (Path yPath) {
         this.yPath = yPath;
     }
 

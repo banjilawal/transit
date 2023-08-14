@@ -3,18 +3,20 @@ package com.lawal.transit.core.entities;
 import com.lawal.transit.core.abstracts.NamedEntity;
 import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.enums.Direction;
-import com.lawal.transit.core.interfaces.Graphable;
+import com.lawal.transit.core.singletons.Stations;
 
 import java.util.*;
 
-public class Block extends NamedEntity { //implements Graphable<Block> {
+public class Block extends NamedEntity {
     private HashMap<Direction, Block> neighbors;
     private final HashMap<Direction, Road> borders;
     private final HashMap<Direction, Intersection> corners;
+    private final HashMap<Direction, String> stations;
 
     public Block (int id, String name, Intersection northWestCorner, Intersection northEastCorner, Intersection southEastCorner, Intersection southWestCorner) {
         super(id, name);
         this.neighbors = new HashMap<Direction, Block>();
+        this.stations = new HashMap<Direction, String>();
 
         this.corners = new HashMap<Direction, Intersection>();
         corners.put(Direction.NORTHWEST, northWestCorner);
@@ -59,11 +61,35 @@ public class Block extends NamedEntity { //implements Graphable<Block> {
 
     public Block getWesternNeighbor () { return neighbors.get(Direction.WEST); }
 
+    public Station getNorthernStation () { return getStation(Direction.NORTH); }
+
+    public Station getEasternStation () { return getStation(Direction.EAST); }
+
+    public Station getSouthernStation () { return getStation(Direction.SOUTH); }
+
+    public Station getWesternStation () { return getStation(Direction.WEST); }
+    public HashMap<Direction, String> getStations () { return stations; }
     public HashMap<Direction, Intersection> getCorners () { return corners; }
 
     public HashMap<Direction, Road> getBorders () { return borders; }
 
     public HashMap<Direction, Block> getNeighbors () { return neighbors; }
+
+    public Station getStation (Direction borderOrientation) {
+        switch (borderOrientation) {
+            case NORTH:
+                return Stations.INSTANCE.getBag().search(stations.get(Direction.NORTH));
+            case EAST:
+                return Stations.INSTANCE.getBag().search(stations.get(Direction.EAST));
+            case SOUTH:
+                return Stations.INSTANCE.getBag().search(stations.get(Direction.SOUTH));
+            case WEST:
+                return Stations.INSTANCE.getBag().search(stations.get(Direction.WEST));
+            default:
+                System.out.println("Could not set block neighbor");
+        }
+        return null;
+    } //
 
     public Road getBorderRoad (Direction borderOrientation) {
         switch (borderOrientation) {
@@ -79,7 +105,7 @@ public class Block extends NamedEntity { //implements Graphable<Block> {
                 System.out.println("Could not set block neighbor");
         }
         return null;
-    }
+    } //
 
     public void addNeighbor (Direction direction, Block block) {
         switch (direction) {
@@ -111,6 +137,28 @@ public class Block extends NamedEntity { //implements Graphable<Block> {
         }
     } //
 
+    public void addStation (Direction direction, Station station) {
+        addStation(direction, station.getName());
+    } //
+
+    public void addStation (Direction direction, String stationName) {
+        switch (direction) {
+            case NORTH:
+                stations.put(Direction.NORTH, stationName);
+                break;
+            case EAST:
+                stations.put(Direction.EAST, stationName);
+                break;
+            case SOUTH:
+                stations.put(Direction.SOUTH, stationName);
+                break;
+            case WEST:
+                stations.put(Direction.WEST, stationName);
+            default:
+                System.out.println("Could not set block neighbor");
+                break;
+        }
+    } //
 
     public void removeNeighbor (Direction orientation, Block neighbor) {
         neighbors.remove(orientation, neighbor);
@@ -136,13 +184,20 @@ public class Block extends NamedEntity { //implements Graphable<Block> {
         borders.forEach(((direction, borderRoad) -> builder.append(direction.abbreviation()).append(":").append(borderRoad.toString()).append(", ")));
         builder.deleteCharAt(builder.length() - 1).deleteCharAt(builder.length() - 1);
         return builder.toString() + "]";
-    }
+    } //
+
+    public String printStations () {
+        StringBuilder builder = new StringBuilder("[");
+        borders.forEach(((direction, statio) -> builder.append(direction.abbreviation()).append(":").append(borderRoad.toString()).append(", ")));
+        builder.deleteCharAt(builder.length() - 1).deleteCharAt(builder.length() - 1);
+        return builder.toString() + "]";
+    } //
 
     public String printCorners () {
         StringBuilder builder = new StringBuilder("[");
         corners.forEach(((direction, intersection) -> builder.append(printCorner(direction)).append(" ")));
         return builder.toString().trim() + "]";
-    }
+    } //
 
     public String printNeighbors () {
         StringBuilder builder = new StringBuilder("[" + getName() + "_Neighbors->");
@@ -161,7 +216,7 @@ public class Block extends NamedEntity { //implements Graphable<Block> {
             && getSouthEastCorner().equals(block.getSouthEastCorner())
             && getSouthWestCorner().equals(block.getSouthWestCorner())
         );
-    }
+    } //
 
     public static Direction borderOrientation (Direction travelDirection) {
         switch (travelDirection) {

@@ -5,7 +5,6 @@ import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Blocks;
 import com.lawal.transit.core.singletons.Intersections;
-import com.lawal.transit.core.singletons.Roads;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 

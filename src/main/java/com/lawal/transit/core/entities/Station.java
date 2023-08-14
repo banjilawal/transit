@@ -2,15 +2,13 @@ package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.Location;
 import com.lawal.transit.core.enums.Direction;
-import com.lawal.transit.core.interfaces.DiGraphable;
-import org.w3c.dom.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Station extends Location { //mplements DiGraphable<Station> {
+public class Station extends Location {
 
     private ArrayList<String> busRouteNames;
     private HashMap<Integer, Station> incomingNeighbors;
@@ -24,6 +22,7 @@ public class Station extends Location { //mplements DiGraphable<Station> {
         this.incomingNeighbors = new HashMap<Integer, Station>();
         this.outgoingNeighbors = new HashMap<Integer, Station>();
         this.busDirection = busDirection;
+        block.addStation(Block.borderOrientation(busDirection), name);
     }
 
     public Direction getBlockBorderOrientation () { return getOrientation(); }
@@ -35,6 +34,11 @@ public class Station extends Location { //mplements DiGraphable<Station> {
     public HashMap<Integer, Station> getOutgoingNeighbors () { return outgoingNeighbors; }
 
     public ArrayList<String> getBusRouteNames () { return busRouteNames; }
+
+    public ArrayList<RoadTraversal> getIncomingDirections () {
+        return null;
+    }
+
 
     public void addIncomigNeighbor (Station station) {
         incomingNeighbors.put(station.getId(), station);

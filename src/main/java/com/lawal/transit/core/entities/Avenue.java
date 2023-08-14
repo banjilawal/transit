@@ -1,21 +1,12 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.Road;
-import com.lawal.transit.core.abstracts.SimplexPath;
 import com.lawal.transit.core.enums.Direction;
 
 public class Avenue extends Road {
 
     public Avenue(int id, String name) {
-        super(id, name, new SimplexPath(Direction.EAST));
-    }
-
-    public SimplexPath getEastLane () {
-        return getLane();
-    }
-
-    public SimplexPath getWestLane () {
-        return getOppositeLane();
+        super(id, name, Direction.EAST);
     }
 
     @Override

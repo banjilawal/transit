@@ -2,11 +2,10 @@ package com.lawal.transit.core.abstracts;
 
 import com.lawal.transit.core.entities.Block;
 import com.lawal.transit.core.enums.Direction;
-import com.lawal.transit.core.interfaces.Locatable;
 
 import java.util.Objects;
 
-public abstract class Location extends NamedEntity { //implements Locatable {
+public abstract class Location extends NamedEntity {
     private Block block;
     private Road road;
     private Direction orientation;

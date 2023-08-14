@@ -19,11 +19,11 @@ public enum RoadPopulator implements Populator {
     private int id;
 
     public void populate () {
-        populateSubClassCollections();
-        populateSuperClassCollection();
+        createStreetsAndAvenues();
+        roadsSingletonHandler();
     } // close populate
 
-    private void populateSubClassCollections () {
+    private void createStreetsAndAvenues () {
         int totalNames = GlobalConstant.AVENUE_NAMES.length;
         addBorderRoads(GlobalConstant.START_BORDER_ID);
 
@@ -37,7 +37,7 @@ public enum RoadPopulator implements Populator {
         addBorderRoads(GlobalConstant.END_BORDER_ID);
     } // close populateSubClassCollections
 
-    private void populateSuperClassCollection () {
+    private void roadsSingletonHandler () {
         Iterator<Avenue> avenueIterator = Avenues.INSTANCE.iterator();
         Iterator<Street> streetIterator = Streets.INSTANCE.iterator();
 
