@@ -2,14 +2,12 @@ package com.lawal.transit.core.populator;
 
 import com.lawal.transit.core.entities.*;
 import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.core.enums.GlobalConstant;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Blocks;
 import com.lawal.transit.core.singletons.Intersections;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
-
-import java.nio.file.DirectoryNotEmptyException;
-import java.util.concurrent.BlockingDeque;
 
 public enum BlockPopulator implements Populator {
     INSTANCE;

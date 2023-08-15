@@ -3,15 +3,12 @@ package com.lawal.transit.core.populator;
 import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.entities.*;
 import com.lawal.transit.core.enums.Direction;
-import com.lawal.transit.core.interfaces.NameAcceptor;
-import com.lawal.transit.core.interfaces.NumberAcceptor;
+import com.lawal.transit.core.enums.GlobalConstant;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.*;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 
-import java.nio.file.FileSystems;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
@@ -21,6 +18,7 @@ public enum StationPopulator implements Populator {
     public void populate () {
         processAvenues();
         processStreets();
+        adjacentNeighbors();
     } // close populate
 
     private void processAvenues () {
@@ -42,6 +40,12 @@ public enum StationPopulator implements Populator {
             createStations(street, busDirection, GlobalConstant.WEST_STATION_STARTING_NUMBER);
         }
     } // close
+
+    private void adjacentNeighbors () {
+        for (Station station : Stations.INSTANCE.getBagContents()) {
+            station.setIncomingNeighbors();
+        }
+    } //
 
     private void createStations (Road road, Direction busDirection, int stationNumber) {
         Direction orientation = Block.borderOrientation(busDirection);

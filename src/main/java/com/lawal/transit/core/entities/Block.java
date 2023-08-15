@@ -5,6 +5,7 @@ import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.singletons.Stations;
 
+import java.security.Key;
 import java.util.*;
 
 public class Block extends NamedEntity {
@@ -60,6 +61,8 @@ public class Block extends NamedEntity {
     public Block getSouthWesternNeighbor () { return neighbors.get(Direction.SOUTHWEST); }
 
     public Block getWesternNeighbor () { return neighbors.get(Direction.WEST); }
+
+    public Block getNorthWesternNeighbor () { return neighbors.get(Direction.NORTHWEST); }
 
     public Station getNorthernStation () { return getStation(Direction.NORTH); }
 
@@ -173,11 +176,21 @@ public class Block extends NamedEntity {
     @Override
     public int hashCode () { return Objects.hash(super.hashCode(), corners); }
 
+
     @Override
     public String toString () {
-        return super.toString() + " " + printCorners() + " " + printBorders() + " " + printNeighbors(); // ;
+        return super.toString()
+            + " " + printCorners()
+            + " " + printBorders()
+            + " " + printNeighbors()
+            + " " + printStations(); // ;
 //        return super.toString() + " " + corners.toString() + " " + printNeighbors() + " " + borders.toString();
     } // close toString
+//    @Override
+//    public String toString () {
+//        return super.toString() + " " + printCorners() + " " + printBorders() + " " + printNeighbors(); // ;
+//       return super.toString() + " " + corners.toString() + " " + printNeighbors() + " " + borders.toString();
+//    } // close toString
 
     public String printBorders () {
         StringBuilder builder = new StringBuilder("[");
@@ -188,7 +201,7 @@ public class Block extends NamedEntity {
 
     public String printStations () {
         StringBuilder builder = new StringBuilder("[");
-        borders.forEach(((direction, statio) -> builder.append(direction.abbreviation()).append(":").append(borderRoad.toString()).append(", ")));
+        stations.forEach(((direction, stationName) -> builder.append(stationName).append(direction.abbreviation()).append(", ")));
         builder.deleteCharAt(builder.length() - 1).deleteCharAt(builder.length() - 1);
         return builder.toString() + "]";
     } //
@@ -208,6 +221,12 @@ public class Block extends NamedEntity {
     private String printNeighbor (Direction orientation) { return orientation.abbreviation() + ":" + neighbors.get(orientation).getName(); }
 
     private String printCorner (Direction orientation) { return orientation.abbreviation() + ":" + corners.get(orientation).getName(); }
+
+    private String printMap (HashMap<Direction, NamedEntity> map) {
+        StringBuilder builder = new StringBuilder();
+        map.forEach(((direction, ne) -> builder.append(ne.getName()).append(direction.abbreviation()).append(" ")));
+        return builder.toString().trim();
+    }
 
 
     private boolean sameCorners (Block block) {

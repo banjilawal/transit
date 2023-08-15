@@ -19,18 +19,13 @@ public abstract class Road extends FixedPath {
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof  Road) {
-            Road road = (Road) object;
-            if (super.equals(road)) {
-                return true;
-            }
-        }
+        if (object instanceof Road road) return super.equals(road);
         return false;
     } // close equals
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode());
+        return super.hashCode();
     } // close hashCode
 
     @Override

@@ -1,13 +1,12 @@
 package com.lawal.transit.core.populator;
 
 import com.lawal.transit.core.entities.Avenue;
-import com.lawal.transit.core.entities.GlobalConstant;
+import com.lawal.transit.core.enums.GlobalConstant;
 import com.lawal.transit.core.entities.Street;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Avenues;
 import com.lawal.transit.core.singletons.Roads;
 import com.lawal.transit.core.singletons.Streets;
-import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 
 import java.util.Iterator;

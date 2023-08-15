@@ -1,7 +1,7 @@
 package com.lawal.transit.core.collections;
 
 import com.lawal.transit.core.abstracts.NamedEntity;
-import com.lawal.transit.core.entities.GlobalConstant;
+import com.lawal.transit.core.enums.GlobalConstant;
 
 import java.util.ArrayList;
 import java.util.Iterator;

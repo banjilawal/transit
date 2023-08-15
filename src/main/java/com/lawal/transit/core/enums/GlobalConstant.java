@@ -1,4 +1,4 @@
-package com.lawal.transit.core.entities;
+package com.lawal.transit.core.enums;
 
 import java.time.LocalTime;
 

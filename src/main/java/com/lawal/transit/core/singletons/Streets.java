@@ -1,13 +1,11 @@
 package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.collections.Bag;
-import com.lawal.transit.core.entities.GlobalConstant;
 import com.lawal.transit.core.entities.Street;
 import com.lawal.transit.core.interfaces.BagWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
 public enum Streets implements BagWrapper<Street> {
     INSTANCE;

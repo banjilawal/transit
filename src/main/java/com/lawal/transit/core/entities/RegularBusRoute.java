@@ -1,6 +1,7 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.BusRoute;
+import com.lawal.transit.core.enums.GlobalConstant;
 
 public class RegularBusRoute extends BusRoute {
 

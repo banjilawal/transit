@@ -14,15 +14,18 @@ public class PoplatorDriver {
         System.out.println("Intersections\n-------" + Intersections.INSTANCE.getBag().toString() + "\n");
 
         BlockPopulator.INSTANCE.populate();
-        System.out.println("Blocks\n--------" + Blocks.INSTANCE.getBag().toString() + "\n");
 
         StationPopulator.INSTANCE.populate();
         RegularBusRoutePopulator.INSTANCE.populate();
         System.out.println("Regular Bus Routes\n--------" + RegularBusRoutes.INSTANCE.getBag().toString() + "\n");
-        System.out.println("Stations\n--------" + Stations.INSTANCE.getBag().toString() + "\n");
+//        System.out.println("Stations\n--------" + Stations.INSTANCE.getBag().toString() + "\n");
 
         BuildingPopulator.INSTANCE.populate();
         System.out.println("Buildings\n--------" + Buildings.INSTANCE.getBag().toString() + "\n");
+
+
+        System.out.println("Stations\n--------" + Stations.INSTANCE.getBag().toString() + "\n");
+        System.out.println("Blocks\n--------" + Blocks.INSTANCE.getBag().toString() + "\n");
 
 //        TransitRoutePopulator.INSTANCE.populate();
 //        System.out.println(TransitRoutes.INSTANCE.toString() + "\n");

@@ -4,16 +4,16 @@ import com.lawal.transit.core.enums.Direction;
 
 import java.util.Objects;
 
-public abstract class Traverse {
-    Path path;
-    Direction direction;
+public abstract class Traversal {
+    private FixedPath path;
+    private Direction direction;
 
-    public Traverse (Path path, Direction direction) {
+    public Traversal(FixedPath path, Direction direction) {
         this.path = path;
         this.direction = direction;
     }
 
-    public Path getPath () {
+    public FixedPath getPath () {
         return path;
     }
 
@@ -21,7 +21,7 @@ public abstract class Traverse {
         return direction;
     }
 
-    public void setPath (Path path) {
+    public void setPath (FixedPath path) {
         this.path = path;
     }
 
@@ -31,9 +31,9 @@ public abstract class Traverse {
 
     @Override
     public boolean equals (Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Traverse traverse)) return false;
-        return Objects.equals(path, traverse.path) && direction == traverse.direction;
+        if (object instanceof Traversal traversal)
+            return path.equals(traversal.getPath()) && direction.equals(traversal.getDirection());
+       return false;
     }
 
     @Override
