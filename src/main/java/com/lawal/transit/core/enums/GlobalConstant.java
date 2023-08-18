@@ -31,8 +31,12 @@ public final class GlobalConstant {
             "17", "18", "19", "Zaria", "Kano", "Yola", "Ogbomosho", "Manzikert"
     };
 
-    private static int END_BORDER_ID_ARRAY_INDEX = AVENUE_NAMES.length;
-    private static int START_BORDER_ARRAY_INDEX = 0;
+
+
+    public static Direction AVENUE_ROUTE_OUTBOUND_DIRECTION = Direction.NORTH;
+    public static Direction STREET_ROUTE_OUTBOUND_DIRECTION = Direction.EAST;
+    public static int END_BORDER_ID_ARRAY_INDEX = AVENUE_NAMES.length;
+    public static int START_BORDER_ARRAY_INDEX = 0;
     public static final String WEST_BORDER_NAME = "WestBorder";
     public static final String EAST_BORDER_NAME = "EastBorder";
     public static final String NORTH_BORDER_NAME = "NorthBorder";
@@ -54,6 +58,9 @@ public final class GlobalConstant {
     public static int EXPRESS_MINIMUM_INTERARRIVAL_TIME = 8;
     public static int EXPRESS_MAXIMUM_INTERARRIVAL_TIME = 15;
     public static int CAPITAL_A_ASCII_VALUE = 65;
+
+    public static final int STANDARD_BUS_CAPACITY = 50;
+    public static final int LONG_BUS_CAPACITY = 70;
 
     public static LocalTime TRANSIT_START_TIME = LocalTime.of(6,0);
     public static LocalTime TRANSIT_END_TIME = LocalTime.of(2,30);

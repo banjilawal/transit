@@ -23,9 +23,10 @@ public class PoplatorDriver {
         BuildingPopulator.INSTANCE.populate();
         System.out.println("Buildings\n--------" + Buildings.INSTANCE.getBag().toString() + "\n");
 
-
         System.out.println("Stations\n--------" + Stations.INSTANCE.getBag().toString() + "\n");
         System.out.println("Blocks\n--------" + Blocks.INSTANCE.getBag().toString() + "\n");
+
+        RegularSchedulePopulator.INSTANCE.populate();
 
 //        TransitRoutePopulator.INSTANCE.populate();
 //        System.out.println(TransitRoutes.INSTANCE.toString() + "\n");

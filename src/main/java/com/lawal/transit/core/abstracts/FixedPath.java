@@ -8,5 +8,5 @@ public abstract class FixedPath extends NamedEntity {
 
     public FixedPath (int id, String name) {
         super(id, name);
-    } //
+    }
 } // end class Path

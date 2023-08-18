@@ -2,18 +2,14 @@ package com.lawal.transit.core.populator;
 
 import com.lawal.transit.core.abstracts.Road;
 import com.lawal.transit.core.entities.*;
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.core.enums.GlobalConstant;
 import com.lawal.transit.core.interfaces.NameAcceptor;
 import com.lawal.transit.core.interfaces.NumberAcceptor;
 import com.lawal.transit.core.interfaces.Populator;
-import com.lawal.transit.core.singletons.Avenues;
-import com.lawal.transit.core.singletons.RegularBusRoutes;
-import com.lawal.transit.core.singletons.Stations;
-import com.lawal.transit.core.singletons.Streets;
+import com.lawal.transit.core.singletons.*;
 import com.lawal.transit.core.visitors.NameGenerator;
 import com.lawal.transit.core.visitors.SerialNumberGenerator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
@@ -30,34 +26,54 @@ public enum RegularBusRoutePopulator implements Populator, NumberAcceptor, NameA
 
     private void processAvenues () {
         for (Avenue avenue : Avenues.INSTANCE.getBagContents()) {
-            RegularBusRoute busRoute = new RegularBusRoute(SerialNumberGenerator.INSTANCE.assignNumber(this), NameGenerator.INSTANCE.assignName(this));
-            Predicate<Station> predicate = (station) -> station.getRoad().equals(avenue);
-            Iterator<Station> iterator = Stations.INSTANCE.getBag().search(predicate);
-            while (iterator.hasNext()) {
-                Station station = iterator.next();
-                busRoute.addStation(station);
-                station.addBusRouteName(busRoute.getName());
-            }
+            RegularBusRoute busRoute = new RegularBusRoute(
+                SerialNumberGenerator.INSTANCE.assignNumber(this),
+                NameGenerator.INSTANCE.assignName(this),
+                GlobalConstant.AVENUE_ROUTE_OUTBOUND_DIRECTION
+            );
+            addStations(busRoute, avenue);
             RegularBusRoutes.INSTANCE.add(busRoute);
+//            RegularBusRoute busRoute = new RegularBusRoute(SerialNumberGenerator.INSTANCE.assignNumber(this), NameGenerator.INSTANCE.assignName(this));
+//            Predicate<Station> predicate = (station) -> station.getRoad().equals(avenue);
+//            Iterator<Station> iterator = Stations.INSTANCE.getBag().search(predicate);
+//            while (iterator.hasNext()) {
+//                Station station = iterator.next();
+//                busRoute.addStation(station);
+//                station.addBusRouteName(busRoute.getName());
+//            }
+//            RegularBusRoutes.INSTANCE.add(busRoute);
         }
     } // close
 
     private void processStreets () {
         for (Street street : Streets.INSTANCE.getBagContents()) {
-            RegularBusRoute busRoute = new RegularBusRoute(SerialNumberGenerator.INSTANCE.assignNumber(this), NameGenerator.INSTANCE.assignName(this));
-            Predicate<Station> predicate = (station) -> station.getRoad().equals(street);
-            Iterator<Station> iterator = Stations.INSTANCE.getBag().search(predicate);
-            while (iterator.hasNext()) {
-                Station station = iterator.next();
-                busRoute.addStation(station);
-                station.addBusRouteName(busRoute.getName());
-            }
+            RegularBusRoute busRoute = new RegularBusRoute(
+                    SerialNumberGenerator.INSTANCE.assignNumber(this),
+                    NameGenerator.INSTANCE.assignName(this),
+                    GlobalConstant.AVENUE_ROUTE_OUTBOUND_DIRECTION
+            );
+            addStations(busRoute, street);
             RegularBusRoutes.INSTANCE.add(busRoute);
+//            Predicate<Station> predicate = (station) -> station.getRoad().equals(street);
+//            Iterator<Station> iterator = Stations.INSTANCE.getBag().search(predicate);
+//            while (iterator.hasNext()) {
+//                Station station = iterator.next();
+//                busRoute.addStation(station);
+//                station.addBusRouteName(busRoute.getName());
+//            }
+//            RegularBusRoutes.INSTANCE.add(busRoute);
         }
     } // close
 
-
-
+    private void addStations (RegularBusRoute busRoute, Road road) {
+        Predicate<Station> predicate = (station) -> station.getRoad().equals(road);
+        Iterator<Station> iterator = Stations.INSTANCE.getBag().search(predicate);
+        while (iterator.hasNext()) {
+            Station station = iterator.next();
+            busRoute.addStation(station);
+            station.addBusRouteName(busRoute.getName());
+        }
+    }
 //
 //    @Override
 //    public void populate () {

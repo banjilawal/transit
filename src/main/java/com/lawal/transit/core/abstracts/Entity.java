@@ -8,8 +8,6 @@ public abstract class Entity {
     } // close toString
 
     public String generateErrorMessage (String method, String info, int line, String exceptionName) {
-        String string = getClass().getSimpleName()
-                + "." + method + " " + line + " " + exceptionName + ": " + info;
-        return string;
+        return  getClass().getSimpleName() + "." + method + " " + line + " " + exceptionName + ": " + info;
     } // close generateErrorMessage
 } // end class Entity

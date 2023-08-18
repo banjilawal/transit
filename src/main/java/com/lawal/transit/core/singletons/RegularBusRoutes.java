@@ -15,10 +15,10 @@ public enum RegularBusRoutes implements BagWrapper<RegularBusRoute> {
     public int size() { return routes.size(); }
 
     @Override
-    public void add(RegularBusRoute regularBusRoute) { routes.add(regularBusRoute); }
+    public void add(RegularBusRoute busRoute) { routes.add(busRoute); }
 
     @Override
-    public void remove(RegularBusRoute regularBusRoute) { routes.remove(regularBusRoute);}
+    public void remove(RegularBusRoute busRoute) { routes.remove(busRoute);}
 
     @Override
     public Bag<RegularBusRoute> getBag() {

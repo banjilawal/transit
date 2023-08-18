@@ -1,6 +1,7 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.Location;
+import com.lawal.transit.core.abstracts.TransitRoute;
 import com.lawal.transit.core.enums.Direction;
 
 import java.util.*;
@@ -50,6 +51,12 @@ public class Station extends Location {
             addBusRouteName(name);
         }
     } // close setBusRouteNames
+
+    public void addBusRoute (TransitRoute transitRoute) {
+        if (!busRouteNames.contains(transitRoute.getName())) {
+            busRouteNames.add(busRouteNames.size(), transitRoute.getName());
+        }
+    } // close addBusRouteName
 
     public void addBusRouteName (String busRouteName) {
         if (!busRouteNames.contains(busRouteName)) {
@@ -280,10 +287,13 @@ public class Station extends Location {
     public String toString () {
 //        Station adjacentIncoming = getIncomingBlockStation();
         String string =  getName() + getOrientation().abbreviation() // + super.toString()
+            + printIncomingNeighbors()
+            + printOutgoingNeighbors()
+            + printBusRoutes();
 //                + " " + busDirection.print() + " bound"
 //            + " " + getOrientation().abbreviation()
 //            + " " + getRoad().toString()
-            + " " + printIncomingNeighbors();
+//            + " " + printIncomingNeighbors();
 //        if (adjacentIncoming != null) {
 //            string += " " + adjacentIncoming.getName() + adjacentIncoming.getOrientation().abbreviation();
 //        }
@@ -295,7 +305,7 @@ public class Station extends Location {
     public String printBusRoutes () {
         StringBuilder string = new StringBuilder("[BusRoutes:");
         for (String busRouteName : busRouteNames) {
-            string.append(busRouteName).append(" ");
+            string.append(busRouteName).append(busDirection.abbreviation()).append(" ");
         }
         return (string.toString().trim() + "]");
     } // close printBusRoutes

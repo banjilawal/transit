@@ -1,13 +1,20 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.BusRoute;
+import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.enums.GlobalConstant;
 
 public class RegularBusRoute extends BusRoute {
 
-    public RegularBusRoute (int id, String name) {
-        super(id, name, GlobalConstant.TRANSIT_START_TIME, GlobalConstant.TRANSIT_END_TIME,
-                GlobalConstant.REGULAR_MINIMUM_INTERARRIVAL_TIME); //, TransitRouteCategory.REGULAR);
+    public RegularBusRoute (int id, String name, Direction outboundDirection) {
+        super(
+            id,
+            name,
+            GlobalConstant.TRANSIT_START_TIME,
+            GlobalConstant.TRANSIT_END_TIME,
+            GlobalConstant.REGULAR_MINIMUM_INTERARRIVAL_TIME,
+            outboundDirection
+        ); //, TransitRouteCategory.REGULAR);
     } // close constructor
 
     @Override

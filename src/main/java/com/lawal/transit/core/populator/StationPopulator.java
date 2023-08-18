@@ -24,26 +24,27 @@ public enum StationPopulator implements Populator {
     private void processAvenues () {
         for (Avenue avenue : Avenues.INSTANCE.getBagContents()) {
             Direction busDirection = Direction.NORTH;
-            createStations(avenue, busDirection, GlobalConstant.NORTH_STATION_STARTING_NUMBER);
+            createStations(avenue, GlobalConstant.AVENUE_ROUTE_OUTBOUND_DIRECTION, GlobalConstant.NORTH_STATION_STARTING_NUMBER);
 
             busDirection = Direction.SOUTH;
-            createStations(avenue, busDirection, GlobalConstant.SOUTH_STATION_STARTING_NUMBER);
+            createStations(avenue, GlobalConstant.AVENUE_ROUTE_OUTBOUND_DIRECTION.oppositeDirection(), GlobalConstant.SOUTH_STATION_STARTING_NUMBER);
         }
     } // close
 
     private void processStreets() {
         for (Street street : Streets.INSTANCE.getBagContents()) {
             Direction busDirection = Direction.EAST;
-            createStations(street, busDirection, GlobalConstant.EAST_STATION_STARTING_NUMBER);
+            createStations(street, GlobalConstant.STREET_ROUTE_OUTBOUND_DIRECTION, GlobalConstant.EAST_STATION_STARTING_NUMBER);
 
             busDirection = Direction.WEST;
-            createStations(street, busDirection, GlobalConstant.WEST_STATION_STARTING_NUMBER);
+            createStations(street, GlobalConstant.STREET_ROUTE_OUTBOUND_DIRECTION.oppositeDirection(), GlobalConstant.WEST_STATION_STARTING_NUMBER);
         }
     } // close
 
     private void adjacentNeighbors () {
         for (Station station : Stations.INSTANCE.getBagContents()) {
             station.setIncomingNeighbors();
+            station.setOutgoingNeighbors();
         }
     } //
 

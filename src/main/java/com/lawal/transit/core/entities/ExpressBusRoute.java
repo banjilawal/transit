@@ -1,16 +1,19 @@
 package com.lawal.transit.core.entities;
 
 import com.lawal.transit.core.abstracts.BusRoute;
+import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.enums.GlobalConstant;
 
 public class ExpressBusRoute extends BusRoute {
     private static final long serialVersionUID = 1L;
 
-    public ExpressBusRoute (int id, String name) {
+    public ExpressBusRoute (int id, String name, Direction outboundDirection ) {
         super(id, name,
-                GlobalConstant.TRANSIT_START_TIME,
-                GlobalConstant.TRANSIT_END_TIME,
-                GlobalConstant.EXPRESS_MINIMUM_INTERARRIVAL_TIME);
+            GlobalConstant.TRANSIT_START_TIME,
+            GlobalConstant.TRANSIT_END_TIME,
+            GlobalConstant.EXPRESS_MINIMUM_INTERARRIVAL_TIME,
+            outboundDirection
+        );
     } // close constructor
 
     @Override
@@ -23,12 +26,7 @@ public class ExpressBusRoute extends BusRoute {
 
     @Override
     public boolean equals (Object object) {
-      if (object instanceof ExpressBusRoute) {
-          ExpressBusRoute expressBusRoute = (ExpressBusRoute) object;
-          if (super.equals(expressBusRoute)) {
-              return true;
-          }
-      }
-      return false;
+        if (object instanceof ExpressBusRoute busRoute) return super.equals(busRoute);
+        return false;
     } // close equals
 } // end class TransitRoute

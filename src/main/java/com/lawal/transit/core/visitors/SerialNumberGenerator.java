@@ -8,6 +8,8 @@ import com.lawal.transit.core.populator.*;
 
 public enum SerialNumberGenerator implements NumberAssigner {
     INSTANCE;
+
+    private int regularScheduleSerialNumber = 1;
     private int regularBusRouteSerialNumber = 1;
     private int expressBusRouteSerialNumber = 1;
     private int intersectionSerialNumber = 1;
@@ -16,6 +18,9 @@ public enum SerialNumberGenerator implements NumberAssigner {
     private int blockSerialNumber = 1;
     private int roadSerialNumber = 1;
 
+
+    @Override
+    public int assignNumber(RegularSchedulePopulator schedulePopulator) { return regularScheduleSerialNumber++; }
     @Override
     public int assignNumber(IntersectionPopulator intersectionPopulator) {
         return intersectionSerialNumber++;
