@@ -9,6 +9,10 @@ public class Street extends Road {
         super(id, name,Direction.NORTH);
     }
 
+    public Street copy () {
+        return new Street(getId(), getName());
+    }
+
     @Override
     public boolean equals (Object object) {
         if (object instanceof Street) {

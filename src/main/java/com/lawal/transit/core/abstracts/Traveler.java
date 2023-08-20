@@ -29,7 +29,7 @@ public abstract class Traveler extends NamedEntity {
         this.state = State.STOPPED;
     }
 
-    public abstract Location getCurrentLocation ();
+    public Location getCurrentLocation () { return currentLocation; };
     public Departure getDeparture() {
         return departure;
     }

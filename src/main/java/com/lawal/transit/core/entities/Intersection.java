@@ -25,6 +25,10 @@ public class Intersection extends Coordinate {
         setXPath(avenue);
     } // close getStreet
 
+    public Intersection copy () {
+        return new Intersection(getId(), getName(), getAvenue(), getStreet(), getXCoordinateIndex(), getYCoordinateIndex());
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object instanceof Intersection intersection) {

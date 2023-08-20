@@ -31,7 +31,11 @@ public final class GlobalConstant {
             "17", "18", "19", "Zaria", "Kano", "Yola", "Ogbomosho", "Manzikert"
     };
 
-
+    public static int DOOR_OPENING_SECONDS = 5;
+    public static int DOOR_OPEN_SECONDS = 90;
+    public static int DOOR_CLOSING_SECONDS = 5;
+    public static int DECELERATION_SECONDS = 10;
+    public static int ACCELERATION_SECONDS = 10;
 
     public static Direction AVENUE_ROUTE_OUTBOUND_DIRECTION = Direction.NORTH;
     public static Direction STREET_ROUTE_OUTBOUND_DIRECTION = Direction.EAST;

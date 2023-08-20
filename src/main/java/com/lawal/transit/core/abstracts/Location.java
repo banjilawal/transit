@@ -6,16 +6,22 @@ import com.lawal.transit.core.enums.Direction;
 import java.util.Objects;
 
 public abstract class Location extends NamedEntity {
+
+    private enum State { KEEP, PURGED }
     private Block block;
     private Road road;
+    private State state;
     private Direction orientation;
 
     public Location(int id, String name, Block block, Direction orientation) {
         super(id, name);
+        this.state = State.KEEP;
         this.block = block;
         this.orientation = orientation;
         this.road = block.getBorderRoad(orientation);
     }
+
+    public State getState () { return state; }
 
     public Block getBlock () {
         return block;
@@ -24,6 +30,8 @@ public abstract class Location extends NamedEntity {
     public Road getRoad () { return block.getBorderRoad(orientation); }
 
     public Direction getOrientation () { return orientation; }
+
+    public void setState (State state) { this.state = state; }
 
     @Override
     public boolean equals (Object object) {
