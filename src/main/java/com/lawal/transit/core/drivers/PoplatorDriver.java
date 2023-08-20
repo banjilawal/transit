@@ -1,6 +1,7 @@
 package com.lawal.transit.core.drivers;
 
 import com.lawal.transit.core.abstracts.Road;
+import com.lawal.transit.core.graphs.StationGraph;
 import com.lawal.transit.core.populator.*;
 import com.lawal.transit.core.singletons.*;
 
@@ -24,5 +25,9 @@ public class PoplatorDriver {
 
         System.out.println("Stations\n--------" + Stations.INSTANCE.getBag().toString() + "\n");
         System.out.println("Blocks\n--------" + Blocks.INSTANCE.getBag().toString() + "\n");
+
+        StationGraph stationGraph = new StationGraph();
+        stationGraph.addStations();
+        System.out.println("Station Graph\n" + stationGraph.toString());
     } // close main
 } // end class PopulatorDriver

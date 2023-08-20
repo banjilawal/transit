@@ -1,24 +1,20 @@
-package com.lawal.transit.core.graph;
+package com.lawal.transit.core.collections.graph;
+
+import java.util.Objects;
 
 public class Edge {
-    private String name;
     private Vertex head;
     private Vertex tail;
     private int weight;
 
     public Edge (Vertex head, Vertex tail) {
-        this((head.getName() + "->" + tail.getName()), head, tail, 0);
+        this(head, tail, 0);
     }
 
-    public Edge (String name, Vertex head, Vertex tail, int weight) {
-        this.name = name;
+    public Edge (Vertex head, Vertex tail, int weight) {
         this.head = head;
         this.tail = tail;
         this.weight = weight;
-    }
-
-    public String getName () {
-        return name;
     }
 
     public Vertex getHead () {
@@ -33,10 +29,6 @@ public class Edge {
         return weight;
     }
 
-    public void setName (String name) {
-        this.name = name;
-    }
-
     public void setHead (Vertex head) {
         this.head = head;
     }
@@ -49,5 +41,20 @@ public class Edge {
         this.weight = weight;
     }
 
+    public boolean equals (Object object) {
+        if (object instanceof  Edge edge) {
+            return head.equals(edge.getHead()) && tail.equals(edge.getTail()) && weight == edge.getWeight();
+        }
+        return false;
+    }
 
+    @Override
+    public int hashCode () {
+        return Objects.hash(head, tail, weight);
+    }
+
+    @Override
+    public String toString () {
+        return head.getName() + "-->" + tail.getName();
+    }
 } // end class Edge

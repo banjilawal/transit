@@ -1,18 +1,18 @@
 package com.lawal.transit.core.interfaces;
 
+import com.lawal.transit.core.entities.Station;
+import com.lawal.transit.core.enums.Direction;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public interface DiGraphable<T> {
-    public Iterator<T> getIncomingNeighbors ();
-    public void addIncomingNeighbors (ArrayList<T> neighbors);
-    public void addIncomingNeighbor (T neighbor);
-    public void removeIncomingNeighbors (ArrayList<T> neighbors);
-    public void removeIncomingNeighbor (T neighbor);
+    public HashMap<Direction, T> getIncomingNeighbors ();
+    public HashMap<Direction, T> getOutgoingNeighbors ();
 
-    public Iterator<T> getOutgoingNeighbors ();
-    public void addOutgoingNeighbors (ArrayList<T> neighbors);
-    public void addOutgoingNeighbor (T neighbor);
-    public void removeOutgoingNeighbors (ArrayList<T> neighbors);
-    public void removeOutgoingNeighbor (T neighbor);
+    public void setOutgoingNeighbors ();
+    public void setIncomingNeighbors ();
+    public void addOutGoingNeighbor (T t);
+    public void addIncomigNeighbor (T t);
 } // end interface DiGraphable

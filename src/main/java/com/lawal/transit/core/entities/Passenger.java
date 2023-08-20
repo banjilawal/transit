@@ -3,31 +3,54 @@ package com.lawal.transit.core.entities;
 import com.lawal.transit.core.abstracts.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Passenger extends Person {
 
     ArrayList<Station> path;
 
     public Passenger(int id, String name, Location currentLocation, Building destination, Departure departure) {
-        super(id, name, currentLocation, destination, departure);
-        this.path = new ArrayList<Station>();
+       super(id, name, currentLocation, destination);
+       this.path = new ArrayList<Station>();
     }
-
-    public Passenger(int id, String name, Location currentLocation, Building destination, Departure departure, Arrival arrival) {
-        super(id, name, currentLocation, destination, departure, arrival);
-        this.path = new ArrayList<Station>();
-    }
-
     public ArrayList<Station> getPath () { return path; }
+
     public void setPath (ArrayList<Station> stations) { ;}
 
     @Override
-    public Location getCurrentLocation() {
-        re
+    public void embark (TransitVehicle vehicle) {
+
     }
 
     @Override
-    public void setCurrentLocation(Location currentLocation) {
+    public void disembark () {
 
     }
+
+    @Override
+    public void arriving () {
+
+    }
+
+    @Override
+    public void departing () {
+
+    }
+
+    @Override
+    public boolean equals (Object object) {
+        if (object instanceof  Person person) return super.equals(person);
+        return false;
+    }
+
+    @Override
+    public int hashCode () {
+        return Objects.hash(super.hashCode(), path);
+    }
+
+    @Override
+    public String toString () { return super.toString(); }
+
+
+
 } // end class Person

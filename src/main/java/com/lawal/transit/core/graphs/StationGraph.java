@@ -1,9 +1,9 @@
-package com.lawal.transit.core.collections;
+package com.lawal.transit.core.graphs;
 
 import com.lawal.transit.core.entities.Station;
-import com.lawal.transit.core.graph.Edge;
-import com.lawal.transit.core.graph.Graph;
-import com.lawal.transit.core.graph.Vertex;
+import com.lawal.transit.core.collections.graph.Edge;
+import com.lawal.transit.core.collections.graph.Graph;
+import com.lawal.transit.core.collections.graph.Vertex;
 import com.lawal.transit.core.singletons.Stations;
 
 public class StationGraph {
@@ -13,35 +13,36 @@ public class StationGraph {
         this.graph = new Graph<Station>();
     }
 
-    public Station getStationn (Vertex vertex) {
+    public Graph<Station> getGraph () { return graph; }
+
+    public Station getStation (Vertex vertex) {
         return Stations.INSTANCE.getBag().search(vertex.getName());
     }
 
-
-    private Edge createEdge (Station origin, Station destination) {
-        Vertex head = new Vertex(origin.getBusDirection(), origin.getName());
-        Vertex tail = new Vertex(destination.getBusDirection(), destination.getName());
-        return new Edge(head, tail);
+    public void addStations () {
+        for (Station station :  Stations.INSTANCE.getBagContents()) {
+            addStation(station);
+        }
     }
 
     private void addStation (Station station) {
-        Vertex vertex = new Vertex(station.getBusDirection(), station.getName());
+        Vertex vertex = new Vertex((station.getName() + station.getOrientation().abbreviation()));
 
         station.getIncomingNeighbors().forEach(((direction, neighbor) -> {
-            Vertex head = new Vertex(neighbor.getBusDirection(), neighbor.getName());
+            Vertex head = new Vertex(neighbor.getName() + neighbor.getOrientation().abbreviation());
             Edge edge = new Edge(head, vertex);
-            head.getOutgoingNeighbors().put(vertex.getOutgoingDirection(), vertex);
-            vertex.getIncomingNeighbors().put(head.getOutgoingDirection(), head);
+            vertex.addIncomingEdge(edge);
+            head.addOutgoingEdge(edge);
             addVertex(vertex);
             addVertex(head);
             addEdge(edge);
         }));
 
         station.getOutgoingNeighbors().forEach(((direction, neighbor) -> {
-            Vertex tail = new Vertex(neighbor.getBusDirection(), neighbor.getName());
+            Vertex tail = new Vertex(neighbor.getName() + neighbor.getOrientation().abbreviation());
             Edge edge = new Edge(vertex, tail);
-            tail.getIncomingNeighbors().put(vertex.getOutgoingDirection(), vertex);
-            vertex.getOutgoingNeighbors().put(tail.getOutgoingDirection().oppositeDirection(), tail);
+            vertex.addOutgoingEdge(edge);
+            tail.addIncomingEdge(edge);
             addVertex(tail);
             addEdge(edge);
         }));
@@ -59,6 +60,6 @@ public class StationGraph {
         }
     }
 
-
-
+    @Override
+    public String toString () { return graph.toString(); }
 } // end class

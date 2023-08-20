@@ -1,11 +1,15 @@
 package com.lawal.transit.core.abstracts;
 
+import com.lawal.transit.core.entities.Arrival;
+import com.lawal.transit.core.entities.Departure;
+
 import java.util.Objects;
 
 public abstract class Traveler extends NamedEntity {
 
-    private enum State {
-        STOPPED, MOVING, ARRIVED, DEPARTING, EMBARKING, DISEMBARKING, ACCELERATING, DECELERATING, DOORS_OPEN, DOORS_CLOSED, WAITING, RIDING;
+    public enum State {
+        STOPPED, CRUISING, ARRIVED, EMBARKING, DISEMBARKING, ACCELERATING, DECELERATING,
+        OPENING_DOORS, DOORS_OPEN, CLOSING_DOORS, DOORS_CLOSED, WAITING, RIDING;
 
         public String print () {
             return this.toString().substring(0, 1).toUpperCase() + this.toString().substring(1).toLowerCase();
@@ -16,6 +20,10 @@ public abstract class Traveler extends NamedEntity {
     private Departure departure;
     private Arrival arrival;
     private State state;
+
+    public Traveler(int id, String name, Location currentLocation) {
+        this(id, name, currentLocation, new Departure(id, currentLocation), null);
+    }
 
     public Traveler(int id, String name, Location currentLocation, Departure departure) {
         this(id, name, currentLocation, departure, null);
@@ -40,7 +48,7 @@ public abstract class Traveler extends NamedEntity {
 
     public State getState () { return state; }
 
-    public abstract void setCurrentLocation (Location currentLocation);
+    public void setCurrentLocation (Location currentLocation) { this.currentLocation = currentLocation; }
 
     public void setDeparture (Departure departure) {
         this.departure = departure;
@@ -51,6 +59,9 @@ public abstract class Traveler extends NamedEntity {
     }
 
     public void setState (State state) { this.state = state; }
+
+    public abstract void arriving ();
+    public abstract void departing ();
 
     @Override
     public boolean equals(Object object) {

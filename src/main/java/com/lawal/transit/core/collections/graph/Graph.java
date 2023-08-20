@@ -1,4 +1,4 @@
-package com.lawal.transit.core.graph;
+package com.lawal.transit.core.collections.graph;
 
 import java.util.ArrayList;
 
@@ -22,8 +22,6 @@ public  class Graph<E> {
 
     public void addEdge (Edge edge) {
         if (!edges.contains(edge)) {
-            if (!vertices.contains(edge.getTail())) vertices.add(vertices.size(), edge.getTail());
-            if (!vertices.contains(edge.getHead())) vertices.add(vertices.size(), edge.getHead());
             edges.add(edges.size(), edge);
         }
     }
@@ -34,15 +32,28 @@ public  class Graph<E> {
 
     public void addVertex (Vertex vertex) {
         if (!vertices.contains(vertex)) {
-            for (Edge edge : vertex.getOutgoingEdges()) { addEdge(edge); }
-            for (Edge edge : vertex.getIncomingEdges()) { addEdge(edge); }
             vertices.add(vertices.size(), vertex);
         }
     }
 
-    public E getEntity (String name) {
-
+    @Override
+    public String toString () {
+        return "vertexTotal:" + vertices.size() + " edgeTotal:" + edges.size();
     }
 
+    public String printVertices () {
+        StringBuilder stringBuilder = new StringBuilder("vertices:\n");
+        for (Vertex vertex : vertices) {
+            stringBuilder.append(vertex.getName()).append(", ");
+        }
+        return stringBuilder.delete((stringBuilder.length() - 1), stringBuilder.length()).toString() + "\n";
+    }
 
+    public String printEdges () {
+        StringBuilder stringBuilder = new StringBuilder("Edges:\n");
+        for (Edge edge : edges) {
+            stringBuilder.append(edge.toString()).append("\n");
+        }
+        return stringBuilder.toString() + "\n";
+    }
 } // end class Graph
