@@ -1,4 +1,4 @@
-package com.lawal.transit.core.collections.graph;
+package com.lawal.transit.graph.entities;
 
 import java.util.Objects;
 

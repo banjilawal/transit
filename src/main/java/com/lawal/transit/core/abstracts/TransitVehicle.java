@@ -57,7 +57,7 @@ public abstract class TransitVehicle extends Traveler {
     }
 
     public void closingDoors () throws InterruptedException {
-        setState(State.CLOSING_DOORS)
+        setState(State.CLOSING_DOORS);
         Thread.sleep(GlobalConstant.DOOR_CLOSING_SECONDS * 1000);
     }
 

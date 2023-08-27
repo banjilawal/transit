@@ -1,4 +1,4 @@
-package com.lawal.transit.core.collections.graph;
+package com.lawal.transit.graph.entities;
 
 import java.util.ArrayList;
 
@@ -55,5 +55,13 @@ public  class Graph<E> {
             stringBuilder.append(edge.toString()).append("\n");
         }
         return stringBuilder.toString() + "\n";
+    }
+
+    public Vertex random () {
+        Vertex vertex = vertices.get( (int) (Math.random() * vertices.size() - 1));
+        while (vertex.getOutDegree() < 3) {
+            vertex = vertices.get( (int) (Math.random() * vertices.size() - 1));
+        }
+        return vertex;
     }
 } // end class Graph

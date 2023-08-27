@@ -31,7 +31,7 @@ public class Bus extends TransitVehicle {
     @Override
     public boolean equals (Object object) {
         if (object instanceof Bus bus) {
-            return super.equals(bus) && route.equals(bus.getRoute())
+            return super.equals(bus) && route.equals(bus.getRoute());
         }
         return false;
     }

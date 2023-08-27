@@ -1,9 +1,9 @@
-package com.lawal.transit.core.graphs;
+package com.lawal.transit.graph.graphs;
 
 import com.lawal.transit.core.entities.Station;
-import com.lawal.transit.core.collections.graph.Edge;
-import com.lawal.transit.core.collections.graph.Graph;
-import com.lawal.transit.core.collections.graph.Vertex;
+import com.lawal.transit.graph.entities.Edge;
+import com.lawal.transit.graph.entities.Graph;
+import com.lawal.transit.graph.entities.Vertex;
 import com.lawal.transit.core.singletons.Stations;
 
 public class StationGraph {

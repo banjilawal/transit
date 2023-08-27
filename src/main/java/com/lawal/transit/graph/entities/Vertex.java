@@ -1,14 +1,13 @@
-package com.lawal.transit.core.collections.graph;
+package com.lawal.transit.graph.entities;
 
 import java.util.*;
 
 import static java.util.Objects.hash;
 
 public class Vertex {
-
-    private enum State { WHITE, GRAY, BLACK; }
     private String name;
-    private State  state;
+    private Color color;
+    private int originDistance;
     private Vertex predecessor;
 //    private Direction outgoingDirection;
     private ArrayList<Edge> incomingEdges;
@@ -18,8 +17,9 @@ public class Vertex {
 
     public Vertex (String name) {
         this.name = name;
-        this.state = State.WHITE;
+        this.color = Color.WHITE;
         this.predecessor = null;
+        this.originDistance = 0;
 //        this.outgoingDirection = outgoingDirection;
         this.incomingEdges = new ArrayList<Edge>();
         this.outgoingEdges= new ArrayList<Edge>();
@@ -31,12 +31,14 @@ public class Vertex {
         return name;
     }
 
+    public int getOriginDistance () { return originDistance; }
+
 //    public Direction getOutgoingDirection () { return outgoingDirection; }
 
     public Vertex getPredecessor () { return predecessor; }
 
-    public State getState () {
-        return state;
+    public Color getColor() {
+        return color;
     }
     public int getOutDegree () { return outgoingEdges.size(); }
 
@@ -117,10 +119,12 @@ public class Vertex {
         this.name = name;
     }
 
-    public void setPredecessor (Vertex vertex) { this.predecessor = predecessor; }
+    public void setOriginDistance (int originDistance) { this.originDistance = originDistance; }
 
-    public void setState (State state) {
-        this.state = state;
+    public void setPredecessor (Vertex precesssor) { this.predecessor = precesssor; }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
 //    public void addIncomingNeighbors (HashMap<Direction, Vertex> vertices) {
@@ -178,7 +182,7 @@ public class Vertex {
     @Override
     public boolean equals (Object object) {
         if (object instanceof Vertex vertex) {
-            return name.equalsIgnoreCase(vertex.getName()) && state.equals(vertex.getState())
+            return name.equalsIgnoreCase(vertex.getName()) && color.equals(vertex.getColor())
                 && (getOutDegree() == vertex.getOutDegree()) && (getInDegree() == vertex.getInDegree());
          }
         return false;
@@ -186,7 +190,7 @@ public class Vertex {
 
     @Override
     public int hashCode () {
-        return hash(name, state, predecessor, incomingEdges, outgoingEdges);
+        return hash(name, color, predecessor, incomingEdges, outgoingEdges);
     }
 
     @Override

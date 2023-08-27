@@ -14,7 +14,7 @@ public abstract class Traveler extends NamedEntity {
         public String print () {
             return this.toString().substring(0, 1).toUpperCase() + this.toString().substring(1).toLowerCase();
         }
-    } // end enum State
+    } // end enum Color
 
     private Location currentLocation;
     private Departure departure;
