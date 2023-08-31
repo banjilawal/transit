@@ -2,7 +2,7 @@ package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.entities.Avenue;
 import com.lawal.transit.core.entities.Block;
-import com.lawal.transit.core.collections.Bag;
+import com.lawal.transit.core.containers.Bag;
 import com.lawal.transit.core.entities.Street;
 import com.lawal.transit.core.interfaces.BagWrapper;
 

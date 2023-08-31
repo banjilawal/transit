@@ -1,6 +1,6 @@
 package com.lawal.transit.core.interfaces;
 
-import com.lawal.transit.core.collections.Bag;
+import com.lawal.transit.core.containers.Bag;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,8 +1,7 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.collections.Bag;
+import com.lawal.transit.core.containers.Bag;
 import com.lawal.transit.core.entities.Station;
-import com.lawal.transit.core.enums.Direction;
 import com.lawal.transit.core.interfaces.BagWrapper;
 
 import java.util.ArrayList;

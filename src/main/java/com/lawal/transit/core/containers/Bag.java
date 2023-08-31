@@ -1,4 +1,4 @@
-package com.lawal.transit.core.collections;
+package com.lawal.transit.core.containers;
 
 import com.lawal.transit.core.abstracts.NamedEntity;
 import com.lawal.transit.core.enums.GlobalConstant;
@@ -73,7 +73,8 @@ public class Bag<E>  {
     } // close search
 
     public void add (E e) {
-        add(contents.size(), e);
+        if (!contents.contains(e))
+            add(contents.size(), e);
     } // close add
 
     public void add (int index, E e) {
