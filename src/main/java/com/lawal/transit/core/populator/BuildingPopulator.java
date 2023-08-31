@@ -28,10 +28,10 @@ public enum BuildingPopulator implements Populator {
         for (Avenue avenue : Avenues.INSTANCE.getBagContents()) {
             resetBaseAddress(avenue.getId());
             Predicate<Block> predicate = (block) -> block.getBorderRoad(Direction.EAST) == avenue;
-            createBuildings(avenue, predicate, Direction.EAST, startingEvenAddressNumber);
+            createBuildings(avenue, predicate, Direction.EAST, startingEvenAddressNumber); // GlobalConstant.INITAL_EVEN_ADDRESS_NUMBER); //startingEvenAddressNumber);
 
             predicate = (block) -> block.getBorderRoad(Direction.WEST) == avenue;
-            createBuildings(avenue, predicate, Direction.WEST, startingOddAddressNumber);
+            createBuildings(avenue, predicate, Direction.WEST, startingOddAddressNumber); //GlobalConstant.INITIAL_ODD_ADDRESS_NUMBER); //startingOddAddressNumber);
         }
     } // close
 

@@ -104,6 +104,7 @@ public class Station extends Location {
                     station = block.getWesternStation();
                     if (station != null) addOutgoingNeighbor(Direction.NORTH, station);
                 }
+                break;
             case EAST:
                 if (getBlock().getEasternStation() != null) addOutgoingNeighbor(Direction.SOUTHEAST, getBlock().getEasternStation());
                 block = getBlock().getNorthernNeighbor();
@@ -116,6 +117,7 @@ public class Station extends Location {
                     station = block.getNorthernStation();
                     if (station != null) addOutgoingNeighbor(Direction.EAST, station );
                 }
+                break;
             case SOUTH:
                 if (getBlock().getSouthernStation() != null) addOutgoingNeighbor(Direction.SOUTHWEST, getBlock().getSouthernStation());
                 block = getBlock().getEasternNeighbor();
@@ -128,6 +130,7 @@ public class Station extends Location {
                     station = block.getEasternStation();
                     if (station != null) addOutgoingNeighbor(Direction.SOUTH, station);
                 }
+                break;
             case WEST:
                 if (getBlock().getWesternStation() != null) addOutgoingNeighbor(Direction.NORTHWEST, getBlock().getWesternStation());
                 block = getBlock().getSouthernNeighbor();
@@ -140,8 +143,10 @@ public class Station extends Location {
                     station = block.getSouthernStation();
                     if (station != null) addOutgoingNeighbor(Direction.WEST, station);
                 }
+                break;
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " Could not set outgoing station neighbor for " + busDirection.abbreviation()) ;
+                break;
         }
     } //
 
@@ -163,6 +168,7 @@ public class Station extends Location {
                     station = block.getWesternStation();
                     if (station != null) addIncomingNeighbor(Direction.SOUTH, station);
                 }
+                break;
             case EAST:
                 if (getBlock().getWesternStation() != null) addIncomingNeighbor(Direction.SOUTHWEST, getBlock().getWesternStation());
                 block = getBlock().getNorthernNeighbor();
@@ -175,6 +181,7 @@ public class Station extends Location {
                     station = block.getNorthernStation();
                     if (station != null) addIncomingNeighbor(Direction.WEST, station);
                 }
+                break;
             case SOUTH:
                 if (getBlock().getNorthernStation() != null) addIncomingNeighbor(Direction.NORTHWEST, getBlock().getNorthernStation());
                 block = getBlock().getEasternNeighbor();
@@ -187,6 +194,7 @@ public class Station extends Location {
                     station = block.getEasternStation();
                     if (station != null) addIncomingNeighbor(Direction.NORTH, station);
                 }
+                break;
             case WEST:
                 if (getBlock().getEasternStation() != null) addIncomingNeighbor(Direction.NORTHEAST, getBlock().getEasternStation());
                 block = getBlock().getSouthernNeighbor();
@@ -199,8 +207,10 @@ public class Station extends Location {
                     station = block.getSouthernStation();
                     if (station != null) addIncomingNeighbor(Direction.EAST, station);
                 }
+                break;
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() +  " Could not set incoming station neighbor for " + busDirection.abbreviation());
+                break;
         }
     } //
 
@@ -215,6 +225,7 @@ public class Station extends Location {
                 if (block != null && block.getNorthernStation() != null) neighbors.add(neighbors.size(), block.getNorthernStation());
                 block = getBlock().getSouthWesternNeighbor();
                 if (block != null && block.getNorthernStation() != null) neighbors.add(neighbors.size(), block.getNorthernStation());
+                break;
             case EAST:
                 block = getBlock().getNorthernNeighbor();
                 if (block != null) {
@@ -226,15 +237,19 @@ public class Station extends Location {
 //                block.getEasternStation() != null) neighbors.add(neighbors.size(), block.getEasternStation());
 //                block = getBlock().getEasternNeighbor();
 //                if (block != null && block.getWesternStation() != null) neighbors.add(neighbors.size(), block.getWesternStation());
+                break;
             case SOUTH:
                 block = getBlock().getEasternNeighbor();
                 if (block != null && block.getSouthernStation() != null) neighbors.add(neighbors.size(), block.getSouthernStation());
                 block = getBlock().getSouthWesternNeighbor();
+                break;
             case WEST:
                 block = getBlock().getSouthernNeighbor();
                 if (block != null && block.getNorthernStation() != null) neighbors.add(neighbors.size(), block.getNorthernStation());
+                break;
             default:
                 System.out.println("Could not set block neighbor");
+                break;
         }
         return neighbors;
     } //
@@ -250,9 +265,9 @@ public class Station extends Location {
             case WEST:
                 return getBlock().getEasternStation();
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " Could not find adjacent incoming station returning null");
+                return null;
         }
-        return null;
     } //
 
     public Station getAdjacentOutgoingStation () {
@@ -266,9 +281,9 @@ public class Station extends Location {
             case WEST:
                 return getBlock().getEasternStation();
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " Could not find adjacent outgoing station returning null");
+                return null;
         }
-        return null;
     } //
 
 

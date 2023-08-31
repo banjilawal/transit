@@ -89,9 +89,9 @@ public class Block extends NamedEntity {
             case WEST:
                 return Stations.INSTANCE.getBag().search(stations.get(Direction.WEST));
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " does not have a " + borderOrientation.abbreviation() + " station returning null");
+                return null;
         }
-        return null;
     } //
 
     public Road getBorderRoad (Direction borderOrientation) {
@@ -105,9 +105,9 @@ public class Block extends NamedEntity {
             case WEST:
                 return borders.get(Direction.WEST);
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " does not have a " + borderOrientation.abbreviation() + " border rodad returning null");
+                return null;
         }
-        return null;
     } //
 
     public void addNeighbor (Direction direction, Block block) {
@@ -136,7 +136,8 @@ public class Block extends NamedEntity {
                 neighbors.put(Direction.NORTHWEST, block);
                 break;
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " Could not set " + block.getName() + " as " + direction.abbreviation() + " neighboring block");
+                break;
         }
     } //
 
@@ -157,8 +158,9 @@ public class Block extends NamedEntity {
                 break;
             case WEST:
                 stations.put(Direction.WEST, stationName);
+                break;
             default:
-                System.out.println("Could not set block neighbor");
+                System.out.println(getName() + " Could not set " + stationName + " as " + direction.abbreviation() + " station");
                 break;
         }
     } //

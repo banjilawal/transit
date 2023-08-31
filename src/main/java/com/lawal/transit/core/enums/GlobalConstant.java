@@ -6,9 +6,9 @@ public final class GlobalConstant {
 
     public static String[] AVENUE_NAMES = {
         "Alpha",
-        "Bravo",
-        "Charlie",
-        "Delta", "Echo"
+        "Bravo"
+//        "Charlie"
+//        "Delta", "Echo"
 //            "Foxtrot", "Golf", "Hotel", "Igloo",
 //            "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Rome",
 //            "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "Xray", "Yankee",
@@ -38,6 +38,9 @@ public final class GlobalConstant {
     public static int DOOR_CLOSING_SECONDS = 5;
     public static int DECELERATION_SECONDS = 10;
     public static int ACCELERATION_SECONDS = 10;
+
+    public static int INITIAL_ODD_ADDRESS_NUMBER = 0;
+    public static int INITAL_EVEN_ADDRESS_NUMBER = 0;
 
     public static Direction AVENUE_ROUTE_OUTBOUND_DIRECTION = Direction.NORTH;
     public static Direction STREET_ROUTE_OUTBOUND_DIRECTION = Direction.EAST;
