@@ -1,6 +1,6 @@
 package com.lawal.transit.graph.graphs;
 
-import com.lawal.transit.core.entities.Station;
+import com.lawal.transit.core.concretes.Station;
 import com.lawal.transit.graph.entities.Edge;
 import com.lawal.transit.graph.entities.Graph;
 import com.lawal.transit.graph.entities.Vertex;
@@ -16,11 +16,11 @@ public class StationGraph {
     public Graph<Station> getGraph () { return graph; }
 
     public Station getStation (Vertex vertex) {
-        return Stations.INSTANCE.getBag().search(vertex.getName());
+        return Stations.INSTANCE.search(vertex.getName());
     }
 
     public void addStations () {
-        for (Station station :  Stations.INSTANCE.getBagContents()) {
+        for (Station station :  Stations.INSTANCE.getStations()) {
             addStation(station);
         }
     }

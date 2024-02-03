@@ -1,13 +1,10 @@
 package com.lawal.transit.core.interfaces;
 
 import com.lawal.transit.core.abstracts.Road;
-import com.lawal.transit.core.entities.Avenue;
-import com.lawal.transit.core.entities.Intersection;
-import com.lawal.transit.core.entities.Street;
-import com.lawal.transit.core.populator.*;
+import com.lawal.transit.core.concretes.Intersection;
+import com.lawal.transit.test.populator.*;
 
 public interface NameAssigner {
-    String assignName(IntersectionPopulator intersectionPopulator, int xCoordinateIndex, int yCoordinateIndex);
     String assignName(BlockPopulator blockPopulator, Intersection northWestCorner);
     String assignName (BuildingPopulator buildingPopulator, int buildingNumber);
 //    String assignName (TransitRoutePopulator transitRoutePopulator);

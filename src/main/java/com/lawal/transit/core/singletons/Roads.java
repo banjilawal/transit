@@ -1,48 +1,47 @@
 package com.lawal.transit.core.singletons;
 
 import com.lawal.transit.core.abstracts.Road;
-import com.lawal.transit.core.containers.Bag;
-import com.lawal.transit.core.interfaces.BagWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public enum Roads implements BagWrapper<Road> {
+public enum Roads {
     INSTANCE;
-    private Bag<Road> roads = new Bag<Road>();
+    private ArrayList<Road> roads = new ArrayList<>();
 
-    @Override
-    public int size () { return roads.size(); }
 
-    @Override
-    public Bag<Road> getBag () {
+    public int size () {
+        return roads.size();
+    }
+
+
+    public ArrayList<Road> getRoads () {
         return roads;
     }
 
-    @Override
-    public ArrayList<Road> getBagContents() { return roads.getContents(); }
 
-    @Override
-    public void add (Road road) { roads.add(road); }
+    public void add (Road road) {
+        if (!roads.contains(road)) {
+            roads.add(road);
+        }
+    }
 
-    @Override
-    public void remove (Road road) { roads.remove(road); }
 
-    @Override
-    public Iterator<Road> iterator () { return roads.getContents().iterator(); }
+    public Iterator<Road> iterator () {
+        return roads.iterator();
+    }
+
 
     public Road search (String roadName) {
-        Road road = Avenues.INSTANCE.getBag().search(roadName);
+        Road road = Avenues.INSTANCE.search(roadName);
         if (road == null) {
-            road = Streets.INSTANCE.getBag().search(roadName);
+            road = Streets.INSTANCE.search(roadName);
         }
         return road;
-    } // close search
+    }
 
 
     public String toString () {
-        return "\t\t\tRoads\n\t\t--------------" //\n"
-                + Avenues.INSTANCE.getBag().toString()
-                + "\n" + Streets.INSTANCE.getBag().toString();
-    } //close toString
+        return "Roads\n-------\n" + Avenues.INSTANCE.toString() + "\n" + Streets.INSTANCE.toString();
+    }
 } // end class Roads

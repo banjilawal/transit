@@ -1,48 +1,78 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.containers.Bag;
-import com.lawal.transit.core.entities.Avenue;
-import com.lawal.transit.core.interfaces.BagWrapper;
+import com.lawal.transit.core.concretes.Avenue;
+import com.lawal.transit.core.visitors.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.*;
 
-public enum Avenues implements BagWrapper<Avenue> {
+public enum Avenues  {
     INSTANCE;
-    private final Bag<Avenue> avenues = new Bag<Avenue>();
+    private final ArrayList<Avenue> avenues = new ArrayList<>();
 
-    @Override
+
     public int size () { return avenues.size(); }
 
-    @Override
-    public Bag<Avenue> getBag () {
+
+    public ArrayList<Avenue> getAvenues () {
         return avenues;
     }
 
-    @Override
-    public ArrayList<Avenue> getBagContents () { return avenues.getContents(); }
+
+    public void add (Avenue avenue) {
+        if (avenues.contains(avenue)) {
+            throw new IllegalArgumentException("An avenue named " + avenue.getName() + " already exists add cannot add another");
+        }
+        avenues.add(avenues.size(), avenue);
+    }
+
+    public boolean add (String name) {
+        if (search(name) == null)
+            return avenues.add(new Avenue(AvenueIdGenerator.INSTANCE.nextId(), name));
+        return true;
+    }
+
+
+    public Avenue search (int id) {
+        for (Avenue avenue : avenues) {
+            if (avenue.getId() == id)
+                return avenue;
+        }
+        return null;
+    }
+
+
+    public Avenue search (String name) {
+        for (Avenue avenue : avenues) {
+            if (avenue.getName().equalsIgnoreCase(name))
+                return avenue;
+        }
+        return null;
+    }
+
+
+    public Iterator<Avenue> iterator () {
+        return avenues.iterator();
+    }
+
+
+    public ArrayList<Avenue> filter (Predicate<Avenue> predicate) {
+        ArrayList<Avenue> matches = new ArrayList<>();
+        for (Avenue avenue : avenues) {
+            if (predicate.test(avenue) && !matches.contains(avenue)) {
+                matches.add(matches.size(), avenue);
+            }
+        }
+        return matches;
+    }
 
     @Override
-    public void add (Avenue avenue) { avenues.add(avenue); }
-
-    @Override
-    public void remove (Avenue avenue) { avenues.remove(avenue); }
-
-    @Override
-    public Iterator<Avenue> iterator () { return avenues.iterator(); }
-
-//    @Override
-//    public Iterator<Avenue> iterator () {
-////        ArrayList<Avenue> results = new ArrayList<Avenue>();
-////        for (Avenue avenue : avenues.getContents()) {
-////            if (avenue.getId() != GlobalConstant.END_BORDER_ID && avenue.getId() != GlobalConstant.START_BORDER_ID) {
-////                System.out.println("valid ave: " + avenue.getName() + " valid id:" + avenue.getId());
-////                results.add(results.size(), avenue);
-////            }
-////        }
-////        return results.iterator();
-//        Predicate<Avenue> predicate = (avenue) -> avenue.getId() != GlobalConstant.END_BORDER_ID
-//                && avenue.getId() != GlobalConstant.START_BORDER_ID;
-//        return avenues.search(predicate);
-//    }
+    public String toString () {
+        String string = "Avenues:\n";
+        for (Avenue avenue : avenues) {
+            string += avenue.toString() + "\n";
+        }
+        return string;
+    }
 } // end class Avenues

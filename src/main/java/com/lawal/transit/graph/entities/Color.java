@@ -19,5 +19,10 @@ public enum Color {
             default:
                 return "Abbreviation not set";
         }
-    } //
-} // end enum
+    }
+
+
+    public String print() {
+        return this.toString().substring(0, 1).toUpperCase() + this.toString().substring(1).toLowerCase();
+    }
+} // end enum Color

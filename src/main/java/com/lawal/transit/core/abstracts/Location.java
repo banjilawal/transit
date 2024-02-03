@@ -1,6 +1,6 @@
 package com.lawal.transit.core.abstracts;
 
-import com.lawal.transit.core.entities.Block;
+import com.lawal.transit.core.concretes.Block;
 import com.lawal.transit.core.enums.Direction;
 
 import java.util.Objects;
@@ -21,25 +21,35 @@ public abstract class Location extends NamedEntity {
         this.road = block.getBorderRoad(orientation);
     }
 
-    public Mark getMark () { return mark; }
+    public Mark getMark () {
+        return mark;
+    }
 
     public Block getBlock () {
         return block;
-    } // close getBlock
+    }
 
-    public Road getRoad () { return block.getBorderRoad(orientation); }
+    public Road getRoad () {
+        return block.getBorderRoad(orientation);
+    }
 
-    public Direction getOrientation () { return orientation; }
+    public Direction getOrientation () {
+        return orientation;
+    }
 
-    public void setMark (Mark mark) { this.mark = mark; }
+    public void setMark (Mark mark) {
+        this.mark = mark;
+    }
 
     @Override
     public boolean equals (Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
         if (object instanceof Location location)
             return super.equals(location) && block.equals(location.getBlock())
                 && mark.equals(location.getMark()) && orientation.equals(location.getOrientation());
         return false;
-    } // close equals
+    }
 
     @Override
     public int hashCode () {

@@ -1,10 +1,8 @@
 package com.lawal.transit.core.abstracts;
 
-import com.lawal.transit.core.entities.Avenue;
-import com.lawal.transit.core.entities.Street;
+import com.lawal.transit.core.concretes.Avenue;
+import com.lawal.transit.core.concretes.Street;
 import com.lawal.transit.core.enums.Direction;
-
-import java.util.Objects;
 
 public abstract class Road extends FixedPath {
     private Direction direction;
@@ -14,19 +12,31 @@ public abstract class Road extends FixedPath {
         this.direction = direction;
     }
 
-    public Direction getDirection () { return direction; }
-    public Direction getOppositeDirection () { return direction.oppositeDirection(); }
+
+    public Direction getDirection () {
+        return direction;
+    }
+
+
+    public Direction getOppositeDirection () {
+        return direction.oppositeDirection();
+    }
+
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof Road road) return super.equals(road);
+        if (this == object) return true;
+        if (object == null) return false;
+        if (object instanceof Road road)
+            return super.equals(road) && direction.equals(road.getDirection());
         return false;
     } // close equals
+
 
     @Override
     public int hashCode() {
         return super.hashCode();
-    } // close hashCode
+    }
 
     @Override
     public String toString () {

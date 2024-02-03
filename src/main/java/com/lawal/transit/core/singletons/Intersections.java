@@ -1,69 +1,81 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.containers.Bag;
-import com.lawal.transit.core.entities.Avenue;
-import com.lawal.transit.core.entities.Intersection;
-import com.lawal.transit.core.entities.Street;
-import com.lawal.transit.core.interfaces.BagWrapper;
+import com.lawal.transit.core.concretes.Avenue;
+import com.lawal.transit.core.concretes.Intersection;
+import com.lawal.transit.core.concretes.Street;
+import com.lawal.transit.core.visitors.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-public enum Intersections implements BagWrapper<Intersection> {
+public enum Intersections {
     INSTANCE;
-    private final Bag<Intersection> intersections = new Bag<Intersection>();
+    private final ArrayList<Intersection> intersections = new ArrayList<>();
 
-    @Override
-    public int size () { return intersections.size(); }
 
-    @Override
-    public Bag<Intersection> getBag () {
+    public int size () {
+        return intersections.size();
+    }
+
+
+    public ArrayList<Intersection> getIntersections () {
         return intersections;
     }
 
-    @Override
-    public ArrayList<Intersection> getBagContents () { return intersections.getContents(); }
-
-    @Override
-    public Iterator<Intersection> iterator () { return intersections.getContents().iterator(); }
-
-    @Override
-    public void add (Intersection intersection) { intersections.add(intersection); }
-
-    @Override
-    public void remove (Intersection intersection) { intersections.remove(intersection); }
-
-    public Iterator<Intersection> filterByAvenue (Avenue avenue) {
-        ArrayList<Intersection> matches = new ArrayList<Intersection>();
-        Predicate<Intersection> predicate = intersection -> intersection.getAvenue().equals(avenue);
-        for (Intersection intersection : Intersections.INSTANCE.intersections.getContents()) {
-            if ((predicate.test(intersection) && !matches.contains(intersection))) {
-                matches.add(matches.size(), intersection);
-            }
+    public void add (Intersection intersection) {
+        if (intersections.contains(intersection)) {
+            throw new IllegalArgumentException("Intersection " + intersection.getName() + " already exists add cannot add another");
         }
-        return matches.iterator();
-    } // close filterByAvenue
+        intersections.add(intersections.size(), intersection);
+    }
 
-    public Iterator<Intersection> filterByStreet (Street street) {
-        ArrayList<Intersection> matches = new ArrayList<Intersection>();
-        Predicate<Intersection> predicate = intersection -> intersection.getStreet().equals(street);
-        for (Intersection intersection : Intersections.INSTANCE.intersections.getContents()) {
-            if ((predicate.test(intersection) && !matches.contains(intersection))) {
-                matches.add(matches.size(), intersection);
-            }
+    public boolean add (Avenue avenue, Street street) {
+        if (search(avenue, street) == null)
+            return intersections.add(new Intersection(IntersectionIdGenerator.INSTANCE.nextId(), avenue, street));
+        return true;
+    }
+
+
+    public Intersection search (int id) {
+        for (Intersection intersection : intersections) {
+            if (intersection.getId() == id)
+                return intersection;
         }
-        return matches.iterator();
-    } // close filterByAvenue
+        return null;
+    }
+
+
+    public Intersection search (Avenue avenue, Street street) {
+        for (Intersection intersection : intersections) {
+            if (intersection.getAvenue().equals(avenue) && intersection.getStreet().equals(street))
+                return intersection;
+        }
+        return null;
+    }
+
+
+    public Iterator<Intersection> iterator () {
+        return intersections.iterator();
+    }
+
+
+    public ArrayList<Intersection> filter (Predicate<Intersection> predicate) {
+        ArrayList matches = new ArrayList<>();
+        for (Intersection intersection : intersections) {
+            if (predicate.test(intersection) && !matches.contains(intersection))
+                matches.add(matches.size(), intersection);
+        }
+        return matches;
+    }
+
 
     @Override
     public String toString () {
-        String string = "\n";
-        if (iterator().hasNext()) {
-            string += iterator().next().toString() + "\n";
+        String string = "Intersections\n------------------\n";
+        for (Intersection intersection : intersections) {
+            string += intersection.toString() + "\n";
         }
         return string;
     }
-
-    public String print () { return intersections.toString(); }
-} // end class BLocks
+} // end class Intersection

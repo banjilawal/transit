@@ -4,23 +4,15 @@ import java.util.Objects;
 
 import static java.util.Objects.hash;
 
-public abstract class Coordinate extends NamedEntity {
+public abstract class Coordinate {
     private FixedPath xPath;
     private FixedPath yPath;
-    private int xCoordinateIndex;
-    private int yCoordinateIndex;
 
-    public Coordinate (int id, String name, FixedPath xPath, FixedPath yPath) {
-        this(id, name, xPath, yPath, 0, 0);
-    }
 
-    public Coordinate (int id, String name, FixedPath xPath, FixedPath yPath, int xCoordinateIndex, int yCooordinateIndex) {
-        super(id, name);
+    public Coordinate (FixedPath xPath, FixedPath yPath) {
         this.xPath = xPath;
         this.yPath = yPath;
-        this.xCoordinateIndex = xCoordinateIndex;
-        this.yCoordinateIndex = yCooordinateIndex;
-    } // close constructor
+    }
 
     public FixedPath getXPath( ) {
         return xPath;
@@ -30,8 +22,6 @@ public abstract class Coordinate extends NamedEntity {
         return yPath;
     }
 
-    public int getXCoordinateIndex () { return xCoordinateIndex; }
-    public int getYCoordinateIndex () { return yCoordinateIndex; }
 
     public void setXPath (FixedPath xPath) {
         this.xPath = xPath;
@@ -41,33 +31,25 @@ public abstract class Coordinate extends NamedEntity {
         this.yPath = yPath;
     }
 
-    public void setXCoordinateIndex (int xCoordinateIndex) {
-        this.xCoordinateIndex = xCoordinateIndex;
-    }
 
-    public void setyCoordinateIndex (int yCoordinateIndex) {
-        this.yCoordinateIndex = yCoordinateIndex;
-    }
 
     @Override
     public boolean equals (Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
         if (object instanceof Coordinate coordinate) {
-            return super.equals(coordinate) && sameXPath(coordinate) && sameYPath(coordinate) && sameIndices(coordinate);
+            return xPath.equals(coordinate.getXPath()) && yPath.equals(coordinate.getYPath());
         }
         return false;
     } // close equals
 
     @Override
     public int hashCode() {
-        return hash(super.hashCode(), xPath, yPath, xCoordinateIndex, yCoordinateIndex);
+        return hash(super.hashCode(), xPath, yPath);
     }
 
-    public boolean sameXPath (Coordinate coordinate) { return xPath.equals(coordinate.getXPath()); } // close sameXCoordinate
-
-    public boolean sameYPath (Coordinate coordinate) { return yPath.equals(coordinate.getYPath()); } // close sameYCoordinate
-
-    public boolean sameIndices (Coordinate coord) { return xCoordinateIndex == coord.getXCoordinateIndex() && yCoordinateIndex == coord.getYCoordinateIndex(); } // close sameXCoordinate
-
     @Override
-    public String toString () { return super.toString() + " xPath:" + xPath.toString() + ", yPath:" + yPath.toString(); } // close toString
-} // end class AnonymousCoordinate
+    public String toString () {
+        return this.getClass().getSimpleName() + " xPath:" + xPath.getName() + ", yPath:" + yPath.getName();
+    }
+} // end class Coordinate

@@ -1,7 +1,7 @@
 package com.lawal.transit.core.singletons;
 /*
 import com.lawal.transit.middleware.collections.Bag;
-import com.lawal.transit.middleware.entities.Address;
+import com.lawal.transit.middleware.concretes.Address;
 import com.lawal.transit.middleware.abstracts.Item;
 
 import java.io.Serializable;

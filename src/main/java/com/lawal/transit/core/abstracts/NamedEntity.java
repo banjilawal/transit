@@ -4,47 +4,41 @@ import com.lawal.transit.core.exception.IdentifiableEntityException;
 import java.lang.String;
 import static java.util.Objects.hash;
 
-public abstract class NamedEntity extends IdentifiableEntity {
+public abstract class NamedEntity extends Entity {
     private String name;
 
     public NamedEntity (int id, String name) {
         super(id);
-        this.name = name; // validateName(name);
-    } // close constructor
+        this.name = name;
+    }
 
     public String getName () {
         return name;
     }
 
     public void setName (String name) {
-        this.name = validateName(name);
+        this.name = name;
     }
 
     @Override
     public boolean equals (Object object) {
-        if (object instanceof NamedEntity) {
-            NamedEntity namedEntity = (NamedEntity) object;
-            if (super.equals(namedEntity) && name.equalsIgnoreCase(namedEntity.getName())) {
-                return true;
-            }
+        if (this == object) return true;
+        if (object == null) return false;
+        if (object instanceof NamedEntity namedEntity) {
+            return super.equals(namedEntity) && name.equalsIgnoreCase(namedEntity.getName());
         }
         return false;
-    } // close equals
+    }
 
     @Override
     public int hashCode () {
         return hash(super.hashCode(), name);
-    } // close hashCode
+    }
 
     @Override
     public String toString () {
-        String string = super.toString() + " name:" + name;
-        return string;
-    } // close toString
-
-    public String fullString () {
-        return toString();
-    } // close toString
+        return  super.toString() + " name:" + name;
+    }
 
     private int validateId (int id) {
         try {

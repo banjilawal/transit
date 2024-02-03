@@ -1,45 +1,74 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.containers.Bag;
-import com.lawal.transit.core.entities.RegularBusRoute;
-import com.lawal.transit.core.interfaces.BagWrapper;
+import com.lawal.transit.core.concretes.*;
+import com.lawal.transit.core.enums.*;
+import com.lawal.transit.core.visitors.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.*;
 
-public enum RegularBusRoutes implements BagWrapper<RegularBusRoute> {
+public enum RegularBusRoutes {
     INSTANCE;
-    private Bag<RegularBusRoute> routes = new Bag<RegularBusRoute>();
 
-    @Override
+    private ArrayList<RegularBusRoute> routes = new ArrayList<>();
+
+
     public int size() { return routes.size(); }
 
-    @Override
-    public void add(RegularBusRoute busRoute) { routes.add(busRoute); }
-
-    @Override
-    public void remove(RegularBusRoute busRoute) { routes.remove(busRoute);}
-
-    @Override
-    public Bag<RegularBusRoute> getBag() {
+    public ArrayList<RegularBusRoute> getRoutes () {
         return routes;
     }
 
-    @Override
-    public Iterator<RegularBusRoute> iterator() {
+    public void add (RegularBusRoute busRoute) {
+        if (routes.contains(busRoute)) {
+            throw new IllegalArgumentException("An bus route named " + busRoute.getName() + " already exists add cannot add another");
+        }
+        routes.add(routes.size(), busRoute);
+    }
+
+    public boolean add (String name, Direction direction) {
+        if (search(name) == null)
+            return routes.add(new RegularBusRoute(RegularBusRouteIdGenerator.INSTANCE.nextId(), name, direction));
+        return true;
+    }
+
+    public RegularBusRoute search (int id) {
+        for (RegularBusRoute route : routes) {
+            if (route.getId() == id)
+                return route;
+        }
+        return null;
+    }
+
+    public RegularBusRoute search (String name) {
+        for (RegularBusRoute route : routes) {
+            if (route.getName().equalsIgnoreCase(name))
+                return route;
+        }
+        return null;
+    }
+
+    public Iterator<RegularBusRoute> iterator () {
         return routes.iterator();
     }
 
-    @Override
-    public ArrayList<RegularBusRoute> getBagContents() {
-        return routes.getContents();
+    public ArrayList<RegularBusRoute> filter (Predicate<RegularBusRoute> predicate) {
+        ArrayList<RegularBusRoute> matches = new ArrayList<>();
+        for (RegularBusRoute route : routes) {
+            if (predicate.test(route) && !matches.contains(route)) {
+                matches.add(matches.size(), route);
+            }
+        }
+        return matches;
     }
 
-    public ArrayList<String> getRoutNames () {
-        ArrayList<String> names = new ArrayList<String>();
-        for (RegularBusRoute route : routes.getContents()) {
-            names.add(names.size(), route.getName());
+    @Override
+    public String toString () {
+        String string = "Regular Bus Routes:\n";
+        for (RegularBusRoute route : routes) {
+            string += route.toString() + "\n";
         }
-        return names;
-    } //
+        return string;
+    }
 } // end enum RegularBusRoutes

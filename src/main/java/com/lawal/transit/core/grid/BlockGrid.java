@@ -1,6 +1,6 @@
 package com.lawal.transit.core.grid;
 ///*
-//import com.lawal.transit.core.entities.Block;
+//import com.lawal.transit.core.concretes.Block;
 //import com.lawal.transit.core.interfaces.Populator;
 //import com.lawal.transit.core.singletons.Blocks;
 //

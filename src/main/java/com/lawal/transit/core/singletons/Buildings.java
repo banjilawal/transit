@@ -1,68 +1,76 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.containers.Bag;
-import com.lawal.transit.core.entities.Building;
-import com.lawal.transit.core.interfaces.BagWrapper;
+import com.lawal.transit.core.abstracts.*;
+import com.lawal.transit.core.concretes.*;
+import com.lawal.transit.core.enums.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.*;
 
-public enum Buildings implements BagWrapper<Building> {
+public enum Buildings {
     INSTANCE;
-    public final Bag<Building> buildings = new Bag<Building>();
+    ArrayList<Building> buildings = new ArrayList<>();
 
-   private Bag<Building> getBuildings () {
+
+    public ArrayList<Building> getBuildings () {
         return buildings;
     }
 
-    @Override
-    public int size() {
-        return buildings.size();
+
+    public void add (Building building) {
+        if (buildings.contains(building)) {
+            throw new IllegalArgumentException("Building " + building.getName()
+                + " already exists add cannot add another");
+        }
+        buildings.add(buildings.size(), building);
     }
 
-    @Override
-    public void add(Building building) {
-       buildings.add(building);
+
+    public Building search (int id) {
+        for (Building building : buildings) {
+            if (building.getId() == id) {
+                return building;
+            }
+        }
+        return null;
     }
 
-    @Override
-    public void remove(Building building) {
-       buildings.remove(building);
+
+    public Building search (String name, Road road, Direction orientation) {
+        for (Building building : buildings) {
+            if (building.getName().equalsIgnoreCase(name)
+                && building.getRoad().equals(road)
+                && building.getOrientation().equals(orientation)
+            ) {
+                return building;
+            }
+        }
+        return null;
     }
 
-    @Override
-    public Bag<Building> getBag() {
-        return buildings;
-    }
-
-    @Override
-    public Iterator<Building> iterator() {
+    public Iterator<Building> iterator () {
         return buildings.iterator();
     }
 
-    @Override
-    public ArrayList<Building> getBagContents() {
-        return  buildings.getContents();
+
+    public ArrayList<Building> filter (Predicate<Building> predicate) {
+        ArrayList<Building> matches = new ArrayList<>();
+        for (Building building : buildings) {
+            if ((predicate.test(building) && !matches.contains(building))) {
+                matches.add(matches.size(), building);
+            }
+        }
+        return matches;
     }
 
-//    public Iterator<Building> search (Predicate<Building> predicate) {
-//        ArrayList<Building> buildings = new ArrayList<Building>();
-//        for (Building building : bag.getContents()) {
-//            if (predicate.test(building)) {
-//                buildings.add(buildings.size(), building);
-//            }
-//        }
-//        return buildings.iterator();
-//    } // close search
-//
-//    public Building search (String buildingName, Road road, Direction buildCurbSide) {
-//        for (Building building : bag.getContents()) {
-//            if (building.getRoad().equals(road) && building.getCurbSide().compareTo(buildCurbSide) == 0) {
-//                if (building.getName().equalsIgnoreCase(buildingName)) {
-//                    return building;
-//                }
-//            }
-//        }
-//        return null;
-//    } // close search
+
+    @Override
+    public String toString () {
+        String string = "Buildings\n------------\n";
+        for (Building building : buildings) {
+            string += building.toString() + "\n";
+        }
+        return string;
+    }
 } // end class Buildings

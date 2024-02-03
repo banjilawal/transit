@@ -1,7 +1,7 @@
 package com.lawal.transit.core.abstracts;
 
-import com.lawal.transit.core.entities.Arrival;
-import com.lawal.transit.core.entities.Departure;
+import com.lawal.transit.core.concretes.Arrival;
+import com.lawal.transit.core.concretes.Departure;
 
 import java.util.Objects;
 

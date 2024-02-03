@@ -1,13 +1,37 @@
 package com.lawal.transit.core.abstracts;
 
-public abstract class Entity {
-    public Entity () {
-    }
-    public String toString () {
-        return this.getClass().getSimpleName();
-    } // close toString
+import static java.util.Objects.hash;
 
-    public String generateErrorMessage (String method, String info, int line, String exceptionName) {
-        return  getClass().getSimpleName() + "." + method + " " + line + " " + exceptionName + ": " + info;
-    } // close generateErrorMessage
+public abstract class Entity extends AnonymousEntity {
+    private int id;
+
+    public Entity (int id) {
+        this.id = id;
+    }
+
+    public int getId () {
+        return id;
+    }
+
+    public void setId (int id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals (Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
+        if (object instanceof Entity entity) return id == entity.getId();
+        return false;
+    }
+
+    @Override
+    public int hashCode () {
+        return hash(id);
+    }
+
+    @Override
+    public String toString () {
+        return super.toString() + " id:" + id;
+    }
 } // end class Entity

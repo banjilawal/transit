@@ -4,7 +4,7 @@ import com.lawal.transit.core.interfaces.NumberAssigner;
 //import com.lawal.transit.middleware.populator.BlockPopulator;
 //import com.lawal.transit.middleware.populator.BuildingPopulator;
 //import com.lawal.transit.middleware.populator.IntersectionPopulator;
-import com.lawal.transit.core.populator.*;
+import com.lawal.transit.test.populator.*;
 
 public enum SerialNumberGenerator implements NumberAssigner {
     INSTANCE;
@@ -17,10 +17,11 @@ public enum SerialNumberGenerator implements NumberAssigner {
     private int stationSerialNumber = 1;
     private int blockSerialNumber = 1;
     private int roadSerialNumber = 1;
+    private int avenueSerialNumber = 1;
 
 
-    @Override
-    public int assignNumber(RegularSchedulePopulator schedulePopulator) { return regularScheduleSerialNumber++; }
+//    @Override
+//    public int assignNumber(RegularSchedulePopulator schedulePopulator) { return regularScheduleSerialNumber++; }
     @Override
     public int assignNumber(IntersectionPopulator intersectionPopulator) {
         return intersectionSerialNumber++;

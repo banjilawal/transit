@@ -1,9 +1,9 @@
 package com.lawal.transit.core.facade;
 /*
-import com.lawal.transit.middleware.entities.Address;
+import com.lawal.transit.middleware.concretes.Address;
 import com.lawal.transit.middleware.abstracts.Road;
 import com.lawal.transit.middleware.abstracts.TransitRoute;
-import com.lawal.transit.middleware.entities.Station;
+import com.lawal.transit.middleware.concretes.Station;
 import com.lawal.transit.middleware.enums.RoadCategory;
 import com.lawal.transit.middleware.enums.TransitRouteCategory;
 import com.lawal.transit.middleware.enums.Direction;
