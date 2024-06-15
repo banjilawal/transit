@@ -19,7 +19,7 @@ public enum ExpressBusRoutePopulator implements Populator, NumberAcceptor, NameA
 //
 //    private void populateStreetRoutes () {
 //        while (Streets.INSTANCE.iterator().hasNext()) {
-//            Street street = Streets.INSTANCE.iterator().next();
+//            ConcreteStreet street = Streets.INSTANCE.iterator().next();
 //            routeId = acceptNumber();
 //            routeName = acceptName();
 //            ExpressBusRoute busRoute = new ExpressBusRoute(routeId, routeName);
@@ -31,7 +31,7 @@ public enum ExpressBusRoutePopulator implements Populator, NumberAcceptor, NameA
 //
 //    private void populateAvenueRoutes () {
 //        while (Avenues.INSTANCE.iterator().hasNext()) {
-//            Avenue avenue = Avenues.INSTANCE.iterator().next();
+//            ConcreteAvenue avenue = Avenues.INSTANCE.iterator().next();
 //            routeId = acceptNumber();
 //            routeName = acceptName();
 //            ExpressBusRoute busRoute = new ExpressBusRoute(routeId, routeName);
@@ -43,15 +43,15 @@ public enum ExpressBusRoutePopulator implements Populator, NumberAcceptor, NameA
 //
 //    public void processRoads (ExpressBusRoute busRoute) {
 //        while (busRoute.getRoads().hasNext()) {
-//            Road road = busRoute.getRoads().next();
+//            TwoWayRoad road = busRoute.getRoads().next();
 //            addStations(busRoute, road);
 //        }
 //    } // close proccessRoads
 //
-//    private void addStations (ExpressBusRoute busRoute, Road road) {
-//        Predicate<Station> predicate = (station) -> station.getRoad().equals(road);
+//    private void addStations (ExpressBusRoute busRoute, TwoWayRoad road) {
+//        Predicate<OldAbstractStation> predicate = (station) -> station.getRoad().equals(road);
 //        while (Stations.INSTANCE.stations.search(predicate = (station) -> station.getRoad().equals(road)).hasNext()) {
-//            Station station = Stations.INSTANCE.stations.search(predicate).next();
+//            OldAbstractStation station = Stations.INSTANCE.stations.search(predicate).next();
 //            busRoute.addStation(station);
 //            station.addBusRouteName(busRoute.getName());
 //        }

@@ -8,8 +8,8 @@ public class Bus extends Vehicle {
 
     private RegularBusRoute route;
 
-    public Bus (int id, String name, Station currentStation, RegularBusRoute route) {
-        super(id, name, currentStation);
+    public Bus (int id, String name, OldAbstractStation currentOldAbstractStation, RegularBusRoute route) {
+        super(id, name, currentOldAbstractStation);
         this.route = route;
     }
 

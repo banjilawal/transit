@@ -1,7 +1,7 @@
 package com.lawal.transit.test.populator;
 
-import com.lawal.transit.core.concretes.Avenue;
-import com.lawal.transit.core.concretes.Street;
+import com.lawal.transit.core.concretes.*;
+import com.lawal.transit.core.concretes.ConcreteAvenue;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Avenues;
 import com.lawal.transit.core.singletons.Intersections;
@@ -27,11 +27,11 @@ public enum IntersectionPopulator implements Populator {
          *
          * WARNING
          * ---------
-         * Changing this breaks Block ordering and just makes setting neighbors really hard for Blocks and Locations.
+         * Changing this breaks OldConcreteBlock ordering and just makes setting neighbors really hard for Blocks and LocationAddresses.
          */
-        for (Street street : Streets.INSTANCE.getStreets()) {
-            for (Avenue avenue : Avenues.INSTANCE.getAvenues()) {
-                Intersections.INSTANCE.add(avenue, street);
+        for (ConcreteStreet concreteStreet : Streets.INSTANCE.getStreets()) {
+            for (ConcreteAvenue concreteAvenue : Avenues.INSTANCE.getAvenues()) {
+                Intersections.INSTANCE.add(concreteAvenue, concreteStreet);
             }
         }
     } // close populate

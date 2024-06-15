@@ -1,33 +1,33 @@
 package com.lawal.transit.core.abstracts;
 
 import com.lawal.transit.core.concretes.*;
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.Orientation;
 import com.lawal.transit.core.global.*;
 
 import java.time.LocalTime;
 import java.util.*;
 
 public abstract class BusRoute extends NamedEntity {
-    private Direction outboundDirection;
+    private Orientation outboundOrientation;
     private int interArrivalTime;
-    private HashMap<LocalTime, Station> schedule;
-    public BusRoute (int id, String name, Direction outboundDirection, int interArrivalTime) {
+    private HashMap<LocalTime, OldAbstractStation> schedule;
+    public BusRoute (int id, String name, Orientation outboundOrientation, int interArrivalTime) {
         super(id, name);
-        this.outboundDirection = outboundDirection;
+        this.outboundOrientation = outboundOrientation;
         this.interArrivalTime = interArrivalTime;
         schedule = new HashMap<>();
     }
 
-    public Direction getOutboundDirection() {
-        return outboundDirection;
+    public Orientation getOutboundDirection() {
+        return outboundOrientation;
     }
 
-    public Direction getInboundDirection () {
-        return outboundDirection.oppositeDirection();
+    public Orientation getInboundDirection () {
+        return outboundOrientation.oppositeDirection();
     }
 
-    public void setOutboundDirection(Direction outboundDirection) {
-        this.outboundDirection = outboundDirection;
+    public void setOutboundDirection(Orientation outboundOrientation) {
+        this.outboundOrientation = outboundOrientation;
     }
 
     public int getInterArrivalTime () {
@@ -35,7 +35,7 @@ public abstract class BusRoute extends NamedEntity {
     }
 
 
-    public HashMap<LocalTime, Station> getSchedule () {
+    public HashMap<LocalTime, OldAbstractStation> getSchedule () {
         return schedule;
     }
 
@@ -44,11 +44,11 @@ public abstract class BusRoute extends NamedEntity {
         this.interArrivalTime = interArrivalTime;
     }
 
-    public void setSchedule (ArrayList<Station> stations) {
+    public void setSchedule (ArrayList<OldAbstractStation> oldAbstractStations) {
         int count = 0;
         int index = 0;
-        Collections.sort(stations, new StationComparator());
-//        for (Station station : stations) {
+        Collections.sort(oldAbstractStations, new StationComparator());
+//        for (OldAbstractStation station : oldAbstractStations) {
 //            System.out.println("adding " + station.getName() + " to " + getName() + "'s schedule");
 //        }
         LocalTime departureTime = Constant.TRANSIT_START_TIME;
@@ -57,8 +57,8 @@ public abstract class BusRoute extends NamedEntity {
 //        System.out.println(departureTime.isBefore(closingTime));
         while (!departureTime.isBefore(closingTime)){
 //            System.out.println("depart:" + departureTime.toString() + " close:" + closingTime.toString() + " index:" + index);
-            index = count % stations.size();
-            this.schedule.put(departureTime, stations.get(index));
+            index = count % oldAbstractStations.size();
+            this.schedule.put(departureTime, oldAbstractStations.get(index));
             departureTime = departureTime.plusMinutes(interArrivalTime);
             count++;
         }
@@ -88,9 +88,9 @@ public abstract class BusRoute extends NamedEntity {
     }
 
 
-    private class StationComparator implements Comparator<Station> {
+    private class StationComparator implements Comparator<OldAbstractStation> {
         @Override
-        public int compare(Station a, Station b) {
+        public int compare(OldAbstractStation a, OldAbstractStation b) {
             return a.getId() - b.getId();
         }
     }

@@ -7,10 +7,10 @@ public class Intersection extends Coordinate {
     private int id;
     private String name;
 
-    public Intersection (int id, Avenue avenue, Street street) {
-        super(avenue, street);
+    public Intersection (int id, ConcreteAvenue concreteAvenue, ConcreteStreet concreteStreet) {
+        super(concreteAvenue, concreteStreet);
         this.id = id;
-        this.name = avenue.getName() + "-" + street.getName();
+        this.name = concreteAvenue.getName() + "-" + concreteStreet.getName();
     }
 
     public int getId () {
@@ -21,12 +21,12 @@ public class Intersection extends Coordinate {
         return name;
     }
 
-    public Avenue getAvenue () {
-        return (Avenue) getXPath();
+    public ConcreteAvenue getAvenue () {
+        return (ConcreteAvenue) getXPath();
     }
 
-    public Street getStreet () {
-        return (Street) getYPath();
+    public ConcreteStreet getStreet () {
+        return (ConcreteStreet) getYPath();
     }
 
 

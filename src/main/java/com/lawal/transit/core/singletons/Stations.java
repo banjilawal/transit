@@ -8,52 +8,52 @@ import java.util.function.*;
 
 public enum Stations {
     INSTANCE;
-    private final ArrayList<Station> stations = new ArrayList<>();
+    private final ArrayList<OldAbstractStation> oldAbstractStations = new ArrayList<>();
 
     public int size () {
-        return stations.size();
+        return oldAbstractStations.size();
     }
 
-    public ArrayList<Station> getStations () {
-        return stations;
+    public ArrayList<OldAbstractStation> getStations () {
+        return oldAbstractStations;
     }
 
-    public void add (Station station) {
-        if (stations.contains(station)) {
-            throw new IllegalArgumentException("Block " + station.getName()
+    public void add (OldAbstractStation oldAbstractStation) {
+        if (oldAbstractStations.contains(oldAbstractStation)) {
+            throw new IllegalArgumentException("OldConcreteBlock " + oldAbstractStation.getName()
                 + " already exists add cannot add another");
         }
-        stations.add(stations.size(), station);
+        oldAbstractStations.add(oldAbstractStations.size(), oldAbstractStation);
     }
 
-    public Station search (int id) {
-        for (Station station : stations) {
-            if (station.getId() == id) {
-                return station;
+    public OldAbstractStation search (int id) {
+        for (OldAbstractStation oldAbstractStation : oldAbstractStations) {
+            if (oldAbstractStation.getId() == id) {
+                return oldAbstractStation;
             }
         }
         return null;
     }
 
-    public Station search (String name) {
-        for (Station station : stations) {
-            if (station.getName().equalsIgnoreCase(name)) {
-                return station;
+    public OldAbstractStation search (String name) {
+        for (OldAbstractStation oldAbstractStation : oldAbstractStations) {
+            if (oldAbstractStation.getName().equalsIgnoreCase(name)) {
+                return oldAbstractStation;
             }
         }
         return null;
     }
 
-    public Iterator<Station> iterator () {
-        return stations.iterator();
+    public Iterator<OldAbstractStation> iterator () {
+        return oldAbstractStations.iterator();
     }
 
-    public ArrayList<Station> filter (Predicate<Station> predicate) {
-        ArrayList<Station> matches = new ArrayList<>();
-        for (Station station : stations) {
-            if ((predicate.test(station) && !matches.contains(station))) {
-//                System.out.println(station.getName() + " matches");
-                matches.add(matches.size(), station);
+    public ArrayList<OldAbstractStation> filter (Predicate<OldAbstractStation> predicate) {
+        ArrayList<OldAbstractStation> matches = new ArrayList<>();
+        for (OldAbstractStation oldAbstractStation : oldAbstractStations) {
+            if ((predicate.test(oldAbstractStation) && !matches.contains(oldAbstractStation))) {
+//                System.out.println(oldAbstractStation.getName() + " matches");
+                matches.add(matches.size(), oldAbstractStation);
             }
         }
         return matches;
@@ -63,8 +63,8 @@ public enum Stations {
     @Override
     public String toString () {
         String string = "Stations\n------------\n";
-        for (Station station : stations) {
-            string += station.toString() + "\n";
+        for (OldAbstractStation oldAbstractStation : oldAbstractStations) {
+            string += oldAbstractStation.toString() + "\n";
         }
         return string;
     }

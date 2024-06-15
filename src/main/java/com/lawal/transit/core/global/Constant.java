@@ -1,6 +1,6 @@
 package com.lawal.transit.core.global;
 
-import com.lawal.transit.core.enums.*;
+import com.lawal.transit.*;
 
 import java.time.LocalTime;
 
@@ -44,8 +44,8 @@ public final class Constant {
     public static int INITIAL_ODD_ADDRESS_NUMBER = 0;
     public static int INITAL_EVEN_ADDRESS_NUMBER = 0;
 
-    public static Direction AVENUE_ROUTE_OUTBOUND_DIRECTION = Direction.NORTH;
-    public static Direction STREET_ROUTE_OUTBOUND_DIRECTION = Direction.EAST;
+    public static Orientation avenueRouteOutboundOrientation = Orientation.NORTH;
+    public static Orientation streetRouteOutboundOrientation = Orientation.EAST;
     public static int END_BORDER_ID_ARRAY_INDEX = AVENUE_NAMES.length;
     public static int START_BORDER_ARRAY_INDEX = 0;
     public static final String WEST_BORDER_NAME = "WestBorder";

@@ -16,28 +16,28 @@ public abstract class Traveler extends NamedEntity {
         }
     } // end enum Color
 
-    private Location currentLocation;
+    private AbstractLocation currentAbstractLocation;
     private Departure departure;
     private Arrival arrival;
     private State state;
 
-    public Traveler(int id, String name, Location currentLocation) {
-        this(id, name, currentLocation, new Departure(id, currentLocation), null);
+    public Traveler(int id, String name, AbstractLocation currentAbstractLocation) {
+        this(id, name, currentAbstractLocation, new Departure(id, currentAbstractLocation), null);
     }
 
-    public Traveler(int id, String name, Location currentLocation, Departure departure) {
-        this(id, name, currentLocation, departure, null);
+    public Traveler(int id, String name, AbstractLocation currentAbstractLocation, Departure departure) {
+        this(id, name, currentAbstractLocation, departure, null);
     }
 
-    public Traveler(int id, String name, Location currentLocation, Departure departure, Arrival arrival) {
+    public Traveler(int id, String name, AbstractLocation currentAbstractLocation, Departure departure, Arrival arrival) {
         super(id, name);
-        this.currentLocation = currentLocation;
+        this.currentAbstractLocation = currentAbstractLocation;
         this.departure = departure;
         this.arrival = arrival;
         this.state = State.STOPPED;
     }
 
-    public Location getCurrentLocation () { return currentLocation; };
+    public AbstractLocation getCurrentLocation () { return currentAbstractLocation; };
     public Departure getDeparture() {
         return departure;
     }
@@ -48,7 +48,7 @@ public abstract class Traveler extends NamedEntity {
 
     public State getState () { return state; }
 
-    public void setCurrentLocation (Location currentLocation) { this.currentLocation = currentLocation; }
+    public void setCurrentLocation (AbstractLocation currentAbstractLocation) { this.currentAbstractLocation = currentAbstractLocation; }
 
     public void setDeparture (Departure departure) {
         this.departure = departure;

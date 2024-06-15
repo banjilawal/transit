@@ -1,8 +1,7 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.concretes.Avenue;
-import com.lawal.transit.core.concretes.Intersection;
-import com.lawal.transit.core.concretes.Street;
+import com.lawal.transit.core.concretes.*;
+import com.lawal.transit.core.concretes.ConcreteAvenue;
 import com.lawal.transit.core.visitors.*;
 
 import java.util.ArrayList;
@@ -30,9 +29,9 @@ public enum Intersections {
         intersections.add(intersections.size(), intersection);
     }
 
-    public boolean add (Avenue avenue, Street street) {
-        if (search(avenue, street) == null)
-            return intersections.add(new Intersection(IntersectionIdGenerator.INSTANCE.nextId(), avenue, street));
+    public boolean add (ConcreteAvenue concreteAvenue, ConcreteStreet concreteStreet) {
+        if (search(concreteAvenue, concreteStreet) == null)
+            return intersections.add(new Intersection(IntersectionIdGenerator.INSTANCE.nextId(), concreteAvenue, concreteStreet));
         return true;
     }
 
@@ -46,9 +45,9 @@ public enum Intersections {
     }
 
 
-    public Intersection search (Avenue avenue, Street street) {
+    public Intersection search (ConcreteAvenue concreteAvenue, ConcreteStreet concreteStreet) {
         for (Intersection intersection : intersections) {
-            if (intersection.getAvenue().equals(avenue) && intersection.getStreet().equals(street))
+            if (intersection.getAvenue().equals(concreteAvenue) && intersection.getStreet().equals(concreteStreet))
                 return intersection;
         }
         return null;

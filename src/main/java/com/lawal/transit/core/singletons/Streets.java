@@ -9,60 +9,60 @@ import java.util.function.*;
 
 public enum Streets {
     INSTANCE;
-    private final ArrayList<Street> streets = new ArrayList<>();
+    private final ArrayList<ConcreteStreet> concreteStreets = new ArrayList<>();
 
     public int size () {
-        return streets.size();
+        return concreteStreets.size();
     }
 
 
-    public ArrayList<Street> getStreets () {
-        return streets;
+    public ArrayList<ConcreteStreet> getStreets () {
+        return concreteStreets;
     }
 
 
-    public void add (Street street) {
-        if (streets.contains(street)) {
-            throw new IllegalArgumentException("An avenue named " + street.getName() + " already exists add cannot add another");
+    public void add (ConcreteStreet concreteStreet) {
+        if (concreteStreets.contains(concreteStreet)) {
+            throw new IllegalArgumentException("An avenue named " + concreteStreet.getName() + " already exists add cannot add another");
         }
-        streets.add(streets.size(), street);
+        concreteStreets.add(concreteStreets.size(), concreteStreet);
     }
 
     public boolean add (String name) {
         if (search(name) == null)
-            return streets.add(new Street(StreetIdGenerator.INSTANCE.nextId(), name));
+            return concreteStreets.add(new ConcreteStreet(StreetIdGenerator.INSTANCE.nextId(), name));
         return true;
     }
 
 
-    public Street search (int id) {
-        for (Street street : streets) {
-            if (street.getId() == id)
-                return street;
+    public ConcreteStreet search (int id) {
+        for (ConcreteStreet concreteStreet : concreteStreets) {
+            if (concreteStreet.getId() == id)
+                return concreteStreet;
         }
         return null;
     }
 
 
-    public Street search (String name) {
-        for (Street street : streets) {
-            if (street.getName().equalsIgnoreCase(name))
-                return street;
+    public ConcreteStreet search (String name) {
+        for (ConcreteStreet concreteStreet : concreteStreets) {
+            if (concreteStreet.getName().equalsIgnoreCase(name))
+                return concreteStreet;
         }
         return null;
     }
 
 
-    public Iterator<Street> iterator () {
-        return streets.iterator();
+    public Iterator<ConcreteStreet> iterator () {
+        return concreteStreets.iterator();
     }
 
 
-    public ArrayList<Street> filter (Predicate<Street> predicate) {
-        ArrayList<Street> matches = new ArrayList<>();
-        for (Street street : streets) {
-            if (predicate.test(street) && !matches.contains(street)) {
-                matches.add(matches.size(), street);
+    public ArrayList<ConcreteStreet> filter (Predicate<ConcreteStreet> predicate) {
+        ArrayList<ConcreteStreet> matches = new ArrayList<>();
+        for (ConcreteStreet concreteStreet : concreteStreets) {
+            if (predicate.test(concreteStreet) && !matches.contains(concreteStreet)) {
+                matches.add(matches.size(), concreteStreet);
             }
         }
         return matches;
@@ -71,8 +71,8 @@ public enum Streets {
     @Override
     public String toString () {
         String string = "Streets:\n";
-        for (Street street : streets) {
-            string += street.toString() + "\n";
+        for (ConcreteStreet concreteStreet : concreteStreets) {
+            string += concreteStreet.toString() + "\n";
         }
         return string;
     }

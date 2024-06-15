@@ -1,8 +1,8 @@
 package com.lawal.transit.test.populator;
 
-import com.lawal.transit.core.abstracts.Road;
+import com.lawal.transit.core.abstracts.AbstractRoad;
 import com.lawal.transit.core.concretes.*;
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.Orientation;
 import com.lawal.transit.core.global.Constant;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.*;
@@ -25,35 +25,35 @@ public enum BuildingPopulator implements Populator {
 
 
     private void processAvenues () {
-        for (Avenue avenue : Avenues.INSTANCE.getAvenues()) {
-            resetBaseAddress(avenue.getId());
-            Predicate<Block> predicate = (block) -> block.getBorderRoad(Direction.EAST) == avenue;
-            createBuildings(avenue, predicate, Direction.EAST, startingEvenAddressNumber); // GlobalConstant.INITAL_EVEN_ADDRESS_NUMBER); //startingEvenAddressNumber);
+        for (ConcreteAvenue concreteAvenue : Avenues.INSTANCE.getAvenues()) {
+            resetBaseAddress(concreteAvenue.getId());
+            Predicate<OldConcreteBlock> predicate = (block) -> block.getBorderRoad(Orientation.EAST) == concreteAvenue;
+            createBuildings(concreteAvenue, predicate, Orientation.EAST, startingEvenAddressNumber); // GlobalConstant.INITAL_EVEN_ADDRESS_NUMBER); //startingEvenAddressNumber);
 
-            predicate = (block) -> block.getBorderRoad(Direction.WEST) == avenue;
-            createBuildings(avenue, predicate, Direction.WEST, startingOddAddressNumber); //GlobalConstant.INITIAL_ODD_ADDRESS_NUMBER); //startingOddAddressNumber);
+            predicate = (block) -> block.getBorderRoad(Orientation.WEST) == concreteAvenue;
+            createBuildings(concreteAvenue, predicate, Orientation.WEST, startingOddAddressNumber); //GlobalConstant.INITIAL_ODD_ADDRESS_NUMBER); //startingOddAddressNumber);
         }
     } // close
 
     private void processStreets () {
-        for (Street street : Streets.INSTANCE.getStreets()) {
-            resetBaseAddress(street.getId());
-            Predicate<Block> predicate = (block) -> block.getNorthernStreet() == street;
-            createBuildings(street, predicate, Direction.NORTH, startingEvenAddressNumber);
+        for (ConcreteStreet concreteStreet : Streets.INSTANCE.getStreets()) {
+            resetBaseAddress(concreteStreet.getId());
+            Predicate<OldConcreteBlock> predicate = (block) -> block.getNorthernStreet() == concreteStreet;
+            createBuildings(concreteStreet, predicate, Orientation.NORTH, startingEvenAddressNumber);
 
-            predicate = (block) -> block.getSouthernStreet() == street;
-            createBuildings(street, predicate, Direction.SOUTH, startingOddAddressNumber);
+            predicate = (block) -> block.getSouthernStreet() == concreteStreet;
+            createBuildings(concreteStreet, predicate, Orientation.SOUTH, startingOddAddressNumber);
         }
     } // close
 
-    private void createBuildings (Road road, Predicate<Block> predicate, Direction orientation, int addressNumber) {
-        Iterator<Block> iterator = Blocks.INSTANCE.filter(predicate).iterator();
+    private void createBuildings (AbstractRoad abstractRoad, Predicate<OldConcreteBlock> predicate, Orientation orientation, int addressNumber) {
+        Iterator<OldConcreteBlock> iterator = Blocks.INSTANCE.filter(predicate).iterator();
         while (iterator.hasNext()) {
-            Block block = iterator.next();
+            OldConcreteBlock concreteBlock = iterator.next();
             for (int index = 0; index < Constant.BUILDINGS_PER_BLOCK_BORDER; index++) {
-                Buildings.INSTANCE.add(new Building(SerialNumberGenerator.INSTANCE.assignNumber(this),
+                Buildings.INSTANCE.add(new AbstractBuilding(SerialNumberGenerator.INSTANCE.assignNumber(this),
                     NameGenerator.INSTANCE.assignName(this, addressNumber),
-                    block,
+                    concreteBlock,
                     orientation)
                 );
                 addressNumber += Constant.ADDRESS_INTERVAL;

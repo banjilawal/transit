@@ -22,30 +22,30 @@ public enum RegularBusRoutePopulator implements Populator, NumberAcceptor, NameA
 
 
     private void processAvenues () {
-        for (Avenue avenue : Avenues.INSTANCE.getAvenues()) {
+        for (ConcreteAvenue concreteAvenue : Avenues.INSTANCE.getAvenues()) {
             RegularBusRoute busRoute = new RegularBusRoute(
                 RegularBusRouteIdGenerator.INSTANCE.nextId(),
                 NameGenerator.INSTANCE.assignName(this),
-                Constant.AVENUE_ROUTE_OUTBOUND_DIRECTION
+                Constant.avenueRouteOutboundOrientation
             );
-            Predicate<Station> predicate = (station) -> station.getRoad().equals(avenue);
-            ArrayList<Station> stations = Stations.INSTANCE.filter(predicate);
-//            System.out.println(stations.size() + " stations");
-            busRoute.setSchedule(stations);
+            Predicate<OldAbstractStation> predicate = (station) -> station.getRoad().equals(concreteAvenue);
+            ArrayList<OldAbstractStation> oldAbstractStations = Stations.INSTANCE.filter(predicate);
+//            System.out.println(oldAbstractStations.size() + " oldAbstractStations");
+            busRoute.setSchedule(oldAbstractStations);
             RegularBusRoutes.INSTANCE.add(busRoute);
         }
     }
 
     private void processStreets () {
-        for (Street street : Streets.INSTANCE.getStreets()) {
+        for (ConcreteStreet concreteStreet : Streets.INSTANCE.getStreets()) {
             RegularBusRoute busRoute = new RegularBusRoute(
                     RegularBusRouteIdGenerator.INSTANCE.nextId(),
                     NameGenerator.INSTANCE.assignName(this),
-                    Constant.AVENUE_ROUTE_OUTBOUND_DIRECTION
+                    Constant.avenueRouteOutboundOrientation
             );
-            Predicate<Station> predicate = (station) -> station.getRoad().equals(street);
-            ArrayList<Station> stations = Stations.INSTANCE.filter(predicate);
-            busRoute.setSchedule(stations);
+            Predicate<OldAbstractStation> predicate = (station) -> station.getRoad().equals(concreteStreet);
+            ArrayList<OldAbstractStation> oldAbstractStations = Stations.INSTANCE.filter(predicate);
+            busRoute.setSchedule(oldAbstractStations);
             RegularBusRoutes.INSTANCE.add(busRoute);
         }
     }

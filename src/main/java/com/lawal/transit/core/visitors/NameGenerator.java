@@ -1,6 +1,6 @@
 package com.lawal.transit.core.visitors;
 
-import com.lawal.transit.core.abstracts.Road;
+import com.lawal.transit.core.abstracts.AbstractRoad;
 import com.lawal.transit.core.concretes.*;
 import com.lawal.transit.core.global.Constant;
 import com.lawal.transit.core.interfaces.NameAssigner;
@@ -23,14 +23,14 @@ public enum NameGenerator implements NameAssigner {
     } // close
 
     @Override
-    public String assignName (RoadPopulator roadPopulator, Road road, int roadId) {
-        if (road instanceof Avenue) {
+    public String assignName (RoadPopulator roadPopulator, AbstractRoad abstractRoad, int roadId) {
+        if (abstractRoad instanceof ConcreteAvenue) {
             return Constant.AVENUE_NAMES[(roadId - 1)];
         }
-        else if (road instanceof Street) {
+        else if (abstractRoad instanceof ConcreteStreet) {
             return Integer.toString(roadId);
         } else {
-            return "Cannot assign road name";
+            return "Cannot assign abstractRoad name";
         }
     } // close
 

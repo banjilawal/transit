@@ -1,7 +1,7 @@
 package com.lawal.transit.core.abstracts;
 
-import com.lawal.transit.core.concretes.Departure;
-import com.lawal.transit.core.concretes.Station;
+import com.lawal.transit.core.concretes.*;
+import com.lawal.transit.core.concretes.OldAbstractStation;
 import com.lawal.transit.core.enums.*;
 import com.lawal.transit.core.global.Constant;
 
@@ -10,17 +10,17 @@ import java.util.Objects;
 public abstract class Vehicle extends Traveler {
     VehicleState state;
     private int capacity;
-    private Station nextStation;
+    private OldAbstractStation nextOldAbstractStation;
 
-    public Vehicle (int id, String name, Station currentStation) {
-        this(id, name, currentStation, new Departure(id, currentStation), Constant.STANDARD_BUS_CAPACITY);
+    public Vehicle (int id, String name, OldAbstractStation currentOldAbstractStation) {
+        this(id, name, currentOldAbstractStation, new Departure(id, currentOldAbstractStation), Constant.STANDARD_BUS_CAPACITY);
         this.state = VehicleState.ENGINE_RUNNING;
     }
 
-    public Vehicle (int id, String name, Location currentLocation, Departure departure, int capacity) {
-        super(id, name, currentLocation, departure);
+    public Vehicle (int id, String name, AbstractLocation currentAbstractLocation, Departure departure, int capacity) {
+        super(id, name, currentAbstractLocation, departure);
         this.capacity = capacity;
-        this.nextStation = null;
+        this.nextOldAbstractStation = null;
         this.setState(State.DOORS_CLOSED);
     }
 
@@ -28,16 +28,16 @@ public abstract class Vehicle extends Traveler {
         return capacity;
     }
 
-    public Station getNextStation () {
-        return nextStation;
+    public OldAbstractStation getNextStation () {
+        return nextOldAbstractStation;
     }
 
     public void setCapacity (int capacity) {
         this.capacity = capacity;
     }
 
-    public void setNextStation (Station nextStation) throws InterruptedException {
-        this.nextStation = nextStation;
+    public void setNextStation (OldAbstractStation nextOldAbstractStation) throws InterruptedException {
+        this.nextOldAbstractStation = nextOldAbstractStation;
         accelerating();
     }
 
@@ -92,7 +92,7 @@ public abstract class Vehicle extends Traveler {
     public boolean equals (Object object) {
         if (object instanceof Vehicle vehicle) {
             return super.equals(vehicle) && getCurrentLocation().equals(vehicle.getCurrentLocation())
-                    && nextStation.equals(vehicle.getNextStation()) && capacity == vehicle.getCapacity();
+                    && nextOldAbstractStation.equals(vehicle.getNextStation()) && capacity == vehicle.getCapacity();
         }
         return false;
     }

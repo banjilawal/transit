@@ -10,8 +10,8 @@ import java.util.Iterator;
 
 public class Addresses implements Serializable {
     private static final long serialVersionUID = 1L;
-   // private ArrayList<Address> addresses = new ArrayList<Address>();
-    private Bag<Address> addresses = new Bag<Address>();
+   // private ArrayList<Address> collections = new ArrayList<Address>();
+    private Bag<Address> collections = new Bag<Address>();
     private static Addresses singleton = null;
     private static int serialNumber = 1;
     private Addresses () {
@@ -25,15 +25,15 @@ public class Addresses implements Serializable {
     } // close getInstance
 
     public Bag<Address> getAddresses () {
-        return addresses;
+        return collections;
     }
 
     public Iterator<Item> iterator () {
-        return addresses.iterator();
+        return collections.iterator();
     } // close iterator
 
     public Address search (String addressName, String streetName) {
-        for (Iterator iterator = addresses.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = collections.iterator(); iterator.hasNext();) {
             Address address = (Address) iterator.next();
             if (address.getName().equalsIgnoreCase(addressName)) {
                 if (address.getArtery().getName().equalsIgnoreCase(streetName)) {
@@ -46,7 +46,7 @@ public class Addresses implements Serializable {
 
     public String toString () {
         String string = "Addresses\n----------";
-        for (Iterator<Item> iterator = addresses.iterator(); iterator.hasNext();) {
+        for (Iterator<Item> iterator = collections.iterator(); iterator.hasNext();) {
             Address address = (Address) iterator.next();
             string += "\n" + address.toString();
         }
@@ -71,7 +71,7 @@ public class Addresses implements Serializable {
 
 /*
     public Address search (int id) {
-        for (Iterator<Address> iterator = addresses.iterator(); iterator.hasNext();) {
+        for (Iterator<Address> iterator = collections.iterator(); iterator.hasNext();) {
             Address address = (Address) iterator.next();
             if (address.getId() == id) {
                 return address;
@@ -80,8 +80,8 @@ public class Addresses implements Serializable {
         return null;
     } // close search
 
-    public Address search (String name, Road artery) {
-        for (Iterator<Address> iterator = addresses.iterator(); iterator.hasNext();) {
+    public Address search (String name, TwoWayRoad artery) {
+        for (Iterator<Address> iterator = collections.iterator(); iterator.hasNext();) {
             Address address = (Address) iterator.next();
             if (address.getName().equalsIgnoreCase(name) && address.getArtery().equals(artery)) {
                 return address;
@@ -91,10 +91,10 @@ public class Addresses implements Serializable {
     } // close search
 
     public boolean add (Address address) {
-       if (addresses.contains(address)) {
+       if (collections.contains(address)) {
            return false;
         }
-       return addresses.add(address);
+       return collections.add(address);
     } // close addAddress
 
     public boolean remove (int id) {
@@ -102,16 +102,16 @@ public class Addresses implements Serializable {
         if (address == null) {
             return false;
         }
-        return addresses.remove(address);
+        return collections.remove(address);
     } // close addAddress
 
     public Iterator<Address> iterator () {
-        return addresses.iterator();
+        return collections.iterator();
     } // close iterator
 
     public String toString () {
         String string = "Addresses\n----------";
-        for (Iterator<Address> iterator = addresses.iterator(); iterator.hasNext();) {
+        for (Iterator<Address> iterator = collections.iterator(); iterator.hasNext();) {
             Address address = (Address) iterator.next();
             string += "\n" + address.toString();
         }

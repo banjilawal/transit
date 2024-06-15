@@ -1,7 +1,7 @@
 package com.lawal.transit.test.populator;
 
 import com.lawal.transit.core.concretes.*;
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.Orientation;
 import com.lawal.transit.core.global.Constant;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Blocks;
@@ -39,49 +39,49 @@ public enum BlockPopulator implements Populator {
         int blockTotal = Blocks.INSTANCE.size();
         int gridDimension = (int) Math.sqrt(blockTotal);
 
-        for (Block block : Blocks.INSTANCE.getBlocks()) {
-            int currentArrayIndex = Blocks.INSTANCE.getBlocks().lastIndexOf(block);
+        for (OldConcreteBlock concreteBlock : Blocks.INSTANCE.getBlocks()) {
+            int currentArrayIndex = Blocks.INSTANCE.getBlocks().lastIndexOf(concreteBlock);
             int quotient = currentArrayIndex / gridDimension;
             int remainder = currentArrayIndex % gridDimension;
 
             // Handling the first row
             if (currentArrayIndex > 0 && currentArrayIndex < gridDimension) {
                 int westernNeighborIndex = currentArrayIndex - 1;
-                Block westernNeighbor = Blocks.INSTANCE.getBlocks().get(westernNeighborIndex);
-                block.addNeighbor(Direction.WEST, westernNeighbor);
-                westernNeighbor.addNeighbor(Direction.EAST,block);
+                OldConcreteBlock westernNeighbor = Blocks.INSTANCE.getBlocks().get(westernNeighborIndex);
+                concreteBlock.addNeighbor(Orientation.WEST, westernNeighbor);
+                westernNeighbor.addNeighbor(Orientation.EAST, concreteBlock);
             }
 
             if (quotient > 0 && currentArrayIndex >= gridDimension) {
                 int northernNeighborIndex = currentArrayIndex - gridDimension;
-                Block northernNeighbor = Blocks.INSTANCE.getBlocks().get(northernNeighborIndex);
-                block.addNeighbor(Direction.NORTH,northernNeighbor);
-                northernNeighbor.addNeighbor(Direction.SOUTH, block);
+                OldConcreteBlock northernNeighbor = Blocks.INSTANCE.getBlocks().get(northernNeighborIndex);
+                concreteBlock.addNeighbor(Orientation.NORTH,northernNeighbor);
+                northernNeighbor.addNeighbor(Orientation.SOUTH, concreteBlock);
 
                 if (remainder == 0) {
                     int easternNeighborIndex = currentArrayIndex + 1;
                     int northEasternNeighborIndex = northernNeighborIndex + 1;
 
-                    Block easterNeighbor = Blocks.INSTANCE.getBlocks().get(easternNeighborIndex);
-                    block.addNeighbor(Direction.EAST, easterNeighbor);
-                    easterNeighbor.addNeighbor(Direction.WEST, block);
+                    OldConcreteBlock easterNeighbor = Blocks.INSTANCE.getBlocks().get(easternNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.EAST, easterNeighbor);
+                    easterNeighbor.addNeighbor(Orientation.WEST, concreteBlock);
 
-                    Block northEasternNeighbor = Blocks.INSTANCE.getBlocks().get(northEasternNeighborIndex);
-                    block.addNeighbor(Direction.NORTHEAST,northEasternNeighbor);
-                    northEasternNeighbor.addNeighbor(Direction.SOUTHWEST,block);
+                    OldConcreteBlock northEasternNeighbor = Blocks.INSTANCE.getBlocks().get(northEasternNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.NORTHEAST,northEasternNeighbor);
+                    northEasternNeighbor.addNeighbor(Orientation.SOUTHWEST, concreteBlock);
                 }
 
                 if (remainder == (gridDimension - 1)) {
                     int westernNeighborIndex = currentArrayIndex - 1;
                     int northWesternNeighborIndex = northernNeighborIndex - 1;
 
-                    Block westernNeighbor = Blocks.INSTANCE.getBlocks().get(westernNeighborIndex);
-                    block.addNeighbor(Direction.WEST, westernNeighbor);
-                    westernNeighbor.addNeighbor(Direction.EAST, block);
+                    OldConcreteBlock westernNeighbor = Blocks.INSTANCE.getBlocks().get(westernNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.WEST, westernNeighbor);
+                    westernNeighbor.addNeighbor(Orientation.EAST, concreteBlock);
 
-                    Block northWesternNeighbor = Blocks.INSTANCE.getBlocks().get(northWesternNeighborIndex);
-                    block.addNeighbor(Direction.NORTHWEST, northWesternNeighbor);
-                    northWesternNeighbor.addNeighbor(Direction.SOUTHEAST,block);
+                    OldConcreteBlock northWesternNeighbor = Blocks.INSTANCE.getBlocks().get(northWesternNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.NORTHWEST, northWesternNeighbor);
+                    northWesternNeighbor.addNeighbor(Orientation.SOUTHEAST, concreteBlock);
                 }
 
                 if (remainder != 0 && remainder != (gridDimension -1)) {
@@ -90,21 +90,21 @@ public enum BlockPopulator implements Populator {
                     int northWesternNeighborIndex = northernNeighborIndex - 1;
                     int northEasternNeighborIndex = northernNeighborIndex + 1;
 
-                    Block easterNeighbor = Blocks.INSTANCE.getBlocks().get(easternNeighborIndex);
-                    block.addNeighbor(Direction.EAST, easterNeighbor);
-                    easterNeighbor.addNeighbor(Direction.WEST, block);
+                    OldConcreteBlock easterNeighbor = Blocks.INSTANCE.getBlocks().get(easternNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.EAST, easterNeighbor);
+                    easterNeighbor.addNeighbor(Orientation.WEST, concreteBlock);
 
-                    Block westernNeighbor = Blocks.INSTANCE.getBlocks().get(westernNeighborIndex);
-                    block.addNeighbor(Direction.WEST, westernNeighbor);
-                    westernNeighbor.addNeighbor(Direction.EAST,block);
+                    OldConcreteBlock westernNeighbor = Blocks.INSTANCE.getBlocks().get(westernNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.WEST, westernNeighbor);
+                    westernNeighbor.addNeighbor(Orientation.EAST, concreteBlock);
 
-                    Block northEasternNeighbor = Blocks.INSTANCE.getBlocks().get(northEasternNeighborIndex);
-                    block.addNeighbor(Direction.NORTHEAST,northEasternNeighbor);
-                    northEasternNeighbor.addNeighbor(Direction.SOUTHWEST,block);
+                    OldConcreteBlock northEasternNeighbor = Blocks.INSTANCE.getBlocks().get(northEasternNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.NORTHEAST,northEasternNeighbor);
+                    northEasternNeighbor.addNeighbor(Orientation.SOUTHWEST, concreteBlock);
 
-                    Block northWesternNeighbor = Blocks.INSTANCE.getBlocks().get(northWesternNeighborIndex);
-                    block.addNeighbor(Direction.NORTHWEST, northWesternNeighbor);
-                    northWesternNeighbor.addNeighbor(Direction.SOUTHEAST,block);
+                    OldConcreteBlock northWesternNeighbor = Blocks.INSTANCE.getBlocks().get(northWesternNeighborIndex);
+                    concreteBlock.addNeighbor(Orientation.NORTHWEST, northWesternNeighbor);
+                    northWesternNeighbor.addNeighbor(Orientation.SOUTHEAST, concreteBlock);
                 }
             }
         }
@@ -116,7 +116,7 @@ public enum BlockPopulator implements Populator {
         Intersection southEastCorner,
         Intersection southWestCorner
     ) {
-        Block block = new Block(
+        OldConcreteBlock concreteBlock = new OldConcreteBlock(
             SerialNumberGenerator.INSTANCE.assignNumber(this),
             NameGenerator.INSTANCE.assignName(this, northWestCorner),
             northWestCorner,
@@ -124,6 +124,6 @@ public enum BlockPopulator implements Populator {
             southEastCorner,
             southWestCorner
         );
-        Blocks.INSTANCE.add(block);
+        Blocks.INSTANCE.add(concreteBlock);
     }
 } // end enum BlockPopulator

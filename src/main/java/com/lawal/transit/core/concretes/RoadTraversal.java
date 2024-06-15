@@ -1,11 +1,11 @@
 package com.lawal.transit.core.concretes;
 
-import com.lawal.transit.core.abstracts.Road;
-import com.lawal.transit.core.abstracts.Traversal;
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.core.abstracts.*;
+import com.lawal.transit.core.abstracts.AbstractRoad;
+import com.lawal.transit.Orientation;
 
 public class RoadTraversal extends Traversal {
-    public RoadTraversal (Road road, Direction direction) {
-        super(road, direction);
+    public RoadTraversal (AbstractRoad abstractRoad, Orientation orientation) {
+        super(abstractRoad, orientation);
     }
 } // end class Roadtraversal

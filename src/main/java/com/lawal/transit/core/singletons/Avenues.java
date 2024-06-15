@@ -1,6 +1,6 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.concretes.Avenue;
+import com.lawal.transit.core.concretes.ConcreteAvenue;
 import com.lawal.transit.core.visitors.*;
 
 import java.util.ArrayList;
@@ -9,59 +9,59 @@ import java.util.function.*;
 
 public enum Avenues  {
     INSTANCE;
-    private final ArrayList<Avenue> avenues = new ArrayList<>();
+    private final ArrayList<ConcreteAvenue> concreteAvenues = new ArrayList<>();
 
 
-    public int size () { return avenues.size(); }
+    public int size () { return concreteAvenues.size(); }
 
 
-    public ArrayList<Avenue> getAvenues () {
-        return avenues;
+    public ArrayList<ConcreteAvenue> getAvenues () {
+        return concreteAvenues;
     }
 
 
-    public void add (Avenue avenue) {
-        if (avenues.contains(avenue)) {
-            throw new IllegalArgumentException("An avenue named " + avenue.getName() + " already exists add cannot add another");
+    public void add (ConcreteAvenue concreteAvenue) {
+        if (concreteAvenues.contains(concreteAvenue)) {
+            throw new IllegalArgumentException("An concreteAvenue named " + concreteAvenue.getName() + " already exists add cannot add another");
         }
-        avenues.add(avenues.size(), avenue);
+        concreteAvenues.add(concreteAvenues.size(), concreteAvenue);
     }
 
     public boolean add (String name) {
         if (search(name) == null)
-            return avenues.add(new Avenue(AvenueIdGenerator.INSTANCE.nextId(), name));
+            return concreteAvenues.add(new ConcreteAvenue(AvenueIdGenerator.INSTANCE.nextId(), name));
         return true;
     }
 
 
-    public Avenue search (int id) {
-        for (Avenue avenue : avenues) {
-            if (avenue.getId() == id)
-                return avenue;
+    public ConcreteAvenue search (int id) {
+        for (ConcreteAvenue concreteAvenue : concreteAvenues) {
+            if (concreteAvenue.getId() == id)
+                return concreteAvenue;
         }
         return null;
     }
 
 
-    public Avenue search (String name) {
-        for (Avenue avenue : avenues) {
-            if (avenue.getName().equalsIgnoreCase(name))
-                return avenue;
+    public ConcreteAvenue search (String name) {
+        for (ConcreteAvenue concreteAvenue : concreteAvenues) {
+            if (concreteAvenue.getName().equalsIgnoreCase(name))
+                return concreteAvenue;
         }
         return null;
     }
 
 
-    public Iterator<Avenue> iterator () {
-        return avenues.iterator();
+    public Iterator<ConcreteAvenue> iterator () {
+        return concreteAvenues.iterator();
     }
 
 
-    public ArrayList<Avenue> filter (Predicate<Avenue> predicate) {
-        ArrayList<Avenue> matches = new ArrayList<>();
-        for (Avenue avenue : avenues) {
-            if (predicate.test(avenue) && !matches.contains(avenue)) {
-                matches.add(matches.size(), avenue);
+    public ArrayList<ConcreteAvenue> filter (Predicate<ConcreteAvenue> predicate) {
+        ArrayList<ConcreteAvenue> matches = new ArrayList<>();
+        for (ConcreteAvenue concreteAvenue : concreteAvenues) {
+            if (predicate.test(concreteAvenue) && !matches.contains(concreteAvenue)) {
+                matches.add(matches.size(), concreteAvenue);
             }
         }
         return matches;
@@ -70,8 +70,8 @@ public enum Avenues  {
     @Override
     public String toString () {
         String string = "Avenues:\n";
-        for (Avenue avenue : avenues) {
-            string += avenue.toString() + "\n";
+        for (ConcreteAvenue concreteAvenue : concreteAvenues) {
+            string += concreteAvenue.toString() + "\n";
         }
         return string;
     }

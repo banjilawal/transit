@@ -1,43 +1,43 @@
 package com.lawal.transit.core.abstracts;
 
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.Orientation;
 
 import java.util.Objects;
 
 public abstract class Traversal {
     private FixedPath path;
-    private Direction direction;
+    private Orientation orientation;
 
-    public Traversal(FixedPath path, Direction direction) {
+    public Traversal(FixedPath path, Orientation orientation) {
         this.path = path;
-        this.direction = direction;
+        this.orientation = orientation;
     }
 
     public FixedPath getPath () {
         return path;
     }
 
-    public Direction getDirection () {
-        return direction;
+    public Orientation getDirection () {
+        return orientation;
     }
 
     public void setPath (FixedPath path) {
         this.path = path;
     }
 
-    public void setDirection (Direction direction) {
-        this.direction = direction;
+    public void setDirection (Orientation orientation) {
+        this.orientation = orientation;
     }
 
     @Override
     public boolean equals (Object object) {
         if (object instanceof Traversal traversal)
-            return path.equals(traversal.getPath()) && direction.equals(traversal.getDirection());
+            return path.equals(traversal.getPath()) && orientation.equals(traversal.getDirection());
        return false;
     }
 
     @Override
     public int hashCode () {
-        return Objects.hash(path, direction);
+        return Objects.hash(path, orientation);
     }
 } // end class Traverse

@@ -1,12 +1,12 @@
 package com.lawal.transit.core.facade;
 /*
 import com.lawal.transit.middleware.concretes.Address;
-import com.lawal.transit.middleware.abstracts.Road;
+import com.lawal.transit.middleware.abstracts.TwoWayRoad;
 import com.lawal.transit.middleware.abstracts.TransitRoute;
-import com.lawal.transit.middleware.concretes.Station;
+import com.lawal.transit.middleware.concretes.OldAbstractStation;
 import com.lawal.transit.middleware.enums.RoadCategory;
 import com.lawal.transit.middleware.enums.TransitRouteCategory;
-import com.lawal.transit.middleware.enums.Direction;
+import com.lawal.transit.middleware.enums.Orientation;
 
 import java.time.LocalTime;
 
@@ -14,17 +14,17 @@ public abstract class DataTransfer {
     private int arteryId;
     private String arteryName;
     private RoadCategory roadCategory;
-    private Direction rightLaneOrientation;
-    private Direction leftLaneOrientation;
+    private Orientation rightLaneOrientation;
+    private Orientation leftLaneOrientation;
     private int addressId;
     private String addressName;
-    private Road addressRoad;
-    private Direction addressOrientation;
+    private TwoWayRoad addressRoad;
+    private Orientation addressOrientation;
     private int stationId;
     private String stationName;
-    private Road stationRoad;
-    private Road stationCrossRoad;
-    private Direction stationDirection;
+    private TwoWayRoad stationRoad;
+    private TwoWayRoad stationCrossRoad;
+    private Orientation stationDirection;
 
     private int busRouteId;
     private String busRouteName;
@@ -50,11 +50,11 @@ public abstract class DataTransfer {
         return roadCategory;
     } // close getRoadCategory
 
-    public Direction getLeftLaneOrientation () {
+    public Orientation getLeftLaneOrientation () {
         return leftLaneOrientation;
     } // close getLeftLaneOrientation
 
-    public Direction geRightLaneOrientation () {
+    public Orientation geRightLaneOrientation () {
         return rightLaneOrientation;
     } // close getRightLaneOrientation
 
@@ -72,16 +72,16 @@ public abstract class DataTransfer {
        this.roadCategory = roadCategory;
     } // close setRoadCategory
 
-    public void setLeftLaneOrientation (Direction leftLaneOrientation) {
+    public void setLeftLaneOrientation (Orientation leftLaneOrientation) {
         this.leftLaneOrientation = leftLaneOrientation;
     } // close setLeftLaneOrientation
 
-    public void setRightLaneOrientation (Direction rightLaneOrientation) {
+    public void setRightLaneOrientation (Orientation rightLaneOrientation) {
         this.rightLaneOrientation = rightLaneOrientation;
     } // close setRightLaneOrientation
 
 
-    public void setArteryFields (Road road) {
+    public void setArteryFields (TwoWayRoad road) {
         arteryId = road.getId();
         arteryName = road.getName();
         roadCategory = road.getCategory();
@@ -96,10 +96,10 @@ public abstract class DataTransfer {
        return addressName;
    }
 
-   public Road getAddressRoad () {
+   public TwoWayRoad getAddressRoad () {
        return addressRoad;
    }
-   public Direction getAddressOrientation () {
+   public Orientation getAddressOrientation () {
        return addressOrientation;
    }
 
@@ -110,11 +110,11 @@ public abstract class DataTransfer {
        this.addressName = addressName;
    }
 
-    public void setAddressRoad (Road addressRoad) {
+    public void setAddressRoad (TwoWayRoad addressRoad) {
         this.addressRoad = addressRoad;
     } // close setAddressRoad
 
-    public void setAddressOrientation (Direction addressOrientation) {
+    public void setAddressOrientation (Orientation addressOrientation) {
         this.addressOrientation = addressOrientation;
     } // close setAddressOrientation
 
@@ -133,13 +133,13 @@ public abstract class DataTransfer {
         return stationName;
     }
 
-    public Road getStationArtery () {
+    public TwoWayRoad getStationArtery () {
         return stationRoad;
     }
-    public Road getStationCrossRoad () {
+    public TwoWayRoad getStationCrossRoad () {
         return stationCrossRoad;
     }
-    public Direction getStationDirection () {
+    public Orientation getStationDirection () {
         return stationDirection;
     }
 
@@ -150,17 +150,17 @@ public abstract class DataTransfer {
     public void setStationName (String stationName) {
         this.stationName = stationName;
     }
-    public void setStationArtery (Road stationRoad) {
+    public void setStationArtery (TwoWayRoad stationRoad) {
         this.stationRoad = stationRoad;
     }
-    public void setStationCrossRoad (Road stationCrossRoad) {
+    public void setStationCrossRoad (TwoWayRoad stationCrossRoad) {
         this.stationCrossRoad = stationCrossRoad;
     }
-    public void setStationDirection (Direction stationDirection) {
+    public void setStationDirection (Orientation stationDirection) {
         this.stationDirection = stationDirection;
     }
 
-    public void setStationFields (Station station) {
+    public void setStationFields (OldAbstractStation station) {
         stationId = station.getId();
         stationName = station.getName();
         stationCrossRoad =  station.getCrossRoad();
@@ -229,19 +229,19 @@ public abstract class DataTransfer {
         arteryId = Integer.MIN_VALUE;
         arteryName = "None";
         roadCategory = RoadCategory.NONE;
-        leftLaneOrientation = Direction.NONE;
-        rightLaneOrientation = Direction.NONE;
+        leftLaneOrientation = Orientation.NONE;
+        rightLaneOrientation = Orientation.NONE;
 
         addressId = Integer.MIN_VALUE;
         addressName = "None";
         addressRoad = null;
-        addressOrientation = Direction.NONE;
+        addressOrientation = Orientation.NONE;
 
         stationId = Integer.MIN_VALUE;
         stationName = "None";
         stationCrossRoad = null;
         stationRoad = null;
-        stationDirection = Direction.NONE;
+        stationDirection = Orientation.NONE;
 
         busRouteId = Integer.MIN_VALUE;
         busRouteName = "None";

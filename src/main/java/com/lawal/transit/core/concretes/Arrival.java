@@ -1,27 +1,27 @@
 package com.lawal.transit.core.concretes;
 
-import com.lawal.transit.core.abstracts.Location;
-import com.lawal.transit.core.abstracts.MovementEvent;
+import com.lawal.transit.core.abstracts.*;
+import com.lawal.transit.core.abstracts.AbstractLocation;
 
 import java.time.LocalTime;
 
 public class Arrival extends MovementEvent {
-    private Location destination;
+    private AbstractLocation destination;
 
-    public Arrival (int id, Location destination) {
+    public Arrival (int id, AbstractLocation destination) {
         this(id, destination, LocalTime.now());
     }
 
-    public Arrival (int id, Location destination, LocalTime eventTime) {
+    public Arrival (int id, AbstractLocation destination, LocalTime eventTime) {
         super(id, (destination.getName() + id), eventTime);
         this.destination = destination;
     }
 
-    public Location getDestination () { return destination; }
+    public AbstractLocation getDestination () { return destination; }
 
     public LocalTime getArrivalTime () { return getEventTime(); }
 
-    public void setDestination (Location destination) { this.destination = destination; }
+    public void setDestination (AbstractLocation destination) { this.destination = destination; }
 
     public void setArrivalTime (LocalTime arrivalTime) { setEventTime(arrivalTime); }
 

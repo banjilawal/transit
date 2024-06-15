@@ -1,43 +1,43 @@
 package com.lawal.transit.core.singletons;
 
-import com.lawal.transit.core.abstracts.Road;
+import com.lawal.transit.core.abstracts.AbstractRoad;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public enum Roads {
     INSTANCE;
-    private ArrayList<Road> roads = new ArrayList<>();
+    private ArrayList<AbstractRoad> abstractRoads = new ArrayList<>();
 
 
     public int size () {
-        return roads.size();
+        return abstractRoads.size();
     }
 
 
-    public ArrayList<Road> getRoads () {
-        return roads;
+    public ArrayList<AbstractRoad> getRoads () {
+        return abstractRoads;
     }
 
 
-    public void add (Road road) {
-        if (!roads.contains(road)) {
-            roads.add(road);
+    public void add (AbstractRoad abstractRoad) {
+        if (!abstractRoads.contains(abstractRoad)) {
+            abstractRoads.add(abstractRoad);
         }
     }
 
 
-    public Iterator<Road> iterator () {
-        return roads.iterator();
+    public Iterator<AbstractRoad> iterator () {
+        return abstractRoads.iterator();
     }
 
 
-    public Road search (String roadName) {
-        Road road = Avenues.INSTANCE.search(roadName);
-        if (road == null) {
-            road = Streets.INSTANCE.search(roadName);
+    public AbstractRoad search (String roadName) {
+        AbstractRoad abstractRoad = Avenues.INSTANCE.search(roadName);
+        if (abstractRoad == null) {
+            abstractRoad = Streets.INSTANCE.search(roadName);
         }
-        return road;
+        return abstractRoad;
     }
 
 

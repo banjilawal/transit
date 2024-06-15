@@ -7,15 +7,15 @@ import java.util.Objects;
 
 public class Passenger extends Person {
 
-    ArrayList<Station> path;
+    ArrayList<OldAbstractStation> path;
 
-    public Passenger(int id, String name, Location currentLocation, Building destination, Departure departure) {
-       super(id, name, currentLocation, destination);
-       this.path = new ArrayList<Station>();
+    public Passenger(int id, String name, AbstractLocation currentAbstractLocation, AbstractBuilding destination, Departure departure) {
+       super(id, name, currentAbstractLocation, destination);
+       this.path = new ArrayList<OldAbstractStation>();
     }
-    public ArrayList<Station> getPath () { return path; }
+    public ArrayList<OldAbstractStation> getPath () { return path; }
 
-    public void setPath (ArrayList<Station> stations) { ;}
+    public void setPath (ArrayList<OldAbstractStation> oldAbstractStations) { ;}
 
     @Override
     public void embark (Vehicle vehicle) {

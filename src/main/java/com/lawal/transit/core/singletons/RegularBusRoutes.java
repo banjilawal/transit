@@ -1,7 +1,7 @@
 package com.lawal.transit.core.singletons;
 
+import com.lawal.transit.*;
 import com.lawal.transit.core.concretes.*;
-import com.lawal.transit.core.enums.*;
 import com.lawal.transit.core.visitors.*;
 
 import java.util.ArrayList;
@@ -27,9 +27,9 @@ public enum RegularBusRoutes {
         routes.add(routes.size(), busRoute);
     }
 
-    public boolean add (String name, Direction direction) {
+    public boolean add (String name, Orientation orientation) {
         if (search(name) == null)
-            return routes.add(new RegularBusRoute(RegularBusRouteIdGenerator.INSTANCE.nextId(), name, direction));
+            return routes.add(new RegularBusRoute(RegularBusRouteIdGenerator.INSTANCE.nextId(), name, orientation));
         return true;
     }
 

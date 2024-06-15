@@ -1,8 +1,8 @@
 package com.lawal.transit.test.populator;
 
-import com.lawal.transit.core.concretes.Avenue;
+import com.lawal.transit.core.concretes.*;
+import com.lawal.transit.core.concretes.ConcreteAvenue;
 import com.lawal.transit.core.global.Constant;
-import com.lawal.transit.core.concretes.Street;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.Avenues;
 import com.lawal.transit.core.singletons.Roads;
@@ -30,34 +30,34 @@ public enum RoadPopulator implements Populator {
             id = SerialNumberGenerator.INSTANCE.assignNumber(this);
             avenueName = Constant.AVENUE_NAMES[index];
             streetName = Integer.toString(index + 1);
-            Avenues.INSTANCE.add(new Avenue(id, avenueName));
-            Streets.INSTANCE.add(new Street(id, streetName));
+            Avenues.INSTANCE.add(new ConcreteAvenue(id, avenueName));
+            Streets.INSTANCE.add(new ConcreteStreet(id, streetName));
         }
         addBorderRoads(Constant.END_BORDER_ID);
     } // close populateSubClassCollections
 
     private void roadsSingletonHandler () {
-        Iterator<Avenue> avenueIterator = Avenues.INSTANCE.iterator();
-        Iterator<Street> streetIterator = Streets.INSTANCE.iterator();
+        Iterator<ConcreteAvenue> avenueIterator = Avenues.INSTANCE.iterator();
+        Iterator<ConcreteStreet> streetIterator = Streets.INSTANCE.iterator();
 
         while (avenueIterator.hasNext() && streetIterator.hasNext()) {
-            Avenue avenue = avenueIterator.next();
-            Street street = streetIterator.next();
+            ConcreteAvenue concreteAvenue = avenueIterator.next();
+            ConcreteStreet concreteStreet = streetIterator.next();
 
-            Roads.INSTANCE.add(avenue);
-            Roads.INSTANCE.add(street);
+            Roads.INSTANCE.add(concreteAvenue);
+            Roads.INSTANCE.add(concreteStreet);
         }
     } // close populateSuperClassCollection
 
     private void addBorderRoads (int borderID) {
         switch (borderID) {
             case 100:
-                Avenues.INSTANCE.add(new Avenue(Constant.START_BORDER_ID, Constant.WEST_BORDER_NAME));
-                Streets.INSTANCE.add(new Street(Constant.START_BORDER_ID, Constant.NORTH_BORDER_NAME));
+                Avenues.INSTANCE.add(new ConcreteAvenue(Constant.START_BORDER_ID, Constant.WEST_BORDER_NAME));
+                Streets.INSTANCE.add(new ConcreteStreet(Constant.START_BORDER_ID, Constant.NORTH_BORDER_NAME));
                 break;
             case 200:
-                Avenues.INSTANCE.add(new Avenue(Constant.END_BORDER_ID, Constant.EAST_BORDER_NAME));
-                Streets.INSTANCE.add(new Street(Constant.END_BORDER_ID, Constant.SOUTH_BORDER_NAME));
+                Avenues.INSTANCE.add(new ConcreteAvenue(Constant.END_BORDER_ID, Constant.EAST_BORDER_NAME));
+                Streets.INSTANCE.add(new ConcreteStreet(Constant.END_BORDER_ID, Constant.SOUTH_BORDER_NAME));
                 break;
         }
     } // close addBorderRoads

@@ -8,92 +8,92 @@ import java.util.function.Predicate;
 
 public enum Blocks {
     INSTANCE;
-    private final ArrayList<Block> blocks = new ArrayList<>();
+    private final ArrayList<OldConcreteBlock> concreteBlocks = new ArrayList<>();
 
 
     public int size () {
-        return blocks.size();
+        return concreteBlocks.size();
     }
 
 
 
-    public ArrayList<Block> getBlocks () {
-        return blocks;
+    public ArrayList<OldConcreteBlock> getBlocks () {
+        return concreteBlocks;
     }
 
 
-    public void add (Block block) {
-        if (blocks.contains(block)) {
-            throw new IllegalArgumentException("Block " + block.getName()
+    public void add (OldConcreteBlock concreteBlock) {
+        if (concreteBlocks.contains(concreteBlock)) {
+            throw new IllegalArgumentException("OldConcreteBlock " + concreteBlock.getName()
                 + " already exists add cannot add another");
         }
-        blocks.add(blocks.size(), block);
+        concreteBlocks.add(concreteBlocks.size(), concreteBlock);
     }
 
 
-    public Block search (int id) {
-        for (Block block : blocks) {
-            if (block.getId() == id) {
-                return block;
+    public OldConcreteBlock search (int id) {
+        for (OldConcreteBlock concreteBlock : concreteBlocks) {
+            if (concreteBlock.getId() == id) {
+                return concreteBlock;
             }
         }
         return null;
     }
 
 
-    public Block search (String name) {
-        for (Block block : blocks) {
-            if (block.getName().equalsIgnoreCase(name)) {
-                return block;
+    public OldConcreteBlock search (String name) {
+        for (OldConcreteBlock concreteBlock : concreteBlocks) {
+            if (concreteBlock.getName().equalsIgnoreCase(name)) {
+                return concreteBlock;
             }
         }
         return null;
     }
 
 
-    public Block search (Avenue westAvenue, Street northStreet, Avenue eastAvenue, Street southStreet) {
-        for (Block block : blocks) {
-            if (avenuesMatch(block, westAvenue, eastAvenue)
-                && streetsMatch(block, northStreet, southStreet)) {
-                return block;
+    public OldConcreteBlock search (ConcreteAvenue westConcreteAvenue, ConcreteStreet northConcreteStreet, ConcreteAvenue eastConcreteAvenue, ConcreteStreet southConcreteStreet) {
+        for (OldConcreteBlock concreteBlock : concreteBlocks) {
+            if (avenuesMatch(concreteBlock, westConcreteAvenue, eastConcreteAvenue)
+                && streetsMatch(concreteBlock, northConcreteStreet, southConcreteStreet)) {
+                return concreteBlock;
             }
         }
         return null;
     }
 
 
-    public Iterator<Block> iterator () {
-        return blocks.iterator();
+    public Iterator<OldConcreteBlock> iterator () {
+        return concreteBlocks.iterator();
     }
 
 
-    public ArrayList<Block> filter (Predicate<Block> predicate) {
-        ArrayList<Block> matches = new ArrayList<Block>();
-        for (Block block : blocks) {
-            if ((predicate.test(block) && !matches.contains(block))) {
-                matches.add(matches.size(), block);
+    public ArrayList<OldConcreteBlock> filter (Predicate<OldConcreteBlock> predicate) {
+        ArrayList<OldConcreteBlock> matches = new ArrayList<OldConcreteBlock>();
+        for (OldConcreteBlock concreteBlock : concreteBlocks) {
+            if ((predicate.test(concreteBlock) && !matches.contains(concreteBlock))) {
+                matches.add(matches.size(), concreteBlock);
             }
         }
         return matches;
     }
 
 
-    private boolean avenuesMatch (Block block, Avenue westAvenue, Avenue eastAvenue) {
-        return (block.getWesternAvenue().equals(westAvenue) && block.getEasternAvenue().equals(eastAvenue));
+    private boolean avenuesMatch (OldConcreteBlock concreteBlock, ConcreteAvenue westConcreteAvenue, ConcreteAvenue eastConcreteAvenue) {
+        return (concreteBlock.getWesternAvenue().equals(westConcreteAvenue) && concreteBlock.getEasternAvenue().equals(eastConcreteAvenue));
     } // close avenuesMatch
 
 
-    private boolean streetsMatch (Block block, Street northStreet, Street southStreet) {
-        return (block.getNorthernStreet().equals(northStreet) && block.getSouthernStreet().equals(southStreet));
+    private boolean streetsMatch (OldConcreteBlock concreteBlock, ConcreteStreet northConcreteStreet, ConcreteStreet southConcreteStreet) {
+        return (concreteBlock.getNorthernStreet().equals(northConcreteStreet) && concreteBlock.getSouthernStreet().equals(southConcreteStreet));
     } // close streetsMatch
 
 
     @Override
     public String toString () {
         String string = "Blocks\n------------\n";
-        for (Block block : blocks) {
-//            if (block.getId() > 1000) System.out.println("\t block.getName()");
-            string += block.toString() + "\n";
+        for (OldConcreteBlock concreteBlock : concreteBlocks) {
+//            if (concreteBlock.getId() > 1000) System.out.println("\t concreteBlock.getName()");
+            string += concreteBlock.toString() + "\n";
         }
         return string;
     }

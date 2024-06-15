@@ -1,8 +1,8 @@
 package com.lawal.transit.test.populator;
 
-import com.lawal.transit.core.abstracts.Road;
+import com.lawal.transit.core.abstracts.AbstractRoad;
 import com.lawal.transit.core.concretes.*;
-import com.lawal.transit.core.enums.Direction;
+import com.lawal.transit.Orientation;
 import com.lawal.transit.core.global.Constant;
 import com.lawal.transit.core.interfaces.Populator;
 import com.lawal.transit.core.singletons.*;
@@ -22,50 +22,50 @@ public enum StationPopulator implements Populator {
     } // close populate
 
     private void processAvenues () {
-        for (Avenue avenue : Avenues.INSTANCE.getAvenues()) {
-            Direction busDirection = Direction.NORTH;
-            createStations(avenue, Constant.AVENUE_ROUTE_OUTBOUND_DIRECTION, Constant.NORTH_STATION_STARTING_NUMBER);
+        for (ConcreteAvenue concreteAvenue : Avenues.INSTANCE.getAvenues()) {
+            Orientation busOrientation = Orientation.NORTH;
+            createStations(concreteAvenue, Constant.avenueRouteOutboundOrientation, Constant.NORTH_STATION_STARTING_NUMBER);
 
-            busDirection = Direction.SOUTH;
-            createStations(avenue, Constant.AVENUE_ROUTE_OUTBOUND_DIRECTION.oppositeDirection(), Constant.SOUTH_STATION_STARTING_NUMBER);
+            busOrientation = Orientation.SOUTH;
+            createStations(concreteAvenue, Constant.avenueRouteOutboundOrientation.oppositeDirection(), Constant.SOUTH_STATION_STARTING_NUMBER);
         }
     } // close
 
     private void processStreets() {
-        for (Street street : Streets.INSTANCE.getStreets()) {
-            Direction busDirection = Direction.EAST;
-            createStations(street, Constant.STREET_ROUTE_OUTBOUND_DIRECTION, Constant.EAST_STATION_STARTING_NUMBER);
+        for (ConcreteStreet concreteStreet : Streets.INSTANCE.getStreets()) {
+            Orientation busOrientation = Orientation.EAST;
+            createStations(concreteStreet, Constant.streetRouteOutboundOrientation, Constant.EAST_STATION_STARTING_NUMBER);
 
-            busDirection = Direction.WEST;
-            createStations(street, Constant.STREET_ROUTE_OUTBOUND_DIRECTION.oppositeDirection(), Constant.WEST_STATION_STARTING_NUMBER);
+            busOrientation = Orientation.WEST;
+            createStations(concreteStreet, Constant.streetRouteOutboundOrientation.oppositeDirection(), Constant.WEST_STATION_STARTING_NUMBER);
         }
     } // close
 
     private void adjacentNeighbors () {
-        for (Station station : Stations.INSTANCE.getStations()) {
-            station.setIncomingNeighbors();
-            station.setOutgoingNeighbors();
+        for (OldAbstractStation oldAbstractStation : Stations.INSTANCE.getStations()) {
+            oldAbstractStation.setIncomingNeighbors();
+            oldAbstractStation.setOutgoingNeighbors();
         }
     } //
 
-    private void createStations (Road road, Direction busDirection, int stationNumber) {
-        Direction orientation = Block.borderOrientation(busDirection);
-        Predicate<Block> predicate = (block) -> block.getBorderRoad(orientation).equals(road);
+    private void createStations (AbstractRoad abstractRoad, Orientation busOrientation, int stationNumber) {
+        Orientation orientation = OldConcreteBlock.borderOrientation(busOrientation);
+        Predicate<OldConcreteBlock> predicate = (block) -> block.getBorderRoad(orientation).equals(abstractRoad);
 
-        Iterator<Block> iterator = Blocks.INSTANCE.filter(predicate).iterator();
+        Iterator<OldConcreteBlock> iterator = Blocks.INSTANCE.filter(predicate).iterator();
         int buildCount = 0;
         while(iterator.hasNext()) {
-            Block block = iterator.next();
+            OldConcreteBlock concreteBlock = iterator.next();
             if (canBuildMore(buildCount)) {
                 int id = SerialNumberGenerator.INSTANCE.assignNumber(this);
                 String name = NameGenerator.INSTANCE.assignName(this, (stationNumber + (id - 2)));
-                Station station = new Station(id, name, block, orientation);
-                Stations.INSTANCE.add(station);
+                OldAbstractStation oldAbstractStation = new OldAbstractStation(id, name, concreteBlock, orientation);
+                Stations.INSTANCE.add(oldAbstractStation);
                 int size = Stations.INSTANCE.size();
                 if (size >= 2) {
-                    Station previous = Stations.INSTANCE.getStations().get(size - 2);
-                    station.addIncomingNeighbor(previous);
-                    previous.addOutGoingNeighbor(station);
+                    OldAbstractStation previous = Stations.INSTANCE.getStations().get(size - 2);
+                    oldAbstractStation.addIncomingNeighbor(previous);
+                    previous.addOutGoingNeighbor(oldAbstractStation);
                 }
             }
             buildCount++;

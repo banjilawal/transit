@@ -1,8 +1,8 @@
 package com.lawal.transit.core.singletons;
 
+import com.lawal.transit.*;
 import com.lawal.transit.core.abstracts.*;
 import com.lawal.transit.core.concretes.*;
-import com.lawal.transit.core.enums.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,55 +10,55 @@ import java.util.function.*;
 
 public enum Buildings {
     INSTANCE;
-    ArrayList<Building> buildings = new ArrayList<>();
+    ArrayList<AbstractBuilding> abstractBuildings = new ArrayList<>();
 
 
-    public ArrayList<Building> getBuildings () {
-        return buildings;
+    public ArrayList<AbstractBuilding> getBuildings () {
+        return abstractBuildings;
     }
 
 
-    public void add (Building building) {
-        if (buildings.contains(building)) {
-            throw new IllegalArgumentException("Building " + building.getName()
+    public void add (AbstractBuilding abstractBuilding) {
+        if (abstractBuildings.contains(abstractBuilding)) {
+            throw new IllegalArgumentException("AbstractBuilding " + abstractBuilding.getName()
                 + " already exists add cannot add another");
         }
-        buildings.add(buildings.size(), building);
+        abstractBuildings.add(abstractBuildings.size(), abstractBuilding);
     }
 
 
-    public Building search (int id) {
-        for (Building building : buildings) {
-            if (building.getId() == id) {
-                return building;
+    public AbstractBuilding search (int id) {
+        for (AbstractBuilding abstractBuilding : abstractBuildings) {
+            if (abstractBuilding.getId() == id) {
+                return abstractBuilding;
             }
         }
         return null;
     }
 
 
-    public Building search (String name, Road road, Direction orientation) {
-        for (Building building : buildings) {
-            if (building.getName().equalsIgnoreCase(name)
-                && building.getRoad().equals(road)
-                && building.getOrientation().equals(orientation)
+    public AbstractBuilding search (String name, AbstractRoad abstractRoad, Orientation orientation) {
+        for (AbstractBuilding abstractBuilding : abstractBuildings) {
+            if (abstractBuilding.getName().equalsIgnoreCase(name)
+                && abstractBuilding.getRoad().equals(abstractRoad)
+                && abstractBuilding.getOrientation().equals(orientation)
             ) {
-                return building;
+                return abstractBuilding;
             }
         }
         return null;
     }
 
-    public Iterator<Building> iterator () {
-        return buildings.iterator();
+    public Iterator<AbstractBuilding> iterator () {
+        return abstractBuildings.iterator();
     }
 
 
-    public ArrayList<Building> filter (Predicate<Building> predicate) {
-        ArrayList<Building> matches = new ArrayList<>();
-        for (Building building : buildings) {
-            if ((predicate.test(building) && !matches.contains(building))) {
-                matches.add(matches.size(), building);
+    public ArrayList<AbstractBuilding> filter (Predicate<AbstractBuilding> predicate) {
+        ArrayList<AbstractBuilding> matches = new ArrayList<>();
+        for (AbstractBuilding abstractBuilding : abstractBuildings) {
+            if ((predicate.test(abstractBuilding) && !matches.contains(abstractBuilding))) {
+                matches.add(matches.size(), abstractBuilding);
             }
         }
         return matches;
@@ -68,8 +68,8 @@ public enum Buildings {
     @Override
     public String toString () {
         String string = "Buildings\n------------\n";
-        for (Building building : buildings) {
-            string += building.toString() + "\n";
+        for (AbstractBuilding abstractBuilding : abstractBuildings) {
+            string += abstractBuilding.toString() + "\n";
         }
         return string;
     }
