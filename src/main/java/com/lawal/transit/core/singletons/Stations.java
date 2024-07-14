@@ -62,10 +62,10 @@ public enum Stations {
 
     @Override
     public String toString () {
-        String string = "Stations\n------------\n";
+        String string = "Vertices\n------------\n";
         for (OldAbstractStation oldAbstractStation : oldAbstractStations) {
             string += oldAbstractStation.toString() + "\n";
         }
         return string;
     }
-} // end class Stations
+} // end class Vertices

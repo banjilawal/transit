@@ -1,29 +1,26 @@
 package com.lawal.transit.road;
 
 import com.lawal.transit.*;
-import com.lawal.transit.addresses.*;
-import com.lawal.transit.addresses.interfaces.*;
-import com.lawal.transit.locations.*;
+import com.lawal.transit.buildings.*;
+import com.lawal.transit.globals.*;
+import com.lawal.transit.graph.*;
+import com.lawal.transit.graph.interfaces.*;
 import com.lawal.transit.road.interfaces.*;
 
-public class  TrafficLane implements Lane {
-    public static final String ADDITION_ERROR = "The item is already in the list. It cannot be added again";
-    public static final String REMOVAL_ERROR = "The item does not exist in the list so it cannot be removed";
-    private final int id;
-    private final Orientation trafficDirection;
-    private final AddressCollection<LocationAddressable> addresses;
-    private final Stations stations;
+public final class TrafficLane implements Lane {  //extends Rectangle implements Lane {
 
-    public TrafficLane (
-        int id,
-        Orientation trafficDirection,
-        AddressCollection<LocationAddressable> addresses,
-        Stations stations
-    ) {
-        this.id = id;
+    public static final String ILLEGAL_STATION_ADDITION_ATTEMPT = "Stations can only be added to the zeroth lane";
+    public static final String ILLEGAL_BUILDING_ADDITION_ATTEMPT = "Buildings can only be added to the zeroth lane";
+    private final Orientation trafficDirection;
+    private final AddressableCollection buildings;
+    private final VertexCollection stations;
+    private final int id;
+
+    public TrafficLane (Orientation trafficDirection, int id) {
         this.trafficDirection = trafficDirection;
-        this.addresses = addresses;
-        this.stations = stations;
+        this.buildings = new Buildings();
+        this.stations = new Vertices();
+        this.id = id;
     }
 
     @Override
@@ -37,13 +34,26 @@ public class  TrafficLane implements Lane {
     }
 
     @Override
-    public AddressCollection<LocationAddressable> getAddresses () {
-        return addresses;
+    public AddressableCollection getBuildings () {
+        return buildings;
     }
 
     @Override
-    public Stations getStations () {
+    public VertexCollection getStations () {
         return stations;
     }
 
+    @Override
+    public void addStation (Vertex station) throws Exception {
+        if (id != 0)
+            throw new Exception(ILLEGAL_STATION_ADDITION_ATTEMPT);
+        this.stations.add(station);
+    }
+
+    @Override
+    public void addBuilding (Addressable building) throws Exception {
+        if (id != 0)
+            throw new Exception(ILLEGAL_BUILDING_ADDITION_ATTEMPT);
+        this.buildings.add(building);
+    }
 }

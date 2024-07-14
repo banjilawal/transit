@@ -1,9 +1,9 @@
 package com.lawal.transit.core.concretes;
-import com.lawal.transit.core.abstracts.Coordinate;
+import com.lawal.transit.core.abstracts.PathCoordinate;
 
 import java.util.*;
 
-public class Intersection extends Coordinate {
+public class Intersection extends PathCoordinate {
     private int id;
     private String name;
 

@@ -1,49 +1,50 @@
 package com.lawal.transit.graph;
 
 import com.lawal.transit.*;
-import com.lawal.transit.addresses.interfaces.*;
 import com.lawal.transit.graph.interfaces.*;
+import com.lawal.transit.road.interfaces.*;
 import javafx.scene.canvas.*;
 
 import java.util.*;
 
-public class Edge implements Edgeable<Vertex<Addressable>>, GraphicRenderer {
+public class Edge implements Edgeable, GraphicRenderer {
+
+    private final Vertex head;
+    private final Vertex tail;
+    private final RoadIdentifiable roadIdentifier;
     private final Weightable weightable;
-    private final Vertex<Addressable> head;
-    private final Vertex<Addressable> tail;
-    private final RoadLabeler label;
 
 
     public Edge (
-        Weightable weightable,
-        Vertex<Addressable> head,
-        Vertex<Addressable> tail,
-        RoadLabeler label
+        Vertex head,
+        Vertex tail,
+        RoadIdentifiable roadIdentifier,
+        Weightable weightable
     ) {
-        this.weightable = weightable;
         this.head = head;
         this.tail = tail;
-        this.label = label;
+        this.roadIdentifier = roadIdentifier;
+        this.weightable = weightable;
+    }
+
+    @Override
+    public Vertex getHead () {
+        return head;
+    }
+
+    @Override
+    public Vertex getTail () {
+        return tail;
+    }
+
+    @Override
+    public RoadIdentifiable getRoadIdentifier () {
+        return roadIdentifier;
     }
 
     @Override
     public Weightable getWeight () {
         return weightable;
-    }
-
-    @Override
-    public Vertex<Addressable> getHead () {
-        return head;
-    }
-
-    @Override
-    public Vertex<Addressable> getTail () {
-        return tail;
-    }
-
-    @Override
-    public RoadLabeler getLabel () {
-        return label;
     }
 
     public boolean equals (Object object) {
@@ -53,20 +54,20 @@ public class Edge implements Edgeable<Vertex<Addressable>>, GraphicRenderer {
             return weightable.equals(edge.getWeight())
                 && head.equals(edge.getHead())
                 && tail.equals(edge.getTail())
-                && label.equals(edge.getLabel());
+                && roadIdentifier.equals(edge.getRoadIdentifier());
         }
         return false;
     }
 
     @Override
     public int hashCode () {
-        return Objects.hash(weightable, head, tail, label);
+        return Objects.hash(weightable, head, tail, roadIdentifier);
     }
 
     @Override
     public String toString () {
         return getClass().getSimpleName() + " weight:" + weightable.toString()
-            + " tail:" + tail.getAddress() + " --|" + label + "|-->" + " head:" + head.getAddress();
+            + " tail:" + tail.getAddress() + " --|" + roadIdentifier + "|-->" + " head:" + head.getAddress();
     }
 
     @Override

@@ -1,13 +1,12 @@
 package com.lawal.transit.graph.interfaces;
 
-import com.lawal.transit.addresses.*;
-import com.lawal.transit.addresses.interfaces.*;
+import com.lawal.transit.road.interfaces.*;
 
-public interface Edgeable<Vertex> {
+public interface Edgeable {
 
     public Vertex getHead ();
     public Vertex getTail ();
-    public RoadLabeler getLabel ();
+    public RoadIdentifiable getRoadIdentifier ();
     public Weightable getWeight ();
 
 

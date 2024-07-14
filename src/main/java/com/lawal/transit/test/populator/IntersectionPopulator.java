@@ -27,7 +27,7 @@ public enum IntersectionPopulator implements Populator {
          *
          * WARNING
          * ---------
-         * Changing this breaks OldConcreteBlock ordering and just makes setting neighbors really hard for Blocks and LocationAddresses.
+         * Changing this breaks OldConcreteBlock ordering and just makes setting neighbors really hard for Blocks and Buildings.
          */
         for (ConcreteStreet concreteStreet : Streets.INSTANCE.getStreets()) {
             for (ConcreteAvenue concreteAvenue : Avenues.INSTANCE.getAvenues()) {

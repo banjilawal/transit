@@ -1,9 +1,9 @@
 package com.lawal.transit.dispatch;
 
-import com.lawal.transit.addresses.*;
+import com.lawal.transit.globals.*;
 
 public interface TransitRequest extends SystemRequest {
 
-    public LocationAddress getSource ();
-    public LocationAddress getDestination ();
+    public Address getSource ();
+    public Address getDestination ();
 }

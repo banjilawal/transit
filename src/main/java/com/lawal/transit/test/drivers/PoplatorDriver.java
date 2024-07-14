@@ -6,7 +6,7 @@ import com.lawal.transit.test.populator.*;
 
 public class PoplatorDriver {
 
-//    public static String vertexInfo (StationGraph stationGraph,VertexedLocation vertex) {
+//    public static String vertexInfo (StationGraphable stationGraph,VertexedLocation vertex) {
 //       String string = "";
 //        OldAbstractStation station = stationGraph.getStation(vertex);
 //        if (station != null) {
@@ -39,7 +39,7 @@ public class PoplatorDriver {
         System.out.println(Stations.INSTANCE.toString() + "\n");
         System.out.println(Blocks.INSTANCE.toString() + "\n");
 //
-//        StationGraph stationGraph = new StationGraph();
+//        StationGraphable stationGraph = new StationGraphable();
 //        stationGraph.addStations();
 //        System.out.println("OldAbstractStation SectionGraph\n" + stationGraph.toString());
 //        for (VertexedLocation vertex : stationGraph.getGraph().getVertices()) {

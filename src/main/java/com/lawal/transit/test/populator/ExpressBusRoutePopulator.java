@@ -50,8 +50,8 @@ public enum ExpressBusRoutePopulator implements Populator, NumberAcceptor, NameA
 //
 //    private void addStations (ExpressBusRoute busRoute, TwoWayRoad road) {
 //        Predicate<OldAbstractStation> predicate = (station) -> station.getRoad().equals(road);
-//        while (Stations.INSTANCE.stations.search(predicate = (station) -> station.getRoad().equals(road)).hasNext()) {
-//            OldAbstractStation station = Stations.INSTANCE.stations.search(predicate).next();
+//        while (Vertices.INSTANCE.stations.search(predicate = (station) -> station.getRoad().equals(road)).hasNext()) {
+//            OldAbstractStation station = Vertices.INSTANCE.stations.search(predicate).next();
 //            busRoute.addStation(station);
 //            station.addBusRouteName(busRoute.getName());
 //        }

@@ -1,8 +1,9 @@
 package com.lawal.transit.graph.interfaces;
 
-import com.lawal.transit.addresses.*;
-import com.lawal.transit.addresses.interfaces.*;
+import com.lawal.transit.globals.*;
 
-public interface Vertex<Addressable> extends AddressGettable<Addressable> {
-
+public interface Vertex {
+    public FormattedAddress getAddress ();
+    public EdgeCollection getIncomingEdges ();
+    public EdgeCollection getOutgoingEdges ();
 }
