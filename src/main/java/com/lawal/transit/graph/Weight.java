@@ -1,7 +1,5 @@
 package com.lawal.transit.graph;
 
-import com.lawal.transit.graph.interfaces.*;
-
 import java.util.*;
 
 public class Weight implements Weightable {

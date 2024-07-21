@@ -1,8 +1,6 @@
 package com.lawal.transit.ui;
 
 import com.lawal.transit.globals.*;
-import com.lawal.transit.graph.interfaces.*;
-import com.lawal.transit.ui.interfaces.*;
 import javafx.beans.property.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;

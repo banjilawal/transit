@@ -1,11 +1,8 @@
 package com.lawal.transit.stations;
 
 
-import com.lawal.transit.*;
 import com.lawal.transit.globals.*;
 import com.lawal.transit.graph.*;
-import com.lawal.transit.graph.interfaces.*;
-import javafx.scene.canvas.*;
 
 import java.util.*;
 
@@ -55,6 +52,10 @@ public class Station implements Vertex {
 
     @Override
     public String toString () {
-        return address.getName() + address.getOrientation().abbreviation();
+        return address.getId()
+            + " " + address.getName()
+            + address.getOrientation().abbreviation()
+            + " inDegree: " + incomingEdges.getDegree()
+            + " outDegree: " + outgoingEdges.getDegree();
     }
 }

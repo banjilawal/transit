@@ -1,28 +1,42 @@
 package com.lawal.transit.road;
 
 import com.lawal.transit.*;
-import com.lawal.transit.road.interfaces.*;
+import com.lawal.transit.buildings.*;
+import com.lawal.transit.globals.*;
+import com.lawal.transit.graph.*;
+import com.lawal.transit.stations.*;
 
 
 public final class Avenue implements Road {
 
-    public static final Orientation RIGHT_LANE_TRAFFIC_DIRECTION = Orientation.WEST;
-    public static final Orientation LEFT_LANE_TRAFFIC_DIRECTION = Orientation.EAST;
+    public static final Orientation RIGHT_LATERAL_TRAFFIC_DIRECTION = Orientation.WEST;
+    public static final Orientation LEFT_LATERAL_TRAFFIC_DIRECTION = Orientation.EAST;
     private final RoadIdentifiable identifier;
-    private final LaneCollection rightLanes;
     private final LaneCollection leftLanes;
+    private final LaneCollection rightLanes;
+    private final VertexCollection leftSideStations;
+    private final VertexCollection rightSideStations;
+    private final AddressableCollection leftSideBuildings;
+    private final AddressableCollection rightSideBuildings;
 
-    public Avenue (String name, int id) throws Exception {
-        this(name, id, 0, 0);
+    public Avenue (int id, String name) throws Exception {
+        this(id, name, 0, 0);
     }
 
-    public Avenue (String name, int id, int numberOfRightLanes, int numberOfLeftLanes) throws Exception {
-        this.identifier = new RoadIdentifier(RoadCategory.AVENUE, name, id);
-        this.rightLanes = new TrafficLanes(RIGHT_LANE_TRAFFIC_DIRECTION);
-        this.leftLanes = new TrafficLanes(LEFT_LANE_TRAFFIC_DIRECTION);
-
-        rightLanes.addLanes(numberOfRightLanes);
-        leftLanes.addLanes(numberOfLeftLanes);
+    public Avenue (int id, String name, int numberOfRightLanes, int numberOfLeftLanes) {
+        this.identifier = new RoadIdentifier(id, name, RoadCategory.AVENUE);
+        this.rightLanes = new TrafficLanes(RIGHT_LATERAL_TRAFFIC_DIRECTION);
+        for (int index = 0; index < numberOfRightLanes; index++) {
+            rightLanes.addLane();
+        }
+        this.leftLanes = new TrafficLanes(LEFT_LATERAL_TRAFFIC_DIRECTION);
+        for (int index = 0; index < numberOfLeftLanes; index++) {
+            leftLanes.addLane();
+        }
+        this.leftSideStations = new Stations();
+        this.rightSideStations = new Stations();
+        this.leftSideBuildings = new Buildings();
+        this.rightSideBuildings = new Buildings();
     }
 
     @Override
@@ -31,21 +45,33 @@ public final class Avenue implements Road {
     }
 
     @Override
+    public LaneCollection getLeftLanes () {
+        return leftLanes;
+    }
+
+    @Override
     public LaneCollection getRightLanes () {
         return rightLanes;
     }
 
     @Override
-    public LaneCollection getLeftLanes () { return leftLanes; }
-
-    @Override
-    public Orientation getRightLaneTrafficeDirection () {
-        return RIGHT_LANE_TRAFFIC_DIRECTION;
+    public VertexCollection getLeftSideStations () {
+        return leftSideStations;
     }
 
     @Override
-    public Orientation getLeftLaneTrafficDirection () {
-        return LEFT_LANE_TRAFFIC_DIRECTION;
+    public VertexCollection getRightSideStations () {
+        return rightSideStations;
+    }
+
+    @Override
+    public AddressableCollection getLeftSideBuildings () {
+        return leftSideBuildings;
+    }
+
+    @Override
+    public AddressableCollection getRightSideBuildings () {
+        return rightSideBuildings;
     }
 
     @Override
@@ -62,28 +88,6 @@ public final class Avenue implements Road {
 
     @Override
     public String toString () {
-        return identifier.toString();
+        return identifier.getName() + " " + identifier.getCategory().abbreviation();
     }
-
-//    @Override
-//    public void render (GraphicsContext gc) {
-//
-//    }
-//
-//    public void addLabel () {
-//        // Calculate label position
-//        double labelX = (getStartX() + getEndX()) / 2;
-//        double labelY = (getStartY() + getEndY()) / 2;
-//
-//        // Create label
-//        Label nameLabel = new Label(identifier.toString());
-//        nameLabel.setLayoutX(labelX);
-//        nameLabel.setLayoutY(labelY);
-//        nameLabel.setTextFill(Color.BLACK); // Set text color
-//        nameLabel.setStyle("-fx-font-size: 12px;"); // Set font size
-//
-//        // Add label to parent
-//        ((javafx.scene.Group) getParent()).getChildren().add(nameLabel);
-//    }
-
 }

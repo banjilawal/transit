@@ -1,7 +1,6 @@
 package com.lawal.transit.buildings;
 
 import com.lawal.transit.globals.*;
-import javafx.collections.*;
 
 import java.util.*;
 

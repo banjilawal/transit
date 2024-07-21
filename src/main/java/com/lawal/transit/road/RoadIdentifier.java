@@ -1,25 +1,22 @@
 package com.lawal.transit.road;
 
-import com.lawal.transit.road.interfaces.*;
+import java.util.*;
 
 public final class RoadIdentifier implements RoadIdentifiable {
 
-    private final RoadCategory category;
-    private final String name;
     private final int id;
+    private final String name;
+    private final RoadCategory category;
 
-
-
-    public RoadIdentifier (RoadCategory category,  String name, int id) {
-        this.category = category;
-        this.name = name;
+    public RoadIdentifier (int id, String name, RoadCategory category) {
         this.id = id;
-
+        this.name = name;
+        this.category = category;
     }
 
     @Override
-    public RoadCategory getCategory () {
-        return category;
+    public int getId () {
+        return id;
     }
 
     @Override
@@ -28,21 +25,24 @@ public final class RoadIdentifier implements RoadIdentifiable {
     }
 
     @Override
-    public int getId () {
-        return id;
+    public RoadCategory getCategory () {
+        return category;
     }
-
-
 
     @Override
     public boolean equals (Object object) {
         if (object == this) return true;
         if (object == null) return false;
-        if (object instanceof RoadIdentifiable identity) {
-            return category == identity.getCategory() && id == identity.getId()
-                && name.equalsIgnoreCase(identity.getName());
-        }
+        if (object instanceof RoadIdentifier identifier)
+            return id == identifier.getId()
+                && name.equalsIgnoreCase(identifier.getName())
+                && category.equals(identifier.getCategory());
         return false;
+    }
+
+    @Override
+    public int hashCode () {
+        return Objects.hash(id, name, category);
     }
 
     @Override

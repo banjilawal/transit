@@ -1,8 +1,7 @@
 package com.lawal.transit.graph;
 
 import com.lawal.transit.*;
-import com.lawal.transit.graph.interfaces.*;
-import com.lawal.transit.road.interfaces.*;
+import com.lawal.transit.road.*;
 import javafx.scene.canvas.*;
 
 import java.util.*;

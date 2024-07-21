@@ -4,22 +4,32 @@ package com.lawal.transit.buildings;
 import com.lawal.transit.fx.*;
 import com.lawal.transit.globals.*;
 
+import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 
 public class FXBuilding extends Node implements FXAddressableControl {
     private final Addressable addressable;
+    private final Stylerizerable stylerizer;
     private final Button button;
-    private final StylerInterface styler;
 
     public FXBuilding (
         Addressable addressable,
-        StylerInterface styler
+        Stylerizerable stylerizer
     ) {
         this.addressable = addressable;
-        this.button = new Button(addressable.getAddress().toString());
-        this.button.setStyle(styler.toString());
-        this.styler = styler;
+        this.stylerizer = stylerizer;
+        this.button = new Button(
+            addressable.getAddress().getName() + "\n" + addressable.getAddress().getRoadIdentity().getName() + " " + addressable.getAddress().getOrientation().abbreviation()
+//            addressable.getAddress()
+//                .getName()
+//                + "\n" + addressable.getAddress().getRoadIdentity().toString()
+//                + " " + addressable.getAddress().getOrientation().abbreviation()
+        );
+        this.button.alignmentProperty().set(Pos.CENTER);
+        this.button.wrapTextProperty().setValue(true);
+        this.button.setStyle(stylerizer.toString());
+        this.button.setTooltip(new Tooltip(addressable.toString()));
     }
 
     @Override
@@ -33,8 +43,8 @@ public class FXBuilding extends Node implements FXAddressableControl {
     }
 
     @Override
-    public StylerInterface getStyler () {
-        return styler;
+    public Stylerizerable getStylerizer () {
+        return stylerizer;
     }
 
 //    private String defaultCSS () {

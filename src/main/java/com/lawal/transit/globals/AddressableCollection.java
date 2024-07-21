@@ -1,7 +1,5 @@
 package com.lawal.transit.globals;
 
-import com.lawal.transit.globals.*;
-
 import java.util.*;
 
 public interface AddressableCollection {

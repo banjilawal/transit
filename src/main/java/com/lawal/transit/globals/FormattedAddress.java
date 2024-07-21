@@ -1,7 +1,7 @@
 package com.lawal.transit.globals;
 
 import com.lawal.transit.*;
-import com.lawal.transit.road.interfaces.*;
+import com.lawal.transit.road.*;
 
 public interface FormattedAddress {
     public int getId ();

@@ -3,8 +3,6 @@ package com.lawal.transit.stations;
 import com.lawal.transit.*;
 import com.lawal.transit.globals.*;
 import com.lawal.transit.graph.*;
-import com.lawal.transit.graph.interfaces.*;
-import com.lawal.transit.road.interfaces.*;
 
 import java.util.*;
 

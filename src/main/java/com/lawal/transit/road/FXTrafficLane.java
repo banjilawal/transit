@@ -1,35 +1,37 @@
 package com.lawal.transit.road;
 
 import com.lawal.transit.fx.*;
-import com.lawal.transit.road.interfaces.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 
-public class FXTrafficLane implements ShapeableLane {
+public final class FXTrafficLane implements FXLanePane {
 
     private final Lane lane;
-    private final double width;
-    private final double height;
-    private final double startingX;
-    private final double startingY;
-    private final StylerInterface styler;
-    private final Shape shape;
+    private final Stylerizerable stylerizer;
+    private final Rectangle rectangle;
+    private final Group group;
+    private final Pane pane;
 
     public FXTrafficLane (
         Lane lane,
-        double width,
-        double height,
-        double startingX,
-        double startingY,
-        StylerInterface styler
+        Rectangle rectangle,
+        Stylerizerable stylerizer,
+        RoadCategory roadCategory
     ) {
         this.lane = lane;
-        this.width = width;
-        this.height = height;
-        this.startingX = startingX;
-        this.startingY = startingY;
-        this.styler = styler;
-        this.shape = new Rectangle(startingX, startingY, startingX + width, startingY + height);
-        this.shape.setStyle(styler.toString());
+        this.rectangle = rectangle;
+        this.stylerizer = stylerizer;
+        this.group = new Group();
+        this.group.getChildren().add(rectangle);
+        if (roadCategory.equals(RoadCategory.AVENUE))
+            this.pane = new HBox();
+        else this.pane = new VBox();
+        this.pane.setStyle(
+            "-fx-background-color: black; -fx-padding: 1; -fx-border-border-color: white; -fx-border-style: dashed; "
+        );
+        pane.getChildren().addAll(group);
     }
 
     @Override
@@ -37,37 +39,138 @@ public class FXTrafficLane implements ShapeableLane {
         return lane;
     }
 
-    @Override
-    public double getWidth () {
-        return width;
+    public Group getGroup () {
+        return group;
     }
 
     @Override
-    public double getHeight () {
-        return height;
+    public Pane getPane () {
+        return pane;
+    }
+
+
+    @Override
+    public Rectangle getRectangle () {
+        return rectangle;
     }
 
     @Override
-    public double getStartingX () {
-        return startingX;
+    public Stylerizerable getStylerizer () {
+        return null;
     }
 
-    @Override
-    public double getStartingY () {
-        return startingY;
-    }
 
-    @Override
-    public Shape getShape () {
-        return shape;
-//        Rectangle rectangle = new Rectangle(startingX, startingY, startingX + width, startingY + height);
-//        rectangle.setStyle(styler.toString());
-//        rectangle.setFill(Color.LIGHTGRAY);
+//    @Override
+//    public StylerizerableFactorable getStylerizerFactory () {
+//        return null;
+//    }
+//    private final RectangleDimension dimension;
+//    private final StylerizerableFactorable stylerizerFactory;
+//
+//    public FXTrafficLane (
+//        Lane lane,
+//        RectangleDimension dimension,
+//        StylerizerableFactorable stylerizerFactory
+//
+//    ) {
+//        this.lane = lane;
+//        this.dimension = dimension;
+//        this.stylerizerFactory = stylerizerFactory;
+////        this.shape = new Rectangle(
+////            dimension.getCoordinate().getX(),
+////            dimension.getCoordinate().getY(),
+////            dimension.getWidth(),
+////            dimension.getHeight()
+////        );
+////        this.shape.setFill(Color.GRAY);
+////        this.shape.setStroke(Color.WHITE);
+////        this.shape.setStrokeType(StrokeType.OUTSIDE);
+////        this.shape.autosize();
+////        this.shape.setStyle(stylerizerFactory.stylerizer(ComponentCategory.LANE).toString());
+////        this.dimension = dimension;
+//    }
+//
+//    @Override
+//    public Lane getLane () {
+//        return lane;
+//    }
+//
+//    @Override
+//    public RectangleDimension getDimension () {
+//        return dimension;
+//    }
+//
+////    @Override
+////    public Shape getShape () {
+////        return shape;
+////        Rectangle rectangle = new Rectangle(startingX, startingY, startingX + width, startingY + height);
+////        rectangle.setStyle(styler.toString());
+////        rectangle.setFill(Color.LIGHTGRAY);
+////        return rectangle;
+////    }
+//
+//    @Override
+//    public StylerizerableFactorable getStylerizerFactory () {
+//        return stylerizerFactory;
+//    }
+//
+//    public ButtonBar getBUildingButtonBar () {
+//        ButtonBar buttonBar = new ButtonBar();
+//        Iterator<Addressable> iterator = lane.getBuildings().iterator();
+//        while (iterator.hasNext()) {
+//            buttonBar.getButtons().add(
+//                buttonBar.getButtons().size(),
+//                new FXBuilding(iterator.next(),
+//                stylerizerFactory.stylerizer(ComponentCategory.ADDRESSABLE)).getButton()
+//            );
+//        }
+//        return buttonBar;
+//    }
+//
+//    public ButtonBar getStationButtonBar () {
+//        ButtonBar buttonBar = new ButtonBar();
+//        Iterator<Vertex> iterator = lane.getStations().iterator();
+//        while (iterator.hasNext()) {
+//            buttonBar.getButtons().add(
+//                buttonBar.getButtons().size(),
+//                new FXStation(iterator.next(),
+//                stylerizerFactory.stylerizer(ComponentCategory.VERTEX)).getButton()
+//            );
+//        }
+//        return buttonBar;
+//    }
+//
+//    public Rectangle getRectangle () {
+//        Rectangle rectangle = new Rectangle(
+//            dimension.getCoordinate().getX(),
+//            dimension.getCoordinate().getY(),
+//            dimension.getWidth(),
+//            dimension.getHeight()
+//        );
+//        rectangle.autosize();
+//        rectangle.setFill(Color.GRAY);
+//        rectangle.setStroke(Color.WHITE);
+//        rectangle.setStrokeType(StrokeType.OUTSIDE);
+//        rectangle.setStyle(stylerizerFactory.stylerizer(ComponentCategory.LANE).toString());
 //        return rectangle;
-    }
+//    }
+//
+//    public Pane getLaneBox () {
+//        VBox vBox = new VBox();
+//        vBox.autosize();
+//        vBox.setAlignment(Pos.CENTER);
+//        vBox.setBorder(Border.stroke(Color.WHITE));
+//        vBox.getChildren().addAll(getRectangle());
+//        return vBox;
+//    }
+//
+//    public Pane getVBox () {
+//        VBox vBox = new VBox();
+//        vBox.autosize();
+//        vBox.setAlignment(Pos.CENTER);
+//        vBox.setBorder(Border.stroke(Color.PLUM));
+//        vBox.getChildren().addAll(getBUildingButtonBar(), getLaneBox(), getStationButtonBar());
+//        return vBox;
+//    }
 
-    @Override
-    public StylerInterface getStyler () {
-        return styler;
-    }
 }

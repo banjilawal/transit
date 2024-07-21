@@ -1,7 +1,5 @@
 package com.lawal.transit.road;
 
-import com.lawal.transit.road.interfaces.*;
-
 import java.util.*;
 
 public final class Roads implements RoadCollection {

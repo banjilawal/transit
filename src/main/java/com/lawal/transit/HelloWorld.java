@@ -3,8 +3,7 @@ package com.lawal.transit;
 import com.lawal.transit.fx.*;
 import com.lawal.transit.globals.*;
 import com.lawal.transit.graph.*;
-import com.lawal.transit.graph.interfaces.*;
-import com.lawal.transit.road.interfaces.*;
+
 import com.lawal.transit.ui.*;
 import com.lawal.transit.buildings.*;
 import com.lawal.transit.road.*;
@@ -29,13 +28,23 @@ public class HelloWorld extends Application {
     public static double X_COORDINATE = 50;
     public static double Y_COORDINATE = 100;
 
-
-
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Hello World!");
+    public void start (Stage stage) throws Exception {
+
+    }
+
+    //    public static void main(String[] args) {
+//        launch(args);
+//    }
+}
+
+
+
+//    @Override
+//    public void start(Stage primaryStage) throws Exception {
+//        primaryStage.setTitle("Hello World!");
 //
-//        Lane lane = new TrafficLane(Orientation.NORTH, new Buildings(), new Vertices());
+//        Lane lane = new TrafficLane(Orientation.NORTH, new Buildings(), new Stations());
 //        RoadIdentifiable roadIdentity = new RoadIdentifier(1, "Askia");
 //        double startX = X_COORDINATE;
 //        double startY = Y_COORDINATE;
@@ -43,13 +52,13 @@ public class HelloWorld extends Application {
 //        double endY = startY + ROAD_WIDTH;
 //        Avenue avenue = new Avenue(roadIdentity, new TrafficLanes(), startX, startY, endX, endY);
 //        avenue.getLanes().add(new LaneBuilder(Orientation.NORTH).cre);
-//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Buildings(), new Vertices()));
+//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Buildings(), new Stations()));
 //
-//        TrafficLane lane = new TrafficLane(Orientation.NORTH, new Buildings(), new Vertices());
+//        TrafficLane lane = new TrafficLane(Orientation.NORTH, new Buildings(), new Stations());
 //        lane.setWidth(10);
 //        lane.setFill(Color.GRAY);
 //        avenue.getLanes().add(lane);
-//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Buildings(), new Vertices()));
+//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Buildings(), new Stations()));
 //
 //        FormattedAddress address = new Address(1, "2000", avenue.getIdentifier(), Orientation.SOUTH);
 //        Addressable building = new Building(address);
@@ -118,9 +127,8 @@ public class HelloWorld extends Application {
 //        scene.setFill(Color.GREEN);
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
-    }
-    public static void main(String[] args) {
-        launch(args);
-    }
+//    }
 
-}
+//    public static void main(String[] args) {
+//        launch(args);
+//    }

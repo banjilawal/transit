@@ -2,7 +2,7 @@ package com.lawal.transit.globals;
 
 import com.lawal.transit.*;
 
-import com.lawal.transit.road.interfaces.*;
+import com.lawal.transit.road.*;
 
 import java.util.*;
 
@@ -17,12 +17,12 @@ public class Address implements FormattedAddress {
         int id,
         String name,
         Road road,
-        RoadSideCategory roadSideCategory
+        RoadLateral roadLateral
     ) {
         this.id = id;
         this.name = name;
         this.roadIdentity = road.getIdentifier();
-        this.orientation = getOrientation(road, roadSideCategory);
+        this.orientation = getOrientation(road, roadLateral);
     }
 
     @Override
@@ -69,10 +69,10 @@ public class Address implements FormattedAddress {
             + " " + orientation.abbreviation();
     }
 
-    private Orientation getOrientation (Road road, RoadSideCategory roadSideCategory) {
-        if (roadSideCategory == RoadSideCategory.RIGHT_SIDE)
-            return road.getRightLaneTrafficeDirection();
+    private Orientation getOrientation (Road road, RoadLateral roadLateral) {
+        if (roadLateral == RoadLateral.RIGHT)
+            return road.getRightLanes().getTrafficDirection();
         else
-            return road.getLeftLaneTrafficDirection();
+            return road.getLeftLanes().getTrafficDirection();
     }
 }
