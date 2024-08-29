@@ -1,6 +1,8 @@
 package com.lawal.transit.enums;
 
 public enum LocationCategory {
-    BUILDING,
+    APARTMENT,
+    HOUSE,
+    PARK,
     STATION
 }

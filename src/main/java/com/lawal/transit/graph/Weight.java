@@ -4,13 +4,12 @@ import java.util.*;
 
 public class Weight implements Weightable {
 
-    public static final String SET_WEIGHT_VALUE_ERROR = "Cannot set the weight\'s value to a negative number";
+    public static final String SET_WEIGHT_VALUE_ERROR = "Value to a negative number";
     private int value;
 
     public Weight (int value) {
         this.value = value;
     }
-
 
     @Override
     public int getValue () {

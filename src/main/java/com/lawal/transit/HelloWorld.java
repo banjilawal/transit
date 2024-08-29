@@ -1,21 +1,8 @@
 package com.lawal.transit;
 
-import com.lawal.transit.fx.*;
-import com.lawal.transit.globals.*;
-import com.lawal.transit.graph.*;
-
-import com.lawal.transit.ui.*;
 import com.lawal.transit.buildings.*;
-import com.lawal.transit.road.*;
-import com.lawal.transit.stations.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.scene.paint.*;
-import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 public class HelloWorld extends Application {
@@ -44,29 +31,29 @@ public class HelloWorld extends Application {
 //    public void start(Stage primaryStage) throws Exception {
 //        primaryStage.setTitle("Hello World!");
 //
-//        Lane lane = new TrafficLane(Orientation.NORTH, new Buildings(), new Stations());
-//        RoadIdentifiable roadIdentity = new RoadIdentifier(1, "Askia");
+//        Lane lane = new TrafficLane(Orientation.NORTH, new Block(), new Stations());
+//        RoadIdentifier roadLabel = new RoadLabel(1, "Askia");
 //        double startX = X_COORDINATE;
 //        double startY = Y_COORDINATE;
 //        double endX = startX + ROAD_LENGTH;
 //        double endY = startY + ROAD_WIDTH;
-//        Avenue avenue = new Avenue(roadIdentity, new TrafficLanes(), startX, startY, endX, endY);
+//        Avenue avenue = new Avenue(roadLabel, new Carriageway(), startX, startY, endX, endY);
 //        avenue.getLanes().add(new LaneBuilder(Orientation.NORTH).cre);
-//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Buildings(), new Stations()));
+//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Block(), new Stations()));
 //
-//        TrafficLane lane = new TrafficLane(Orientation.NORTH, new Buildings(), new Stations());
+//        TrafficLane lane = new TrafficLane(Orientation.NORTH, new Block(), new Stations());
 //        lane.setWidth(10);
 //        lane.setFill(Color.GRAY);
 //        avenue.getLanes().add(lane);
-//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Buildings(), new Stations()));
+//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Block(), new Stations()));
 //
 //        FormattedAddress address = new Address(1, "2000", avenue.getIdentifier(), Orientation.SOUTH);
-//        Addressable building = new Building(address);
-//        FXAddressableControl fxBuilding = new FXBuilding(building, 50, 50, 100, 40, BUILDING_COLOR);
+//        Addressable building = new Place(address);
+//        AddressableFXControlable fxBuilding = new FXBuildinButton(building, 50, 50, 100, 40, BUILDING_COLOR);
 //
 //
 //        address = new Address(5,"MT501", avenue.getIdentifier(), Orientation.SOUTH);
-//        Vertex station = new Station(address,new Edges(), new Edges());
+//        OldStationable station = new Station(address,new Edges(), new Edges());
 //        avenue.getLanes().getLeftmostLane().getStations().add(station);
 //        avenue.getLanes().getLeftmostLane().getAddresses().add(fxBuilding.getAddressable());
 //        ShapedVertex shapedStation = new ShapedVertex(station, 400, 400, 80);
@@ -97,12 +84,12 @@ public class HelloWorld extends Application {
 //        Rectangle rectangle = new Rectangle(200, 200, 100, 50);
 //        rectangle.setFill(Color.RED);
 //
-//        Label label = new Label("This is a label");
+//        RoadLabel label = new RoadLabel("This is a label");
 //        label.setLayoutX(50);
 //        label.setLayoutY(300);
 //
 ////        RoadFactory avenueFactory = new RoadFactory();
-////        Avenue avenue = (Avenue) avenueFactory.createRoad(new RoadIdentifier(1, "Granville"), new TrafficLanes(), 50, 100, 450, 100);
+////        Avenue avenue = (Avenue) avenueFactory.createRoad(new RoadLabel(1, "Granville"), new Carriageway(), 50, 100, 450, 100);
 ////        avenue.setStroke(Color.BLACK);
 ////        avenue.setStrokeWidth(20);
 ////        avenue.addLabel();

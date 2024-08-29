@@ -10,11 +10,11 @@ import javafx.scene.shape.*;
 //    public static final Color DEFAULT_COLOR = Color.WHITESMOKE;
 //    public static String DIMENSION_ERROR_MESSAGE = "Instance creation failed: A dimensional parameter cannot be negative";
 //
-//    private final Vertex vertex;
+//    private final OldStationable vertex;
 //    private final Shape shape;
 //
 //    public ShapedVertex (
-//        Vertex vertex,
+//        OldStationable vertex,
 //        double centerX,
 //        double centerY,
 //        double radius

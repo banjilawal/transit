@@ -1,6 +1,6 @@
 package com.lawal.transit.ui;
 
-import com.lawal.transit.globals.*;
+import com.lawal.transit.places.*;
 import com.lawal.transit.ui.interfaces.*;
 import javafx.beans.property.*;
 import javafx.scene.paint.*;
@@ -29,7 +29,7 @@ public class BuildingShape implements ShapeableAddressable {
 
     @Override
     public StringProperty addressProperty () {
-        return new SimpleStringProperty(addressable.getAddress().toString());
+        return new SimpleStringProperty(addressable.address().toString());
     }
 
     @Override

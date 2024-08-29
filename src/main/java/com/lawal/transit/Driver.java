@@ -1,19 +1,9 @@
 package com.lawal.transit;
 
 import com.lawal.transit.buildings.*;
-import com.lawal.transit.fx.*;
-import com.lawal.transit.globals.*;
-import com.lawal.transit.graph.*;
-import com.lawal.transit.road.*;
-import com.lawal.transit.stations.*;
 import javafx.application.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
-
-import java.util.*;
 
 import static javafx.application.Application.launch;
 
@@ -41,152 +31,158 @@ public class Driver extends Application {
     public static int buildingId = 1;
     public static int stationId = 1;
 
-    public static ButtonBar initButtonBar () {
-        ButtonBar buttonBar = new ButtonBar();
-        buttonBar.prefWidthProperty().bind(
-            buttonBar.widthProperty().divide(RESIZING_DIVISION_FACTOR).subtract(RESIZING_DIVISION_FACTOR)
-        );
-        return buttonBar;
-    }
-
-    public static Addressable createBuilding (Road road, RoadLateral roadLateral, int number) {
-        String name = road.getIdentifier().getId() * 1000 + number + "";
-        return new Building(new Address(number, name, road, roadLateral));
-    }
-
-    public static Vertex createStation (Road road, RoadLateral roadLateral, int number) {
-        String name = "MT-" + road.getIdentifier().getId() * 1000 + number;
-        FormattedAddress address = new Address(number, name, road, roadLateral);
-        return new Station(address);
-    }
-
-    public static  FXAddressableControl createFXBuilding (Addressable addressable, Stylerizerable stylerizerable) {
-        return new FXBuilding(addressable, stylerizerable);
-    }
-
-    public static FXVertexControl createFXStation (Vertex vertex, Stylerizerable stylerizerable) {
-        return new FXStation(vertex, stylerizerable);
-    }
-
-
+//    public static ButtonBar initButtonBar () {
+//        ButtonBar buttonBar = new ButtonBar();
+//        buttonBar.prefWidthProperty().bind(
+//            buttonBar.widthProperty().divide(RESIZING_DIVISION_FACTOR).subtract(RESIZING_DIVISION_FACTOR)
+//        );
+//        return buttonBar;
+//    }
+//
+//    public static Addressable createBuilding (Road roads, Laterality laterality, int number) {
+//        String name = roads.getIdentifier().getId() * 1000 + number + "";
+//        return new Place(new Address(number, name, roads, laterality));
+//    }
+//
+//    public static OldStationable createStation (Road roads, Laterality laterality, int number) {
+//        String name = "MT-" + roads.getIdentifier().getId() * 1000 + number;
+//        FormattedAddress address = new Address(number, name, roads, laterality);
+//        return new Station(address);
+//    }
+//
+//    public static AddressableFXControlable createFXBuilding (Addressable addressable, Stylerizerable stylerizerable) {
+//        return new FXBuildinButton(addressable, stylerizerable);
+//    }
+//
+//    public static VertexFXControllable createFXStation (OldStationable vertex, Stylerizerable stylerizerable) {
+//        return new FXStationButton(vertex, stylerizerable);
+//    }
+//
+//
 
 //    public static ShapeableLane createFXLane (Lane lane, RectangleDimension dimension, Stylerizerable stylerizerable) {
 //        return new FXTrafficLane(lane, stylerizerable,dimension);
 //    }
-
-    public void printBuildings (Iterator<Addressable> iterator) {
-        while(iterator.hasNext()) {
-            Addressable building = iterator.next();
-            System.out.println(building.getAddress().getId() + " " + building.toString());
-        }
-    }
-
-    public void printStations (Iterator<Vertex> iterator) {
-        while(iterator.hasNext()) {
-            Vertex station = iterator.next();
-            System.out.println(station.getAddress().getId() + " " + station.toString());
-        }
-    }
-
-    public static VBox getAvenueVBox (Avenue avenue, StylerizerableFactorable f) throws Exception {
-        ButtonBar rightStationButtons = initButtonBar();
-        for (int index = 0; index <= 10; index +=2) {
-            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-            FormattedAddress address = new Address(stationId, name, avenue, RoadLateral.RIGHT);
-            Vertex station = new Station(address);
-
-            avenue.getRightSideStations().add(station);
-            System.out.println("Added " + station.toString());
-            FXVertexControl fxStation = new FXStation(station, f.stylerizer(ComponentCategory.VERTEX));
-            rightStationButtons.getButtons().addAll(fxStation.getButton());
-            stationId++;
-        }
-
-        ButtonBar rightBuildingButtons = initButtonBar();
-        for (int index = 0; index < 20; index +=2) {
-            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-            Addressable building = new Building(new Address(buildingId, name, avenue, RoadLateral.RIGHT));
-            avenue.getRightSideBuildings().add(building);
-            FXAddressableControl fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
-            rightBuildingButtons.getButtons().addAll(fxBuilding.getButton());
-            buildingId++;
-        }
-
-        ButtonBar leftStationButtons = initButtonBar();
-        for (int index = 1; index <= 7; index +=2) {
-            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-            FormattedAddress address = new Address(stationId, name, avenue, RoadLateral.LEFT);
-            Vertex station = new Station(address);
-
-            avenue.getLeftSideStations().add(station);
-            System.out.println("Added " + station.toString());
-            FXVertexControl fxStation = new FXStation(station, f.stylerizer(ComponentCategory.VERTEX));
-            leftStationButtons.getButtons().addAll(fxStation.getButton());
-            stationId++;
-        }
-
-        ButtonBar leftBuildingButtons = initButtonBar();
-        for (int index = 1; index < 25; index +=2) {
-            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-            Addressable building = new Building(new Address(buildingId, name, avenue, RoadLateral.LEFT));
-            avenue.getLeftSideBuildings().add(building);
-            FXAddressableControl fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
-            leftBuildingButtons.getButtons().addAll(fxBuilding.getButton());
-            buildingId++;
-        }
+//
+//    public void printBuildings (Iterator<Addressable> iterator) {
+//        while(iterator.hasNext()) {
+//            Addressable building = iterator.next();
+//            System.out.println(building.getAddress().getId() + " " + building.toString());
+//        }
+//    }
+//
+//    public void printStations (Iterator<OldStationable> iterator) {
+//        while(iterator.hasNext()) {
+//            OldStationable station = iterator.next();
+//            System.out.println(station.getAddress().getId() + " " + station.toString());
+//        }
+//    }
+//
+//    public static VBox getAvenueVBox (Avenue avenue, StylerizerableFactorable f) throws Exception {
+//        ButtonBar rightStationButtons = initButtonBar();
+//        for (int index = 0; index <= 10; index +=2) {
+//            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
+//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.RIGHT);
+//            OldStationable station = new Station(address);
+//
+//            avenue.getRightSideStations().add(station);
+//            System.out.println("Added " + station.toString());
+//            VertexFXControllable fxStation = new FXStationButton(station, f.stylerizer(ComponentCategory.VERTEX));
+//            rightStationButtons.getButtons().addAll(fxStation.getButton());
+//            stationId++;
+//        }
+//
+//        ButtonBar rightBuildingButtons = initButtonBar();
+//        for (int index = 0; index < 20; index +=2) {
+//            String name = avenue.getIdentifier().getId() * 1000 + index + "";
+//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.RIGHT));
+//            avenue.getRightSideBuildings().add(building);
+//            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
+//            rightBuildingButtons.getButtons().addAll(fxBuilding.getButton());
+//            buildingId++;
+//        }
+//
+//        ButtonBar leftStationButtons = initButtonBar();
+//        for (int index = 1; index <= 7; index +=2) {
+//            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
+//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.LEFT);
+//            OldStationable station = new Station(address);
+//
+//            avenue.getLeftSideStations().add(station);
+//            System.out.println("Added " + station.toString());
+//            VertexFXControllable fxStation = new FXStationButton(station, f.stylerizer(ComponentCategory.VERTEX));
+//            leftStationButtons.getButtons().addAll(fxStation.getButton());
+//            stationId++;
+//        }
+//
+//        ButtonBar leftBuildingButtons = initButtonBar();
+//        for (int index = 1; index < 25; index +=2) {
+//            String name = avenue.getIdentifier().getId() * 1000 + index + "";
+//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.LEFT));
+//            avenue.getLeftSideBuildings().add(building);
+//            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
+//            leftBuildingButtons.getButtons().addAll(fxBuilding.getButton());
+//            buildingId++;
+//        }
 //
 //        ButtonBar leftStationButtons = initButtonBar();
 //        sIterator = avenue.getRightSideStations().iterator();
 //        while(sIterator.hasNext()) {
-//            Vertex station = sIterator.next();
+//            OldStationable station = sIterator.next();
 //            System.out.println(station.toString());
-//            FXStation control = new FXStation(station, f.stylerizer(ComponentCategory.VERTEX));
+//            FXStationButton control = new FXStationButton(station, f.stylerizer(ComponentCategory.VERTEX));
 //            System.out.println("made a left station control");
 //            leftStationButtons.getButtons().addAll(control.getButton());
 //        }
-
-        VBox rightBox = new VBox();
-        rightBox.getChildren().addAll(rightBuildingButtons, rightStationButtons);
-        rightBox.setStyle(f.stylerizer(ComponentCategory.LANE).toString());
-
-        VBox leftBox = new VBox();
-        leftBox.getChildren().addAll(leftBuildingButtons, leftStationButtons);
-        leftBox.setStyle(f.stylerizer(ComponentCategory.LANE).toString());
-
-        VBox avenueBox = new VBox();
-        avenueBox.getChildren().addAll(leftBox, rightBox);
-        avenueBox.setBorder(Border.stroke(Color.ORANGE));
-
-        return avenueBox;
-    }
+//
+//        VBox rightBox = new VBox();
+//        rightBox.getChildren().addAll(rightBuildingButtons, rightStationButtons);
+//        rightBox.setStyle(f.stylerizer(ComponentCategory.LANE).toString());
+//
+//        VBox leftBox = new VBox();
+//        leftBox.getChildren().addAll(leftBuildingButtons, leftStationButtons);
+//        leftBox.setStyle(f.stylerizer(ComponentCategory.LANE).toString());
+//
+//        VBox avenueBox = new VBox();
+//        avenueBox.getChildren().addAll(leftBox, rightBox);
+//        avenueBox.setBorder(Border.stroke(Color.ORANGE));
+//
+//        return avenueBox;
+//    }
 
     @Override
     public void start (Stage primaryStage) throws Exception {
-        StylerizerableFactorable f = new StylerizerFactory();
+//        AvenueBuilder avenueBuilder = new AvenueBuilder("Alpha", 1,0, 0, 9, 120);
+//        Avenue avenue = new AvenueBuilder("Alpha", 1,0, 0).build(); //, 0, 9, 12).build();
+        //AvenueFX avenueFXPane = new AvenueFX(avenue, new ShapeDetails(0, 85, SCENE_WIDTH, 15, Color.GRAY), 3);
+        //HBox hBox = avenueFXPane.getLeftPane();
+//        System.out.println(avenue.toString());
+        //System.out.println(avenueFXPane.getAvenue().toString());
+//        StylerizerableFactorable f = new StylerizerFactory();
         //Group group = new Group();
-//        AvenueBuilder avenueBuilder = new AvenueBuilder("Alpha", 1,0, 0, 0, 0);
+
 //        Avenue avenue = avenueBuilder.build();
 
-        Avenue avenue = new Avenue(1, "Alpha");
-        VBox box1 = getAvenueVBox(avenue, f);
-
-        avenue = new Avenue(2, "Beta");
-        VBox box2 = getAvenueVBox(avenue,f);
-
-        VBox cityBox = new VBox();
-        cityBox.getChildren().addAll(box1, box2);
+//        Avenue avenue = new Avenue(1, "Alpha");
+//        VBox box1 = getAvenueVBox(avenue, f);
+//
+//        avenue = new Avenue(2, "Beta");
+//        VBox box2 = getAvenueVBox(avenue,f);
+//
+//        VBox cityBox = new VBox();
+//        cityBox.getChildren().addAll(box1, box2);
 
 //
 //        int stationId = 1;
 //        ButtonBar rightStationButtons = initButtonBar();
 //        for (int index = 0; index <= 10; index +=2) {
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(stationId, name, avenue, RoadLateral.RIGHT);
-//            Vertex station = new Station(address);
+//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.RIGHT);
+//            OldStationable station = new Station(address);
 //
 //            avenue.getRightSideStations().add(station);
 //            System.out.println("Added " + station.toString());
-//            FXVertexControl fxStation = new FXStation(station, f.stylerizer(ComponentCategory.VERTEX));
+//            VertexFXControllable fxStation = new FXStationButton(station, f.stylerizer(ComponentCategory.VERTEX));
 //            rightStationButtons.getButtons().addAll(fxStation.getButton());
 //            stationId++;
 //        }
@@ -195,9 +191,9 @@ public class Driver extends Application {
 //        ButtonBar rightBuildingButtons = initButtonBar();
 //        for (int index = 0; index < 20; index +=2) {
 //            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-//            Addressable building = new Building(new Address(buildingId, name, avenue, RoadLateral.RIGHT));
+//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.RIGHT));
 //            avenue.getRightSideBuildings().add(building);
-//            FXAddressableControl fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
+//            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
 //            rightBuildingButtons.getButtons().addAll(fxBuilding.getButton());
 //            buildingId++;
 //        }
@@ -205,12 +201,12 @@ public class Driver extends Application {
 //        ButtonBar leftStationButtons = initButtonBar();
 //        for (int index = 1; index <= 7; index +=2) {
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(stationId, name, avenue, RoadLateral.LEFT);
-//            Vertex station = new Station(address);
+//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.LEFT);
+//            OldStationable station = new Station(address);
 //
 //            avenue.getLeftSideStations().add(station);
 //            System.out.println("Added " + station.toString());
-//            FXVertexControl fxStation = new FXStation(station, f.stylerizer(ComponentCategory.VERTEX));
+//            VertexFXControllable fxStation = new FXStationButton(station, f.stylerizer(ComponentCategory.VERTEX));
 //            leftStationButtons.getButtons().addAll(fxStation.getButton());
 //            stationId++;
 //        }
@@ -218,9 +214,9 @@ public class Driver extends Application {
 //        ButtonBar leftBuildingButtons = initButtonBar();
 //        for (int index = 1; index < 25; index +=2) {
 //            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-//            Addressable building = new Building(new Address(buildingId, name, avenue, RoadLateral.LEFT));
+//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.LEFT));
 //            avenue.getLeftSideBuildings().add(building);
-//            FXAddressableControl fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
+//            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
 //            leftBuildingButtons.getButtons().addAll(fxBuilding.getButton());
 //            buildingId++;
 //        }
@@ -228,9 +224,9 @@ public class Driver extends Application {
 //        ButtonBar leftStationButtons = initButtonBar();
 //        sIterator = avenue.getRightSideStations().iterator();
 //        while(sIterator.hasNext()) {
-//            Vertex station = sIterator.next();
+//            OldStationable station = sIterator.next();
 //            System.out.println(station.toString());
-//            FXStation control = new FXStation(station, f.stylerizer(ComponentCategory.VERTEX));
+//            FXStationButton control = new FXStationButton(station, f.stylerizer(ComponentCategory.VERTEX));
 //            System.out.println("made a left station control");
 //            leftStationButtons.getButtons().addAll(control.getButton());
 //        }
@@ -247,11 +243,11 @@ public class Driver extends Application {
 //        avenueBox.getChildren().addAll(leftBox, rightBox);
 //        avenueBox.setBorder(Border.stroke(Color.ORANGE));
 
-        Scene scene = new Scene(cityBox);
-        scene.setFill(Color.PLUM);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
+//        Scene scene = new Scene(cityBox);
+//        scene.setFill(Color.PLUM);
+//
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
 
 //        System.out.println(avenue.toString() + "\n");
 //        Iterator<Addressable> buildingIterator = avenue.getLeftSideBuildings().iterator();
@@ -264,14 +260,14 @@ public class Driver extends Application {
 //            Addressable building = buildingIterator.next();
 //            System.out.println(building.getAddress().getId() + " " + building.toString());
 //        }
-//        Iterator<Vertex> stationIterator = avenue.getLeftSideStations().iterator();
+//        Iterator<OldStationable> stationIterator = avenue.getLeftSideStations().iterator();
 //        while(stationIterator.hasNext()) {
-//            Vertex station = stationIterator.next();
+//            OldStationable station = stationIterator.next();
 //            System.out.println(station.getAddress().getId() + " " + station.toString());
 //        }
 //        stationIterator = avenue.getRightSideStations().iterator();
 //        while(stationIterator.hasNext()) {
-//            Vertex station = stationIterator.next();
+//            OldStationable station = stationIterator.next();
 //            System.out.println(station.getAddress().getId() + " " + station.toString());
 //        }
 //        FXAvenue fxAvenue = new FXAvenue(avenue);
@@ -311,11 +307,11 @@ public class Driver extends Application {
 //            stylerizer.stylerizer(ComponentCategory.LANE),
 //            avenue.getIdentifier().getCategory()
 //        );
-//        Scene scene = new Scene(fxLane.getPane(), SCENE_WIDTH, SCENE_HEIGHT, SCENE_COLOR);
+ //       Scene scene = new Scene(hBox, SCENE_WIDTH, SCENE_HEIGHT, SCENE_COLOR);
 //        fxLane.getRectangle().widthProperty().bind(scene.widthProperty().multiply(0.5));
 //        fxLane.getRectangle().heightProperty().bind(scene.heightProperty().multiply(0.5));
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+ //       primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -335,7 +331,7 @@ public class Driver extends Application {
 //        primaryStage.setTitle("Transit Component Testing");
 
 //        StylerizerableFactorable stylerizer = new StylerizerFactory();
-//        RoadLateral roadLateral = RoadLateral.RIGHT;
+//        Laterality roadLateral = Laterality.RIGHT;
 //        Avenue avenue = new Avenue(1, "1st");
 //
 //        BorderLane lane = (BorderLane) avenue.getRightLanes().getBorderLane();
@@ -356,7 +352,7 @@ public class Driver extends Application {
 //        for (int index = 0; index < NUMBER_OF_BUILDINGS; index++) {
 //            Addressable building = createBuilding(avenue, roadLateral, index);
 //            lane.getBuildings().add((createBuilding(avenue, roadLateral, index));
-//            FXAddressableControl fxBuilding = createFXBuilding(building, stylerizer.stylerizer(ComponentCategory.ADDRESSABLE));
+//            AddressableFXControlable fxBuilding = createFXBuilding(building, stylerizer.stylerizer(ComponentCategory.ADDRESSABLE));
 //            buildingButtons.getButtons().add(buildingButtons.getButtons().size(), fxBuilding.getButton());
 //        }
 
@@ -365,8 +361,8 @@ public class Driver extends Application {
 //            lane.getStations().add(createStation(avenue, roadLateral, index));
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
 //            FormattedAddress address = new Address(index, name, avenue, roadLateral);
-//            Vertex station = new Station(address);
-//            FXVertexControl fxStation = new FXStation(station, stylerizer.stylerizer(ComponentCategory.VERTEX));
+//            OldStationable station = new Station(address);
+//            VertexFXControllable fxStation = new FXStationButton(station, stylerizer.stylerizer(ComponentCategory.VERTEX));
 //            stationButtons.getButtons().add(stationButtons.getButtons().size(), fxStation.getButton());
 //        }
 //

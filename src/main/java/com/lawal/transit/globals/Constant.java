@@ -1,7 +1,5 @@
 package com.lawal.transit.globals;
 
-import com.lawal.transit.*;
-
 import java.time.LocalTime;
 
 public final class Constant {

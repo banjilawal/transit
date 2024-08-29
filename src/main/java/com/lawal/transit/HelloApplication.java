@@ -1,8 +1,8 @@
 //package com.lawal.transit;
 //
-//import com.lawal.transit.road.*;
-//import com.lawal.transit.road.factories.*;
-//import com.lawal.transit.road.interfaces.*;
+//import com.lawal.transit.roads.*;
+//import com.lawal.transit.roads.factories.*;
+//import com.lawal.transit.roads.interfaces.*;
 //import javafx.application.Application;
 //import javafx.fxml.FXMLLoader;
 //import javafx.scene.Scene;
