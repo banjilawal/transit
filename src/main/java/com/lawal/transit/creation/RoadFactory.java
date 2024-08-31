@@ -10,4 +10,8 @@ public enum RoadFactory implements RoadProvider {
     private int placesPerBlock;
 
 
+    @Override
+    public Creator getCreator() {
+        return null;
+    }
 }

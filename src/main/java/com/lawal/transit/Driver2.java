@@ -1,68 +1,68 @@
-package com.lawal.transit;
-
-import com.lawal.transit.creation.*;
-import com.lawal.transit.fx.*;
-import com.lawal.transit.globals.*;
-import com.lawal.transit.roads.*;
-import javafx.application.*;
-import javafx.scene.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
-import javafx.stage.*;
-
-public class Driver2 extends Application {
-
-    public static double SCENE_WIDTH = 800;
-    public static double SCENE_HEIGHT = 380;
-    public static Color BUILDING_COLOR = Color.LIGHTBLUE;
-    public static Color STATION_COLOR = Color.WHITE;
-    public static Color TRAFFIC_LANE_COLOR = Color.GRAY;
-    public static Color SCENE_COLOR = Color.GREEN;
-
-    public static int NUMBER_OF_BUILDINGS = 25;
-    public static int NUMBER_OF_STATIONS = 18;
-
-    public static int DEFAULT_SPACING = 15;
-    public static int DEFAULT_LIST_SIZE = 3;
-    public static double LANE_WIDTH = 400;
-    public static double LANE_HEIGHT = 10;
-    public static double X_COORDINATE = 0;
-    public static double Y_COORDINATE = 100;
-    public static double RESIZING_DIVISION_FACTOR = 2;
-    public static double RESIZING_SUBTRACTION_FACTOR = 5;
-
-    public static int buildingId = 1;
-    public static int stationId = 1;
-    @Override
-    public void start (Stage primaryStage) throws Exception {
-        AvenueBuilder builder = new AvenueBuilder();
-        builder.setAvenueName("Alpha");
-        builder.setAvenueId(1);
-        builder.setStartingBuildingId(1);
-        builder.setStartingStationId(1);
-        builder.buildingsPerFrontage(20);
-        builder.stationsPerFrontage(5);
-        Avenue avenueA = builder.build();
-        System.out.println(avenueA.toString());
-        System.out.println(avenueA.rightFrontage().toString());
-        System.out.println(avenueA.leftFrontage().toString());
-
-        builder.setAvenueName("Beta");
-        builder.setAvenueId(2);
-        builder.setStartingStationId(builder.nextStationId());
-        builder.setStartingBuildingId(builder.nextBuildingId());
-        builder.buildingsPerFrontage(15);
-        builder.stationsPerFrontage(8);
-        Avenue avenueB = builder.build();
-        System.out.println(avenueB.toString());
-        System.out.println(avenueB.rightFrontage().toString());
-        System.out.println(avenueB.leftFrontage().toString());
-
-        System.out.println(avenueA.leftCarriageway().getLane(0).toString());
-
-        Rectangle rectangle = new Rectangle(0, 105, SCENE_WIDTH, 10);
-        rectangle.setStyle(Styling.RECTANGLE_CSS);
+//package com.lawal.transit;
+//
+//import com.lawal.transit.creation.*;
+//import com.lawal.transit.fx.*;
+//import com.lawal.transit.globals.*;
+//import com.lawal.transit.roads.*;
+//import javafx.application.*;
+//import javafx.scene.*;
+//import javafx.scene.layout.*;
+//import javafx.scene.paint.*;
+//import javafx.scene.shape.*;
+//import javafx.stage.*;
+//
+//public class Driver2 extends Application {
+//
+//    public static double SCENE_WIDTH = 800;
+//    public static double SCENE_HEIGHT = 380;
+//    public static Color BUILDING_COLOR = Color.LIGHTBLUE;
+//    public static Color STATION_COLOR = Color.WHITE;
+//    public static Color TRAFFIC_LANE_COLOR = Color.GRAY;
+//    public static Color SCENE_COLOR = Color.GREEN;
+//
+//    public static int NUMBER_OF_BUILDINGS = 25;
+//    public static int NUMBER_OF_STATIONS = 18;
+//
+//    public static int DEFAULT_SPACING = 15;
+//    public static int DEFAULT_LIST_SIZE = 3;
+//    public static double LANE_WIDTH = 400;
+//    public static double LANE_HEIGHT = 10;
+//    public static double X_COORDINATE = 0;
+//    public static double Y_COORDINATE = 100;
+//    public static double RESIZING_DIVISION_FACTOR = 2;
+//    public static double RESIZING_SUBTRACTION_FACTOR = 5;
+//
+//    public static int buildingId = 1;
+//    public static int stationId = 1;
+//    @Override
+//    public void start (Stage primaryStage) throws Exception {
+//        AvenueBuilder builder = new AvenueBuilder();
+//        builder.setAvenueName("Alpha");
+//        builder.setAvenueId(1);
+//        builder.setStartingBuildingId(1);
+//        builder.setStartingStationId(1);
+//        builder.buildingsPerFrontage(20);
+//        builder.stationsPerFrontage(5);
+//        Avenue avenueA = builder.build();
+//        System.out.println(avenueA.toString());
+//        System.out.println(avenueA.rightFrontage().toString());
+//        System.out.println(avenueA.leftFrontage().toString());
+//
+//        builder.setAvenueName("Beta");
+//        builder.setAvenueId(2);
+//        builder.setStartingStationId(builder.nextStationId());
+//        builder.setStartingBuildingId(builder.nextBuildingId());
+//        builder.buildingsPerFrontage(15);
+//        builder.stationsPerFrontage(8);
+//        Avenue avenueB = builder.build();
+//        System.out.println(avenueB.toString());
+//        System.out.println(avenueB.rightFrontage().toString());
+//        System.out.println(avenueB.leftFrontage().toString());
+//
+//        System.out.println(avenueA.leftCarriageway().getLane(0).toString());
+//
+//        Rectangle rectangle = new Rectangle(0, 105, SCENE_WIDTH, 10);
+//        rectangle.setStyle(Styling.RECTANGLE_CSS);
 //
 //            "-fx-fill: gray;"
 //            + " -fx-margin: 2px;");//setFill(Color.BLACK);
@@ -92,18 +92,18 @@ public class Driver2 extends Application {
 //        VBox containerB = new VBox ();
 //        containerB.getChildren().addAll(lFFXb.vBox(), lLFXb.hBox(), rLFXb.vBox(), rFFXb.vBox());
 //        containerA.getChildren().addAll(lFFXa.vBox(), lLFXa.hBox(), rLFXa.vBox(), rFFXa.vBox());
-
-        ShapeDetails details = new ShapeDetails(0, 105, SCENE_WIDTH, 10, Color.BLACK);
-        AvenueFX avenueAFX = new AvenueFX(avenueA, details, 3);
-
-        VBox grid = new VBox();
-        grid.getChildren().addAll(avenueAFX.getVbox());
-        //Group group = new Group();
-       // group.getChildren().addAll(container);
-        Scene scene = new Scene(grid, SCENE_WIDTH, SCENE_HEIGHT, SCENE_COLOR);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+//
+//        ShapeDetails details = new ShapeDetails(0, 105, SCENE_WIDTH, 10, Color.BLACK);
+//        AvenueFX avenueAFX = new AvenueFX(avenueA, details, 3);
+//
+//        VBox grid = new VBox();
+//        grid.getChildren().addAll(avenueAFX.getVbox());
+//        //Group group = new Group();
+//       // group.getChildren().addAll(container);
+//        Scene scene = new Scene(grid, SCENE_WIDTH, SCENE_HEIGHT, SCENE_COLOR);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//    }
 
 //.vbox {
 //        -fx-background-color: orange;
@@ -117,18 +117,12 @@ public class Driver2 extends Application {
 //-fx-fill: grey;
 //-fx-margin: 10px; /* Adds margin around the Rectangle inside the VBox */
 //    }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-
-
-
-
-
-
+//
+//
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
+//}
 
 
 //    @Override
@@ -184,7 +178,7 @@ public class Driver2 extends Application {
 //
 //        Group group = new Group();
 //        group.getChildren().addAll(fxLane.getRectangle());
-// //       group.getChildren().addAll(new FXTrafficLane(lane, stylerizer.stylerizer(ComponentCategory.LANE), X_COORDINATE, Y_COORDINATE, LANE_WIDTH, LANE_HEIGHT).getVBox());
+//        group.getChildren().addAll(new FXTrafficLane(lane, stylerizer.stylerizer(ComponentCategory.LANE), X_COORDINATE, Y_COORDINATE, LANE_WIDTH, LANE_HEIGHT).getVBox());
 //        group.autoSizeChildrenProperty().set(true);
 
 //        Group group = new Group();
@@ -194,6 +188,5 @@ public class Driver2 extends Application {
 //        primaryStage.show();
 //    }
 //
-
 //
 //}

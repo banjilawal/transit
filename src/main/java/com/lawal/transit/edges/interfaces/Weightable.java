@@ -1,4 +1,4 @@
-package com.lawal.transit.graph;
+package com.lawal.transit.edges.interfaces;
 
 public interface Weightable {
 

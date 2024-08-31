@@ -1,4 +1,6 @@
-package com.lawal.transit.graph;
+package com.lawal.transit.edges;
+
+import com.lawal.transit.edges.interfaces.Weightable;
 
 import java.util.*;
 

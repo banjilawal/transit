@@ -1,35 +1,35 @@
-package com.lawal.transit;
-
-import com.lawal.transit.buildings.*;
-import javafx.application.*;
-import javafx.scene.paint.*;
-import javafx.stage.*;
-
-import static javafx.application.Application.launch;
-
-public class Driver extends Application {
-
-    public static double SCENE_WIDTH = 800;
-    public static double SCENE_HEIGHT = 380;
-    public static Color BUILDING_COLOR = Color.LIGHTBLUE;
-    public static Color STATION_COLOR = Color.WHITE;
-    public static Color TRAFFIC_LANE_COLOR = Color.GRAY;
-    public static Color SCENE_COLOR = Color.GREEN;
-
-    public static int NUMBER_OF_BUILDINGS = 25;
-    public static int NUMBER_OF_STATIONS = 18;
-
-    public static int DEFAULT_SPACING = 15;
-    public static int DEFAULT_LIST_SIZE = 3;
-    public static double LANE_WIDTH = 400;
-    public static double LANE_HEIGHT = 10;
-    public static double X_COORDINATE = 0;
-    public static double Y_COORDINATE = 100;
-    public static double RESIZING_DIVISION_FACTOR = 2;
-    public static double RESIZING_SUBTRACTION_FACTOR = 5;
-
-    public static int buildingId = 1;
-    public static int stationId = 1;
+//package com.lawal.transit;
+//
+//import com.lawal.transit.buildings.*;
+//import javafx.application.*;
+//import javafx.scene.paint.*;
+//import javafx.stage.*;
+//
+//import static javafx.application.Application.launch;
+//
+//public class Driver extends Application {
+//
+//    public static double SCENE_WIDTH = 800;
+//    public static double SCENE_HEIGHT = 380;
+//    public static Color BUILDING_COLOR = Color.LIGHTBLUE;
+//    public static Color STATION_COLOR = Color.WHITE;
+//    public static Color TRAFFIC_LANE_COLOR = Color.GRAY;
+//    public static Color SCENE_COLOR = Color.GREEN;
+//
+//    public static int NUMBER_OF_BUILDINGS = 25;
+//    public static int NUMBER_OF_STATIONS = 18;
+//
+//    public static int DEFAULT_SPACING = 15;
+//    public static int DEFAULT_LIST_SIZE = 3;
+//    public static double LANE_WIDTH = 400;
+//    public static double LANE_HEIGHT = 10;
+//    public static double X_COORDINATE = 0;
+//    public static double Y_COORDINATE = 100;
+//    public static double RESIZING_DIVISION_FACTOR = 2;
+//    public static double RESIZING_SUBTRACTION_FACTOR = 5;
+//
+//    public static int buildingId = 1;
+//    public static int stationId = 1;
 
 //    public static ButtonBar initButtonBar () {
 //        ButtonBar buttonBar = new ButtonBar();
@@ -149,20 +149,19 @@ public class Driver extends Application {
 //
 //        return avenueBox;
 //    }
-
-    @Override
-    public void start (Stage primaryStage) throws Exception {
+//
+//    @Override
+//    public void start (Stage primaryStage) throws Exception {
 //        AvenueBuilder avenueBuilder = new AvenueBuilder("Alpha", 1,0, 0, 9, 120);
 //        Avenue avenue = new AvenueBuilder("Alpha", 1,0, 0).build(); //, 0, 9, 12).build();
-        //AvenueFX avenueFXPane = new AvenueFX(avenue, new ShapeDetails(0, 85, SCENE_WIDTH, 15, Color.GRAY), 3);
-        //HBox hBox = avenueFXPane.getLeftPane();
+//        AvenueFX avenueFXPane = new AvenueFX(avenue, new ShapeDetails(0, 85, SCENE_WIDTH, 15, Color.GRAY), 3);
+//        HBox hBox = avenueFXPane.getLeftPane();
 //        System.out.println(avenue.toString());
-        //System.out.println(avenueFXPane.getAvenue().toString());
+//        System.out.println(avenueFXPane.getAvenue().toString());
 //        StylerizerableFactorable f = new StylerizerFactory();
-        //Group group = new Group();
+//        Group group = new Group();
 
 //        Avenue avenue = avenueBuilder.build();
-
 //        Avenue avenue = new Avenue(1, "Alpha");
 //        VBox box1 = getAvenueVBox(avenue, f);
 //
@@ -295,8 +294,6 @@ public class Driver extends Application {
 //        primaryStage.show();
 
 
-
-
 //        Rectangle rectangle = new Rectangle(X_COORDINATE, Y_COORDINATE, SCENE_WIDTH, LANE_HEIGHT);
 //        rectangle.setFill(TRAFFIC_LANE_COLOR);
 //        StylerizerableFactorable stylerizer = new StylerizerFactory();
@@ -307,24 +304,17 @@ public class Driver extends Application {
 //            stylerizer.stylerizer(ComponentCategory.LANE),
 //            avenue.getIdentifier().getCategory()
 //        );
- //       Scene scene = new Scene(hBox, SCENE_WIDTH, SCENE_HEIGHT, SCENE_COLOR);
+//       Scene scene = new Scene(hBox, SCENE_WIDTH, SCENE_HEIGHT, SCENE_COLOR);
 //        fxLane.getRectangle().widthProperty().bind(scene.widthProperty().multiply(0.5));
-//        fxLane.getRectangle().heightProperty().bind(scene.heightProperty().multiply(0.5));
- //       primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-
-
-
-
-
-
-
+//        fxLane.getRectangle().heightProperty().bind(scene.heightProperty().multiply(0.5));//       primaryStage.setScene(scene);
+//        primaryStage.show();
+//    }
+//
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
+//}
+//
 
 //    @Override
 //    public void start(Stage primaryStage) throws Exception {
@@ -369,17 +359,15 @@ public class Driver extends Application {
 //        Lane lane = new TrafficLane(Avenue.RIGHT_LANE_TRAFFIC_DIRECTION, 0);
 //
 //        System.out.println(fxLane.getStyler());
-
 //        VBox vBox = new VBox();
 //        vBox.getChildren().addAll(buildingButtons, fxLane.getShape(), stationButtons);
 //        vBox.setAlignment(Pos.CENTER);
 //        vBox.spacingProperty().set(5);
 //        vBox.autosize();
-
 //
 //        Group group = new Group();
 //        group.getChildren().addAll(fxLane.getRectangle());
-// //       group.getChildren().addAll(new FXTrafficLane(lane, stylerizer.stylerizer(ComponentCategory.LANE), X_COORDINATE, Y_COORDINATE, LANE_WIDTH, LANE_HEIGHT).getVBox());
+//      group.getChildren().addAll(new FXTrafficLane(lane, stylerizer.stylerizer(ComponentCategory.LANE), X_COORDINATE, Y_COORDINATE, LANE_WIDTH, LANE_HEIGHT).getVBox());
 //        group.autoSizeChildrenProperty().set(true);
 
 //        Group group = new Group();
@@ -388,7 +376,4 @@ public class Driver extends Application {
 //        scene.setFill(Color.GREEN);
 //        primaryStage.show();
 //    }
-//
-
-//
 //}

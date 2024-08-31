@@ -1,68 +1,67 @@
-package com.lawal.transit.creation;
-
-import com.lawal.transit.globals.*;
-import com.lawal.transit.roads.*;
-import com.lawal.transit.roads.interfaces.*;
-
-public final class StreetBuilder {
-
-    public static final int INCREMENT = 2;
-    public static final int MULTIPLICATION_FACTOR = 1000;
-    public static final int LEFT_FRONTAGE_STARTING_INDEX = 1;
-    public static final int RIGHT_FRONTAGE_STARTING_INDEX = 0;
-
-    private int numberOfBlocks;
-    private int stationInterval;
-    private int buildingsPerBlock;
-    private RoadIdentifier roadLabel;
-    private RoadSectional leftFrontage;
-    private RoadSectional rightFrontage;
-
-    public StreetBuilder roadLabel (RoadIdentifier roadLabel) {
-        this.roadLabel = roadLabel;
-        return this;
-    }
-
-    public StreetBuilder buildingsPerBlock (int buildingsPerBlock) {
-        this.buildingsPerBlock = buildingsPerBlock;
-        return this;
-    }
-
-    public StreetBuilder stationInterval (int stationInterval) {
-        this.stationInterval = stationInterval;
-        return this;
-    }
-
-    public StreetBuilder numberOfBlocks (int numberOfBlocks) {
-        this.numberOfBlocks = numberOfBlocks;
-        return this;
-    }
-
-    public StreetBuilder leftFrontage () throws Exception {
-        this.leftFrontage = frontage(Avenue.LEFTWARD_TRAFFIC_DIRECTION, LEFT_FRONTAGE_STARTING_INDEX);
-        return this;
-    }
-
-    public StreetBuilder rightFrontage () throws Exception {
-        this.rightFrontage = frontage(Avenue.RIGHTWARD_TRAFFIC_DIRECTION, RIGHT_FRONTAGE_STARTING_INDEX);
-        return this;
-    }
-
-    public RoadSectional frontage (Orientation trafficDirection, int startingIndex) throws Exception {
-        return new FrontageBuilder()
-            .roadLabel(roadLabel)
-            .buildingsPerBlock(buildingsPerBlock)
-            .numberOfBlocks(numberOfBlocks)
-            .stationInterval(stationInterval)
-            .trafficDirection(trafficDirection)
-            .startingIndex(startingIndex)
-            .build();
-    }
-
-    public Avenue build () {
-        return new Avenue(roadLabel,  leftFrontage, rightFrontage);
-    }
-
+//package com.lawal.transit.creation;
+//
+//import com.lawal.transit.globals.*;
+//import com.lawal.transit.roads.*;
+//import com.lawal.transit.roads.interfaces.*;
+//
+//public final class StreetBuilder {
+//
+//    public static final int INCREMENT = 2;
+//    public static final int MULTIPLICATION_FACTOR = 1000;
+//    public static final int LEFT_FRONTAGE_STARTING_INDEX = 1;
+//    public static final int RIGHT_FRONTAGE_STARTING_INDEX = 0;
+//
+//    private int numberOfBlocks;
+//    private int stationInterval;
+//    private int buildingsPerBlock;
+//    private RoadIdentifier roadLabel;
+//    private RoadSectional leftFrontage;
+//    private RoadSectional rightFrontage;
+//
+//    public StreetBuilder roadLabel (RoadIdentifier roadLabel) {
+//        this.roadLabel = roadLabel;
+//        return this;
+//    }
+//
+//    public StreetBuilder buildingsPerBlock (int buildingsPerBlock) {
+//        this.buildingsPerBlock = buildingsPerBlock;
+//        return this;
+//    }
+//
+//    public StreetBuilder stationInterval (int stationInterval) {
+//        this.stationInterval = stationInterval;
+//        return this;
+//    }
+//
+//    public StreetBuilder numberOfBlocks (int numberOfBlocks) {
+//        this.numberOfBlocks = numberOfBlocks;
+//        return this;
+//    }
+//
+//    public StreetBuilder leftFrontage () throws Exception {
+//        this.leftFrontage = frontage(Avenue.LEFTWARD_TRAFFIC_DIRECTION, LEFT_FRONTAGE_STARTING_INDEX);
+//        return this;
+//    }
+//
+//    public StreetBuilder rightFrontage () throws Exception {
+//        this.rightFrontage = frontage(Avenue.RIGHTWARD_TRAFFIC_DIRECTION, RIGHT_FRONTAGE_STARTING_INDEX);
+//        return this;
+//    }
+//
+//    public RoadSectional frontage (Orientation trafficDirection, int startingIndex) throws Exception {
+//        return new FrontageBuilder()
+//            .roadLabel(roadLabel)
+//            .buildingsPerBlock(buildingsPerBlock)
+//            .numberOfBlocks(numberOfBlocks)
+//            .stationInterval(stationInterval)
+//            .trafficDirection(trafficDirection)
+//            .startingIndex(startingIndex)
+//            .build();
+//    }
+//
+//    public Avenue build () {
+//        return new Avenue(roadLabel,  leftFrontage, rightFrontage);
+//    }
 //    private Frontage frontage (Avenue avenue, Laterality laterality) {
 //        int startingnumber = 0;
 //        if (laterality.equals(Laterality.LEFT));
@@ -228,4 +227,4 @@ public final class StreetBuilder {
 //           + " number + of buildings: " + avenue.getRightFrontage().buildings().size());
 //        return avenue;
 //    }
-}
+//}

@@ -6,11 +6,11 @@ import com.lawal.transit.roads.interfaces.*;
 import com.lawal.transit.stations.interfaces.*;
 
 public final class Frontage implements Curbsideable {
+
     private final Orientation trafficDirection;
     private final RoadIdentifier roadLabel;
     private final Stationables stations;
     private final RoadSectionals blocks;
-
 
     private Frontage (Builder builder) {
         this.trafficDirection = builder.trafficDirection;

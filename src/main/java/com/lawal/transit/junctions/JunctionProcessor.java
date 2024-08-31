@@ -5,9 +5,7 @@ import com.lawal.transit.catalogs.*;
 import com.lawal.transit.edges.*;
 import com.lawal.transit.edges.interfaces.*;
 import com.lawal.transit.globals.*;
-import com.lawal.transit.graph.*;
 import com.lawal.transit.roads.*;
-import com.lawal.transit.roads.interfaces.*;
 import com.lawal.transit.stations.interfaces.*;
 
 import java.util.*;

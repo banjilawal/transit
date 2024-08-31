@@ -1,6 +1,6 @@
-package com.lawal.transit.creation;
-
-public class FrontageBuilder {
+//package com.lawal.transit.creation;
+//
+//public class FrontageBuilder {
 //
 //    public static final int INCREMENT = 2;
 //    public static final int BUILDING_NUMBER_MULTIPLICATION_FACTOR = 1000;
@@ -111,4 +111,4 @@ public class FrontageBuilder {
 //    public RoadSectional build () {
 //        return new Frontage(trafficDirection, blocks, stations);
 //    }
-}
+//}
