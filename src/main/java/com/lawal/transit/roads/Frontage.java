@@ -7,6 +7,7 @@ import com.lawal.transit.stations.interfaces.*;
 
 public final class Frontage implements Curbsideable {
 
+
     private final Orientation trafficDirection;
     private final RoadIdentifier roadLabel;
     private final Stationables stations;

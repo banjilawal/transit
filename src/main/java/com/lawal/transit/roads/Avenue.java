@@ -8,8 +8,8 @@ import com.lawal.transit.roads.interfaces.*;
 public final class Avenue implements Road {
 
     public static final RoadCategory ROAD_CATEGORY = RoadCategory.AVENUE;
-    public static final Orientation RIGHTWARD_TRAFFIC_DIRECTION = Orientation.EAST;
-    public static final Orientation LEFTWARD_TRAFFIC_DIRECTION = Orientation.WEST;
+    public static final Orientation RIGHTWARD_TRAFFIC_DIRECTION = Orientation.WEST;
+    public static final Orientation LEFTWARD_TRAFFIC_DIRECTION = Orientation.EAST;
 
 
     private final RoadIdentifier label;
