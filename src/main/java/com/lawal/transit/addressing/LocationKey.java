@@ -1,4 +1,4 @@
-package com.lawal.transit.globals;
+package com.lawal.transit.addressing;
 
 import com.lawal.transit.blocks.interfaces.*;
 

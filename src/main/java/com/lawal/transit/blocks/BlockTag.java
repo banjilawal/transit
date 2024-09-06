@@ -1,10 +1,9 @@
 package com.lawal.transit.blocks;
 
 import com.lawal.transit.blocks.interfaces.*;
-import com.lawal.transit.globals.*;
 import com.lawal.transit.roads.interfaces.*;
 
-public record BlockTag(Orientation trafficDirection, RoadIdentifier roadLabel, int id) implements RoadSectionTag { //(int id, RoadIdentifier roadLabel, Orientation trafficDirection) implements RoadSectionTag {
+public record BlockTag(int id, CurbsideMarker curbsideMarker) implements RoadSectionTag { //(int id, RoadIdentifier roadLabel, Orientation trafficDirection) implements RoadSectionTag {
 //
 //    private final int id;
 //    private final RoadIdentifier roadLabel;
@@ -60,9 +59,8 @@ public record BlockTag(Orientation trafficDirection, RoadIdentifier roadLabel, i
 
     public static class Builder {
 
-        private Orientation trafficDirection;
-        private RoadIdentifier roadLabel;
         private int id;
+        CurbsideMarker curbsideMarker;
 
         public Builder () {}
 
@@ -71,18 +69,13 @@ public record BlockTag(Orientation trafficDirection, RoadIdentifier roadLabel, i
             return this;
         }
 
-        public Builder trafficDirection (Orientation trafficDirection) {
-            this.trafficDirection = trafficDirection;
-            return this;
-        }
-
-        public Builder roadLabel (RoadIdentifier roadLabel) {
-            this.roadLabel = roadLabel;
+        public Builder curbsideMarker (CurbsideMarker curbsideMarker) {
+            this.curbsideMarker = curbsideMarker;
             return this;
         }
 
         public RoadSectionTag build () {
-            return new BlockTag(trafficDirection, roadLabel, id);
+            return new BlockTag(id, curbsideMarker);
         }
     }
 }

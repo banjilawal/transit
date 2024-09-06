@@ -1,7 +1,7 @@
 package com.lawal.transit.traveler;
 
 import com.lawal.transit.globals.*;
-import com.lawal.transit.search.*;
+import com.lawal.transit.addressing.*;
 
 public interface Traveling {
 

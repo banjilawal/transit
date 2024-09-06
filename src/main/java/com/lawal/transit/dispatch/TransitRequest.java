@@ -1,6 +1,6 @@
 package com.lawal.transit.dispatch;
 
-import com.lawal.transit.search.*;
+import com.lawal.transit.addressing.*;
 
 public interface TransitRequest extends SystemRequest {
 

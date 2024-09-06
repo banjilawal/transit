@@ -1,4 +1,4 @@
-package com.lawal.transit.globals;
+package com.lawal.transit.addressing;
 
 import com.lawal.transit.blocks.interfaces.*;
 
@@ -6,12 +6,13 @@ public record Key(int id, String name, RoadSectionTag blockTag) implements Locat
 
     @Override
     public String toString () {
-        return " name:" + name + " blockId:" + blockTag.id() + " " + blockTag.trafficDirection().abbreviation();
+        return " name:" + name + " blockTag:" + blockTag.toString();
     }
 
     public Builder builder () {
         return new Builder();
     }
+
     public static class Builder  {
 
         private int id;
@@ -22,7 +23,6 @@ public record Key(int id, String name, RoadSectionTag blockTag) implements Locat
             this.id = id;
             return this;
         }
-
 
         public Builder name (String name) {
             this.name = name;

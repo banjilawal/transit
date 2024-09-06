@@ -109,6 +109,6 @@
 //    }
 //
 //    public RoadSectional build () {
-//        return new Frontage(trafficDirection, blocks, stations);
+//        return new Curbside(trafficDirection, blocks, stations);
 //    }
 //}

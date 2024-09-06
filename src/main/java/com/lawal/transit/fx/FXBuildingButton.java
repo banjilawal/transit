@@ -1,19 +1,19 @@
-package com.lawal.transit.fx;
-
-
-import com.lawal.transit.places.*;
-import com.lawal.transit.fx.interfaces.*;
-
-import javafx.scene.*;
-import javafx.scene.control.*;
-
-public class FXBuildingButton extends Node implements AddressableFXControlable {
-
-    private final Addressable addressable;
+//package com.lawal.transit.fx;
+//
+//
+//import com.lawal.transit.places.*;
+//import com.lawal.transit.fx.interfaces.*;
+//
+//import javafx.scene.*;
+//import javafx.scene.control.*;
+//
+//public class FXBuildingButton extends Node implements AddressableFXControlable {
+//
+//    private final Addressable addressable;
 //    private final Button button;
-
-    public FXBuildingButton (Addressable addressable) {
-        this.addressable = addressable;
+//
+//    public FXBuildingButton (Addressable addressable) {
+//        this.addressable = addressable;
 //        FormattedAddress address = addressable.getAddress();
 //        String title = address.getName() + "\n"
 //            + address.getRoadIdentity().getName()
@@ -23,18 +23,17 @@ public class FXBuildingButton extends Node implements AddressableFXControlable {
 //        this.button.setStyle(cssStyling());
 //        this.button.alignmentProperty().set(Pos.CENTER);
 //        this.button.setTooltip(new Tooltip(addressable.toString()));
-    }
-
-    @Override
-    public Addressable getAddressable () {
-        return addressable;
-    }
-
-    @Override
-    public Button getButton () {
-        return new ButtonBuilder().build(addressable);
-    }
-
+//    }
+//
+//    @Override
+//    public Addressable getAddressable () {
+//        return addressable;
+//    }
+//
+//    @Override
+//    public Button getButton () {
+//        return new ButtonBuilder().build(addressable);
+//    }
 //    public String cssStyling () {
 //        String backgroundStyle = " -fx-background-color: lightblue;"
 //            + " -fx-background-insets: 2;"
@@ -70,4 +69,4 @@ public class FXBuildingButton extends Node implements AddressableFXControlable {
 //        rectangle.setFill(color);
 //        return rectangle;
 //    }
-}
+//}

@@ -1,30 +1,30 @@
-package com.lawal.transit.fx;
-
-import com.lawal.transit.roads.interfaces.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-
-public final class FrontageFX {
-
-    private final RoadSectional frontage;
-    private final ButtonBar stationsButtonBar;
-    private final HBox outerHBox;
-    private final VBox outerVBox;
-    private HBox innerHBox;
-    private VBox innerVBox;
-
-    public FrontageFX (RoadSectional frontage) {
-        this.frontage = frontage;
-        this.outerHBox = new HBox();
-        this.outerVBox = new VBox();
-        this.innerHBox = new HBox();
-        this.innerVBox = new VBox();
-        this.stationsButtonBar = new ButtonBarBuilder().build(frontage.stations());
-    }
-
-    public RoadSectional getFrontage () {
-        return frontage;
-    }
+//package com.lawal.transit.fx;
+//
+//import com.lawal.transit.roads.interfaces.*;
+//import javafx.scene.control.*;
+//import javafx.scene.layout.*;
+//
+//public final class FrontageFX {
+//
+//    private final RoadSectional frontage;
+//    private final ButtonBar stationsButtonBar;
+//    private final HBox outerHBox;
+//    private final VBox outerVBox;
+//    private HBox innerHBox;
+//    private VBox innerVBox;
+//
+//    public FrontageFX (RoadSectional frontage) {
+//        this.frontage = frontage;
+//        this.outerHBox = new HBox();
+//        this.outerVBox = new VBox();
+//        this.innerHBox = new HBox();
+//        this.innerVBox = new VBox();
+//        this.stationsButtonBar = new ButtonBarBuilder().build(frontage.stations());
+//    }
+//
+//    public RoadSectional getFrontage () {
+//        return frontage;
+//    }
 
 //    public VBox vBox () {
 //        int blockIndex = 0;
@@ -115,4 +115,4 @@ public final class FrontageFX {
 //        }
 //        return group;
 //    }
-}
+//}

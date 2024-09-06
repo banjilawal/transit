@@ -3,6 +3,7 @@ package com.lawal.transit.junctions;
 import java.util.*;
 
 public interface Intersectionals {
+
     int size ();
     Iterator<Intersectional> iterator ();
     void add (Intersectional intersectional) throws Exception;

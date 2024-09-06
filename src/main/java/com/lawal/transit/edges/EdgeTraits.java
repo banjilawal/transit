@@ -2,7 +2,7 @@ package com.lawal.transit.edges;
 
 import com.lawal.transit.edges.interfaces.*;
 
-public record EdgeDetails(int id, Weightable weight,EdgeCategory category) implements EdgeProperties {
+public record EdgeTraits(int id, Weightable weight, EdgeCategory category) implements EdgeProperties {
 
     @Override
     public String toString () {
@@ -35,9 +35,7 @@ public record EdgeDetails(int id, Weightable weight,EdgeCategory category) imple
         }
 
         public EdgeProperties build () {
-            return new EdgeDetails(id, weight, category);
+            return new EdgeTraits(id, weight, category);
         }
     }
 }
-
-

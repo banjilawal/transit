@@ -17,7 +17,7 @@ public record RoadLabel(int id, String name, RoadCategory category) implements R
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + " id:" + id + "  " + name + " " + category.abbreviation();
+        return getClass().getSimpleName() + " id:" + id + "  " + name + ": " + category.abbreviation();
     }
 
     public static Builder builder () {
@@ -35,7 +35,7 @@ public record RoadLabel(int id, String name, RoadCategory category) implements R
             return this;
         }
 
-        public Builder name (String nmae) {
+        public Builder name (String name) {
             this.name = name;
             return this;
         }

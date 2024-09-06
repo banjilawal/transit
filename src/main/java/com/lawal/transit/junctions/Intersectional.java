@@ -4,16 +4,19 @@ import com.lawal.transit.blocks.interfaces.*;
 import com.lawal.transit.roads.*;
 
 public interface Intersectional {
+
     int id ();
     Avenue avenue ();
     Street street ();
     RoadSectional northBranch ();
-    RoadSectional northEastBranch ();
-    RoadSectional southEastBranch ();
+    RoadSectional eastBranch ();
     RoadSectional southBranch ();
-    RoadSectional southWestBranch ();
     RoadSectional westBranch ();
-    RoadSectional northWestBranch ();
+    RoadSectional turnNorthEastBranch ();
+    RoadSectional turnSouthEastBranch ();
+    RoadSectional turnSouthWestBranch ();
+    RoadSectional turnNorthWestBranch ();
+
 
 //    int size ();
 //    Iterator<Branchable> iterator ();

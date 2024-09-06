@@ -1,7 +1,6 @@
 package com.lawal.transit.edges;
 
 import com.lawal.transit.edges.interfaces.*;
-import com.lawal.transit.places.interfaces.*;
 import com.lawal.transit.stations.interfaces.*;
 
 public record Edge (Stationable head, Stationable tail, EdgeProperties properties) implements Edgeable {
@@ -11,15 +10,12 @@ public record Edge (Stationable head, Stationable tail, EdgeProperties propertie
     }
 
     public static class Builder {
+
         private Stationable head;
         private Stationable tail;
         private EdgeProperties properties;
 
         public Builder () {}
-
-        public Builder (Placeable placeA) {
-
-        }
 
         public Builder head (Stationable head) {
             this.head = head;
@@ -37,10 +33,8 @@ public record Edge (Stationable head, Stationable tail, EdgeProperties propertie
         }
 
         public Edgeable build () {
-            return new Edge(head,tail, properties);
+            return new Edge(head, tail, properties);
         }
-
-
     }
 //
 //    private final Stationable head;

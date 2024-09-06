@@ -5,6 +5,7 @@ import java.io.*;
 public enum NameGenerator {
     INSTANCE;
 
+    private int streetName = 1;
     private int avenueNameIndex = 0;
 
     public static final String CITY_NAMES = "worldcities.txt";
@@ -41,6 +42,10 @@ public enum NameGenerator {
             RandomWordProducer producer = new RandomWordProducer.Builder().file(CITY_NAMES).build();
             return producer.word();
         }
+    }
+
+    public String streetName () throws Exception {
+        return "" + streetName++;
     }
 
     public String scheduleName () {

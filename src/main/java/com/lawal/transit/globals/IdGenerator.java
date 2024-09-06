@@ -6,7 +6,7 @@ public enum IdGenerator {
     private int scheduleId = 1;
     private int avenueId = 1;
     private int streetId = 1;
-    private int stationID = 1;
+    private int stationId = 1;
     private int busId = 1;
     private int placeId =1;
     private int edgeId = 1;
@@ -25,7 +25,7 @@ public enum IdGenerator {
     }
 
     public int nextStationID () {
-        return stationID;
+        return stationId++;
     }
 
     public int nextBusId () {

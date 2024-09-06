@@ -1,14 +1,15 @@
 package com.lawal.transit.roads.interfaces;
 
 
-import com.lawal.transit.blocks.interfaces.*;
+import com.lawal.transit.globals.Orientation;
 
 public interface Road {
 
-
-    public RoadIdentifier label ();
-    public Lanes leftCarriageway ();
-    public Lanes rightCarriageway ();
-    public Curbsideable leftFrontage ();
-    public Curbsideable rightFrontage ();
+    RoadIdentifier label ();
+    Lanes leftCarriageway ();
+    Lanes rightCarriageway ();
+    Curbsideable leftCurb ();
+    Curbsideable rightCurb ();
+    Lanes getCarriageway (Orientation orientation);
+    Curbsideable getCurb(Orientation orientation);
 }

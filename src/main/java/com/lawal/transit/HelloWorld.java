@@ -1,32 +1,29 @@
-package com.lawal.transit;
-
-import com.lawal.transit.buildings.*;
-import javafx.application.Application;
-import javafx.scene.paint.*;
-import javafx.stage.Stage;
-
-public class HelloWorld extends Application {
-
-    public static Color BUILDING_COLOR = Color.LIGHTBLUE;
-    public static int DEFAULT_SPACING = 15;
-    public static int DEFAULT_LIST_SIZE = 3;
-    public static double ROAD_LENGTH = 400;
-    public static double ROAD_WIDTH = 20;
-    public static double X_COORDINATE = 50;
-    public static double Y_COORDINATE = 100;
-
-    @Override
-    public void start (Stage stage) throws Exception {
-
-    }
-
-    //    public static void main(String[] args) {
+//package com.lawal.transit;
+//
+//import com.lawal.transit.buildings.*;
+//import javafx.application.Application;
+//import javafx.scene.paint.*;
+//import javafx.stage.Stage;
+//
+//public class HelloWorld extends Application {
+//
+//    public static Color BUILDING_COLOR = Color.LIGHTBLUE;
+//    public static int DEFAULT_SPACING = 15;
+//    public static int DEFAULT_LIST_SIZE = 3;
+//    public static double ROAD_LENGTH = 400;
+//    public static double ROAD_WIDTH = 20;
+//    public static double X_COORDINATE = 50;
+//    public static double Y_COORDINATE = 100;
+//
+//    @Override
+//    public void start (Stage stage) throws Exception {
+//
+//    }
+//
+//    public static void main(String[] args) {
 //        launch(args);
 //    }
-}
-
-
-
+//}
 //    @Override
 //    public void start(Stage primaryStage) throws Exception {
 //        primaryStage.setTitle("Hello World!");
@@ -115,7 +112,7 @@ public class HelloWorld extends Application {
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
 //    }
-
+//
 //    public static void main(String[] args) {
 //        launch(args);
 //    }

@@ -1,25 +1,26 @@
 package com.lawal.transit.roads;
 
-import com.lawal.transit.blocks.interfaces.*;
 import com.lawal.transit.globals.*;
 import com.lawal.transit.roads.interfaces.*;
 
-
 public final class Street implements Road {
+
     public static final RoadCategory ROAD_CATEGORY = RoadCategory.STREET;
     public static final Orientation RIGHTWARD_TRAFFIC_DIRECTION = Orientation.SOUTH;
     public static final Orientation LEFTWARD_TRAFFIC_DIRECTION = Orientation.NORTH;
+    public static final int RIGHTWARD_STATION_BASE_NAME = 1000;
+    public static final int LEFTWARD_STATION_BASE_NAME = 3000;
 
     private final RoadIdentifier label;
-    private final Curbsideable leftFrontage;
-    private final Curbsideable rightFrontage;
+    private final Curbsideable leftCurb;
+    private final Curbsideable rightCurb;
     private final Lanes leftCarriageway;
     private final Lanes rightCarriageway;
 
     private Street (Builder builder) {
         this.label = builder.label;
-        this.leftFrontage = builder.leftFrontage;
-        this.rightFrontage = builder.rightFrontage;
+        this.leftCurb = builder.leftCurb;
+        this.rightCurb = builder.rightCurb;
         this.rightCarriageway = builder.leftCarriageway;
         this.leftCarriageway = builder.rightCarriageway;
     }
@@ -40,13 +41,27 @@ public final class Street implements Road {
     }
 
     @Override
-    public Curbsideable leftFrontage () {
-        return leftFrontage;
+    public Curbsideable leftCurb() {
+        return leftCurb;
     }
 
     @Override
-    public Curbsideable rightFrontage () {
-        return rightFrontage;
+    public Curbsideable rightCurb() {
+        return rightCurb;
+    }
+
+    @Override
+    public Lanes getCarriageway(Orientation orientation) {
+        if (orientation.equals(LEFTWARD_TRAFFIC_DIRECTION))
+            return leftCarriageway;
+        if (orientation.equals(RIGHTWARD_TRAFFIC_DIRECTION))
+            return rightCarriageway;
+        return null;
+    }
+
+    @Override
+    public Curbsideable getCurb(Orientation orientation) {
+        return null;
     }
 
     @Override
@@ -78,27 +93,27 @@ public final class Street implements Road {
     }
 
     public static class Builder {
-        private RoadIdentifier label;
 
+        private RoadIdentifier label;
         private Lanes leftCarriageway;
         private Lanes rightCarriageway;
-        private Curbsideable leftFrontage;
-        private Curbsideable rightFrontage;
+        private Curbsideable leftCurb;
+        private Curbsideable rightCurb;
 
         public Builder () {}
 
-        public Builder roadLabel (RoadIdentifier label) {
+        public Builder label (RoadIdentifier label) {
             this.label = label;
             return this;
         }
 
-        public Builder leftFrontage (Curbsideable leftFrontage) {
-            this.leftFrontage = leftFrontage;
+        public Builder leftCurb (Curbsideable leftCurb) {
+            this.leftCurb = leftCurb;
             return this;
         }
 
-        public Builder rightFrontage (Curbsideable rightFrontage) {
-            this.rightFrontage = rightFrontage;
+        public Builder rightCurb (Curbsideable rightCurb) {
+            this.rightCurb = rightCurb;
             return this;
         }
 
@@ -113,7 +128,7 @@ public final class Street implements Road {
         }
 
         public Street build () {
-            return new Street(this) ;
+            return new Street(this);
         }
     }
 }

@@ -1,19 +1,19 @@
-package com.lawal.transit.fx;
-
-
-import com.lawal.transit.fx.*;
-import com.lawal.transit.fx.interfaces.*;
-import com.lawal.transit.graph.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-
-public class FXStationButton extends Node implements VertexFXControllable {
-    private final OldStationable station;
+//package com.lawal.transit.fx;
+//
+//
+//import com.lawal.transit.fx.*;
+//import com.lawal.transit.fx.interfaces.*;
+//import com.lawal.transit.graph.*;
+//import javafx.scene.*;
+//import javafx.scene.control.*;
+//
+//public class FXStationButton extends Node implements VertexFXControllable {
+//    private final OldStationable station;
 //    private final Button button;
-
-
-    public FXStationButton (OldStationable station) {
-        this.station  = station;
+//
+//
+//    public FXStationButton (OldStationable station) {
+//        this.station  = station;
 //        FormattedAddress address = station.getAddress();
 //        String toolTipText = address.getRoadIdentity().getName() + " " + address.getOrientation().abbreviation();
 //        this.button = new Button(address.getName());
@@ -21,19 +21,19 @@ public class FXStationButton extends Node implements VertexFXControllable {
 //        this.button.wrapTextProperty().setValue(true);
 //        this.button.setTooltip(new Tooltip(toolTipText));
 //        this.button.setStyle(cssStyling());
-    }
-
-    @Override
-    public OldStationable getVertex () {
-        return station;
-    }
-
-    @Override
-    public Button getButton () {
-        return new ButtonBuilder().build(station);
-    }
-
-//    public String cssStyling () {
+//    }
+//
+//    @Override
+//    public OldStationable getVertex () {
+//        return station;
+//    }
+//
+//    @Override
+//    public Button getButton () {
+//        return new ButtonBuilder().build(station);
+//    }
+//
+////    public String cssStyling () {
 //        String backgroundStyle = " -fx-background-color: white;"
 //            + " -fx-background-insets: 3;"
 //            + " -fx-background-radius: 2;"
@@ -47,7 +47,6 @@ public class FXStationButton extends Node implements VertexFXControllable {
 //        return backgroundStyle + borderStyle;
 //    }
 //
-
 //    private String defaultCSS () {
 //        return "-fx-fill: white"
 //            + "-fx-padding:  5; "
@@ -60,4 +59,4 @@ public class FXStationButton extends Node implements VertexFXControllable {
 //        rectangle.setFill(color);
 //        return rectangle;
 //    }
-}
+//}

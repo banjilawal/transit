@@ -101,6 +101,15 @@ public final class Blocks implements RoadSectionals,  Iterable<RoadSectional> { 
         blocks.remove(placeId);
     }
 
+    @Override
+    public String toString () {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (RoadSectional block: blocks) {
+            stringBuilder.append(block.toString()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
     private class RoadSectionalIterator implements Iterator<RoadSectional> {
         private final Iterator<RoadSectional> iterator = blocks.iterator();
         private int cursor = 0;

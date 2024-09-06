@@ -1,7 +1,7 @@
 package com.lawal.transit.graph;
 
 import com.lawal.transit.edges.interfaces.*;
-import com.lawal.transit.search.*;
+import com.lawal.transit.addressing.*;
 
 public interface OldStationable {
     public FormattedAddress getAddress ();

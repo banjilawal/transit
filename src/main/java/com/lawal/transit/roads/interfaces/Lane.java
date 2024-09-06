@@ -4,6 +4,6 @@ import com.lawal.transit.globals.*;
 
 public interface Lane {
 
-    public int id ();
-    public Orientation trafficDirection ();
+    int id ();
+    Orientation trafficDirection ();
 }

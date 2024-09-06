@@ -5,8 +5,6 @@ import com.lawal.transit.places.interfaces.*;
 
 public record Block (RoadSectionTag tag, Placeables places) implements RoadSectional {
 
-    public static Builder builder () { return new Builder(); }
-
     @Override
     public boolean equals (Object object) {
         if (object == this) return true;
@@ -16,7 +14,17 @@ public record Block (RoadSectionTag tag, Placeables places) implements RoadSecti
         return false;
     }
 
+    @Override
+    public String toString () {
+        return "block:" + tag.id() + "\n" + places.toString();
+    }
+
+    public static Builder builder () {
+        return new Builder();
+    }
+
     public static class Builder {
+
         private RoadSectionTag tag;
         private Placeables places;
 

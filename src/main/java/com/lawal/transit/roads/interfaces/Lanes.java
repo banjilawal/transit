@@ -12,5 +12,4 @@ public interface Lanes {
     public Orientation getTrafficDirection ();
     public Lane getLane (int id) throws Exception;
     public void removeLane (int id) throws Exception;
-
 }

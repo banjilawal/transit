@@ -1,4 +1,4 @@
-package com.lawal.transit.search;
+package com.lawal.transit.addressing;
 
 import com.lawal.transit.blocks.interfaces.*;
 
@@ -10,7 +10,9 @@ public record Address(int id, String name, RoadSectionTag blockTag) implements F
     }
 
     public static Builder builder () { return new Builder(); }
+
     public static class Builder {
+
         private int id;
         private String name;
         private RoadSectionTag blockTag;

@@ -63,7 +63,7 @@
 //        return new Avenue(roadLabel,  leftFrontage, rightFrontage);
 //    }
 
-//    private Frontage frontage (Avenue avenue, Laterality laterality) {
+//    private Curbside frontage (Avenue avenue, Laterality laterality) {
 //        int startingnumber = 0;
 //        if (laterality.equals(Laterality.LEFT));
 //

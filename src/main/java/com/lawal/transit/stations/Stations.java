@@ -5,8 +5,10 @@ import com.lawal.transit.stations.interfaces.*;
 import java.util.*;
 
 public class Stations implements Stationables, Iterable<Stationable> {
+
     public static final String ADDITION_ERROR = "The item is already in the list. It cannot be added again";
     public static final String REMOVAL_ERROR = "The item does not exist in the list so it cannot be removed";
+
     private ArrayList<Stationable> stations;
 
     public Stations () {
@@ -80,14 +82,8 @@ public class Stations implements Stationables, Iterable<Stationable> {
     @Override
     public String toString () {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Stationable stationable: stations) {
-            stringBuilder.append("id:")
-                .append(stationable.key().id())
-                .append(" name:")
-                .append(stationable.key().name())
-                .append(" blockId:")
-                .append(stationable.key().blockTag().toString())
-                .append("\n");
+        for(Stationable station: stations) {
+            stringBuilder.append(station.toString()).append("\n");
         }
         return stringBuilder.toString();
     }

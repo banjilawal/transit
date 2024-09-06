@@ -1,19 +1,18 @@
-package com.lawal.transit.catalogs;
+package com.lawal.transit.edges;
 
 import com.lawal.transit.edges.interfaces.*;
 import com.lawal.transit.stations.interfaces.*;
 
 import java.util.*;
 
-public enum Edges implements Edgeables {
-    INSTANCE;
+public class Edges implements Edgeables {
 
     public static final String ADD_EDGE_ERROR = "The edge already exists";
     public static final String ENDPOINT_ERROR = "The vertex does exist on that edge";
     public static final String REMOVE_EDGE_ERROR = "No edge exists at that orientation";
     private final ArrayList<Edgeable> edges;
 
-    Edges () {
+    public Edges () {
         this.edges = new ArrayList<>();
     }
 
@@ -56,5 +55,4 @@ public enum Edges implements Edgeables {
         }
         return null;
     }
-
 }

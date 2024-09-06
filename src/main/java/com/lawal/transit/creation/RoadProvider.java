@@ -1,6 +1,6 @@
-package com.lawal.transit.creation;
-
-public interface RoadProvider {
-
-    Creator getCreator ();
-}
+//package com.lawal.transit.creation;
+//
+//public interface RoadProvider {
+//
+//    Creator getCreator ();
+//}

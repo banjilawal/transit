@@ -1,8 +1,8 @@
 package com.lawal.transit.places;
 
-import com.lawal.transit.search.*;
+import com.lawal.transit.addressing.*;
 
 public interface Addressable {
 
-    public FormattedAddress address ();
+    FormattedAddress address ();
 }

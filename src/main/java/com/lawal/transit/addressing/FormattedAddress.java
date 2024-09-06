@@ -1,4 +1,4 @@
-package com.lawal.transit.search;
+package com.lawal.transit.addressing;
 
 import com.lawal.transit.blocks.interfaces.*;
 

@@ -4,7 +4,6 @@ import java.util.*;
 
 public interface Placeables {
 
-
     int size ();
     Iterator<Placeable> iterator ();
     void add (Placeable placeable)  throws Exception;
