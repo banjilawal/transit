@@ -123,16 +123,26 @@ public class CurbsideCreator {
     }
 
     private boolean assignedStation () {
-        Random thresholdRandomizer= new Random();
-        Random outcomeRandomizer = new Random();
-        int threshold = thresholdRandomizer.nextInt(
-            Constant.STATION_DENSITY_PERCENTAGE_FLOOR,
-            Constant.STATION_DENSITY_PERCENTAGE_CEILING
-        ) + 1;
-        int outcome = outcomeRandomizer.nextInt(101);
-        if (outcome > threshold) {
-            System.out.println(IdGenerator.INSTANCE.stationCount() + " " + outcome + " " + threshold);
-        } ;
-        return (outcome > threshold);
+        Random random = new Random();
+        return random.nextInt(101) > stationDensityThreshold();
     }
+
+    private int stationDensityThreshold () {
+        Random random = new Random();
+        return random.nextInt(Constant.STATION_DENSITY_PERCENTAGE_FLOOR, Constant.STATION_DENSITY_PERCENTAGE_CEILING) + 1;
+    }
+
+//    private boolean assignedStation () {
+//        Random thresholdRandomizer= new Random();
+//        Random outcomeRandomizer = new Random();
+//        int threshold = thresholdRandomizer.nextInt(
+//            Constant.STATION_DENSITY_PERCENTAGE_FLOOR,
+//            Constant.STATION_DENSITY_PERCENTAGE_CEILING
+//        ) + 1;
+//        int outcome = outcomeRandomizer.nextInt(101);
+//        if (outcome > threshold) {
+//            System.out.println(IdGenerator.INSTANCE.stationCount() + " " + outcome + " " + threshold);
+//        } ;
+//        return (outcome > threshold);
+//    }
 }

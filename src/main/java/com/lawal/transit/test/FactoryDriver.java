@@ -4,6 +4,8 @@ package com.lawal.transit.test;
 import com.lawal.transit.blocks.interfaces.RoadSectional;
 import com.lawal.transit.globals.Constant;
 import com.lawal.transit.globals.IdGenerator;
+import com.lawal.transit.junctions.JunctionFactory;
+import com.lawal.transit.junctions.Junctions;
 import com.lawal.transit.roads.Avenue;
 import com.lawal.transit.roads.Avenues;
 import com.lawal.transit.roads.Streets;
@@ -31,8 +33,8 @@ public class FactoryDriver {
 //            for (RoadSectional block : avenue.leftCurb().blocks().getList()) {
 //                System.out.println("\t" + block.toString());
 //            }
-            System.out.println();
-            System.out.printf("%d stations out of %d possibe\n", IdGenerator.INSTANCE.stationCount() - 1, 26 * 26 * 26);
+//            System.out.println();
+//            System.out.printf("%d stations out of %d possibe\n", IdGenerator.INSTANCE.stationCount() - 1, 26 * 26 * 26);
 //            System.out.println(avenue.leftCurb().toString() + "\n" + avenue.rightCurb().toString());
 //            System.out.println(avenue.label().toString() + "\n" + avenue.leftCurb().toString() + "\n" + avenue.rightCurb().toString());
         }
@@ -48,8 +50,7 @@ public class FactoryDriver {
 //        for (Street street : streets.getStreets()) {
 //            System.out.println(street.label().toString());// + "\n" + street.rightCurb().toString());
 //        }
-//        Junctions junctions = new JunctionFactory().avenues(avenues).streets(streets).getProduct();
-//        System.out.println(junctions.toString());
-
+        Junctions junctions = new JunctionFactory().avenues(avenues).streets(streets).getProduct();
+        System.out.println(junctions.toString());
     }
 }

@@ -35,14 +35,11 @@ module com.lawal.transit {
     exports com.lawal.transit.traveler;
     opens com.lawal.transit.traveler;
 
-    exports com.lawal.transit.creation;
-    opens com.lawal.transit.creation;
-
-//    exports com.lawal.transit.blocks;
+    //    exports com.lawal.transit.blocks;
 //    opens com.lawal.transit.blocks;
 
-//    exports com.lawal.transit.creators;
-//    opens com.lawal.transit.creators;
+//    exports com.lawal.transit.JunctionFactory;
+//    opens com.lawal.transit.JunctionFactory;
 
 
     opens com.lawal.transit to javafx.fxml;
@@ -65,8 +62,6 @@ module com.lawal.transit {
     opens com.lawal.transit.addressing;
     exports com.lawal.transit.junctions;
     opens com.lawal.transit.junctions;
-    exports com.lawal.transit.addressing.properties;
-    opens com.lawal.transit.addressing.properties;
     exports com.lawal.transit.roads.creators;
     opens com.lawal.transit.roads.creators;
     exports com.lawal.transit.graph.interfaces;

@@ -2,6 +2,7 @@ package com.lawal.transit.roads.creators;
 
 import com.lawal.transit.globals.IdGenerator;
 import com.lawal.transit.globals.NameGenerator;
+import com.lawal.transit.junctions.Intersectionals;
 import com.lawal.transit.roads.Avenues;
 import com.lawal.transit.roads.Streets;
 import com.lawal.transit.roads.Avenue;
