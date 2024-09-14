@@ -18,10 +18,10 @@
 //            while (streetIterator.hasNext()) {
 //                Street street = streetIterator.next();
 //                Stationables stations = street.leftCurb().stations();
-//                Iterator<Stationable> stationIterator = street.leftCurb().stations().iterator();
+//                Iterator<Vertex> stationIterator = street.leftCurb().stations().iterator();
 //                while (stationIterator.hasNext()) {
-//                    Stationable currenStation = stationIterator.next();
-//                    Stationable nextStation = stations.next(currenStation.key().id());
+//                    Vertex currenStation = stationIterator.next();
+//                    Vertex nextStation = stations.next(currenStation.key().id());
 //                    if (nextStation != null) {
 //                        RoadSectionTag currenTag = currenStation.key().blockTag();
 //                        RoadSectionTag nextTag = nextStation.key().blockTag();
@@ -38,8 +38,8 @@
 //            }
 //        }
 //
-//        public Stationable getAvenueCrossStation (Stationable streetStation, Avenue avenue) {
-//            for (Stationable avenueStation : avenue.leftCurb().stations().get()) {
+//        public Vertex getAvenueCrossStation (Vertex streetStation, Avenue avenue) {
+//            for (Vertex avenueStation : avenue.leftCurb().stations().get()) {
 //                if (avenueStation.key().blockTag().id() <= streetStation.key().blockTag().id()) {
 //                    return avenueStation;
 //                }

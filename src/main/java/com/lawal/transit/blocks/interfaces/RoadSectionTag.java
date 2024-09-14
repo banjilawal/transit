@@ -5,5 +5,5 @@ import com.lawal.transit.roads.interfaces.*;
 public interface RoadSectionTag {
 
     int id ();
-    CurbsideMarker curbsideMarker ();
+    CurbsideMarking curbsideMarker ();
 }

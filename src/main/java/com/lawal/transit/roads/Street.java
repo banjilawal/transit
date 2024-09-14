@@ -6,8 +6,8 @@ import com.lawal.transit.roads.interfaces.*;
 public final class Street implements Road {
 
     public static final RoadCategory ROAD_CATEGORY = RoadCategory.STREET;
-    public static final Orientation RIGHTWARD_TRAFFIC_DIRECTION = Orientation.SOUTH;
-    public static final Orientation LEFTWARD_TRAFFIC_DIRECTION = Orientation.NORTH;
+    public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.SOUTH;
+    public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.NORTH;
     public static final int RIGHTWARD_STATION_BASE_NAME = 1000;
     public static final int LEFTWARD_STATION_BASE_NAME = 3000;
 
@@ -51,16 +51,16 @@ public final class Street implements Road {
     }
 
     @Override
-    public Lanes getCarriageway(Orientation orientation) {
-        if (orientation.equals(LEFTWARD_TRAFFIC_DIRECTION))
+    public Lanes getCarriageway(Direction travelDirection) {
+        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
             return leftCarriageway;
-        if (orientation.equals(RIGHTWARD_TRAFFIC_DIRECTION))
+        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
             return rightCarriageway;
         return null;
     }
 
     @Override
-    public Curbsideable getCurb(Orientation orientation) {
+    public Curbsideable getCurb(Direction travelDirection) {
         return null;
     }
 
@@ -81,7 +81,7 @@ public final class Street implements Road {
         return label.name() + " " + label.category().print();
     }
 
-//    public static Orientation getTrafficeDirection (Laterality laterality) {
+//    public static Direction getTrafficeDirection (Laterality laterality) {
 //        if (laterality.equals(Laterality.LEFT))
 //            return LEFTWARD_TRAFFIC_DIRECTION;
 //        else

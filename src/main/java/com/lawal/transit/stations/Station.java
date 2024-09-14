@@ -1,56 +1,79 @@
 package com.lawal.transit.stations;
 
 import com.lawal.transit.addressing.LocationKey;
-import com.lawal.transit.edges.interfaces.*;
-import com.lawal.transit.globals.*;
-import com.lawal.transit.stations.interfaces.*;
+import com.lawal.transit.graph.interfaces.Edgeables;
+import com.lawal.transit.graph.Vertex;
+import com.lawal.transit.graph.VertexColor;
 
 import java.util.*;
 
-public final class Station implements Stationable {
+public final class Station implements Vertex {
 
+    private VertexColor color;
+    private Vertex predecessor;
     private final LocationKey key;
     private final Edgeables incomingEdges;
     private final Edgeables outgoingEdges;
 
     private Station (Builder builder) {
         this.key = builder.key;
+        this.color = builder.color;
+        this.predecessor = builder.predecessor;
         this.incomingEdges = builder.incomingEdges;
         this.outgoingEdges = builder.outgoingEdges;
     }
 
     @Override
-    public LocationKey key () {
+    public LocationKey getKey () {
         return key;
     }
 
     @Override
-    public Edgeables incomingEdges () {
+    public VertexColor getColor () {
+        return color;
+    }
+
+    @Override
+    public Vertex getPredecessor () {
+        return predecessor;
+    }
+
+    @Override
+    public Edgeables getIncomingEdges () {
         return incomingEdges;
     }
 
     @Override
-    public Edgeables outgoingEdges () {
+    public Edgeables getOutgoingEdges () {
         return outgoingEdges;
     }
 
-    public void accept (Visitor visitor) {
-        visitor.visit(this);
+    @Override
+    public void setColor (VertexColor color) {
+        this.color = color;
     }
+
+    @Override
+    public void setPredecessor (Vertex predecessor) {
+        this.predecessor = predecessor;
+    }
+
+//    public void accept (Visitor visitor) {
+//        visitor.visit(this);
+//    }
 
     @Override
     public boolean equals (Object object) {
         if (this == object) return true;
-        if (object instanceof Stationable stationable)
-            return key.equals(stationable.key());
-//                && incomingEdges.getDegree() == stationable.getIncomingEdges().getDegree()
-//                && outgoingEdges.getDegree() == stationable.getOutgoingEdges().getDegree();
+        if (object == null) return false;
+        if (object instanceof Station station)
+            return key.equals(station.getKey());
         return false;
     }
 
     @Override
     public int hashCode () {
-        return Objects.hash(key, incomingEdges.getDegree(), outgoingEdges.getDegree());
+        return Objects.hash(key, color, incomingEdges.getDegree(), outgoingEdges.getDegree());
     }
 
     @Override
@@ -58,12 +81,9 @@ public final class Station implements Stationable {
         return getClass().getSimpleName()
             + " id:" + key.id()
             + " name:" + key.name()
-            + " blockId:" + key.blockTag().id()
-            + " inDegree:" + incomingEdges.getDegree()
-            + " outDegree:" + outgoingEdges.getDegree()
-            +  " " + key.blockTag().curbsideMarker().roadLabel().name()
-            + " " + key.blockTag().curbsideMarker().roadLabel().category().abbreviation()
-            + " " +key.blockTag().curbsideMarker().trafficDirection().print();
+            + " color:" + color
+            + " predecessor:" + predecessor.getKey().name()
+            + " blockId:" + key.blockTag().id() + " " + key.blockTag().curbsideMarker().roadLabel();
     }
 
     public static Builder builder () {
@@ -73,6 +93,8 @@ public final class Station implements Stationable {
     public static class Builder {
 
         private LocationKey key;
+        private VertexColor color;
+        private Vertex predecessor;
         private Edgeables incomingEdges;
         private Edgeables outgoingEdges;
 
@@ -80,6 +102,16 @@ public final class Station implements Stationable {
 
         public Builder key (LocationKey key) {
             this.key = key;
+            return this;
+        }
+
+        public Builder color (VertexColor color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder predecessor (Vertex predecessor) {
+            this.predecessor = predecessor;
             return this;
         }
 
@@ -93,7 +125,7 @@ public final class Station implements Stationable {
             return this;
         }
 
-        public Stationable build () {
+        public Station build () {
             return new Station(this);
         }
     }

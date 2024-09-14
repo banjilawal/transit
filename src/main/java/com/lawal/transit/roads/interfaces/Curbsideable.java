@@ -1,11 +1,11 @@
 package com.lawal.transit.roads.interfaces;
 
 import com.lawal.transit.blocks.interfaces.*;
-import com.lawal.transit.stations.interfaces.*;
+import com.lawal.transit.stations.Stations;
 
 public interface Curbsideable {
 
-    CurbsideMarker key();
+    CurbsideMarking marker ();
     RoadSectionals blocks ();
-    Stationables stations ();
+    Stations stations ();
 }

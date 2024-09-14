@@ -1,12 +1,15 @@
 package com.lawal.transit.globals;
 
-import java.io.*;
-
 public enum NameGenerator {
     INSTANCE;
 
     private int streetName = 1;
     private int avenueNameIndex = 0;
+
+    private int northStationNumber = 1000;
+    private int eastStationNumber = 2000;
+    private int southStationNumber = 3000;
+    private int westStationNumber = 4000;
 
     public static final String CITY_NAMES = "worldcities.txt";
 
@@ -44,8 +47,29 @@ public enum NameGenerator {
         }
     }
 
-    public String streetName () throws Exception {
-        return "" + streetName++;
+    public String streetName (int infix) throws Exception {
+        if (infix == 1 || infix == 21 || infix == 31 || infix == 41 || infix == 51)
+            return infix + "st";
+        else if (infix == 3 || infix == 23 || infix == 33 || infix == 43 || infix == 53)
+            return infix + "rd";
+        else
+            return infix + "th";
+    }
+
+    public String stationName (Direction direction) {
+        switch (direction) {
+            case NORTH:
+                return "MT-" + northStationNumber++;
+            case EAST:
+                return "MT-" + eastStationNumber++;
+            case SOUTH:
+                return "MT-" + southStationNumber++;
+            case WEST:
+                return "MT-" + westStationNumber++;
+            default:
+                System.err.println("Unknown direction: " + direction);
+        }
+        return "";
     }
 
     public String scheduleName () {

@@ -1,7 +1,7 @@
 package com.lawal.transit.roads.interfaces;
 
 
-import com.lawal.transit.globals.Orientation;
+import com.lawal.transit.globals.Direction;
 
 public interface Road {
 
@@ -10,6 +10,6 @@ public interface Road {
     Lanes rightCarriageway ();
     Curbsideable leftCurb ();
     Curbsideable rightCurb ();
-    Lanes getCarriageway (Orientation orientation);
-    Curbsideable getCurb(Orientation orientation);
+    Lanes getCarriageway (Direction travelDirection);
+    Curbsideable getCurb(Direction travelDirection);
 }

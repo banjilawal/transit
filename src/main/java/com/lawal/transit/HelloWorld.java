@@ -28,28 +28,28 @@
 //    public void start(Stage primaryStage) throws Exception {
 //        primaryStage.setTitle("Hello World!");
 //
-//        Lane lane = new TrafficLane(Orientation.NORTH, new Block(), new Stations());
+//        Lane lane = new TrafficLane(Direction.NORTH, new Block(), new Stations());
 //        RoadIdentifier roadLabel = new RoadLabel(1, "Askia");
 //        double startX = X_COORDINATE;
 //        double startY = Y_COORDINATE;
 //        double endX = startX + ROAD_LENGTH;
 //        double endY = startY + ROAD_WIDTH;
 //        Avenue avenue = new Avenue(roadLabel, new Carriageway(), startX, startY, endX, endY);
-//        avenue.getLanes().add(new LaneBuilder(Orientation.NORTH).cre);
-//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Block(), new Stations()));
+//        avenue.getLanes().add(new LaneBuilder(Direction.NORTH).cre);
+//        avenue.getLanes().add(new TrafficLane(Direction.SOUTH, new Block(), new Stations()));
 //
-//        TrafficLane lane = new TrafficLane(Orientation.NORTH, new Block(), new Stations());
+//        TrafficLane lane = new TrafficLane(Direction.NORTH, new Block(), new Stations());
 //        lane.setWidth(10);
 //        lane.setFill(Color.GRAY);
 //        avenue.getLanes().add(lane);
-//        avenue.getLanes().add(new TrafficLane(Orientation.SOUTH, new Block(), new Stations()));
+//        avenue.getLanes().add(new TrafficLane(Direction.SOUTH, new Block(), new Stations()));
 //
-//        FormattedAddress address = new Address(1, "2000", avenue.getIdentifier(), Orientation.SOUTH);
+//        FormattedAddress address = new Address(1, "2000", avenue.getIdentifier(), Direction.SOUTH);
 //        Addressable building = new Place(address);
 //        AddressableFXControlable fxBuilding = new FXBuildinButton(building, 50, 50, 100, 40, BUILDING_COLOR);
 //
 //
-//        address = new Address(5,"MT501", avenue.getIdentifier(), Orientation.SOUTH);
+//        address = new Address(5,"MT501", avenue.getIdentifier(), Direction.SOUTH);
 //        OldStationable station = new Station(address,new Edges(), new Edges());
 //        avenue.getLanes().getLeftmostLane().getStations().add(station);
 //        avenue.getLanes().getLeftmostLane().getAddresses().add(fxBuilding.getAddressable());

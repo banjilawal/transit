@@ -5,6 +5,6 @@
 //
 //public interface UtilizeVehicle {
 //
-//    public void embark (Vehicle vehicle, Stationable station);
+//    public void embark (Vehicle vehicle, Vertex station);
 //    public void disembark (Vehicle vehicle);
 //}

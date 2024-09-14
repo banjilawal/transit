@@ -6,7 +6,7 @@
 //public interface PassengerFlowQueue {
 //
 //    public void setVehicle (Vehicle vehicle);
-//    public void setStation (Stationable station);
+//    public void setStation (Vertex station);
 //    public void embark ();
 //    public void disembark ();
 //

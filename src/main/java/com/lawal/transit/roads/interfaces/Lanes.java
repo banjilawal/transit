@@ -9,7 +9,7 @@ public interface Lanes {
     public void addLane ();
     public int numberOfLanes ();
     public Iterator<Lane> iterator ();
-    public Orientation getTrafficDirection ();
+    public Direction getTrafficDirection ();
     public Lane getLane (int id) throws Exception;
     public void removeLane (int id) throws Exception;
 }

@@ -3,13 +3,13 @@ package com.lawal.transit.blocks;
 import com.lawal.transit.blocks.interfaces.*;
 import com.lawal.transit.roads.interfaces.*;
 
-public record BlockTag(int id, CurbsideMarker curbsideMarker) implements RoadSectionTag { //(int id, RoadIdentifier roadLabel, Orientation trafficDirection) implements RoadSectionTag {
+public record BlockTag(int id, CurbsideMarking curbsideMarker) implements RoadSectionTag { //(int id, RoadIdentifier roadLabel, Direction trafficDirection) implements RoadSectionTag {
 //
 //    private final int id;
 //    private final RoadIdentifier roadLabel;
-//    private final Orientation trafficDirection;
+//    private final Direction trafficDirection;
 //
-//    public BlockTag (Builder builder) { //(int id, RoadIdentifier roadLabel, Orientation trafficDirection) { //Builder builder) {
+//    public BlockTag (Builder builder) { //(int id, RoadIdentifier roadLabel, Direction trafficDirection) { //Builder builder) {
 //        this.id = builder.id;
 //        this.roadLabel = builder.roadLabel;
 //        this.trafficDirection = builder.trafficDirection;
@@ -21,7 +21,7 @@ public record BlockTag(int id, CurbsideMarker curbsideMarker) implements RoadSec
 //    }
 ////
 //    @Override
-//    public Orientation trafficdirection () {
+//    public Direction trafficdirection () {
 //        return trafficDirection;
 //    }
 //
@@ -60,7 +60,7 @@ public record BlockTag(int id, CurbsideMarker curbsideMarker) implements RoadSec
     public static class Builder {
 
         private int id;
-        CurbsideMarker curbsideMarker;
+        CurbsideMarking curbsideMarker;
 
         public Builder () {}
 
@@ -69,7 +69,7 @@ public record BlockTag(int id, CurbsideMarker curbsideMarker) implements RoadSec
             return this;
         }
 
-        public Builder curbsideMarker (CurbsideMarker curbsideMarker) {
+        public Builder curbsideMarker (CurbsideMarking curbsideMarker) {
             this.curbsideMarker = curbsideMarker;
             return this;
         }

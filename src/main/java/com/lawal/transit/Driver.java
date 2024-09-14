@@ -43,12 +43,7 @@
 //        String name = roads.getIdentifier().getId() * 1000 + number + "";
 //        return new Place(new Address(number, name, roads, laterality));
 //    }
-//
-//    public static OldStationable createStation (Road roads, Laterality laterality, int number) {
-//        String name = "MT-" + roads.getIdentifier().getId() * 1000 + number;
-//        FormattedAddress address = new Address(number, name, roads, laterality);
-//        return new Station(address);
-//    }
+
 //
 //    public static AddressableFXControlable createFXBuilding (Addressable addressable, Stylerizerable stylerizerable) {
 //        return new FXBuildinButton(addressable, stylerizerable);

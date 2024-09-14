@@ -76,7 +76,7 @@
 //        return results;
 //    }
 //
-//    public Iterator<TimeTable> filterByStation (Stationable stationable) {
+//    public Iterator<TimeTable> filterByStation (Vertex stationable) {
 //        List<TimeTable> results = new ArrayList<>();
 //        for (TimeTable timeTable : list) {
 //            if (timeTable.getEntries().positionExists(stationable.getAddress()) && !results.contains(timeTable))

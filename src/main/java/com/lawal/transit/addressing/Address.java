@@ -64,7 +64,7 @@ public record Address(int id, String name, RoadSectionTag blockTag) implements F
 //            + " " + orientation.abbreviation() + " blockId:" + blockId();
 //    }
 //
-//    private Orientation getOrientation (Road roads, Laterality laterality) {
+//    private Direction getOrientation (Road roads, Laterality laterality) {
 //        if (laterality == Laterality.RIGHT)
 //            return roads.getRightCarriageway().getTrafficDirection();
 //        else

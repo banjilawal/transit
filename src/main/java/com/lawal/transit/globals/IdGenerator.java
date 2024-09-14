@@ -11,6 +11,7 @@ public enum IdGenerator {
     private int placeId =1;
     private int edgeId = 1;
     private int junctionId = 1;
+    private int stationCounter = 1;
 
     public int nextScheduleId () {
         return scheduleId++;
@@ -21,7 +22,8 @@ public enum IdGenerator {
     }
 
     public int nextStreetId () {
-        return streetId;
+ //       System.out.println("streetId: " + streetId);
+        return streetId++;
     }
 
     public int nextStationID () {
@@ -40,4 +42,5 @@ public enum IdGenerator {
 
     public int nextJunctionId () { return junctionId++; }
 
+    public int stationCount () { return stationCounter++; }
 }

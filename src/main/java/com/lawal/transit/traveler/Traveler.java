@@ -49,7 +49,7 @@
 //    }
 //
 //    @Override
-//    public void embark (Vehicle vehicle, Stationable station) {
+//    public void embark (Vehicle vehicle, Vertex station) {
 //
 //    }
 //
@@ -68,7 +68,7 @@
 //    }
 //
 //    @Override
-//    public void walkTo (Stationable station) {
+//    public void walkTo (Vertex station) {
 //
 //    }
 //

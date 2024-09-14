@@ -1,6 +1,6 @@
 //package com.lawal.transit.graph;
 //
-//import com.lawal.transit.edges.Edges;
+//import com.lawal.transit.graph.Edges;
 //import com.lawal.transit.edges.interfaces.*;
 //import com.lawal.transit.stations.*;
 //import com.lawal.transit.stations.interfaces.*;

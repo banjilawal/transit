@@ -16,13 +16,4 @@ public interface Intersectional {
     RoadSectional turnSouthEastBranch ();
     RoadSectional turnSouthWestBranch ();
     RoadSectional turnNorthWestBranch ();
-
-
-//    int size ();
-//    Iterator<Branchable> iterator ();
-//    void add (Branchable branchable) throws Exception;
-//    void remove (int branchId) throws Exception;
-//    Branchable search (int branchId);
-//    Branchable next (int currentBranchId);
-//    Branchable previous (int currentBranchId);
 }

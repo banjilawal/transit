@@ -30,7 +30,7 @@
 //        Edgeables incomingEdges,
 //        Edgeables outgoingEdges,
 //        RoadIdentifier roadLabel,
-//        Orientation orientation,
+//        Direction orientation,
 //        String name,
 //        int id
 //    ) throws Exception {

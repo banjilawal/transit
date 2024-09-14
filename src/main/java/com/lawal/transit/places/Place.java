@@ -18,7 +18,7 @@ public record Place (LocationKey key) implements Placeable, Visitee {
             + " name:" + key.name()
             +  " " + key.blockTag().curbsideMarker().roadLabel().name()
             + " " + key.blockTag().curbsideMarker().roadLabel().category().abbreviation()
-            + " " +key.blockTag().curbsideMarker().trafficDirection().print();
+            + " " +key.blockTag().curbsideMarker().travelDirection().print();
     }
 
     public static Builder builder () {

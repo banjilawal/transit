@@ -7,7 +7,7 @@ public enum RoadCategory {
     AVENUE,
     STREET;
 
-    public static boolean isAvenue (Orientation trafficDirection) {
+    public static boolean isAvenue (Direction trafficDirection) {
         return trafficDirection.equals(Avenue.RIGHTWARD_TRAFFIC_DIRECTION) ||
             trafficDirection.equals(Avenue.LEFTWARD_TRAFFIC_DIRECTION);
     }

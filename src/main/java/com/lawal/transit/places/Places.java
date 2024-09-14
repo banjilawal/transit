@@ -8,7 +8,7 @@ public class Places implements Placeables, Iterable<Placeable> {
 
     public static final String ADDITION_ERROR = "The item is already in the list. It cannot be added again";
     public static final String REMOVAL_ERROR = "The item does not exist in the list so it cannot be removed";
-    private final List<Placeable> places;
+    private final ArrayList<Placeable> places;
 
     public Places () {
         this.places = new ArrayList<>();
@@ -19,10 +19,12 @@ public class Places implements Placeables, Iterable<Placeable> {
         return places.size();
     }
 
+    public ArrayList<Placeable> getList () { return places; }
+
     @Override
     public Iterator<Placeable> iterator () {
-        return new PlaceableIterator();
-    }
+        return places.iterator();
+    }//  new PlaceableIterator();}
 
     @Override
     public void add (Placeable placeable) throws Exception {
@@ -61,43 +63,11 @@ public class Places implements Placeables, Iterable<Placeable> {
 
     @Override
     public String toString () {
+        int itemCount = 0;
         StringBuilder stringBuilder = new StringBuilder();
         for(Placeable place : places) {
-            stringBuilder.append(place.toString()).append("\n");
+            stringBuilder.append(place.key().name()).append(" ");
         }
         return stringBuilder.toString();
-    }
-
-    private class PlaceableIterator implements Iterator<Placeable> {
-        private int cursor = 0;
-
-        @Override
-        public boolean hasNext() {
-            return cursor < places.size();
-        }
-
-        public boolean hasPrevious () {
-            int previousCursor = cursor - 1;
-            return previousCursor > 0 && previousCursor < places.size() - 1;
-        }
-
-        @Override
-        public Placeable next () {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            return places.get(cursor++);
-        }
-
-        public Placeable previous () {
-            if (!hasPrevious())
-                throw new NoSuchElementException();
-            return places.get(cursor--);
-        }
-
-        @Override
-        public void remove () {
-            throw new UnsupportedOperationException();
-        }
     }
 }

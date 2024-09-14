@@ -21,7 +21,7 @@ public final class Blocks implements RoadSectionals,  Iterable<RoadSectional> { 
     }
 
     @Override
-    public ArrayList<RoadSectional> get () {
+    public ArrayList<RoadSectional> getList () {
         return blocks;
     }
 
@@ -153,7 +153,7 @@ public final class Blocks implements RoadSectionals,  Iterable<RoadSectional> { 
 //    public static class Builder {
 //        private RoadIdentifier roadLabel;
 //        private ArrayList<RoadSectional> blocks;
-//        private Orientation trafficDirection;
+//        private Direction trafficDirection;
 //
 //        public Builder () {}
 //
@@ -167,7 +167,7 @@ public final class Blocks implements RoadSectionals,  Iterable<RoadSectional> { 
 //            return this;
 //        }
 //
-//        public Builder trafficDirection (Orientation trafficDirection) {
+//        public Builder trafficDirection (Direction trafficDirection) {
 //            this.trafficDirection = trafficDirection;
 //            return this;
 //        }

@@ -3,7 +3,7 @@ package com.lawal.transit.roads;
 import com.lawal.transit.globals.*;
 import com.lawal.transit.roads.interfaces.*;
 
-public record TrafficLane(int id, Orientation trafficDirection) implements Lane {  //extends Rectangle implements Lane {
+public record TrafficLane(int id, Direction trafficDirection) implements Lane {  //extends Rectangle implements Lane {
 
 //    @Override
 //    public boolean equals (Object object) {

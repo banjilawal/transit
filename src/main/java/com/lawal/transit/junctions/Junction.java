@@ -17,6 +17,11 @@ public record Junction (
     RoadSectional turnNorthWestBranch
 ) implements Intersectional {
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " id:" + id + " " + avenue.label().name() + " and " + street.label().name();
+    }
+
     public Builder builder () {
         return new Builder();
     }

@@ -2,16 +2,23 @@ package com.lawal.transit.blocks;
 
 import com.lawal.transit.blocks.interfaces.*;
 import com.lawal.transit.places.interfaces.*;
+import com.lawal.transit.stations.Station;
+import com.lawal.transit.stations.Stations;
 
 public record Block (RoadSectionTag tag, Placeables places) implements RoadSectional {
+//
+//    @Override
+//    public boolean equals (Object object) {
+//        if (object == this) return true;
+//        if (object == null) return false;
+//        if (object instanceof RoadSectional roadSectional)
+//            return tag.equals(roadSectional.tag());
+//        return false;
+//    }
 
     @Override
-    public boolean equals (Object object) {
-        if (object == this) return true;
-        if (object == null) return false;
-        if (object instanceof RoadSectional roadSectional)
-            return tag.equals(roadSectional.tag());
-        return false;
+    public Station getStation (Stations stations) {
+        return stations.search(tag);
     }
 
     @Override

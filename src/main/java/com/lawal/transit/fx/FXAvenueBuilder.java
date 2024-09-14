@@ -14,16 +14,16 @@
 //    private final double startingY;
 //    private final double width;
 //    private final double height;
-//    private final double interval;
+//    private final double namingInterval;
 //
 //
-//    public FXAvenueBuilder (Avenue avenue, double startingX, double startingY, double width, double height, double interval) {
+//    public FXAvenueBuilder (Avenue avenue, double startingX, double startingY, double width, double height, double namingInterval) {
 //        this.avenue = avenue;
 //        this.startingX = startingX;
 //        this.startingY = startingY;
 //        this.width = width;
 //        this.height = height;
-//        this.interval = interval;
+//        this.namingInterval = namingInterval;
 //    }
 //
 //    public Avenue getAvenue () {
@@ -40,9 +40,9 @@
 //    private HBox getFXTrafficLanes (Laterality laterality) {
 //        ShapeDetails details = new ShapeDetails(startingX, startingY, width, height, Color.GRAY);
 //        if (laterality.equals(Laterality.LEFT))
-//            return new CarriagewayFX(avenue.leftCarriageway(), details, 2).getHBox();//FXTrafficLanes(avenue.getLeftCarriageway(), startingX, startingY, width, height, interval).getGroup();
+//            return new CarriagewayFX(avenue.leftCarriageway(), details, 2).getHBox();//FXTrafficLanes(avenue.getLeftCarriageway(), startingX, startingY, width, height, namingInterval).getGroup();
 //        else
-//            return new CarriagewayFX(avenue.rightCarriageway(), details, interval).getHBox();
+//            return new CarriagewayFX(avenue.rightCarriageway(), details, namingInterval).getHBox();
 //    }
 //
 //    public VBox getVBox () {

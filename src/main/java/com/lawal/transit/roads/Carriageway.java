@@ -12,9 +12,9 @@ public class Carriageway implements Lanes {
     public static final String LANE_DOES_NOT_EXIST_ERROR = "The item does not exist in the list so it cannot be removed";
 
     private final List<Lane> lanes;
-    private final Orientation trafficDirection;
+    private final Direction trafficDirection;
 
-    public Carriageway (Orientation trafficDirection) {
+    public Carriageway (Direction trafficDirection) {
         this.lanes = new ArrayList<>();
         this.trafficDirection = trafficDirection;
         this.lanes.add(new TrafficLane(1, trafficDirection));
@@ -36,7 +36,7 @@ public class Carriageway implements Lanes {
     }
 
     @Override
-    public Orientation getTrafficDirection () {
+    public Direction getTrafficDirection () {
         return trafficDirection;
     }
 

@@ -1,0 +1,8 @@
+package com.lawal.transit.globals;
+
+public enum ADDRESS_NAME_CATEGORY {
+    LEFTWARD_PLACE_NAME,
+    RIGHTWARD_PLACE_NAME,
+    LEFTWARD_STATION_NAME,
+    RIGHTWARD_STATION_NAME
+}

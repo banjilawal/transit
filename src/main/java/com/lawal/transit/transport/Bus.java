@@ -53,7 +53,7 @@
 //        return null;
 //    }
 //
-//    public void disembark (Stationable station) {
+//    public void disembark (Vertex station) {
 //        ArrayList<Integer> indices = new ArrayList<>();
 //        for (Traveler passenger: passengers) {
 //            if (passenger.getRoute().getNodes().searchByName(station.getAddress().name()) != null) {

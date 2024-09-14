@@ -7,10 +7,10 @@ import com.lawal.transit.roads.interfaces.*;
 public final class Avenue implements Road {
 
     public static final RoadCategory ROAD_CATEGORY = RoadCategory.AVENUE;
-    public static final Orientation RIGHTWARD_TRAFFIC_DIRECTION = Orientation.WEST;
-    public static final Orientation LEFTWARD_TRAFFIC_DIRECTION = Orientation.EAST;
-    public static final int RIGHTWARD_STATION_BASE_NAME = 2000;
-    public static final int LEFTWARD_STATION_BASE_NAME = 4000;
+    public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.WEST;
+    public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.EAST;
+    public static final int RIGHTWARD_CURB_ID = 2000;
+    public static final int LEFTWARD_CURB_ID = 4000;
 
     private final RoadIdentifier label;
     private final Lanes leftCarriageway;
@@ -22,8 +22,8 @@ public final class Avenue implements Road {
         this.label = label;
         this.leftCarriageway = new Carriageway(LEFTWARD_TRAFFIC_DIRECTION);
         this.rightCarriageway = new Carriageway(RIGHTWARD_TRAFFIC_DIRECTION);
-        this.leftCurb = new Curbside(new CurbsideKey(label, LEFTWARD_TRAFFIC_DIRECTION));
-        this.rightCurb = new Curbside(new CurbsideKey(label, RIGHTWARD_TRAFFIC_DIRECTION));
+        this.leftCurb = new Curbside(new CurbsideMark(label, LEFTWARD_TRAFFIC_DIRECTION));
+        this.rightCurb = new Curbside(new CurbsideMark(label, RIGHTWARD_TRAFFIC_DIRECTION));
     }
 
     private Avenue (Builder builder) {
@@ -59,19 +59,19 @@ public final class Avenue implements Road {
     }
 
     @Override
-    public Lanes getCarriageway(Orientation orientation) {
-        if (orientation.equals(LEFTWARD_TRAFFIC_DIRECTION))
+    public Lanes getCarriageway(Direction travelDirection) {
+        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
             return leftCarriageway;
-        if (orientation.equals(RIGHTWARD_TRAFFIC_DIRECTION))
+        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
             return rightCarriageway;
         return null;
     }
 
     @Override
-    public Curbsideable getCurb (Orientation orientation) {
-        if (orientation.equals(LEFTWARD_TRAFFIC_DIRECTION))
+    public Curbsideable getCurb (Direction travelDirection) {
+        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
             return leftCurb;
-        if (orientation.equals(RIGHTWARD_TRAFFIC_DIRECTION))
+        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
             return rightCurb;
         return null;
     }
@@ -129,7 +129,6 @@ public final class Avenue implements Road {
             this.rightCurb = rightCurb;
             return this;
         }
-
         public Builder leftCarriageway (Lanes leftCarriageway) {
             this.leftCarriageway = leftCarriageway;
             return this;

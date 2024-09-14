@@ -10,15 +10,15 @@
 //    private double y;
 //    private final double width;
 //    private final double height;
-//    private final double interval;
+//    private final double namingInterval;
 //
-//    public FXTrafficLanes (Lanes lanes, double x, double y, double width, double height, double interval) {
+//    public FXTrafficLanes (Lanes lanes, double x, double y, double width, double height, double namingInterval) {
 //        this.lanes = lanes;
 //        this.x = x;
 //        this.y = y;
 //        this.width = width;
 //        this.height = height;
-//        this.interval = interval;
+//        this.namingInterval = namingInterval;
 //    }
 //
 //    public Lanes getLanes () {
@@ -39,8 +39,8 @@
 //        while(lanes.iterator().hasNext()) {
 //            FXTrafficLane fxTrafficLane = new FXTrafficLane(lanes.iterator().next(), x, y, width, height);
 //            vBox.getChildren().addAll(fxTrafficLane.getGroup());
-//            x += interval;
-//            y += interval;
+//            x += namingInterval;
+//            y += namingInterval;
 //        }
 //        vBox.setStyle(cssStyling());
 //        return vBox;
@@ -51,8 +51,8 @@
 //        while(lanes.iterator().hasNext()) {
 //            FXTrafficLane fxTrafficLane = new FXTrafficLane(lanes.iterator().next(), x, y, width, height);
 //            hBox.getChildren().addAll(fxTrafficLane.getGroup());
-//            x += interval;
-//            y += interval;
+//            x += namingInterval;
+//            y += namingInterval;
 //        }
 //        hBox.setStyle(cssStyling());
 //        return hBox;

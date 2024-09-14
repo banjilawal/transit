@@ -3,30 +3,32 @@ package com.lawal.transit.roads;
 import com.lawal.transit.blocks.Blocks;
 import com.lawal.transit.blocks.interfaces.*;
 import com.lawal.transit.roads.interfaces.*;
+import com.lawal.transit.stations.Station;
 import com.lawal.transit.stations.Stations;
-import com.lawal.transit.stations.interfaces.*;
+
+//public record Curbside (CurbsideMarking key, Stationables stations, RoadSectionals blocks) implements Curbsideable {
 
 public final class Curbside implements Curbsideable {
 
-    private final CurbsideMarker key;
-    private final Stationables stations;
+    private final CurbsideMarking marker;
+    private final Stations stations;
     private final RoadSectionals blocks;
 
-    public Curbside (CurbsideMarker key) {
-        this.key = key;
+    public Curbside (CurbsideMarking marker) {
+        this.marker = marker;
         this.blocks = new Blocks();
         this.stations = new Stations();
     }
 
     private Curbside(Builder builder) {
-        this.key = builder.key;
+        this.marker = builder.marker;
         this.stations = builder.stations;
         this.blocks = builder.blocks;
     }
 
     @Override
-    public CurbsideMarker key() {
-        return key;
+    public CurbsideMarking marker () {
+        return marker;
     }
 
     @Override
@@ -35,13 +37,34 @@ public final class Curbside implements Curbsideable {
     }
 
     @Override
-    public Stationables stations () {
+    public Stations stations () {
         return stations;
     }
 
     @Override
     public String toString () {
-        return key().toString() + "\n" + blocks.toString() + "\n" + stations.toString();
+        return marker().travelDirection().toString()
+            + " [block count:" + blocks.size() + " station count:"  + stations.size() + "]\n"
+            + printMembers();
+    }
+
+
+    public String printMembers () {
+        String stationName = "";
+        StringBuilder stringBuilder = new StringBuilder()
+            .append("Block ID").append(String.format("%10s", "Station")).append(String.format("%14s\n", "Places"));
+        for (int i = 0; i <65; i++)
+            stringBuilder.append("-");
+        stringBuilder.append("\n");
+        for (RoadSectional block : blocks.getList()) {
+            stringBuilder.append(String.format("%-4d", block.tag().id()));
+            Station station = block.getStation(stations);
+            stationName = "";
+            if (station != null) stationName = station.getKey().name();
+            stringBuilder.append(String.format("%15s", stationName));
+            stringBuilder.append(String.format("%30s", block.places().toString())).append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     public static Builder builder () {
@@ -49,15 +72,15 @@ public final class Curbside implements Curbsideable {
     }
 
     public static class Builder {
-
-        private CurbsideMarker key;
+        private CurbsideMarking marker;
         private RoadSectionals blocks;
-        private Stationables stations;
+        private Stations stations;
+
 
         public Builder () {}
 
-        public Builder key(CurbsideMarker key) {
-            this.key = key;
+        public Builder key(CurbsideMarking marker) {
+            this.marker = marker;
             return this;
         }
 
@@ -66,7 +89,7 @@ public final class Curbside implements Curbsideable {
             return this;
         }
 
-        public Builder stations (Stationables stations) {
+        public Builder stations (Stations stations) {
             this.stations = stations;
             return this;
         }
