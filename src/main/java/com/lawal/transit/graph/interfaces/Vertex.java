@@ -1,11 +1,11 @@
-package com.lawal.transit.graph;
+package com.lawal.transit.graph.interfaces;
 
-import com.lawal.transit.addressing.LocationKey;
-import com.lawal.transit.graph.interfaces.Edgeables;
+import com.lawal.transit.addressing.Addressable;
+import com.lawal.transit.graph.VertexColor;
 
 public interface Vertex {
 
-    LocationKey getKey ();
+    Addressable getKey ();
     VertexColor getColor();
     Vertex getPredecessor ();
     Edgeables getIncomingEdges();

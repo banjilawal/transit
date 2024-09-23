@@ -5,7 +5,7 @@ import com.lawal.transit.blocks.BlockTag;
 import com.lawal.transit.blocks.interfaces.RoadSectionTag;
 import com.lawal.transit.blocks.interfaces.RoadSectional;
 import com.lawal.transit.globals.IdGenerator;
-import com.lawal.transit.addressing.Key;
+import com.lawal.transit.addressing.Address;
 import com.lawal.transit.places.Place;
 import com.lawal.transit.places.Places;
 import com.lawal.transit.places.interfaces.Placeables;
@@ -86,7 +86,7 @@ public final class BlockCreator {
         RoadSectionTag blockTag = new BlockTag(blockId, curbsideMarker);
         Placeables places = new Places();
         for (int index = 0; index < numberOfPlaces; index++) {
-            places.add(new Place(new Key(IdGenerator.INSTANCE.nextPlaceId(), "" + placeName, blockTag)));
+            places.add(new Place(new Address(IdGenerator.INSTANCE.nextPlaceId(), "" + placeName, blockTag)));
             placeName += placeNameInterval;
         }
         return new Block.Builder().tag(blockTag).places(places).build();

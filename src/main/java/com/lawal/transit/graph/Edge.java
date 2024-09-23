@@ -1,6 +1,7 @@
 package com.lawal.transit.graph;
 
 import com.lawal.transit.graph.interfaces.Edgeable;
+import com.lawal.transit.graph.interfaces.Vertex;
 import com.lawal.transit.graph.interfaces.Weightable;
 import com.lawal.transit.roads.interfaces.RoadIdentifier;
 

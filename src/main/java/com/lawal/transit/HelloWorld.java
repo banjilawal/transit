@@ -44,12 +44,12 @@
 //        avenue.getLanes().add(lane);
 //        avenue.getLanes().add(new TrafficLane(Direction.SOUTH, new Block(), new Stations()));
 //
-//        FormattedAddress address = new Address(1, "2000", avenue.getIdentifier(), Direction.SOUTH);
+//        FormattedAddress address = new RetiredAddressOld(1, "2000", avenue.getIdentifier(), Direction.SOUTH);
 //        Addressable building = new Place(address);
 //        AddressableFXControlable fxBuilding = new FXBuildinButton(building, 50, 50, 100, 40, BUILDING_COLOR);
 //
 //
-//        address = new Address(5,"MT501", avenue.getIdentifier(), Direction.SOUTH);
+//        address = new RetiredAddressOld(5,"MT501", avenue.getIdentifier(), Direction.SOUTH);
 //        OldStationable station = new Station(address,new Edges(), new Edges());
 //        avenue.getLanes().getLeftmostLane().getStations().add(station);
 //        avenue.getLanes().getLeftmostLane().getAddresses().add(fxBuilding.getAddressable());

@@ -84,7 +84,7 @@ public final class Blocks implements RoadSectionals,  Iterable<RoadSectional> { 
 
     @Override
     public void addPlace (Placeable placeable) throws Exception {
-        RoadSectional block = findBlock(placeable.key().blockTag().id());
+        RoadSectional block = findBlock(placeable.address().blockTag().id());
         if (block == null)
             throw new Exception("There is no block with that id. To add the place to.");
         block.places().add(placeable);

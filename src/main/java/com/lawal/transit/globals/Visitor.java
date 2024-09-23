@@ -1,6 +1,6 @@
 package com.lawal.transit.globals;
 
-import com.lawal.transit.graph.Vertex;
+import com.lawal.transit.graph.interfaces.Vertex;
 import com.lawal.transit.places.interfaces.*;
 
 public interface Visitor {

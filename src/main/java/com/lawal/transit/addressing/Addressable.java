@@ -2,7 +2,7 @@ package com.lawal.transit.addressing;
 
 import com.lawal.transit.blocks.interfaces.*;
 
-public interface LocationKey {
+public interface Addressable {
 
     int id ();
     String name();

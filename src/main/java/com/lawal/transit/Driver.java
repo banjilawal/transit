@@ -41,7 +41,7 @@
 //
 //    public static Addressable createBuilding (Road roads, Laterality laterality, int number) {
 //        String name = roads.getIdentifier().getId() * 1000 + number + "";
-//        return new Place(new Address(number, name, roads, laterality));
+//        return new Place(new RetiredAddressOld(number, name, roads, laterality));
 //    }
 
 //
@@ -77,7 +77,7 @@
 //        ButtonBar rightStationButtons = initButtonBar();
 //        for (int index = 0; index <= 10; index +=2) {
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.RIGHT);
+//            FormattedAddress address = new RetiredAddressOld(stationId, name, avenue, Laterality.RIGHT);
 //            OldStationable station = new Station(address);
 //
 //            avenue.getRightSideStations().add(station);
@@ -90,7 +90,7 @@
 //        ButtonBar rightBuildingButtons = initButtonBar();
 //        for (int index = 0; index < 20; index +=2) {
 //            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.RIGHT));
+//            Addressable building = new Place(new RetiredAddressOld(buildingId, name, avenue, Laterality.RIGHT));
 //            avenue.getRightSideBuildings().add(building);
 //            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
 //            rightBuildingButtons.getButtons().addAll(fxBuilding.getButton());
@@ -100,7 +100,7 @@
 //        ButtonBar leftStationButtons = initButtonBar();
 //        for (int index = 1; index <= 7; index +=2) {
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.LEFT);
+//            FormattedAddress address = new RetiredAddressOld(stationId, name, avenue, Laterality.LEFT);
 //            OldStationable station = new Station(address);
 //
 //            avenue.getLeftSideStations().add(station);
@@ -113,7 +113,7 @@
 //        ButtonBar leftBuildingButtons = initButtonBar();
 //        for (int index = 1; index < 25; index +=2) {
 //            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.LEFT));
+//            Addressable building = new Place(new RetiredAddressOld(buildingId, name, avenue, Laterality.LEFT));
 //            avenue.getLeftSideBuildings().add(building);
 //            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
 //            leftBuildingButtons.getButtons().addAll(fxBuilding.getButton());
@@ -171,7 +171,7 @@
 //        ButtonBar rightStationButtons = initButtonBar();
 //        for (int index = 0; index <= 10; index +=2) {
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.RIGHT);
+//            FormattedAddress address = new RetiredAddressOld(stationId, name, avenue, Laterality.RIGHT);
 //            OldStationable station = new Station(address);
 //
 //            avenue.getRightSideStations().add(station);
@@ -185,7 +185,7 @@
 //        ButtonBar rightBuildingButtons = initButtonBar();
 //        for (int index = 0; index < 20; index +=2) {
 //            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.RIGHT));
+//            Addressable building = new Place(new RetiredAddressOld(buildingId, name, avenue, Laterality.RIGHT));
 //            avenue.getRightSideBuildings().add(building);
 //            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
 //            rightBuildingButtons.getButtons().addAll(fxBuilding.getButton());
@@ -195,7 +195,7 @@
 //        ButtonBar leftStationButtons = initButtonBar();
 //        for (int index = 1; index <= 7; index +=2) {
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(stationId, name, avenue, Laterality.LEFT);
+//            FormattedAddress address = new RetiredAddressOld(stationId, name, avenue, Laterality.LEFT);
 //            OldStationable station = new Station(address);
 //
 //            avenue.getLeftSideStations().add(station);
@@ -208,7 +208,7 @@
 //        ButtonBar leftBuildingButtons = initButtonBar();
 //        for (int index = 1; index < 25; index +=2) {
 //            String name = avenue.getIdentifier().getId() * 1000 + index + "";
-//            Addressable building = new Place(new Address(buildingId, name, avenue, Laterality.LEFT));
+//            Addressable building = new Place(new RetiredAddressOld(buildingId, name, avenue, Laterality.LEFT));
 //            avenue.getLeftSideBuildings().add(building);
 //            AddressableFXControlable fxBuilding = createFXBuilding(building, f.stylerizer(ComponentCategory.ADDRESSABLE));
 //            leftBuildingButtons.getButtons().addAll(fxBuilding.getButton());
@@ -345,7 +345,7 @@
 //        for (int index = 0; index < NUMBER_OF_STATIONS; index++) {
 //            lane.getStations().add(createStation(avenue, roadLateral, index));
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(index, name, avenue, roadLateral);
+//            FormattedAddress address = new RetiredAddressOld(index, name, avenue, roadLateral);
 //            OldStationable station = new Station(address);
 //            VertexFXControllable fxStation = new FXStationButton(station, stylerizer.stylerizer(ComponentCategory.VERTEX));
 //            stationButtons.getButtons().add(stationButtons.getButtons().size(), fxStation.getButton());

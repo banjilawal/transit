@@ -2,6 +2,7 @@ package com.lawal.transit.graph;
 
 import com.lawal.transit.graph.interfaces.Edgeable;
 import com.lawal.transit.graph.interfaces.Edgeables;
+import com.lawal.transit.graph.interfaces.Vertex;
 
 
 import java.util.*;

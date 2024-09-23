@@ -16,7 +16,7 @@
 //        Iterator<Vertex> iterator = stations.iterator();
 //        while (iterator.hasNext()) {
 //            Vertex station = iterator.next();
-//            RoadSectionTag blockTag = station.key().blockTag();
+//            RoadSectionTag blockTag = station.address().blockTag();
 //            if (!blockTags.contains(blockTag))
 //                blockTags.add(blockTags.size(), blockTag);
 //

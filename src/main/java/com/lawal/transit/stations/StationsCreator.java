@@ -1,8 +1,8 @@
 package com.lawal.transit.stations;
 
 
-import com.lawal.transit.addressing.Key;
-import com.lawal.transit.addressing.LocationKey;
+import com.lawal.transit.addressing.Address;
+import com.lawal.transit.addressing.Addressable;
 import com.lawal.transit.blocks.interfaces.RoadSectional;
 import com.lawal.transit.graph.Edges;
 import com.lawal.transit.globals.Direction;
@@ -33,7 +33,7 @@ public final class StationsCreator {
             Direction travelDirection = targetBlocks.get(0).tag().curbsideMarker().travelDirection();
             Stations stations = new Stations();
             for (RoadSectional targetBlock : targetBlocks) {
-                LocationKey key = new Key.Builder().id(IdGenerator.INSTANCE.nextStationID())
+                Addressable key = new Address.Builder().id(IdGenerator.INSTANCE.nextStationID())
                     .name(NameGenerator.INSTANCE.stationName(travelDirection))
                     .blockTag(targetBlock.tag())
                     .build();

@@ -4,6 +4,6 @@ import com.lawal.transit.addressing.*;
 
 public interface TransitRequest extends SystemRequest {
 
-    public Address getSource ();
-    public Address getDestination ();
+    public RetiredAddressOld getSource ();
+    public RetiredAddressOld getDestination ();
 }

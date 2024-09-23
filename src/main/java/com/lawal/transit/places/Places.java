@@ -28,9 +28,9 @@ public class Places implements Placeables, Iterable<Placeable> {
 
     @Override
     public void add (Placeable placeable) throws Exception {
-        if (search(placeable.key().id()) != null)
+        if (search(placeable.address().id()) != null)
             throw new Exception("Add place failure: id already in use.");
-        if (search(placeable.key().name()) != null)
+        if (search(placeable.address().name()) != null)
             throw new Exception("Add place failure: name already in use.");
         places.add(places.size(), placeable);
     }
@@ -46,7 +46,7 @@ public class Places implements Placeables, Iterable<Placeable> {
     @Override
     public Placeable search (int placeId) {
         for (Placeable place : places) {
-            if (place.key().id() == placeId)
+            if (place.address().id() == placeId)
                 return place;
         }
         return null;
@@ -55,7 +55,7 @@ public class Places implements Placeables, Iterable<Placeable> {
     @Override
     public Placeable search (String placeName) {
         for (Placeable place : places) {
-            if (place.key().name().equalsIgnoreCase(placeName))
+            if (place.address().name().equalsIgnoreCase(placeName))
                 return place;
         }
         return null;
@@ -66,7 +66,7 @@ public class Places implements Placeables, Iterable<Placeable> {
         int itemCount = 0;
         StringBuilder stringBuilder = new StringBuilder();
         for(Placeable place : places) {
-            stringBuilder.append(place.key().name()).append(" ");
+            stringBuilder.append(place.address().name()).append(" ");
         }
         return stringBuilder.toString();
     }

@@ -1,10 +1,10 @@
 package com.lawal.transit.places;
 
-import com.lawal.transit.addressing.LocationKey;
+import com.lawal.transit.addressing.Addressable;
 import com.lawal.transit.globals.*;
 import com.lawal.transit.places.interfaces.*;
 
-public record Place (LocationKey key) implements Placeable, Visitee {
+public record Place (Addressable address) implements Placeable, Visitee {
 
     @Override
     public void accept (Visitor visitor) {
@@ -14,11 +14,11 @@ public record Place (LocationKey key) implements Placeable, Visitee {
     @Override
     public String toString () {
         return getClass().getSimpleName()
-            + " id:" + key.id()
-            + " name:" + key.name()
-            +  " " + key.blockTag().curbsideMarker().roadLabel().name()
-            + " " + key.blockTag().curbsideMarker().roadLabel().category().abbreviation()
-            + " " +key.blockTag().curbsideMarker().travelDirection().print();
+            + " id:" + address.id()
+            + " name:" + address.name()
+            +  " " + address.blockTag().curbsideMarker().roadLabel().name()
+            + " " + address.blockTag().curbsideMarker().roadLabel().category().abbreviation()
+            + " " + address.blockTag().curbsideMarker().travelDirection().print();
     }
 
     public static Builder builder () {
@@ -27,9 +27,9 @@ public record Place (LocationKey key) implements Placeable, Visitee {
 
     public static class Builder {
 
-        private LocationKey key;
+        private Addressable key;
 
-        public Builder key (LocationKey key) {
+        public Builder key (Addressable key) {
             this.key = key;
             return this;
         }

@@ -7,6 +7,7 @@ module com.lawal.transit {
     requires org.kordamp.bootstrapfx.core;
 
     requires java.sql;
+    requires static lombok;
 
 //    exports com.lawal.transit.fx;
 //    opens com.lawal.transit.fx;

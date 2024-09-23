@@ -75,11 +75,11 @@ public class AvenueCreatorTest {
 //        StreetCreator streetCreator = new StreetCreator(roadParameters);
 //        Street street = streetCreator.create();
 //        System.out.println(street.toString() + "\n" + street.leftCurb().toString() + "\n" + street.rightCurb().toString());
-//        avenue.leftCurb().blocks().addBlock(new Block.Builder().tag(new BlockTag(1, avenue.leftCurb().key())).places(new Places()).build());
+//        avenue.leftCurb().blocks().addBlock(new Block.Builder().tag(new BlockTag(1, avenue.leftCurb().address())).places(new Places()).build());
 //        System.out.println(avenue.leftCurb().toString());
 
 //        Curbsideable curbside = new Curbside.Builder()
-//            .key(new CurbsideMark(avenue.label(), Avenue.LEFTWARD_TRAFFIC_DIRECTION))
+//            .address(new CurbsideMark(avenue.label(), Avenue.LEFTWARD_TRAFFIC_DIRECTION))
 //            .blocks(new Blocks()).stations(new Stations()).build();
 //        System.out.println(curbside.toString());
 

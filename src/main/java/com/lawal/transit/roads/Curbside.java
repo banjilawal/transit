@@ -6,7 +6,7 @@ import com.lawal.transit.roads.interfaces.*;
 import com.lawal.transit.stations.Station;
 import com.lawal.transit.stations.Stations;
 
-//public record Curbside (CurbsideMarking key, Stationables stations, RoadSectionals blocks) implements Curbsideable {
+//public record Curbside (CurbsideMarking address, Stationables stations, RoadSectionals blocks) implements Curbsideable {
 
 public final class Curbside implements Curbsideable {
 

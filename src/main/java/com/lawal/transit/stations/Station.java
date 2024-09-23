@@ -1,8 +1,8 @@
 package com.lawal.transit.stations;
 
-import com.lawal.transit.addressing.LocationKey;
+import com.lawal.transit.addressing.Addressable;
 import com.lawal.transit.graph.interfaces.Edgeables;
-import com.lawal.transit.graph.Vertex;
+import com.lawal.transit.graph.interfaces.Vertex;
 import com.lawal.transit.graph.VertexColor;
 
 import java.util.*;
@@ -11,7 +11,7 @@ public final class Station implements Vertex {
 
     private VertexColor color;
     private Vertex predecessor;
-    private final LocationKey key;
+    private final Addressable key;
     private final Edgeables incomingEdges;
     private final Edgeables outgoingEdges;
 
@@ -24,7 +24,7 @@ public final class Station implements Vertex {
     }
 
     @Override
-    public LocationKey getKey () {
+    public Addressable getKey () {
         return key;
     }
 
@@ -92,7 +92,7 @@ public final class Station implements Vertex {
 
     public static class Builder {
 
-        private LocationKey key;
+        private Addressable key;
         private VertexColor color;
         private Vertex predecessor;
         private Edgeables incomingEdges;
@@ -100,7 +100,7 @@ public final class Station implements Vertex {
 
         public Builder () {}
 
-        public Builder key (LocationKey key) {
+        public Builder key (Addressable key) {
             this.key = key;
             return this;
         }

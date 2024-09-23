@@ -159,7 +159,7 @@
 //        for (int index = 0; index < NUMBER_OF_STATIONS; index++) {
 //            lane.getStations().add(createStation(avenue, roadLateral, index));
 //            String name = "MT-" + avenue.getIdentifier().getId() * 1000 + index;
-//            FormattedAddress address = new Address(index, name, avenue, roadLateral);
+//            FormattedAddress address = new RetiredAddressOld(index, name, avenue, roadLateral);
 //            OldStationable station = new Station(address);
 //            VertexFXControllable fxStation = new FXStationButton(station, stylerizer.stylerizer(ComponentCategory.VERTEX));
 //            stationButtons.getButtons().add(stationButtons.getButtons().size(), fxStation.getButton());

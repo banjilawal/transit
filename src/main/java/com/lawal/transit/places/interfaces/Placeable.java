@@ -1,7 +1,7 @@
 package com.lawal.transit.places.interfaces;
 
-import com.lawal.transit.addressing.LocationKey;
+import com.lawal.transit.addressing.Addressable;
 
 public interface Placeable {
-    LocationKey key ();
+    Addressable address ();
 }
