@@ -37,15 +37,7 @@ public final class StationsCreator {
                     .name(NameGenerator.INSTANCE.stationName(travelDirection))
                     .blockTag(targetBlock.tag())
                     .build();
-                stations.add(
-                    new Station.Builder()
-                        .key(key)
-                        .predecessor(null)
-                        .color(VertexColor.WHITE)
-                        .incomingEdges(new Edges())
-                        .outgoingEdges(new Edges())
-                        .build()
-                );
+                stations.add(new Station(key));
             }
             return stations;
         }
