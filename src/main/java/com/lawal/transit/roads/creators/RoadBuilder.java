@@ -1,5 +1,7 @@
 package com.lawal.transit.roads.creators;
 
+import com.lawal.transit.catalogs.AvenueCatalog;
+import com.lawal.transit.catalogs.StreetCatalog;
 import com.lawal.transit.globals.Constant;
 import com.lawal.transit.globals.Direction;
 import com.lawal.transit.roads.*;
@@ -96,23 +98,29 @@ public class RoadBuilder {
     }
 
     private Avenue buildAvenue () throws Exception {
-        return new Avenue.Builder()
+        AvenueCatalog avenueCatalog = AvenueCatalog.INSTANCE;
+        Avenue avenue = new Avenue.Builder()
             .leftCarriageway(new Carriageway(Avenue.LEFTWARD_TRAFFIC_DIRECTION))
             .rightCarriageway(new Carriageway(Avenue.RIGHTWARD_TRAFFIC_DIRECTION))
             .leftCurb(getCurbside(Avenue.LEFTWARD_TRAFFIC_DIRECTION, roadId * Constant.MULTIPLICATION_FACTOR + 1))
             .rightCurb(getCurbside(Avenue.RIGHTWARD_TRAFFIC_DIRECTION, roadId * Constant.MULTIPLICATION_FACTOR))
             .label(roadLabel)
             .build();
+        avenueCatalog.getCatalog().getAvenues().add(avenue);
+        return avenue;
     }
 
     private Street buildStreet () throws Exception {
-        return new Street.Builder()
+        StreetCatalog streetCatalog = StreetCatalog.INSTANCE;
+        Street street = new Street.Builder()
             .leftCarriageway(new Carriageway(Avenue.LEFTWARD_TRAFFIC_DIRECTION))
             .rightCarriageway(new Carriageway(Avenue.RIGHTWARD_TRAFFIC_DIRECTION))
             .leftCurb(getCurbside(Street.LEFTWARD_TRAFFIC_DIRECTION, roadId * Constant.MULTIPLICATION_FACTOR + 1))
             .rightCurb(getCurbside(Street.RIGHTWARD_TRAFFIC_DIRECTION, roadId * Constant.MULTIPLICATION_FACTOR))
             .label(roadLabel)
             .build();
+        streetCatalog.getCatalog().getStreets().add(street);
+        return street;
     }
 
     private Curbsideable getCurbside (Direction trafficDirection, int startingPlaceName) throws Exception {

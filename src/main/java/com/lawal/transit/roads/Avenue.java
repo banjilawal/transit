@@ -90,7 +90,9 @@ public final class Avenue implements Road {
 
     @Override
     public String toString () {
-        return label.name() + " " + label.category().abbreviation();
+        return label.name() + " " + label.category().abbreviation() + " ["
+            + leftCarriageway.getTrafficDirection().adjective() + " block count:" + leftCurb.blocks().size() + " "
+            + rightCarriageway.getTrafficDirection().adjective() + " block count:" + rightCurb.blocks().size() + "]";
     }
 
     public int totalStations () {

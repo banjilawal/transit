@@ -1,19 +1,17 @@
 package com.lawal.transit.test;
 
 
-import com.lawal.transit.blocks.interfaces.RoadSectional;
+import com.lawal.transit.catalogs.AvenueCatalog;
+import com.lawal.transit.catalogs.StationCatalog;
+import com.lawal.transit.catalogs.StreetCatalog;
 import com.lawal.transit.globals.Constant;
-import com.lawal.transit.globals.IdGenerator;
 import com.lawal.transit.junctions.JunctionFactory;
 import com.lawal.transit.junctions.Junctions;
 import com.lawal.transit.roads.Avenue;
 import com.lawal.transit.roads.Avenues;
 import com.lawal.transit.roads.Streets;
 import com.lawal.transit.roads.creators.RoadFactory;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import com.lawal.transit.stations.Station;
 
 
 public class FactoryDriver {
@@ -52,5 +50,9 @@ public class FactoryDriver {
 //        }
         Junctions junctions = new JunctionFactory().avenues(avenues).streets(streets).getProduct();
         System.out.println(junctions.toString());
+
+        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
+        AvenueCatalog.INSTANCE.getCatalog().getAvenues().forEach(System.out::println);
+        StreetCatalog.INSTANCE.getCatalog().getStreets().forEach(System.out::println);
     }
 }

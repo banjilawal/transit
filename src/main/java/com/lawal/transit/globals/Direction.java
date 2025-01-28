@@ -136,4 +136,29 @@ public enum Direction {
         }
         return "";
     } // close abbreviation
+
+    public String adjective () {
+
+        switch (this) {
+            case NORTH:
+                return "Northerly";
+            case NORTHEAST:
+                return "Northeasterly";
+            case EAST:
+                return "Easterly";
+            case SOUTHEAST:
+                return "Southeasterly";
+            case SOUTH:
+                return "Southerly";
+            case SOUTHWEST:
+                return "Southwesterly";
+            case WEST:
+                return "Westerly";
+            case NORTHWEST:
+                return "Northwesterly";
+            default:
+                System.out.println("Direction line 68: Direction abbreviation not set");
+        }
+        return "";
+    }
 } // end enum Direction

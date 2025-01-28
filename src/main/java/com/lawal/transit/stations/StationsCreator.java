@@ -4,11 +4,10 @@ package com.lawal.transit.stations;
 import com.lawal.transit.addressing.Address;
 import com.lawal.transit.addressing.Addressable;
 import com.lawal.transit.blocks.interfaces.RoadSectional;
-import com.lawal.transit.graph.Edges;
+import com.lawal.transit.catalogs.StationCatalog;
 import com.lawal.transit.globals.Direction;
 import com.lawal.transit.globals.IdGenerator;
 import com.lawal.transit.globals.NameGenerator;
-import com.lawal.transit.graph.VertexColor;
 
 import java.util.ArrayList;
 
@@ -28,6 +27,8 @@ public final class StationsCreator {
     }
 
     public Stations getProduct () throws Exception {
+        StationCatalog stationCatalog = StationCatalog.INSTANCE;
+
         if ( targetBlocks == null || targetBlocks.isEmpty() ) { return new Stations();   }
         else {
             Direction travelDirection = targetBlocks.get(0).tag().curbsideMarker().travelDirection();
@@ -37,6 +38,8 @@ public final class StationsCreator {
                     .name(NameGenerator.INSTANCE.stationName(travelDirection))
                     .blockTag(targetBlock.tag())
                     .build();
+                Station station = new Station(key);
+                stationCatalog.getCatalog().add(station);
                 stations.add(new Station(key));
             }
             return stations;

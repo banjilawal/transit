@@ -78,7 +78,9 @@ public final class Street implements Road {
 
     @Override
     public String toString () {
-        return label.name() + " " + label.category().print();
+        return label.name() + " " + label.category().abbreviation() + " ["
+            + leftCarriageway.getTrafficDirection().adjective() + " block count:" + leftCurb.blocks().size() + " "
+            + rightCarriageway.getTrafficDirection().adjective() + " block count:" + rightCurb.blocks().size() + "]";
     }
 
 //    public static Direction getTrafficeDirection (Laterality laterality) {

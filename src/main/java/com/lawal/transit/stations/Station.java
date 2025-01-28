@@ -104,12 +104,15 @@ public final class Station implements Vertex {
 
     @Override
     public String toString () {
+        String predecessorName = predecessor == null ? " predecessor:null" : " predecessor:" + predecessor.getKey().name();
         return getClass().getSimpleName()
             + " id:" + key.id()
             + " name:" + key.name()
             + " color:" + color.print()
+            + predecessorName
 //            + " predecessor:" + predecessor.getKey().name()
-            + " blockId:" + key.blockTag().id() + " " + key.blockTag().curbsideMarker().roadLabel();
+            + " blockId:" + key.blockTag().id() + " " + key.blockTag().curbsideMarker().roadLabel()
+            + " inDegree:" + incomingEdges.getDegree() + " outDegree:" + outgoingEdges.getDegree();
     }
 //
 //    public static Builder builder () {
