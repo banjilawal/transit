@@ -7,5 +7,5 @@
 //public interface Walking {
 //
 //   public void walkTo (Vertex vertex);
-//   public void walkTo (Addressable addressable);
+//   public void walkTo (AddressEntity addressable);
 //}

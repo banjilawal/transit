@@ -1,8 +1,8 @@
 package com.lawal.transit.test;
 
-import com.lawal.transit.globals.NameGenerator;
-import com.lawal.transit.roads.*;
-import com.lawal.transit.roads.creators.RoadBuilder;
+import com.lawal.transit.global.NameGenerator;
+import com.lawal.transit.road.*;
+import com.lawal.transit.road.creators.RoadBuilder;
 
 public class AvenueCreatorTest {
 

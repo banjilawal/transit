@@ -5,6 +5,6 @@
 //import javafx.scene.control.*;
 //
 //public interface AddressableFXControlable {
-//    public Addressable getAddressable ();
+//    public AddressEntity getAddressable ();
 //    public Button getButton ();
 //}

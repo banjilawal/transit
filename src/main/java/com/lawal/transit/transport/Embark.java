@@ -6,7 +6,7 @@
 //
 //public class Embark implements Embarkation {
 //    @Override
-//    public void embark (Vehicle vehicle, Journey traveler, Positionable embarkationPoint) {
+//    public void embark (Vehicle vehicle, Journey traveler, Trackable embarkationPoint) {
 //
 //    }
 //}

@@ -149,7 +149,7 @@
 
 //        ButtonBar buildingButtons = initButtonBar();
 //        for (int index = 0; index < NUMBER_OF_BUILDINGS; index++) {
-//            Addressable building = createBuilding(avenue, roadLateral, index);
+//            AddressEntity building = createBuilding(avenue, roadLateral, index);
 //            lane.getBuildings().add((createBuilding(avenue, roadLateral, index));
 //            AddressableFXControlable fxBuilding = createFXBuilding(building, stylerizer.stylerizer(ComponentCategory.ADDRESSABLE));
 //            buildingButtons.getButtons().add(buildingButtons.getButtons().size(), fxBuilding.getButton());

@@ -1,13 +1,12 @@
 package com.lawal.transit.traveler;
 
-import com.lawal.transit.globals.*;
-import com.lawal.transit.addressing.*;
+import com.lawal.transit.global.*;
 
 public interface Traveling {
 
     public int getTravelerId ();
-    public FormattedAddress getSource ();
-    public FormattedAddress getDestination ();
-    public Positionable getCurrentLocation ();
-    public void setCurrentLocation (Positionable location);
+    public Address getSource ();
+    public Address getDestination ();
+    public Trackable getCurrentLocation ();
+    public void setCurrentLocation (Trackable location);
 }

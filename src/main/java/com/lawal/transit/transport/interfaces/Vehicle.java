@@ -8,11 +8,11 @@
 //
 //    public  int getId ();
 //    public int getCapacity ();
-//    public Positionable getLocation ();
+//    public Trackable getLocation ();
 //    public TimeTable getSchedule ();
 //    public FormattedAddress getNextStop ();
 //    public Passengers getPassengers ();
-//    public void setLocation (Positionable positionable);
+//    public void setLocation (Trackable positionable);
 //    public void setNextStop (FormattedAddress stop);
 //    public void setSchedule (TimeTable timeTable);
 //

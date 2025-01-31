@@ -7,9 +7,9 @@
 //
 //public class AvenueBlockFx {
 //
-//    private RoadSectionals blocks;
+//    private RoadSegments blocks;
 //
-//    public AvenueBlockFx (RoadSectionals blocks) {
+//    public AvenueBlockFx (RoadSegments blocks) {
 //        this.blocks = blocks;
 //    }
 //

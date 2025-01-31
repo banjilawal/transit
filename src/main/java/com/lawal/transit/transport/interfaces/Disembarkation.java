@@ -6,5 +6,5 @@
 //
 //public interface Disembarkation {
 //
-//    public void disembark (Vehicle vehicle, Journey traveler, Positionable disembarkationPoint);
+//    public void disembark (Vehicle vehicle, Journey traveler, Trackable disembarkationPoint);
 //}

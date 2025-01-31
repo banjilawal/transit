@@ -1,13 +1,14 @@
 package com.lawal.transit.graph.interfaces;
 
-import com.lawal.transit.addressing.Addressable;
+import com.lawal.transit.global.Address;
+
 import com.lawal.transit.graph.VertexColor;
 
 public interface Vertex {
 
     int getDiscoveryTime();
     int getFinishTime ();
-    Addressable getKey ();
+    Address getAddress();
     VertexColor getColor();
     Vertex getPredecessor ();
     Edgeables getIncomingEdges();

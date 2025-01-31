@@ -1,10 +1,10 @@
 package com.lawal.transit.test;
 
-import com.lawal.transit.globals.IdGenerator;
-import com.lawal.transit.globals.NameGenerator;
-import com.lawal.transit.roads.RoadCategory;
-import com.lawal.transit.roads.Street;
-import com.lawal.transit.roads.creators.RoadBuilder;
+import com.lawal.transit.global.IdGenerator;
+import com.lawal.transit.global.NameGenerator;
+import com.lawal.transit.road.RoadCategory;
+import com.lawal.transit.road.Street;
+import com.lawal.transit.road.creators.RoadBuilder;
 
 public class RoadBuilderDriver {
     public static void main(String[] args) throws Exception {

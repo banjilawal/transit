@@ -67,7 +67,7 @@
 //    private ButtonBar getLeftButtonBar () {
 //        StylerizerFactory factory = new StylerizerFactory();
 //        ButtonBar buttonBar = new ButtonBar();
-//        Iterator<Addressable> buildingIterator = avenue.getLeftSideBuildings().iterator();
+//        Iterator<AddressEntity> buildingIterator = avenue.getLeftSideBuildings().iterator();
 //        while (buildingIterator.hasNext()) {
 //            FXBuildinButton fxBuilding = new FXBuildinButton(buildingIterator.next(), factory.stylerizer(ComponentCategory.ADDRESSABLE));
 //            buttonBar.getButtons().add(buttonBar.getButtons().size(), fxBuilding.getButton());
@@ -83,7 +83,7 @@
 //
 //    private ButtonBar getLeftBuildingButtonBar () {
 //        ButtonBar buttonBar = new ButtonBar();
-//        Iterator<Addressable> iterator = avenue.getLeftSideBuildings().iterator();
+//        Iterator<AddressEntity> iterator = avenue.getLeftSideBuildings().iterator();
 //        while (iterator.hasNext()) {
 //            FXBuildinButton fxBuilding = new FXBuildinButton(iterator.next(), factory.stylerizer(ComponentCategory.ADDRESSABLE));
 //            buttonBar.getButtons().add(buttonBar.getButtons().size(), fxBuilding.getButton());
@@ -103,7 +103,7 @@
 //
 //    private ButtonBar getRightBuildingButtonBar () {
 //        ButtonBar buttonBar = new ButtonBar();
-//        Iterator<Addressable> iterator = avenue.getRightSideBuildings().iterator();
+//        Iterator<AddressEntity> iterator = avenue.getRightSideBuildings().iterator();
 //        while (iterator.hasNext()) {
 //            FXBuildinButton fxBuilding = new FXBuildinButton(iterator.next(), factory.stylerizer(ComponentCategory.ADDRESSABLE));
 //            buttonBar.getButtons().add(buttonBar.getButtons().size(), fxBuilding.getButton());
@@ -177,7 +177,7 @@
 //
 //    public ButtonBar getBUildingButtonBar () {
 //        ButtonBar buttonBar = new ButtonBar();
-//        Iterator<Addressable> iterator = lane.getBuildings().iterator();
+//        Iterator<AddressEntity> iterator = lane.getBuildings().iterator();
 //        while (iterator.hasNext()) {
 //            buttonBar.getButtons().add(
 //                buttonBar.getButtons().size(),

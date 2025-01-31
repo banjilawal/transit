@@ -68,6 +68,6 @@ public class Places implements Placeables, Iterable<Placeable> {
         for(Placeable place : places) {
             stringBuilder.append(place.address().name()).append(" ");
         }
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
     }
 }

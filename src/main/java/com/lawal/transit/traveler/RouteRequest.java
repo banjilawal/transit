@@ -1,22 +1,21 @@
 package com.lawal.transit.traveler;
 
-import com.lawal.transit.globals.*;
-import com.lawal.transit.addressing.*;
+import com.lawal.transit.global.*;
 
 import java.time.*;
 
 public class RouteRequest implements RoutingQuery {
 
     private final int travelerId;
-    private final FormattedAddress source;
-    private final FormattedAddress destination;
+    private final Address source;
+    private final Address destination;
     private final LocalDateTime timestamp;
 
-    public RouteRequest (int travelerId, Positionable location, FormattedAddress destination) {
+    public RouteRequest (int travelerId, Position curentPosition, Address destination) {
         this.travelerId = travelerId;
-        this.source = location.address();
+        this.source = curentPosition.address();
         this.destination = destination;
-        this.timestamp = location.time();
+        this.timestamp = curentPosition.time();
     }
 
     @Override
@@ -30,12 +29,12 @@ public class RouteRequest implements RoutingQuery {
     }
 
     @Override
-    public FormattedAddress getSource () {
+    public Address getSource () {
         return source;
     }
 
     @Override
-    public FormattedAddress getDestination () {
+    public Address getDestination () {
         return destination;
     }
 

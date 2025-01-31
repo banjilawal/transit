@@ -77,7 +77,7 @@
 //        Addressables buildings = avenue.getLeftSideBuildings();
 //        if (roadLateral.equals(Laterality.RIGHT))
 //            buildings = avenue.getRightSideBuildings();
-//        Iterator<Addressable> iterator = buildings.iterator();
+//        Iterator<AddressEntity> iterator = buildings.iterator();
 //        while (iterator.hasNext()) {
 //            AddressableFXControlable controllable = new FXBuildinButton(
 //                iterator.next(),

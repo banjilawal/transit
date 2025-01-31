@@ -9,10 +9,10 @@
 //
 //public class FXBuildingButton extends Node implements AddressableFXControlable {
 //
-//    private final Addressable addressable;
+//    private final AddressEntity addressable;
 //    private final Button button;
 //
-//    public FXBuildingButton (Addressable addressable) {
+//    public FXBuildingButton (AddressEntity addressable) {
 //        this.addressable = addressable;
 //        FormattedAddress address = addressable.getAddress();
 //        String title = address.getName() + "\n"
@@ -26,7 +26,7 @@
 //    }
 //
 //    @Override
-//    public Addressable getAddressable () {
+//    public AddressEntity getAddressable () {
 //        return addressable;
 //    }
 //

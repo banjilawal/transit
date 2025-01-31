@@ -10,7 +10,7 @@
 //
 //    public ButtonBuilder () {}
 //
-//    public Button build (Addressable addressable) {
+//    public Button build (AddressEntity addressable) {
 //        FormattedAddress address = addressable.address();
 //        String title = address.name() + "\n"
 //            + address.roadIdentity().name()

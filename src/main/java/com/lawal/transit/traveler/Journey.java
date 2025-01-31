@@ -5,9 +5,9 @@
 //
 //public interface Journey {
 //
-//    public Positionable getLocation ();
+//    public Trackable getLocation ();
 //    public FormattedAddress getDestination ();
-//    public void setLocation (Positionable positionable);
+//    public void setLocation (Trackable positionable);
 //    public void receiveRoute (RoutingAnswer response);
 //    public void requestRoute (Dispatching dispatcher);
 //}

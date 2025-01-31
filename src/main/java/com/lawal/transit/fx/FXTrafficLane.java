@@ -164,7 +164,7 @@ import javafx.scene.shape.*;
 //
 //    public ButtonBar getBUildingButtonBar () {
 //        ButtonBar buttonBar = new ButtonBar();
-//        Iterator<Addressable> iterator = lane.getBuildings().iterator();
+//        Iterator<AddressEntity> iterator = lane.getBuildings().iterator();
 //        while (iterator.hasNext()) {
 //            buttonBar.getButtons().add(
 //                buttonBar.getButtons().size(),

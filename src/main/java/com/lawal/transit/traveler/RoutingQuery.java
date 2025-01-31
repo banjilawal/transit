@@ -1,12 +1,12 @@
 package com.lawal.transit.traveler;
 
-import com.lawal.transit.addressing.*;
+import com.lawal.transit.global.Address;
 
 import java.time.*;
 
 public interface RoutingQuery {
     public int getTravelerId ();
     public LocalDateTime getTimestamp ();
-    public FormattedAddress getSource ();
-    public FormattedAddress getDestination ();
+    public Address getSource ();
+    public Address getDestination ();
 }

@@ -7,7 +7,7 @@
 //public interface ShapeableAddressable {
 //
 //    public StringProperty addressProperty ();
-//    public Addressable getAddressable ();
+//    public AddressEntity getAddressable ();
 //    public Shape shape ();
 //
 //}

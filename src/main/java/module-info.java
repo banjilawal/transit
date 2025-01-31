@@ -12,23 +12,23 @@ module com.lawal.transit {
 //    exports com.lawal.transit.fx;
 //    opens com.lawal.transit.fx;
 
-    exports com.lawal.transit.globals;
-    opens com.lawal.transit.globals;
+    exports com.lawal.transit.global;
+    opens com.lawal.transit.global;
 
     exports com.lawal.transit.graph;
     opens com.lawal.transit.graph;
 
-    exports com.lawal.transit.roads;
-    opens com.lawal.transit.roads;
+    exports com.lawal.transit.road;
+    opens com.lawal.transit.road;
 
 //    exports com.lawal.transit.places;
 //    opens com.lawal.transit.places;
 
-    exports com.lawal.transit.stations;
-    opens com.lawal.transit.stations;
+    exports com.lawal.transit.station;
+    opens com.lawal.transit.station;
 //
-//    exports com.lawal.transit.stations.interfaces;
-//    opens com.lawal.transit.stations.interfaces;
+//    exports com.lawal.transit.station.interfaces;
+//    opens com.lawal.transit.station.interfaces;
 
 //    exports com.lawal.transit.transport;
 //    opens com.lawal.transit.transport;
@@ -36,8 +36,8 @@ module com.lawal.transit {
     exports com.lawal.transit.traveler;
     opens com.lawal.transit.traveler;
 
-    //    exports com.lawal.transit.blocks;
-//    opens com.lawal.transit.blocks;
+    //    exports com.lawal.transit.block;
+//    opens com.lawal.transit.block;
 
 //    exports com.lawal.transit.JunctionFactory;
 //    opens com.lawal.transit.JunctionFactory;
@@ -46,25 +46,23 @@ module com.lawal.transit {
     opens com.lawal.transit to javafx.fxml;
     exports com.lawal.transit;
 
-    exports com.lawal.transit.roads.interfaces;
-    opens com.lawal.transit.roads.interfaces;
+    exports com.lawal.transit.road.interfaces;
+    opens com.lawal.transit.road.interfaces;
     exports com.lawal.transit.places;
     opens com.lawal.transit.places;
 
 
-    exports com.lawal.transit.blocks;
-    opens com.lawal.transit.blocks;
+    exports com.lawal.transit.block;
+    opens com.lawal.transit.block;
 
-    exports com.lawal.transit.blocks.interfaces;
-    opens com.lawal.transit.blocks.interfaces;
+    exports com.lawal.transit.block.interfaces;
+    opens com.lawal.transit.block.interfaces;
     exports com.lawal.transit.places.interfaces;
     opens com.lawal.transit.places.interfaces;
-    exports com.lawal.transit.addressing;
-    opens com.lawal.transit.addressing;
-    exports com.lawal.transit.junctions;
-    opens com.lawal.transit.junctions;
-    exports com.lawal.transit.roads.creators;
-    opens com.lawal.transit.roads.creators;
+    exports com.lawal.transit.junction;
+    opens com.lawal.transit.junction;
+    exports com.lawal.transit.road.creators;
+    opens com.lawal.transit.road.creators;
     exports com.lawal.transit.graph.interfaces;
     opens com.lawal.transit.graph.interfaces;
 } // close

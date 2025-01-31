@@ -1,10 +1,5 @@
 package com.lawal.transit.ui;
 
-import com.lawal.transit.globals.*;
-import javafx.beans.property.*;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
-
 //public class ShapedVertex implements ShapeableAddressable {
 //
 //    public static final Color DEFAULT_COLOR = Color.WHITESMOKE;
@@ -31,7 +26,7 @@ import javafx.scene.shape.*;
 //    }
 //
 //    @Override
-//    public Addressable getAddressable () {
+//    public AddressEntity getAddressable () {
 //        return vertex.getAddress();
 //    }
 //

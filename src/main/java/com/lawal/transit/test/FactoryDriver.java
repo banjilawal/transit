@@ -1,17 +1,14 @@
 package com.lawal.transit.test;
 
 
-import com.lawal.transit.catalogs.AvenueCatalog;
-import com.lawal.transit.catalogs.StationCatalog;
-import com.lawal.transit.catalogs.StreetCatalog;
-import com.lawal.transit.globals.Constant;
-import com.lawal.transit.junctions.JunctionFactory;
-import com.lawal.transit.junctions.Junctions;
-import com.lawal.transit.roads.Avenue;
-import com.lawal.transit.roads.Avenues;
-import com.lawal.transit.roads.Streets;
-import com.lawal.transit.roads.creators.RoadFactory;
-import com.lawal.transit.stations.Station;
+import com.lawal.transit.catalog.*;
+import com.lawal.transit.global.Constant;
+//import com.lawal.transit.junction.JunctionFactory;
+import com.lawal.transit.junction.Junctions;
+import com.lawal.transit.road.Avenue;
+import com.lawal.transit.road.Avenues;
+import com.lawal.transit.road.Streets;
+import com.lawal.transit.road.creators.RoadFactory;
 
 
 public class FactoryDriver {
@@ -28,7 +25,7 @@ public class FactoryDriver {
 
         for (Avenue avenue : avenues.getAvenues()) {
             System.out.println(avenue.label().toString() + "\n" + avenue.leftCurb().toString());
-//            for (RoadSectional block : avenue.leftCurb().blocks().getList()) {
+//            for (RoadSegment block : avenue.leftCurb().blocks().getList()) {
 //                System.out.println("\t" + block.toString());
 //            }
 //            System.out.println();
@@ -48,11 +45,13 @@ public class FactoryDriver {
 //        for (Street street : streets.getStreets()) {
 //            System.out.println(street.label().toString());// + "\n" + street.rightCurb().toString());
 //        }
-        Junctions junctions = new JunctionFactory().avenues(avenues).streets(streets).getProduct();
-        System.out.println(junctions.toString());
+//        Junctions junctions = new JunctionFactory().avenues(avenues).streets(streets).getProduct();
+//        System.out.println(junctions.toString());
 
         StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
         AvenueCatalog.INSTANCE.getCatalog().getAvenues().forEach(System.out::println);
         StreetCatalog.INSTANCE.getCatalog().getStreets().forEach(System.out::println);
+        BlockCatalog.INSTANCE.getCatalog().getList().forEach(System.out::println);
+        PlaceCatalog.INSTANCE.getCatalog().forEach(System.out::println);
     }
 }

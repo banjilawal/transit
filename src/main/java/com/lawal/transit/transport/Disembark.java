@@ -7,7 +7,7 @@
 //public class Disembark implements Disembarkation {
 //
 //    @Override
-//    public void disembark (Vehicle vehicle, Journey traveler, Positionable disembarkationPoint) {
+//    public void disembark (Vehicle vehicle, Journey traveler, Trackable disembarkationPoint) {
 //        traveler.setLocation(disembarkationPoint);
 //        vehicle.dequeue(traveler);
 //    }

@@ -45,7 +45,7 @@
 //        avenue.getLanes().add(new TrafficLane(Direction.SOUTH, new Block(), new Stations()));
 //
 //        FormattedAddress address = new RetiredAddressOld(1, "2000", avenue.getIdentifier(), Direction.SOUTH);
-//        Addressable building = new Place(address);
+//        AddressEntity building = new Place(address);
 //        AddressableFXControlable fxBuilding = new FXBuildinButton(building, 50, 50, 100, 40, BUILDING_COLOR);
 //
 //

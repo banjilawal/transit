@@ -14,7 +14,7 @@
 //    private final int travelerId;
 //    private final FormattedAddress source;
 //    private final FormattedAddress destination;
-//    private Positionable currentLocation;
+//    private Trackable currentLocation;
 //    private StationableGraph route;
 //
 //    public Traveler (int travelerId, FormattedAddress source, FormattedAddress destination, LocalDateTime startTime) {
@@ -39,12 +39,12 @@
 //    }
 //
 //    @Override
-//    public Positionable getCurrentLocation () {
+//    public Trackable getCurrentLocation () {
 //        return currentLocation;
 //    }
 //
 //    @Override
-//    public void setCurrentLocation (Positionable location) {
+//    public void setCurrentLocation (Trackable location) {
 //        this.currentLocation = location;
 //    }
 //
@@ -73,7 +73,7 @@
 //    }
 //
 //    @Override
-//    public void walkTo (Addressable addressable) {
+//    public void walkTo (AddressEntity addressable) {
 //
 //    }
 //

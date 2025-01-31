@@ -5,7 +5,7 @@
 //
 //public interface CurbsideFXPaneWrapper {
 //
-//    public RoadSectional curbside ();
+//    public RoadSegment curbside ();
 //    public VBox getVBox ();
 //    public HBox getHBox ();
 //}

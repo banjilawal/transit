@@ -6,14 +6,14 @@
 //
 //public final class FrontageFX {
 //
-//    private final RoadSectional frontage;
+//    private final RoadSegment frontage;
 //    private final ButtonBar stationsButtonBar;
 //    private final HBox outerHBox;
 //    private final VBox outerVBox;
 //    private HBox innerHBox;
 //    private VBox innerVBox;
 //
-//    public FrontageFX (RoadSectional frontage) {
+//    public FrontageFX (RoadSegment frontage) {
 //        this.frontage = frontage;
 //        this.outerHBox = new HBox();
 //        this.outerVBox = new VBox();
@@ -22,7 +22,7 @@
 //        this.stationsButtonBar = new ButtonBarBuilder().build(frontage.stations());
 //    }
 //
-//    public RoadSectional getFrontage () {
+//    public RoadSegment getFrontage () {
 //        return frontage;
 //    }
 

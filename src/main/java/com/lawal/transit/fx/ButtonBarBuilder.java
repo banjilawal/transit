@@ -27,9 +27,9 @@
 //
 //    public ButtonBar build (Addressables addressables) {
 //        ButtonBar buttonBar = new ButtonBar();
-//        Iterator<Addressable> iterator = addressables.iterator();
+//        Iterator<AddressEntity> iterator = addressables.iterator();
 //        while (iterator.hasNext()) {
-//            Addressable addressable = iterator.next();
+//            AddressEntity addressable = iterator.next();
 //            buttonBar.getButtons().addAll(new ButtonBuilder().build(addressable));
 //        }
 //        buttonBar.setStyle(Styling.BUILDING_BUTTON_BAR_CSS);

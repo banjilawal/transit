@@ -4,7 +4,7 @@ package com.lawal.transit.traveler;
 //
 //    private final Journey traveler;
 //    private final Vehicle vehicle;
-//    private final Positionable embarkationPoint;
+//    private final Trackable embarkationPoint;
 //
 //    public Passenger (Journey traveler, Vehicle vehicle) {
 //        this.traveler = traveler;
@@ -23,7 +23,7 @@ package com.lawal.transit.traveler;
 //    }
 //
 //    @Override
-//    public Positionable getEmbarkationPoint () {
+//    public Trackable getEmbarkationPoint () {
 //        return embarkationPoint;
 //    }
 //

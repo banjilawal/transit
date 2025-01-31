@@ -11,11 +11,11 @@
 //    public static final Color DEFAULT_COLOR = Color.BLUE;
 //    public static String DIMENSION_ERROR_MESSAGE = "Instance creation failed: A dimensional parameter cannot be negative";
 //
-//    private final Addressable addressable;
+//    private final AddressEntity addressable;
 //    private final Shape shape;
 //
 //    public BuildingShape (
-//        Addressable addressable,
+//        AddressEntity addressable,
 //        double xCoordinate,
 //        double yCoordinate,
 //        double width,
@@ -33,7 +33,7 @@
 //    }
 //
 //    @Override
-//    public Addressable getAddressable () {
+//    public AddressEntity getAddressable () {
 //        return addressable;
 //    }
 //

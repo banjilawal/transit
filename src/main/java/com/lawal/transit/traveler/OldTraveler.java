@@ -5,7 +5,7 @@ package com.lawal.transit.traveler;
 //
 //    private final FormattedAddress destination;
 //    private StationableGraph transitRoute;
-//    private Positionable location;
+//    private Trackable location;
 //    private final int id;
 //
 //    public Traveler (int id, LocalDateTime startTime, FormattedAddress source, FormattedAddress destination) {
@@ -16,7 +16,7 @@ package com.lawal.transit.traveler;
 //    }
 //
 //    @Override
-//    public Positionable getLocation () {
+//    public Trackable getLocation () {
 //        return location;
 //    }
 //
@@ -26,7 +26,7 @@ package com.lawal.transit.traveler;
 //    }
 //
 //    @Override
-//    public void setLocation (Positionable location) {
+//    public void setLocation (Trackable location) {
 //        this.location = location;
 //    }
 //

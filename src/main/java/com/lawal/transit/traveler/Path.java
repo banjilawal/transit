@@ -7,21 +7,21 @@
 //import java.util.*;
 //import java.util.function.*;
 //
-//public class Path implements Trajectory, Iterable<Positionable> {
+//public class Path implements Trajectory, Iterable<Trackable> {
 //
-//    private ArrayList<Positionable> path;
+//    private ArrayList<Trackable> path;
 //
 //    public Path () {
 //        this.path = new ArrayList<>();
 //    }
 //
 //    @Override
-//    public Iterator<Positionable> iterator () {
+//    public Iterator<Trackable> iterator () {
 //        return new PositionableIterator();
 //    }
 //
 //    @Override
-//    public void add (Positionable positionable) throws Exception {
+//    public void add (Trackable positionable) throws Exception {
 //        if (path.contains(positionable))
 //            throw new Exception("Cannot add a point which already exists in the collection.");
 //        path.add(path.size(), positionable);
@@ -29,7 +29,7 @@
 //    }
 //
 //    @Override
-//    public void remove (Positionable positionable) throws Exception {
+//    public void remove (Trackable positionable) throws Exception {
 //        int index = path.indexOf(positionable);
 //        if (index < 0)
 //            throw new NoSuchElementException("No such element to remove");
@@ -38,7 +38,7 @@
 //
 //    @Override
 //    public boolean positionExists (FormattedAddress address) {
-//        for (Positionable positionable : path) {
+//        for (Trackable positionable : path) {
 //            if (positionable.address().equals(address))
 //                return true;
 //        }
@@ -46,9 +46,9 @@
 //    }
 //
 //    @Override
-//    public ArrayList<Positionable> selectByAddress (FormattedAddress address) {
-//        ArrayList<Positionable> results = new ArrayList<>();
-//        for (Positionable positionable : path) {
+//    public ArrayList<Trackable> selectByAddress (FormattedAddress address) {
+//        ArrayList<Trackable> results = new ArrayList<>();
+//        for (Trackable positionable : path) {
 //            if (positionable.address().equals(address) && !results.contains(positionable))
 //                results.add(results.size(), positionable);
 //        }
@@ -56,9 +56,9 @@
 //    }
 //
 //    @Override
-//    public ArrayList<Positionable> selectByTime (LocalDateTime time, long minuteRange) {
-//        ArrayList<Positionable> results = new ArrayList<>();
-//        for (Positionable positionable : path) {
+//    public ArrayList<Trackable> selectByTime (LocalDateTime time, long minuteRange) {
+//        ArrayList<Trackable> results = new ArrayList<>();
+//        for (Trackable positionable : path) {
 //            if (positionable.time().isEqual(time) && positionable.time().isBefore(time.plusMinutes(minuteRange)))
 //                results.add(results.size(), positionable);
 //        }
@@ -68,13 +68,13 @@
 //    @Override
 //    public String toString () {
 //        StringBuilder stringBuilder = new StringBuilder("\n");
-//        for(Positionable positionable : path) {
+//        for(Trackable positionable : path) {
 //           stringBuilder.append(positionable.toString()).append("\n");
 //        }
 //        return stringBuilder.toString();
 //    }
 //
-//    private class PositionableIterator implements  Iterator<Positionable> {
+//    private class PositionableIterator implements  Iterator<Trackable> {
 //        int currentIndex = 0;
 //
 //        @Override
@@ -83,16 +83,16 @@
 //        }
 //
 //        @Override
-//        public Positionable next () {
+//        public Trackable next () {
 //            if (!hasNext())
 //                throw new NoSuchElementException();
-//            Positionable positionable = path.get(currentIndex);
+//            Trackable positionable = path.get(currentIndex);
 //            currentIndex++;
 //            return positionable;
 //        }
 //
 //        @Override
-//        public void forEachRemaining (Consumer<? super Positionable> action) {
+//        public void forEachRemaining (Consumer<? super Trackable> action) {
 //            while (hasNext()) {
 //                action.accept(next());
 //            }

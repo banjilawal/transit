@@ -15,7 +15,7 @@
 //    private final int id;
 //    private final int capacity;
 //    private TimeTable timeTable;
-//    private Positionable location;
+//    private Trackable location;
 //    private List<Traveler> passengers;
 //    private final ArrayBlockingQueue<Traveler> exitingQueue;
 //    private PassengerQueue boardingQueue;
@@ -39,7 +39,7 @@
 //    }
 //
 //    @Override
-//    public Positionable getLocation () {
+//    public Trackable getLocation () {
 //        return location;
 //    }
 //
@@ -81,7 +81,7 @@
 ////    }
 //
 //    @Override
-//    public void setLocation (Positionable location) {
+//    public void setLocation (Trackable location) {
 //        this.location = location;
 //    }
 //

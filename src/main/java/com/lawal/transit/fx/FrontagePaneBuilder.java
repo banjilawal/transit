@@ -9,18 +9,18 @@
 //public final class  FrontagePaneBuilder implements CurbsideFXPaneWrapper {
 //
 //
-//    private final RoadSectional curbside;
+//    private final RoadSegment curbside;
 //    private final ButtonBar buildingsButtonBar;
 //    private final ButtonBar stationsButtonBar;
 //
-//    public FrontagePaneBuilder (RoadSectional curbside) {
+//    public FrontagePaneBuilder (RoadSegment curbside) {
 //        this.curbside = curbside;
 //        this.buildingsButtonBar = new ButtonBarBuilder().build(curbside.buildings());
 //        this.stationsButtonBar = new ButtonBarBuilder().build(curbside().stations());
 //    }
 //
 //    @Override
-//    public RoadSectional curbside () {
+//    public RoadSegment curbside () {
 //        return curbside;
 //    }
 //
