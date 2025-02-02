@@ -1,10 +1,10 @@
 package com.lawal.transit.station;
 
 import com.lawal.transit.block.Block;
-import com.lawal.transit.global.Address;
+import com.lawal.transit.address.Address;
 import com.lawal.transit.graph.Edges;
-import com.lawal.transit.graph.interfaces.Edgeables;
-import com.lawal.transit.graph.interfaces.Vertex;
+import com.lawal.transit.graph.contract.Edgeables;
+import com.lawal.transit.graph.contract.Vertex;
 import com.lawal.transit.graph.VertexColor;
 import lombok.*;
 

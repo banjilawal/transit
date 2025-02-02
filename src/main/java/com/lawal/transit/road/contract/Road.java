@@ -1,4 +1,4 @@
-package com.lawal.transit.road.interfaces;
+package com.lawal.transit.road.contract;
 
 
 import com.lawal.transit.global.Direction;

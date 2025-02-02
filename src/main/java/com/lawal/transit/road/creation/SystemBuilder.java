@@ -1,4 +1,4 @@
-package com.lawal.transit.road.creators;
+package com.lawal.transit.road.creation;
 
 import com.lawal.transit.catalog.AvenueCatalog;
 import com.lawal.transit.catalog.CurbCatalog;

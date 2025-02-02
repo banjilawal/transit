@@ -1,7 +1,8 @@
-package com.lawal.transit.global;
+package com.lawal.transit.address;
 
 import com.lawal.transit.block.Block;
-import com.lawal.transit.road.interfaces.Road;
+import com.lawal.transit.global.Direction;
+import com.lawal.transit.road.contract.Road;
 
 import java.util.HashSet;
 import java.util.Iterator;

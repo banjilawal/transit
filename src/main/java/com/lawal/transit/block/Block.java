@@ -1,7 +1,6 @@
 package com.lawal.transit.block;
 
-import com.lawal.transit.global.Addresses;
-import com.lawal.transit.global.Constant;
+import com.lawal.transit.address.Addresses;
 import com.lawal.transit.road.Curb;
 import lombok.Getter;
 import lombok.Setter;

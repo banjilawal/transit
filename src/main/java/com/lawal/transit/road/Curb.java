@@ -3,7 +3,7 @@ package com.lawal.transit.road;
 
 import com.lawal.transit.block.Blocks;
 import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.interfaces.Road;
+import com.lawal.transit.road.contract.Road;
 import com.lawal.transit.station.Stations;
 import lombok.Getter;
 

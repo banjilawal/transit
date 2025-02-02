@@ -1,7 +1,7 @@
 package com.lawal.transit.graph;
 
-import com.lawal.transit.graph.interfaces.Edgeables;
-import com.lawal.transit.graph.interfaces.Vertices;
+import com.lawal.transit.graph.contract.Edgeables;
+import com.lawal.transit.graph.contract.Vertices;
 
 public interface Graph {
 

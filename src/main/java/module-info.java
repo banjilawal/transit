@@ -9,9 +9,6 @@ module com.lawal.transit {
     requires java.sql;
     requires static lombok;
 
-//    exports com.lawal.transit.fx;
-//    opens com.lawal.transit.fx;
-
     exports com.lawal.transit.global;
     opens com.lawal.transit.global;
 
@@ -23,9 +20,6 @@ module com.lawal.transit {
 
     exports com.lawal.transit.station;
     opens com.lawal.transit.station;
-//
-//    exports com.lawal.transit.station.interfaces;
-//    opens com.lawal.transit.station.interfaces;
 
 //    exports com.lawal.transit.transport;
 //    opens com.lawal.transit.transport;
@@ -33,27 +27,21 @@ module com.lawal.transit {
     exports com.lawal.transit.traveler;
     opens com.lawal.transit.traveler;
 
-    //    exports com.lawal.transit.block;
-//    opens com.lawal.transit.block;
-
-//    exports com.lawal.transit.JunctionFactory;
-//    opens com.lawal.transit.JunctionFactory;
-
-
     opens com.lawal.transit to javafx.fxml;
     exports com.lawal.transit;
 
-    exports com.lawal.transit.road.interfaces;
-    opens com.lawal.transit.road.interfaces;
+    exports com.lawal.transit.road.contract;
+    opens com.lawal.transit.road.contract;
 
     exports com.lawal.transit.block;
     opens com.lawal.transit.block;
 
-
     exports com.lawal.transit.junction;
     opens com.lawal.transit.junction;
-    exports com.lawal.transit.road.creators;
-    opens com.lawal.transit.road.creators;
-    exports com.lawal.transit.graph.interfaces;
-    opens com.lawal.transit.graph.interfaces;
+    exports com.lawal.transit.road.creation;
+    opens com.lawal.transit.road.creation;
+    exports com.lawal.transit.graph.contract;
+    opens com.lawal.transit.graph.contract;
+    exports com.lawal.transit.address;
+    opens com.lawal.transit.address;
 } // close

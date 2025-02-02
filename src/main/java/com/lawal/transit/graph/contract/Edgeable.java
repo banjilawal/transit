@@ -1,4 +1,4 @@
-package com.lawal.transit.graph.interfaces;
+package com.lawal.transit.graph.contract;
 
 import com.lawal.transit.graph.EdgeCategory;
 import com.lawal.transit.road.RoadLabel;

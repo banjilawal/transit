@@ -1,8 +1,8 @@
 package com.lawal.transit.graph;
 
-import com.lawal.transit.graph.interfaces.Edgeable;
-import com.lawal.transit.graph.interfaces.Vertex;
-import com.lawal.transit.graph.interfaces.Weightable;
+import com.lawal.transit.graph.contract.Edgeable;
+import com.lawal.transit.graph.contract.Vertex;
+import com.lawal.transit.graph.contract.Weightable;
 import com.lawal.transit.road.RoadLabel;
 
 import java.util.ArrayList;

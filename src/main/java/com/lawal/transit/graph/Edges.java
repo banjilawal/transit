@@ -1,8 +1,8 @@
 package com.lawal.transit.graph;
 
-import com.lawal.transit.graph.interfaces.Edgeable;
-import com.lawal.transit.graph.interfaces.Edgeables;
-import com.lawal.transit.graph.interfaces.Vertex;
+import com.lawal.transit.graph.contract.Edgeable;
+import com.lawal.transit.graph.contract.Edgeables;
+import com.lawal.transit.graph.contract.Vertex;
 
 
 import java.util.*;

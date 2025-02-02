@@ -1,7 +1,6 @@
 package com.lawal.transit.road;
 
-import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.interfaces.Road;
+import com.lawal.transit.road.contract.Road;
 import lombok.Getter;
 
 import java.util.ArrayList;

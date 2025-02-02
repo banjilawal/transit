@@ -1,7 +1,6 @@
 package com.lawal.transit.catalog;
 
-import com.lawal.transit.global.Addresses;
-import com.lawal.transit.station.Stations;
+import com.lawal.transit.address.Addresses;
 import lombok.Getter;
 
 @Getter

@@ -1,7 +1,7 @@
 package com.lawal.transit.road;
 
 import com.lawal.transit.global.*;
-import com.lawal.transit.road.interfaces.*;
+import com.lawal.transit.road.contract.Road;
 
 
 public final class Avenue implements Road {

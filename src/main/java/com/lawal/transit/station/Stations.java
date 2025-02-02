@@ -2,7 +2,7 @@ package com.lawal.transit.station;
 
 import com.lawal.transit.block.Block;
 import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.interfaces.Road;
+import com.lawal.transit.road.contract.Road;
 
 import java.util.*;
 

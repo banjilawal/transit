@@ -1,7 +1,5 @@
 package com.lawal.transit.road;
 
-import com.lawal.transit.road.interfaces.*;
-
 public record RoadLabel(int id, String name, RoadCategory category) {
 //
 //    private final int id;

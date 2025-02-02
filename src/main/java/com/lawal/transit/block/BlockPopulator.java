@@ -1,7 +1,7 @@
 package com.lawal.transit.block;
 
 import com.lawal.transit.catalog.AddressCatalog;
-import com.lawal.transit.global.Address;
+import com.lawal.transit.address.Address;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

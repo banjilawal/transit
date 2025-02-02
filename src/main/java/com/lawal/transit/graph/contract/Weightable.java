@@ -1,4 +1,4 @@
-package com.lawal.transit.graph.interfaces;
+package com.lawal.transit.graph.contract;
 
 public interface Weightable {
     

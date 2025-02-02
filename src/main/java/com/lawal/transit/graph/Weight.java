@@ -1,10 +1,8 @@
 package com.lawal.transit.graph;
 
-import com.lawal.transit.graph.interfaces.Weightable;
+import com.lawal.transit.graph.contract.Weightable;
 import lombok.Data;
-import lombok.Setter;
 
-import java.util.*;
 @Data
 public class Weight implements Weightable {
 

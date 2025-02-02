@@ -1,4 +1,4 @@
-package com.lawal.transit.global;
+package com.lawal.transit.address;
 
 import com.lawal.transit.block.Block;
 import com.lawal.transit.block.BlockTag;

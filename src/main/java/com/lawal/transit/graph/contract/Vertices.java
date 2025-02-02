@@ -1,6 +1,6 @@
-package com.lawal.transit.graph.interfaces;
+package com.lawal.transit.graph.contract;
 
-import com.lawal.transit.global.Address;
+import com.lawal.transit.address.Address;
 
 import java.util.Iterator;
 import java.util.List;
