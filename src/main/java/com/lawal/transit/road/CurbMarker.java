@@ -1,10 +1,8 @@
 package com.lawal.transit.road;
 
 import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.interfaces.CurbsideMarking;
-import com.lawal.transit.road.interfaces.RoadIdentifier;
 
-public record CurbsideMark(RoadIdentifier roadLabel, Direction travelDirection) implements CurbsideMarking {
+public record CurbMarker(RoadLabel roadLabel, Direction travelDirection) {
 
     @Override
     public String toString() {
@@ -16,11 +14,11 @@ public record CurbsideMark(RoadIdentifier roadLabel, Direction travelDirection) 
     }
 
     public static class Builder {
-        private RoadIdentifier roadLabel;
+        private RoadLabel roadLabel;
         private Direction trafficDirection;
 
 
-        public Builder roadLabel (RoadIdentifier roadLabel) {
+        public Builder roadLabel (RoadLabel roadLabel) {
             this.roadLabel = roadLabel;
             return this;
         }
@@ -30,8 +28,8 @@ public record CurbsideMark(RoadIdentifier roadLabel, Direction travelDirection) 
             return this;
         }
 
-        public CurbsideMarking build () {
-            return new CurbsideMark(roadLabel, trafficDirection);
+        public CurbMarker build () {
+            return new CurbMarker(roadLabel, trafficDirection);
         }
     }
 }

@@ -8,59 +8,63 @@ public final class Street implements Road {
     public static final RoadCategory ROAD_CATEGORY = RoadCategory.STREET;
     public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.SOUTH;
     public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.NORTH;
+
+    public static final Direction LEFT_CURB_ORIENTATION = Direction.WEST;
+    public static final Direction RIGHT_CURB_ORIENTATION = Direction.EAST;
+
     public static final int RIGHTWARD_STATION_BASE_NAME = 1000;
     public static final int LEFTWARD_STATION_BASE_NAME = 3000;
 
-    private final RoadIdentifier label;
-    private final Curbsideable leftCurb;
-    private final Curbsideable rightCurb;
-    private final Lanes leftCarriageway;
-    private final Lanes rightCarriageway;
+    private final RoadLabel label;
+    private final Curb leftCurb;
+    private final Curb rightCurb;
+    private final Lanes leftLanes;
+    private final Lanes rightLanes;
 
-    private Street (Builder builder) {
-        this.label = builder.label;
-        this.leftCurb = builder.leftCurb;
-        this.rightCurb = builder.rightCurb;
-        this.rightCarriageway = builder.leftCarriageway;
-        this.leftCarriageway = builder.rightCarriageway;
+    public Street (RoadLabel label, int leftCurbId, int rightCurbId) {
+        this.label = label;
+        this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
+        this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
+        this.leftCurb = new Curb(leftCurbId, this, LEFT_CURB_ORIENTATION);
+        this.rightCurb = new Curb(rightCurbId, this, RIGHT_CURB_ORIENTATION);
     }
 
     @Override
-    public RoadIdentifier label () {
+    public RoadLabel label () {
         return label;
     }
 
     @Override
-    public Lanes leftCarriageway () {
-        return leftCarriageway;
+    public Lanes leftLanes () {
+        return leftLanes;
     }
 
     @Override
-    public Lanes rightCarriageway () {
-        return rightCarriageway;
+    public Lanes righLanes () {
+        return rightLanes;
     }
 
     @Override
-    public Curbsideable leftCurb() {
+    public Curb leftCurb() {
         return leftCurb;
     }
 
     @Override
-    public Curbsideable rightCurb() {
+    public Curb rightCurb() {
         return rightCurb;
     }
 
     @Override
-    public Lanes getCarriageway(Direction travelDirection) {
-        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
-            return leftCarriageway;
-        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
-            return rightCarriageway;
+    public Lanes getLanesByDirection (Direction travelDirection) {
+        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION)) return leftLanes;
+        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION)) return rightLanes;
         return null;
     }
 
     @Override
-    public Curbsideable getCurb(Direction travelDirection) {
+    public Curb getCurbByOrientation (Direction curbOrientation) {
+        if (curbOrientation.equals(LEFT_CURB_ORIENTATION)) return leftCurb;
+        if (curbOrientation.equals(RIGHT_CURB_ORIENTATION)) return rightCurb;
         return null;
     }
 
@@ -70,67 +74,12 @@ public final class Street implements Road {
         if (object == null) return false;
         if (object instanceof Street street) {
             return label.equals(street.label());
-//                && rightCarriageway.numberOfLanes() == street.rightCarriageway().numberOfLanes()
-//                && leftCarriageway.numberOfLanes() == street.leftCarriageway().numberOfLanes();
         }
         return false;
     }
 
     @Override
     public String toString () {
-        return label.name() + " " + label.category().abbreviation() + " ["
-            + leftCarriageway.getTrafficDirection().adjective() + " block count:" + leftCurb.blocks().size() + " "
-            + rightCarriageway.getTrafficDirection().adjective() + " block count:" + rightCurb.blocks().size() + "]";
-    }
-
-//    public static Direction getTrafficeDirection (Laterality laterality) {
-//        if (laterality.equals(Laterality.LEFT))
-//            return LEFTWARD_TRAFFIC_DIRECTION;
-//        else
-//            return RIGHTWARD_TRAFFIC_DIRECTION;
-//    }
-
-    public static Builder builder () {
-        return new Builder();
-    }
-
-    public static class Builder {
-
-        private RoadIdentifier label;
-        private Lanes leftCarriageway;
-        private Lanes rightCarriageway;
-        private Curbsideable leftCurb;
-        private Curbsideable rightCurb;
-
-        public Builder () {}
-
-        public Builder label (RoadIdentifier label) {
-            this.label = label;
-            return this;
-        }
-
-        public Builder leftCurb (Curbsideable leftCurb) {
-            this.leftCurb = leftCurb;
-            return this;
-        }
-
-        public Builder rightCurb (Curbsideable rightCurb) {
-            this.rightCurb = rightCurb;
-            return this;
-        }
-
-        public Builder leftCarriageway (Lanes leftCarriageway) {
-            this.leftCarriageway = leftCarriageway;
-            return this;
-        }
-
-        public Builder rightCarriageway (Lanes rightCarriageway) {
-            this.rightCarriageway = rightCarriageway;
-            return this;
-        }
-
-        public Street build () {
-            return new Street(this);
-        }
+        return label.name() + " " + getClass().getSimpleName() + " id:" + label.id();
     }
 }

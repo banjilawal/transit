@@ -28,21 +28,21 @@
 //    public void start(Stage primaryStage) throws Exception {
 //        primaryStage.setTitle("Hello World!");
 //
-//        Lane lane = new TrafficLane(Direction.NORTH, new Block(), new Stations());
+//        Laneable lane = new Lane(Direction.NORTH, new Block(), new Stations());
 //        RoadIdentifier roadLabel = new RoadLabel(1, "Askia");
 //        double startX = X_COORDINATE;
 //        double startY = Y_COORDINATE;
 //        double endX = startX + ROAD_LENGTH;
 //        double endY = startY + ROAD_WIDTH;
-//        Avenue avenue = new Avenue(roadLabel, new Carriageway(), startX, startY, endX, endY);
+//        Avenue avenue = new Avenue(roadLabel, new Lanes(), startX, startY, endX, endY);
 //        avenue.getLanes().add(new LaneBuilder(Direction.NORTH).cre);
-//        avenue.getLanes().add(new TrafficLane(Direction.SOUTH, new Block(), new Stations()));
+//        avenue.getLanes().add(new Lane(Direction.SOUTH, new Block(), new Stations()));
 //
-//        TrafficLane lane = new TrafficLane(Direction.NORTH, new Block(), new Stations());
+//        Lane lane = new Lane(Direction.NORTH, new Block(), new Stations());
 //        lane.setWidth(10);
 //        lane.setFill(Color.GRAY);
 //        avenue.getLanes().add(lane);
-//        avenue.getLanes().add(new TrafficLane(Direction.SOUTH, new Block(), new Stations()));
+//        avenue.getLanes().add(new Lane(Direction.SOUTH, new Block(), new Stations()));
 //
 //        FormattedAddress address = new RetiredAddressOld(1, "2000", avenue.getIdentifier(), Direction.SOUTH);
 //        AddressEntity building = new Place(address);
@@ -86,7 +86,7 @@
 //        label.setLayoutY(300);
 //
 ////        RoadFactory avenueFactory = new RoadFactory();
-////        Avenue avenue = (Avenue) avenueFactory.createRoad(new RoadLabel(1, "Granville"), new Carriageway(), 50, 100, 450, 100);
+////        Avenue avenue = (Avenue) avenueFactory.createRoad(new RoadLabel(1, "Granville"), new Lanes(), 50, 100, 450, 100);
 ////        avenue.setStroke(Color.BLACK);
 ////        avenue.setStrokeWidth(20);
 ////        avenue.addLabel();

@@ -3,7 +3,7 @@ package com.lawal.transit.graph;
 import com.lawal.transit.graph.interfaces.Edgeable;
 import com.lawal.transit.graph.interfaces.Vertex;
 import com.lawal.transit.graph.interfaces.Weightable;
-import com.lawal.transit.road.interfaces.RoadIdentifier;
+import com.lawal.transit.road.RoadLabel;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public record Edge (
     Vertex tail,
     Weightable weight,
     ArrayList<EdgeCategory> categories,
-    RoadIdentifier roadLabel
+    RoadLabel roadLabel
 ) implements Edgeable {
 //
 //    private int id;
@@ -85,7 +85,7 @@ public record Edge (
         private Vertex head;
         private Vertex tail;
         private Weightable weight;
-        private RoadIdentifier roadLabel;
+        private RoadLabel roadLabel;
         private ArrayList<EdgeCategory> categories;
 
 
@@ -111,7 +111,7 @@ public record Edge (
             return this;
         }
 
-        public Builder roadLabel (RoadIdentifier roadLabel) {
+        public Builder roadLabel (RoadLabel roadLabel) {
             this.roadLabel = roadLabel;
             return this;
         }

@@ -1,117 +1,84 @@
 package com.lawal.transit.block;
 
-import com.lawal.transit.block.interfaces.*;
-import com.lawal.transit.places.interfaces.*;
+import com.lawal.transit.global.Address;
 
 import java.util.*;
 
-public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //}, Iterable<RoadSegment> {
+public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
     public static final String ADDITION_ERROR = "The blockId is already in use.";
     public static final String REMOVAL_ERROR = "The item does not exist in the list so it cannot be removed";
 
-    private final ArrayList<RoadSegment> blocks;
+    private final List<Block> blocks;
 
     public Blocks () {
         this.blocks = new ArrayList<>();
     }
 
-    @Override
-    public int size () {
-        return blocks.size();
-    }
+    public int size () { return blocks.size(); }
 
-    @Override
-    public ArrayList<RoadSegment> getList () {
+    public List<Block> getList () {
         return blocks;
     }
 
-    @Override
-    public Iterator<RoadSegment> iterator () {
-        return new RoadSectionalIterator();
+    public Iterator<Block> iterator () {
+        return blocks.iterator();
     }
 
-    @Override
-    public void addBlock (RoadSegment block) throws Exception {
-        if (blocks.contains(block))
-            throw new Exception(ADDITION_ERROR);
-        blocks.add(blocks.size(), block);
+    public void add (Block block) {
+        if (!blocks.contains(block)) { blocks.add(block); }
     }
 
-    @Override
-    public RoadSegment findBlock (int blockId) {
-        for (RoadSegment block: blocks) {
-            if (block.getTag().id() == blockId)
-                return block;
+    public Block findById (int id) {
+        for (Block block: blocks) {
+            if (block.getTag().id() == id) return block;
         }
         return null;
     }
 
-    @Override
-    public RoadSegment nextBlock (int currentBlockId) {
-        int currentIndex = blocks.indexOf(findBlock(currentBlockId));
+    public Block nextBlock (int currentBlockId) {
+        int currentIndex = blocks.indexOf(findById(currentBlockId));
         if (currentIndex >= 0 || currentIndex < blocks.size() - 1)
             return blocks.get(currentIndex + 1);
         return null;
     }
 
-    @Override
-    public RoadSegment previousBlock (int currentBlockId) {
-        int currentIndex = blocks.indexOf(findBlock(currentBlockId));
+    public Block previousBlock (int currentBlockId) {
+        int currentIndex = blocks.indexOf(findById(currentBlockId));
         if (currentIndex > 1 || currentIndex < blocks.size())
             return blocks.get(currentIndex - 1);
         return null;
     }
 
-    @Override
-    public Placeable findPlaceById (int placeId) {
-        for (RoadSegment block: blocks) {
-            Placeable place = block.getPlaces().search(placeId);
-            if (place != null)
-                return place;
+    public Address findAddressById (int addressId) {
+        for (Block block: blocks) {
+            Address address = block.getAddresses().findById(addressId);
+            if (address != null) return address;
         }
         return null;
     }
 
-    @Override
-    public Placeable findPlaceByName (String placeName) {
-        for (RoadSegment block: blocks) {
-            Placeable place = block.getPlaces().search(placeName);
-            if (place != null)
-                return place;
-        }
-        return null;
-    }
+//    public Address findAddressByName(String name) {
+//        for (Block block: blocks) {
+//            Address address = block.getAddresses().searchByNa(placeName);
+//            if (place != null) return place;
+//        }
+//        return null;
+//    }
+//
 
-    @Override
-    public void addPlace (Placeable placeable) throws Exception {
-        RoadSegment block = findBlock(placeable.address().blockTag().id());
-        if (block == null)
-            throw new Exception("There is no block with that id. To add the place to.");
-        block.getPlaces().add(placeable);
-    }
-
-    public void removePlace (int placeId) throws Exception {
-        RoadSegment target = null;
-        for (RoadSegment block: blocks) {
-            if (block.getPlaces().search(placeId) == null)
-                target = block;
-        }
-        if (target == null)
-            throw new Exception("There is no place with that id to remove");
-        blocks.remove(placeId);
-    }
+    boolean isEmpty () { return blocks.isEmpty(); }
 
     @Override
     public String toString () {
         StringBuilder stringBuilder = new StringBuilder();
-        for (RoadSegment block: blocks) {
+        for (Block block: blocks) {
             stringBuilder.append(block.toString()).append("\n");
         }
         return stringBuilder.toString();
     }
 
-    private class RoadSectionalIterator implements Iterator<RoadSegment> {
-        private final Iterator<RoadSegment> iterator = blocks.iterator();
+    private class BlockIterator implements Iterator<Block> {
+        private final Iterator<Block> iterator = blocks.iterator();
         private int cursor = 0;
 
         @Override
@@ -120,8 +87,8 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
         }
 
         @Override
-        public RoadSegment next () {
-            return iterator().next();
+        public Block next () {
+            return iterator.next();
         }
 
 
@@ -131,13 +98,13 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //        }
 //
 //        @Override
-//        public RoadSegment next () {
+//        public Block next () {
 //            if (!hasNext())
 //                throw new NoSuchElementException();
 //            return blocks.get(cursor++);
 //        }
 //
-//        public RoadSegment previous () {
+//        public Block previous () {
 //            if (!hasPrevious())
 //                throw new NoSuchElementException();
 //            return blocks.get(cursor--);
@@ -152,7 +119,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //    public static Builder builder () { return new Builder(); }
 //    public static class Builder {
 //        private RoadIdentifier roadLabel;
-//        private ArrayList<RoadSegment> blocks;
+//        private ArrayList<Block> blocks;
 //        private Direction trafficDirection;
 //
 //        public Builder () {}
@@ -162,7 +129,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //            return this;
 //        }
 //
-//        public Builder blocks (ArrayList<RoadSegment> blocks) {
+//        public Builder blocks (ArrayList<Block> blocks) {
 //            this.blocks = blocks;
 //            return this;
 //        }
@@ -172,7 +139,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //            return this;
 //        }
 //
-//        public RoadSegments build () {
+//        public Blocks build () {
 //            return new Blocks(roadLabel, trafficDirection);
 //        }
 //    }
@@ -183,27 +150,27 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //    }
 //
 //    @Override
-//    public void addBlock (RoadSegment roadSectional) throws Exception {
+//    public void addBlock (Block roadSectional) throws Exception {
 //        if (blocks.contains(roadSectional))
 //            throw new Exception("Attempting to add a block which already exists in the collection");
 //        blocks.add(blocks.size(), roadSectional);
 //    }
 //
 //    @Override
-//    public Iterator<RoadSegment> iterator () {
+//    public Iterator<Block> iterator () {
 //        return blocks.iterator();
 //    }
 //
 //    @Override
-//    public RoadSegment findBlockById (int id) {
+//    public Block findBlockById (int id) {
 //        if (id < blocks.size())
 //            return blocks.get(id);
 //        return null;
 //    }
 //
 //    @Override
-//    public RoadSegment findBlockByAddress (FormattedAddress address) {
-//        for (RoadSegment block : blocks) {
+//    public Block findBlockByAddress (FormattedAddress address) {
+//        for (Block block : blocks) {
 //            if (block.search(address) != null)
 //                return block;
 //        }
@@ -220,7 +187,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //
 //    @Override
 //    public void removeBuilding (FormattedAddress address) throws Exception {
-//        RoadSegment block = findBlockById(address.blockLabel().id());
+//        Block block = findBlockById(address.blockLabel().id());
 //        if (block == null)
 //            throw new Exception(REMOVAL_ERROR);
 //        block.remove(address);
@@ -228,7 +195,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //
 //    @Override
 //    public AddressEntity findBuildingById (int id) {
-//        for (RoadSegment block : blocks) {
+//        for (Block block : blocks) {
 //            AddressEntity building = block.search(id);
 //            if (building != null)
 //                return building;
@@ -238,7 +205,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //
 //    @Override
 //    public AddressEntity findBuildingByAddress (FormattedAddress address) {
-//        for (RoadSegment block : blocks) {
+//        for (Block block : blocks) {
 //            AddressEntity building = block.search(address);
 //            if (building != null)
 //                return building;
@@ -250,13 +217,13 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //    public String toString () {
 //        StringBuilder string = new StringBuilder();
 //        int index = 0;
-//        for(RoadSegment block : blocks) {
+//        for(Block block : blocks) {
 //            string.append("Block ").append(index).append("\n").append(block.toString()).append("\n");
 //        }
 //        return string.toString();
 //    }
 //
-//   private class PrivateIterator implements Iterator<RoadSegment> {
+//   private class PrivateIterator implements Iterator<Block> {
 //        private int currentIndex = 0;
 //
 //        @Override
@@ -265,7 +232,7 @@ public final class Blocks implements RoadSegments,  Iterable<RoadSegment> { //},
 //        }
 //
 //        @Override
-//        public RoadSegment next () {
+//        public Block next () {
 //            if (!hasNext())
 //                throw new NoSuchElementException();
 //            return blocks.get(currentIndex++);

@@ -14,7 +14,7 @@ public enum NameGenerator {
     public static final String CITY_NAMES = "worldcities.txt";
 
     public static final String[] AVENUE_NAMES = {
-        "Alpha", "Bravo", "Charlie", "Delta", "Echo",
+      "Alpha", "Bravo", "Charlie", "Delta", "Echo",
         "Foxtrot", "Golf", "Hotel", "Igloo", "Juliet",
         "Kilo", "Lima", "Mike", "November", "Oscar",
         "Papa", "Quebec", "Rome", "Sierra", "Tango",
@@ -47,7 +47,7 @@ public enum NameGenerator {
         }
     }
 
-    public String streetName (int infix) throws Exception {
+    public static  String streetName (int infix) {
         if (infix == 1 || infix == 21 || infix == 31 || infix == 41 || infix == 51)
             return infix + "st";
         else if (infix == 3 || infix == 23 || infix == 33 || infix == 43 || infix == 53)
@@ -56,8 +56,8 @@ public enum NameGenerator {
             return infix + "th";
     }
 
-    public String stationName (Direction direction) {
-        switch (direction) {
+    public String stationName (Direction curbOrientation) {
+        switch (curbOrientation) {
             case NORTH:
                 return "MT-" + northStationNumber++;
             case EAST:
@@ -67,7 +67,7 @@ public enum NameGenerator {
             case WEST:
                 return "MT-" + westStationNumber++;
             default:
-                System.err.println("Unknown direction: " + direction);
+                System.err.println("Unknown direction: " + curbOrientation);
         }
         return "";
     }

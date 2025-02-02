@@ -1,6 +1,8 @@
 package com.lawal.transit.station;
 
-import com.lawal.transit.block.BlockTag;
+import com.lawal.transit.block.Block;
+import com.lawal.transit.global.Direction;
+import com.lawal.transit.road.interfaces.Road;
 
 import java.util.*;
 
@@ -9,16 +11,17 @@ public class Stations {
     public static final String ADDITION_ERROR = "The item is already in the list. It cannot be added again";
     public static final String REMOVAL_ERROR = "The item does not exist in the list so it cannot be removed";
 
-    private Set<Station> stations;
+    private final Set<Station> stations;
 
     public Stations () {
         this.stations = new HashSet<>();
     }
 
-
     public int size () {
         return stations.size();
     }
+
+    public boolean isEmpty () { return stations.isEmpty(); }
 
     public Set<Station> getStations () {
         return stations;
@@ -36,35 +39,49 @@ public class Stations {
         stations.add(station);
     }
 
-    public void remove (int stationId) throws Exception {
-        Station station = searchById(stationId);
-        if (station == null)
-            throw new Exception(REMOVAL_ERROR);
-        stations.remove(station);
+    public void remove (int id) {
+        Station station = findById(id);
+        if (station != null) stations.remove(station);
     }
 
-    public Station searchById (int stationId) {
+    public Station findById (int id) {
         for (Station station : stations) {
-            if (station.getAddress().id() == stationId)
-                return station;
+            if (station.getAddress().id() == id) return station;
         }
         return null;
     }
 
-    public Station searchByName (String stationName) {
+    public Station findByName (String name) {
         for (Station station : stations) {
-            if (station.getAddress().name().equalsIgnoreCase(stationName))
-                return station;
+            if (station.getAddress().name().equalsIgnoreCase(name)) return station;
         }
         return null;
     }
 
-    public Station filterByBlock (BlockTag blockTag) {
+    public Station findByBlock (Block block) {
         for (Station station : stations) {
-            if (station.getAddress().blockTag().equals(blockTag))
-                return station;
+            if (station.getBlock().equals(block)) return station;
         }
         return null;
+    }
+
+    public Stations filterByRoad (Road road) {
+        Stations matches = new Stations();
+        for (Station station : stations) {
+            if (station.getAddress().blockTag().curbMarker().roadLabel().equals(road.label()))
+                matches.add(station);
+        }
+        return matches;
+    }
+
+    public Stations filterByRoadTravelDirection (Road road, Direction travelDirection) {
+        Stations matches = new Stations();
+        for (Station station : stations) {
+            if (station.getAddress().blockTag().curbMarker().roadLabel().equals(road.label()) &&
+                station.getAddress().blockTag().curbMarker().travelDirection().equals(travelDirection))
+                matches.add(station);
+        }
+        return matches;
     }
 
 
@@ -86,8 +103,10 @@ public class Stations {
     @Override
     public String toString () {
         StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
         for(Station station: stations) {
-            stringBuilder.append(station.toString()).append("\n");
+            stringBuilder.append(count + 1).append(" ").append(station.toString()).append("\n");
+            count++;
         }
         return stringBuilder.toString();
     }

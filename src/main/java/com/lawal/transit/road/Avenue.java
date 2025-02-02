@@ -9,69 +9,65 @@ public final class Avenue implements Road {
     public static final RoadCategory ROAD_CATEGORY = RoadCategory.AVENUE;
     public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.WEST;
     public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.EAST;
-    public static final int RIGHTWARD_CURB_ID = 2000;
-    public static final int LEFTWARD_CURB_ID = 4000;
 
-    private final RoadIdentifier label;
-    private final Lanes leftCarriageway;
-    private final Lanes rightCarriageway;
-    private final Curbsideable leftCurb;
-    private final Curbsideable rightCurb;
+    public static final Direction LEFT_CURB_ORIENTATION = Direction.SOUTH;
+    public static final Direction RIGHT_CURB_ORIENTATION = Direction.NORTH;
 
-    public Avenue (RoadIdentifier label) {
+    public static final int RIGHTWARD_STATION_BASE_NAME = 2000;
+    public static final int LEFTWARD_STATION_BASE_NAME = 4000;
+
+    private final RoadLabel label;
+    private final Lanes leftLanes;
+    private final Lanes rightLanes;
+    private final Curb leftCurb;
+    private final Curb rightCurb;
+
+    public Avenue (RoadLabel label, int leftCurbId, int rightCurbId) {
         this.label = label;
-        this.leftCarriageway = new Carriageway(LEFTWARD_TRAFFIC_DIRECTION);
-        this.rightCarriageway = new Carriageway(RIGHTWARD_TRAFFIC_DIRECTION);
-        this.leftCurb = new Curbside(new CurbsideMark(label, LEFTWARD_TRAFFIC_DIRECTION));
-        this.rightCurb = new Curbside(new CurbsideMark(label, RIGHTWARD_TRAFFIC_DIRECTION));
-    }
-
-    private Avenue (Builder builder) {
-        this.label = builder.label;
-        this.leftCurb = builder.leftCurb;
-        this.rightCurb = builder.rightCurb;
-        this.leftCarriageway = builder.leftCarriageway;
-        this.rightCarriageway = builder.rightCarriageway;
+        this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
+        this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
+        this.leftCurb = new Curb(leftCurbId, this, Avenue.LEFT_CURB_ORIENTATION);
+        this.rightCurb = new Curb(rightCurbId, this, Avenue.RIGHT_CURB_ORIENTATION);
     }
 
     @Override
-    public RoadIdentifier label () {
+    public RoadLabel label () {
         return label;
     }
 
     @Override
-    public Lanes leftCarriageway () {
-        return leftCarriageway;
+    public Lanes leftLanes () {
+        return leftLanes;
     }
 
     @Override
-    public Lanes rightCarriageway () {
-        return rightCarriageway;
+    public Lanes righLanes () {
+        return rightLanes;
     }
 
     @Override
-    public Curbsideable leftCurb() {
+    public Curb leftCurb() {
         return leftCurb;
     }
     @Override
-    public Curbsideable rightCurb() {
+    public Curb rightCurb() {
         return rightCurb;
     }
 
     @Override
-    public Lanes getCarriageway(Direction travelDirection) {
+    public Lanes getLanesByDirection (Direction travelDirection) {
         if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
-            return leftCarriageway;
+            return leftLanes;
         if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
-            return rightCarriageway;
+            return rightLanes;
         return null;
     }
 
     @Override
-    public Curbsideable getCurb (Direction travelDirection) {
-        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
+    public Curb getCurbByOrientation (Direction curbOrientation) {
+        if (curbOrientation.equals(LEFTWARD_TRAFFIC_DIRECTION))
             return leftCurb;
-        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
+        if (curbOrientation.equals(RIGHTWARD_TRAFFIC_DIRECTION))
             return rightCurb;
         return null;
     }
@@ -83,66 +79,21 @@ public final class Avenue implements Road {
         if (object instanceof Avenue avenue) {
             return label.equals(avenue.label());
 //                && rightCarriageway.numberOfLanes() == avenue.rightCarriageway().numberOfLanes()
-//                && leftCarriageway.numberOfLanes() == avenue.leftCarriageway().numberOfLanes();
+//                && leftLanes.numberOfLanes() == avenue.leftLanes().numberOfLanes();
         }
         return false;
     }
 
     @Override
     public String toString () {
-        return label.name() + " " + label.category().abbreviation() + " ["
-            + leftCarriageway.getTrafficDirection().adjective() + " block count:" + leftCurb.blocks().size() + " "
-            + rightCarriageway.getTrafficDirection().adjective() + " block count:" + rightCurb.blocks().size() + "]";
+        return label.name() + " " + label.category().abbreviation();
     }
-
-    public int totalStations () {
-        return leftCurb.stations().size() + rightCurb.stations().size();
-    }
-
-    public int totalPlaces () {
-        return leftCurb.blocks().size() + rightCurb.blocks().size();
-    }
-
-    public static Builder builder () {
-        return new Builder();
-    }
-
-    public static class Builder {
-
-        private RoadIdentifier label;
-        private Lanes leftCarriageway;
-        private Lanes rightCarriageway;
-        private Curbsideable leftCurb;
-        private Curbsideable rightCurb;
-
-        public Builder () {}
-
-        public Builder label (RoadIdentifier label) {
-            this.label = label;
-            return this;
-        }
-
-        public Builder leftCurb (Curbsideable leftCurb) {
-            this.leftCurb = leftCurb;
-            return this;
-        }
-
-        public Builder rightCurb (Curbsideable rightCurb) {
-            this.rightCurb = rightCurb;
-            return this;
-        }
-        public Builder leftCarriageway (Lanes leftCarriageway) {
-            this.leftCarriageway = leftCarriageway;
-            return this;
-        }
-
-        public Builder rightCarriageway (Lanes rightCarriageway) {
-            this.rightCarriageway = rightCarriageway;
-            return this;
-        }
-
-        public Avenue build () {
-            return new Avenue(this);
-        }
-    }
+//
+//    public int totalStations () {
+//        return leftCurb.stations().size() + rightCurb.stations().size();
+//    }
+//
+//    public int totalPlaces () {
+//        return leftCurb.blocks().size() + rightCurb.blocks().size();
+//    }
 }

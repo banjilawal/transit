@@ -2,14 +2,17 @@ package com.lawal.transit.road.interfaces;
 
 
 import com.lawal.transit.global.Direction;
+import com.lawal.transit.road.Curb;
+import com.lawal.transit.road.Lanes;
+import com.lawal.transit.road.RoadLabel;
 
 public interface Road {
 
-    RoadIdentifier label ();
-    Lanes leftCarriageway ();
-    Lanes rightCarriageway ();
-    Curbsideable leftCurb ();
-    Curbsideable rightCurb ();
-    Lanes getCarriageway (Direction travelDirection);
-    Curbsideable getCurb(Direction travelDirection);
+    RoadLabel label ();
+    Lanes leftLanes ();
+    Lanes righLanes ();
+    Curb leftCurb ();
+    Curb rightCurb ();
+    Lanes getLanesByDirection (Direction travelDirection);
+    Curb getCurbByOrientation (Direction curbOrientation);
 }

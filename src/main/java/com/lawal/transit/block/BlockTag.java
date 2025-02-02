@@ -1,8 +1,8 @@
 package com.lawal.transit.block;
 
-import com.lawal.transit.road.interfaces.*;
+import com.lawal.transit.road.CurbMarker;
 
-public record BlockTag(int id, CurbsideMarking curbsideMarker)  {
+public record BlockTag(int id, CurbMarker curbMarker)  {
 
 //    @Override
 //    public String toString () {
@@ -18,7 +18,7 @@ public record BlockTag(int id, CurbsideMarking curbsideMarker)  {
     public static class Builder {
 
         private int id;
-        CurbsideMarking curbsideMarker;
+        CurbMarker curbMarker;
 
         public Builder () {}
 
@@ -27,13 +27,13 @@ public record BlockTag(int id, CurbsideMarking curbsideMarker)  {
             return this;
         }
 
-        public Builder curbsideMarker (CurbsideMarking curbsideMarker) {
-            this.curbsideMarker = curbsideMarker;
+        public Builder curbsideMarker (CurbMarker curbMarker) {
+            this.curbMarker = curbMarker;
             return this;
         }
 
         public BlockTag build () {
-            return new BlockTag(id, curbsideMarker);
+            return new BlockTag(id, curbMarker);
         }
     }
 }

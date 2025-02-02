@@ -1,5 +1,6 @@
 package com.lawal.transit.station;
 
+import com.lawal.transit.block.Block;
 import com.lawal.transit.global.Address;
 import com.lawal.transit.graph.Edges;
 import com.lawal.transit.graph.interfaces.Edgeables;
@@ -7,15 +8,15 @@ import com.lawal.transit.graph.interfaces.Vertex;
 import com.lawal.transit.graph.VertexColor;
 import lombok.*;
 
-@Getter
-@Setter
-@EqualsAndHashCode(of = {"key"})
+@Data
+@EqualsAndHashCode(of = {"address"})
 public final class Station implements Vertex {
 
     private int discoveryTime;
     private int finishTime;
     private VertexColor color;
     private Vertex predecessor;
+    private Block block;
 
     @Setter(AccessLevel.NONE)
     private final Address address;
@@ -26,11 +27,9 @@ public final class Station implements Vertex {
     @Setter(AccessLevel.NONE)
     private final Edgeables outgoingEdges;
 
-//    public Station (Builder builder) { this(builder.key); }
-
-    public Station (Address address) {
+    public Station (Address address, Block block) {
         this.address = address;
-
+        this.block = block;
         this.discoveryTime = -1;
         this.finishTime = -1;
         this.predecessor = null;
@@ -106,30 +105,11 @@ public final class Station implements Vertex {
         return getClass().getSimpleName()
             + " id:" + address.id()
             + " name:" + address.name()
-            + " color:" + color.print()
+            + " location:" + block.getName() + " " + block.getCurb().toString()
+//            + " color:" + color.print()
             + predecessorName
 //            + " predecessor:" + predecessor.getKey().name()
-            + " blockId:" + address.blockTag().id() + " " + address.blockTag().curbsideMarker().roadLabel()
+//            + " blockId:" + address.blockTag().id() + " " + address.blockTag().curbMarker().roadLabel()
             + " inDegree:" + incomingEdges.getDegree() + " outDegree:" + outgoingEdges.getDegree();
     }
-//
-//    public static Builder builder () {
-//        return new Builder();
-//    }
-//
-//    public static class Builder {
-//
-//        private AddressEntity key;
-//
-//        public Builder () {}
-//
-//        public Builder key (AddressEntity key) {
-//            this.key = key;
-//            return this;
-//        }
-//
-//        public Station build () {
-//            return new Station(this);
-//        }
-//    }
 }

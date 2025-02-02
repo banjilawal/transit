@@ -2,7 +2,7 @@ package com.lawal.transit.road;
 
 import com.lawal.transit.road.interfaces.*;
 
-public record RoadLabel(int id, String name, RoadCategory category) implements RoadIdentifier {
+public record RoadLabel(int id, String name, RoadCategory category) {
 //
 //    private final int id;
 //    private final String name;
@@ -45,7 +45,7 @@ public record RoadLabel(int id, String name, RoadCategory category) implements R
             return this;
         }
 
-        public RoadIdentifier build () {
+        public RoadLabel build () {
             return new RoadLabel(id, name, category);
         }
     }

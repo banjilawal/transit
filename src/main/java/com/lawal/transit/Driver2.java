@@ -59,7 +59,7 @@
 //        System.out.println(avenueB.rightFrontage().toString());
 //        System.out.println(avenueB.leftFrontage().toString());
 //
-//        System.out.println(avenueA.leftCarriageway().getLane(0).toString());
+//        System.out.println(avenueA.leftLanes().getLane(0).toString());
 //
 //        Rectangle rectangle = new Rectangle(0, 105, SCENE_WIDTH, 10);
 //        rectangle.setStyle(Styling.RECTANGLE_CSS);
@@ -165,7 +165,7 @@
 //            stationButtons.getButtons().add(stationButtons.getButtons().size(), fxStation.getButton());
 //        }
 //
-//        Lane lane = new TrafficLane(Avenue.RIGHT_LANE_TRAFFIC_DIRECTION, 0);
+//        Laneable lane = new Lane(Avenue.RIGHT_LANE_TRAFFIC_DIRECTION, 0);
 //
 //        System.out.println(fxLane.getStyler());
 

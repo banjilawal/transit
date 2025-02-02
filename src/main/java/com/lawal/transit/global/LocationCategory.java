@@ -1,4 +1,4 @@
-package com.lawal.transit.enums;
+package com.lawal.transit.global;
 
 public enum LocationCategory {
     APARTMENT,

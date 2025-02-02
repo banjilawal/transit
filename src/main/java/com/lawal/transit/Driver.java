@@ -55,7 +55,7 @@
 //
 //
 
-//    public static ShapeableLane createFXLane (Lane lane, RectangleDimension dimension, Stylerizerable stylerizerable) {
+//    public static ShapeableLane createFXLane (Laneable lane, RectangleDimension dimension, Stylerizerable stylerizerable) {
 //        return new FXTrafficLane(lane, stylerizerable,dimension);
 //    }
 //
@@ -351,7 +351,7 @@
 //            stationButtons.getButtons().add(stationButtons.getButtons().size(), fxStation.getButton());
 //        }
 //
-//        Lane lane = new TrafficLane(Avenue.RIGHT_LANE_TRAFFIC_DIRECTION, 0);
+//        Laneable lane = new Lane(Avenue.RIGHT_LANE_TRAFFIC_DIRECTION, 0);
 //
 //        System.out.println(fxLane.getStyler());
 //        VBox vBox = new VBox();
