@@ -46,33 +46,21 @@ public class JunctionCorner {
 
 
     private void setAvenueLeg() {
-        int streetId = junction.street().getId();
-        int avenueId = junction.avenue().getId();
-        Avenue avenue = junction.avenue();
-        Street street = junction.street();
-
-//        System.out.println("avenuedId:" + avenueId + " arrayIndex:" + AvenueCatalog.INSTANCE.getCatalog().getAvenues().indexOf(avenue));
-//        System.out.println("streetId:" + streetId + " arrayIndex:" + StreetCatalog.INSTANCE.getCatalog().getStreets().indexOf(street));
         Curb avenueCurb = getAvenueCurb();
+        int streetId = junction.street().getId();
         int avenueLength = avenueCurb.getBlocks().size();
-            switch (cornerOrientation) {
-            case NORTHWEST -> this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId - 1);
-            case NORTHEAST -> {
-                if (streetId < avenueLength) {
-                    this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId);
-                } else this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId - 1);
-            }
-            case SOUTHWEST -> this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId - 1);
-            case SOUTHEAST -> {
-                if (streetId < avenueLength) { this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId);}
-                else { this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId - 1); }
-            }
-            default -> {
-                System.out.println("Invalid corner orientation: " + cornerOrientation);
-                this.avenueLeg = null;
-            }
+
+
+        this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId - 1);
+
+        if (cornerOrientation != Direction.NORTHWEST && cornerOrientation == Direction.SOUTHWEST && streetId < avenueLength) {
+            this.avenueLeg = avenueCurb.getBlocks().getList().get(streetId);
         }
-        System.out.println("avenueLeg:" + avenueLeg.toString() + " avenue_curb_arrayIndex:" + avenueCurb.getBlocks().getList().indexOf(avenueLeg) + " cornerId:" + id + " cornerOrientation:" + cornerOrientation.print() + "");
+
+        System.out.println("avenueLeg:" + avenueLeg.toString()
+            + " avenue_curb_arrayIndex:" + avenueCurb.getBlocks().getList().indexOf(avenueLeg)
+            + " cornerId:" + id + " cornerOrientation:"
+            + cornerOrientation.print() + "");
     }
 
     private void setStreetLeg() {
@@ -83,32 +71,13 @@ public class JunctionCorner {
         this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
 
         if (cornerOrientation != Direction.NORTHWEST && cornerOrientation == Direction.SOUTHWEST && avenueId < streetLength) {
-//            this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-//            if (avenueId < streetLength)
             this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
         }
 
-//        switch (cornerOrientation) {
-//            case NORTHWEST -> this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-//            case NORTHEAST -> {
-//                if (avenueId < streetLength)
-//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
-//                else
-//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-//            }
-//            case SOUTHWEST -> this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-//            case SOUTHEAST -> {
-//                if (avenueId < streetLength)
-//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
-//                else
-//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-//            }
-//            default -> {
-//                System.out.println("Invalid corner orientation: " + cornerOrientation);
-//                this.streetLeg = null;
-//            }
-//        }
-        System.out.println("streetLeg:" + streetLeg.toString() + " street_curb_arrayIndex:" + streetCurb.getBlocks().getList().indexOf(streetLeg) + " cornerId:" + id + " cornerOrientation:" + cornerOrientation.print() + "");
+        System.out.println("streetLeg:" + streetLeg.toString()
+            + " street_curb_arrayIndex:" + streetCurb.getBlocks().getList().indexOf(streetLeg)
+            + " cornerId:" + id
+            + " cornerOrientation:" + cornerOrientation.print() + "");
     }
 
     private boolean isValidOrientation(Direction cornerOrientation) {
