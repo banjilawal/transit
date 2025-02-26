@@ -28,8 +28,7 @@ public class SystemBuilder {
 
     public void buildAvenues () {
         for (String name : Constant.AVENUE_NAMES) {
-            RoadLabel roadLabel = new RoadLabel(avenueId.incrementAndGet(), name, RoadCategory.AVENUE);
-            Avenue avenue = new Avenue(roadLabel, curbId.incrementAndGet(), curbId.incrementAndGet());
+            Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, curbId.incrementAndGet(), curbId.incrementAndGet());
             AvenueCatalog.INSTANCE.getCatalog().getAvenues().add(avenue);
         }
     }
@@ -37,8 +36,7 @@ public class SystemBuilder {
     public void buildStreets () {
         for (int i = 0; i < AvenueCatalog.INSTANCE.getCatalog().getAvenues().size(); i++) {
             int id = streetId.incrementAndGet();
-            RoadLabel roadLabel = new RoadLabel(id, NameGenerator.streetName(id), RoadCategory.STREET);
-            Street street = new Street(roadLabel, curbId.incrementAndGet(), curbId.incrementAndGet());
+            Street street = new Street(id, NameGenerator.streetName(id), curbId.incrementAndGet(), curbId.incrementAndGet());
             StreetCatalog.INSTANCE.getCatalog().getStreets().add(street);
         }
     }

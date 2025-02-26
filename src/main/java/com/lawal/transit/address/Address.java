@@ -1,7 +1,6 @@
 package com.lawal.transit.address;
 
 import com.lawal.transit.block.Block;
-import com.lawal.transit.block.BlockTag;
 
 public record Address(int id, String name, Block block) {
 

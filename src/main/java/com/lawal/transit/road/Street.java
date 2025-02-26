@@ -17,16 +17,14 @@ public final class Street implements Road {
 
     private final int id;
     private final String name;
-    private final RoadLabel label;
     private final Curb leftCurb;
     private final Curb rightCurb;
     private final Lanes leftLanes;
     private final Lanes rightLanes;
 
-    public Street (RoadLabel label, int leftCurbId, int rightCurbId) {
-        this.label = label;
-        this.id = label.id();
-        this.name = label.name();
+    public Street (int id, String name, int leftCurbId, int rightCurbId) {
+        this.id = id;
+        this.name = name;
         this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
         this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
         this.leftCurb = new Curb(leftCurbId, this, LEFT_CURB_ORIENTATION);

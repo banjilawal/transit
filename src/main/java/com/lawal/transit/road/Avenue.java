@@ -18,16 +18,14 @@ public final class Avenue implements Road {
 
     private final int id;
     private final String name;
-    private final RoadLabel label;
     private final Lanes leftLanes;
     private final Lanes rightLanes;
     private final Curb leftCurb;
     private final Curb rightCurb;
 
-    public Avenue (RoadLabel label, int leftCurbId, int rightCurbId) {
-        this.label = label;
-        this.id = label.id();
-        this.name = label.name();
+    public Avenue (int id, String name, int leftCurbId, int rightCurbId) {
+        this.id = id;
+        this.name = name;
         this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
         this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
         this.leftCurb = new Curb(leftCurbId, this, Avenue.LEFT_CURB_ORIENTATION);
