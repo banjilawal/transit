@@ -27,6 +27,6 @@ public record Junction(int id, Avenue avenue, Street street) {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "[id:" + id + " " + avenue.label().name() + " and " + street.label().name() + "]";
+        return getClass().getSimpleName() + "[id:" + id + " " + avenue.getName() + " Ave and " + street.getName() + " St]";
     }
 }

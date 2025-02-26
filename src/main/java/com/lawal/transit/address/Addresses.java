@@ -40,7 +40,7 @@ public class Addresses {
         if (block == null) return null;
         Addresses matches = new Addresses();
         for (Address address : this.addresses) {
-            if (address.blockTag().equals(block.getTag())) matches.add(address);
+            if (address.block().equals(block)) matches.add(address);
         }
         return matches;
     }
@@ -49,22 +49,22 @@ public class Addresses {
         if (road == null) return null;
         Addresses matches = new Addresses();
         for (Address address : this.addresses) {
-            if (address.blockTag().curbMarker().roadLabel().equals(road.label())) matches.add(address);
+            if (address.block().getCurb().getRoad().equals(road)) matches.add(address);
         }
         return matches;
     }
 
-    Addresses filterByOrientation(Road road, Direction travelDirection) {
-        if (road == null || travelDirection == null) return null;
-        Addresses matches = new Addresses();
-        for (Address address : this.addresses) {
-            if (address.blockTag().curbMarker().roadLabel().equals(road.label())
-                && address.blockTag().curbMarker().travelDirection().equals(travelDirection)
-            )
-                matches.add(address);
-        }
-        return matches;
-    }
+//    Addresses filterByOrientation(Road road, Direction travelDirection) {
+//        if (road == null || travelDirection == null) return null;
+//        Addresses matches = new Addresses();
+//        for (Address address : this.addresses) {
+//            if (address.blockTag().curbMarker().roadLabel().equals(road.label())
+//                && address.blockTag().curbMarker().travelDirection().equals(travelDirection)
+//            )
+//                matches.add(address);
+//        }
+//        return matches;
+//    }
 
     @Override
     public String toString () {

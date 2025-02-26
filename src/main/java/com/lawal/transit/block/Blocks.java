@@ -30,7 +30,7 @@ public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
 
     public Block findById (int id) {
         for (Block block: blocks) {
-            if (block.getTag().id() == id) return block;
+            if (block.getId() == id) return block;
         }
         return null;
     }

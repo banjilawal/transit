@@ -65,18 +65,17 @@ public class Stations {
     public Stations filterByRoad (Road road) {
         Stations matches = new Stations();
         for (Station station : stations) {
-            if (station.getAddress().blockTag().curbMarker().roadLabel().equals(road.label()))
+            if (station.getBlock().getCurb().getRoad().equals(road))
                 matches.add(station);
         }
         return matches;
     }
 
-    public Stations filterByRoadTravelDirection (Road road, Direction travelDirection) {
+    public Stations filterByRoadTravelDirection (Road road, Direction orientation) {
         Stations matches = new Stations();
         for (Station station : stations) {
-            if (station.getAddress().blockTag().curbMarker().roadLabel().equals(road.label()) &&
-                station.getAddress().blockTag().curbMarker().travelDirection().equals(travelDirection))
-                matches.add(station);
+            Road stationRoad = station.getBlock().getCurb().getRoad();
+            if (stationRoad.equals(road) && station.getBlock().getCurb().getOrientation() == orientation) matches.add(station);
         }
         return matches;
     }

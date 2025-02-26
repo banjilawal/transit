@@ -24,7 +24,7 @@ public class Streets {
 
     public Street search (int streetId) {
         for(Street street: streets) {
-            if (street.label().id() == streetId)
+            if (street.getId() == streetId)
                 return street;
         }
         return null;
@@ -32,7 +32,7 @@ public class Streets {
 
     public Street search (String streetName) {
         for(Street street: streets) {
-            if (street.label().name().equalsIgnoreCase(streetName))
+            if (street.getName().equalsIgnoreCase(streetName))
                 return street;
         }
         return null;

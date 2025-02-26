@@ -10,7 +10,6 @@ public interface Road {
 
     int getId();
     String getName();
-    RoadLabel label();
     Lanes leftLanes();
     Lanes righLanes();
     Curb leftCurb();

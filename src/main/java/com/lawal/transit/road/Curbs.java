@@ -44,7 +44,7 @@ public class Curbs {
     public Curbs filterByRoad (Road road) {
         Curbs matches = new Curbs();
         for (Curb curb : curbs) {
-            if (curb.getMarker().roadLabel().equals(road.label())) matches.add(curb);
+            if (curb.getRoad().equals(road)) matches.add(curb);
         }
         return matches;
     }

@@ -3,7 +3,7 @@ package com.lawal.transit.address;
 import com.lawal.transit.block.Block;
 import com.lawal.transit.block.BlockTag;
 
-public record Address(int id, String name, Block block, BlockTag blockTag) {
+public record Address(int id, String name, Block block) {
 
     @Override
     public String toString () {
@@ -19,7 +19,6 @@ public record Address(int id, String name, Block block, BlockTag blockTag) {
         private int id;
         private String name;
         private Block block;
-        private BlockTag blockTag;
 
         public Builder id (int id) {
             this.id = id;
@@ -36,13 +35,8 @@ public record Address(int id, String name, Block block, BlockTag blockTag) {
             return this;
         }
 
-        public Builder blockTag (BlockTag blockTag) {
-            this.blockTag = blockTag;
-            return this;
-        }
-
         public Address build () {
-            return new Address(id, name, block, blockTag) ;
+            return new Address(id, name, block) ;
         }
     }
 }

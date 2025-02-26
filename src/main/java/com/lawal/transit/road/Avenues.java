@@ -21,7 +21,7 @@ public class Avenues {
 
     public Avenue search (int roadId) {
         for(Avenue avenue : avenues) {
-            if (avenue.label().id() == roadId)
+            if (avenue.getId() == roadId)
                 return avenue;
         }
         return null;
@@ -29,7 +29,7 @@ public class Avenues {
 
     public Avenue search (String roadName) {
         for(Avenue avenue : avenues) {
-            if (avenue.label().name().equalsIgnoreCase(roadName))
+            if (avenue.getName().equalsIgnoreCase(roadName))
                 return avenue;
         }
         return null;

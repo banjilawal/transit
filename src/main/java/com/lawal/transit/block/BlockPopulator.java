@@ -15,7 +15,7 @@ public final class BlockPopulator {
         int addressName = startingAddressName;
 
         for (int index = 0; index < numberOfAddresses; index++) {
-            Address address  = new Address(addressId.incrementAndGet(), addressName + "", block, block.getTag());
+            Address address  = new Address(addressId.incrementAndGet(), addressName + "", block);
 
             block.getAddresses().add(address);
             AddressCatalog.INSTANCE.getCatalog().add(address);

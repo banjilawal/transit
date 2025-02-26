@@ -33,7 +33,7 @@ public class PopulateCurb {
     public static void createStations (Curb curb, int percentStationDensity) {
         for (Block block : curb.getBlocks()) {
             if (new Random().nextInt(101) <= percentStationDensity) {
-                Address address = new Address(stationId.incrementAndGet(), NameGenerator.INSTANCE.stationName(curb.getOrientation()), block, block.getTag());
+                Address address = new Address(stationId.incrementAndGet(), NameGenerator.INSTANCE.stationName(curb.getOrientation()), block);
                 Station station = new Station(address, block);
                 curb.getStations().add(station);
                 StationCatalog.INSTANCE.getCatalog().add(station);

@@ -12,14 +12,12 @@ public class Block {
     @Setter
     private String name;
     private final Curb curb;
-    private final BlockTag tag;
     private final Addresses addresses;
 
     public Block (int id, String name, Curb curb) {
         this.id = id;
         this.name = name;
         this.curb = curb;
-        this.tag = new BlockTag(id, curb.getMarker());
         this.addresses = new Addresses();
     }
 
@@ -28,7 +26,7 @@ public class Block {
         if (object == this) return true;
         if (object == null) return false;
         if (object instanceof Block block)
-            return tag.equals(block.getTag());
+            return id == block.getId();
         return false;
     }
 

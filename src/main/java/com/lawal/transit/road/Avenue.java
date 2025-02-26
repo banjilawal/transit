@@ -41,11 +41,6 @@ public final class Avenue implements Road {
     public String getName() { return name;}
 
     @Override
-    public RoadLabel label () {
-        return label;
-    }
-
-    @Override
     public Lanes leftLanes () {
         return leftLanes;
     }

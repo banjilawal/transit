@@ -45,13 +45,13 @@ public class SystemBuilder {
 
     public void curbHelper () {
         for (Avenue avenue : AvenueCatalog.INSTANCE.getCatalog().getAvenues()) {
-            curbBuilder(avenue.leftCurb(), avenue.label().id() * Constant.MULTIPLICATION_FACTOR + 1);
-            curbBuilder(avenue.rightCurb(), avenue.label().id() * Constant.MULTIPLICATION_FACTOR);
+            curbBuilder(avenue.leftCurb(), avenue.getId() * Constant.MULTIPLICATION_FACTOR + 1);
+            curbBuilder(avenue.rightCurb(), avenue.getId() * Constant.MULTIPLICATION_FACTOR);
         }
 
         for (Street street : StreetCatalog.INSTANCE.getCatalog().getStreets()) {
-            curbBuilder(street.leftCurb(), street.label().id() * Constant.MULTIPLICATION_FACTOR + 1);
-            curbBuilder(street.rightCurb(), street.label().id() * Constant.MULTIPLICATION_FACTOR);
+            curbBuilder(street.leftCurb(), street.getId() * Constant.MULTIPLICATION_FACTOR + 1);
+            curbBuilder(street.rightCurb(), street.getId() * Constant.MULTIPLICATION_FACTOR);
         }
     }
 

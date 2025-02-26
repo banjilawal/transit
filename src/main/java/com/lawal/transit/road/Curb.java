@@ -15,7 +15,6 @@ public final class Curb {
     private final Road road;
     private final Direction orientation;
     private Direction trafficDirection;
-    private final CurbMarker marker;
     private final Blocks blocks;
     private final Stations stations;
 
@@ -23,7 +22,6 @@ public final class Curb {
         this.id = id;
         this.road = road;
         this.orientation = orientation;
-        this.marker = new CurbMarker(road.label(), orientation);
         this.blocks = new Blocks();
         this.stations = new Stations();
         setTrafficDirection();
