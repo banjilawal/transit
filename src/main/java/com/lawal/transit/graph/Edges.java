@@ -22,6 +22,10 @@ public class Edges {
         return edges.size();
     }
 
+    public List<Edge> getEdges () {
+        return edges;
+    }
+
     public Iterator<Edge> iterator () {
         return edges.iterator();
     }

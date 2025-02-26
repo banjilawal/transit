@@ -6,6 +6,7 @@ import com.lawal.transit.global.Direction;
 import com.lawal.transit.junction.Junction;
 import com.lawal.transit.junction.JunctionCorner;
 import com.lawal.transit.road.Avenue;
+import com.lawal.transit.road.Street;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -42,26 +43,43 @@ public enum JunctionCornerCatalog {
     public List<JunctionCorner> filterByJunction (Junction junction) {
         List<JunctionCorner> matches = new ArrayList<>();
         for (JunctionCorner corner : catalog) {
-            if (corner.getJunction().equals(junction)) matches.add(corner);
+            if (corner.getJunction().equals(junction) && !matches.contains(corner)) matches.add(corner);
         }
         return matches;
     }
-//
-//    public List<JunctionCorner> filterByBlock(Block block) {
-//        List<JunctionCorner> matches = new ArrayList<>();
-//        for (JunctionCorner corner : catalog) {
-//            if (corner.getAvenueLeg().equals(block) || corner.getStreetLeg().equals(block)) matches.add(corner);
-//        }
-//        return matches;
-//    }
-//
-//    public List<JunctionCorner> filterByOrientation(Direction orientation) {
-//        List<JunctionCorner> matches = new ArrayList<>();
-//        for (JunctionCorner corner : catalog) {
-//            if (corner.getCornerOrientation() == orientation) matches.add(corner);
-//        }
-//        return matches;
-//    }
+
+    public List<JunctionCorner> filterByAvenue (Avenue avenue) {
+        List<JunctionCorner> matches = new ArrayList<>();
+        for (JunctionCorner corner : catalog) {
+            if (corner.getJunction().avenue().equals(avenue) && !matches.contains(corner)) matches.add(corner);
+        }
+        return matches;
+    }
+
+    public List<JunctionCorner> filterByStreet (Street street) {
+        List<JunctionCorner> matches = new ArrayList<>();
+        for (JunctionCorner corner : catalog) {
+            if (corner.getJunction().street().equals(street) && !matches.contains(corner)) matches.add(corner);
+        }
+        return matches;
+    }
+
+    public List<JunctionCorner> filterByBlock(Block block) {
+        List<JunctionCorner> matches = new ArrayList<>();
+        for (JunctionCorner corner : catalog) {
+            if (corner.getAvenueLeg().equals(block) || corner.getStreetLeg().equals(block) && !matches.contains(corner))
+                matches.add(corner);
+        }
+        return matches;
+    }
+
+    public List<JunctionCorner> filterByOrientation(Direction orientation) {
+        List<JunctionCorner> matches = new ArrayList<>();
+        for (JunctionCorner corner : catalog) {
+            if (corner.getCornerOrientation() == orientation && !matches.contains(corner)) matches.add(corner);
+        }
+        return matches;
+    }
 
     @Override
     public String toString() {

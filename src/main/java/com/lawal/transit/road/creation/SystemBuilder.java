@@ -25,70 +25,6 @@ public class SystemBuilder {
     private AtomicInteger curbId = new AtomicInteger(0);
     private AtomicInteger junctionId = new AtomicInteger(0);
     private AtomicInteger junctionCornerId = new AtomicInteger(0);
-//    private String roadName;
-//    private int numberOfBlocks;
-//    private int placesPerBlock;
-//    private int placeNameInterval;
-//
-//    private RoadLabel roadLabel;
-//    private RoadCategory roadCategory;
-//    private PopulateCurb populateCurb;
-//
-//    public SystemBuilder () {}
-//
-//    public int getRoadId () {
-//        return roadId;
-//    }
-//
-//    public String getRoadName () {
-//        return roadName;
-//    }
-//
-//    public int getNumberOfBlocks () {
-//        return numberOfBlocks;
-//    }
-//
-//    public int getPlacesPerBlock () {
-//        return placesPerBlock;
-//    }
-//
-//    public int getPlaceNameInterval () {
-//        return placeNameInterval;
-//    }
-//
-//    public RoadCategory getRoadCategory () {
-//        return roadCategory;
-//    }
-//
-//    public SystemBuilder roadId(int roadId) {
-//        this.roadId = roadId;
-//        return this;
-//    }
-//
-//    public SystemBuilder roadName(String roadName) {
-//        this.roadName = roadName;
-//        return this;
-//    }
-//
-//    public SystemBuilder numberOfBlocks (int numberOfBlocks) {
-//        this.numberOfBlocks = numberOfBlocks;
-//        return this;
-//    }
-//
-//    public SystemBuilder placesPerBlock(int placesPerBlock) {
-//        this.placesPerBlock = placesPerBlock;
-//        return this;
-//    }
-//
-//    public SystemBuilder placeNameInterval (int placeNameInterval) {
-//        this.placeNameInterval = placeNameInterval;
-//        return this;
-//    }
-//
-//    public SystemBuilder roadCategory(RoadCategory roadCategory) {
-//        this.roadCategory = roadCategory;
-//        return this;
-//    }
 
     public void buildAvenues () {
         for (String name : Constant.AVENUE_NAMES) {
@@ -131,7 +67,7 @@ public class SystemBuilder {
         CurbCatalog.INSTANCE.getCatalog().getCurbs().add(curb);
     }
 
-    public void buildJunctions () {
+    public void buildJunctions () throws Exception {
         for (Avenue avenue : AvenueCatalog.INSTANCE.getCatalog().getAvenues()) {
             for (Street street : StreetCatalog.INSTANCE.getCatalog().getStreets()) {
                 Junction junction = new Junction(junctionId.incrementAndGet(), avenue, street);
@@ -139,6 +75,7 @@ public class SystemBuilder {
             }
         }
         buildJunctionCorners();
+        EdgePopulator.populateEdges();
     }
 
     public void buildJunctionCorners () {

@@ -29,46 +29,4 @@ public record Junction(int id, Avenue avenue, Street street) {
     public String toString() {
         return getClass().getSimpleName() + "[id:" + id + " " + avenue.label().name() + " and " + street.label().name() + "]";
     }
-//
-//    public Block getNorthEastAveLeg() {
-//        return new JunctionCorner(Direction.NORTHEAST, avenue, street).getAvenueLeg();
-//    }
-//
-//    public Block getNorthEastStreetLeg() {
-//        return new JunctionCorner(Direction.NORTHEAST, avenue, street).getStreetLeg();
-//    }
-//
-//    public Block getNorthWestAveLeg() {
-//        return new JunctionCorner(Direction.NORTHWEST, avenue, street).getAvenueLeg();
-//    }
-//
-//    public Block getNorthWestStreetLeg() {
-//        return new JunctionCorner(Direction.NORTHWEST, avenue, street).getStreetLeg();
-//    }
-//
-//    public Block getSouthEastAveLeg() {
-//        return new JunctionCorner(Direction.SOUTHEAST, avenue, street).getAvenueLeg();
-//    }
-//
-//    public Block getSouthEastStreetLeg() {
-//        return new JunctionCorner(Direction.SOUTHEAST, avenue, street).getStreetLeg();
-//    }
-//
-//    public Block getSouthWestAveLeg() {
-//        return new JunctionCorner(Direction.SOUTHWEST, avenue, street).getAvenueLeg();
-//    }
-//
-//    public Block getSouthWestStreetLeg() {
-//        return new JunctionCorner(Direction.SOUTHWEST, avenue, street).getStreetLeg();
-//    }
-    
-//    public Direction getOrientation(Block junctionLeg) {
-//
-//
-//    }
-//
-//    private Road getOppositeRoad(Road road) {
-//        if (road instanceof Avenue) return street;
-//        else return avenue;
-//    }
 }

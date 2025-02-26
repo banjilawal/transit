@@ -1,180 +1,148 @@
 package com.lawal.transit.road.creation;
 
-import com.lawal.transit.block.Block;
 import com.lawal.transit.catalog.*;
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.graph.Edge;
 import com.lawal.transit.junction.Junction;
+import com.lawal.transit.junction.JunctionCorner;
 import com.lawal.transit.road.Avenue;
+import com.lawal.transit.road.Curb;
 import com.lawal.transit.road.Street;
+import com.lawal.transit.road.contract.Road;
 import com.lawal.transit.station.Station;
-import com.lawal.transit.station.Stations;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//public class EdgePopulator {
-//
-//    public static void populateEdgesForJunction(Junction junction) {
-//        // Iterate through all cardinal directions: NE, NW, SE, SW
-//        for (Direction direction : Direction.values()) {
-//            populateEdgesForCorner(junction, direction);
-//        }
-//    }
-//
-//    private static void populateEdgesForCorner(Junction junction, Direction direction) {
-//        // Fetch the avenue and street legs for the current corner
-//        Block avenueLeg = junction.getLeg(direction, Junction.RoadType.AVENUE);
-//        Block streetLeg = junction.getLeg(direction, Junction.RoadType.STREET);
-//
-//        // Apply right-turn and left-turn connections
-//        applyTurningRules(avenueLeg, streetLeg, direction);
-//    }
-//
-//    private static void applyTurningRules(Block avenueLeg, Block streetLeg, Direction direction) {
-//        // Define the specific turning behavior based on the direction
-//
-//        // Right Turn: From Avenue -> Street
-//        if (isRightTurnDirection(direction)) {
-//            connectBlocks(avenueLeg, streetLeg);
-//        }
-//
-//        // Left Turn: From Street -> Avenue
-//        if (isLeftTurnDirection(direction)) {
-//            connectBlocks(streetLeg, avenueLeg);
-//        }
-//    }
-//
-//    private static boolean isRightTurnDirection(Direction direction) {
-//        // Right turns occur at NE and SW corners for avenue -> street
-//        return (direction == Direction.NORTHEAST || direction == Direction.SOUTHWEST);
-//    }
-//
-//    private static boolean isLeftTurnDirection(Direction direction) {
-//        // Left turns occur at NW and SE corners for street -> avenue
-//        return (direction == Direction.NORTHWEST || direction == Direction.SOUTHEAST);
-//    }
-//
-//    private static void connectBlocks(Block fromBlock, Block toBlock) {
-//        if (fromBlock != null && toBlock != null) {
-//            // Connect the provided blocks
-//            createEdge(fromBlock, toBlock);
-//        }
-//    }
-//
-//    private static void createEdge(Block fromBlock, Block toBlock) {
-//        // Placeholder logic to represent edge creation
-//        System.out.println("Connecting " + fromBlock + " to " + toBlock);
-//    }
-//}
+public class EdgePopulator {
 
-//private static void populateEdgesForJunction(Junction junction) {
-//    // Iterate through all corners of the junction
-//    for (Corner corner : junction.getCorners()) {
-//        determineTurnRulesForCorner(corner);
-//    }
-//}
-//
-//private static void determineTurnRulesForCorner(Corner corner) {
-//    switch (corner.getName()) {
-//        case "NW":
-//            // Left-turn Avenue -> Street (South-facing Avenue Left Curb to West-facing Street Left Curb)
-//            connectStations(corner.getAvenueLeg().getLeftCurb(), corner.getStreetLeg().getLeftCurb());
-//
-//            // Right-turn Street -> Avenue (West-facing Street Right Curb to South-facing Avenue Right Curb)
-//            connectStations(corner.getStreetLeg().getRightCurb(), corner.getAvenueLeg().getRightCurb());
-//            break;
-//
-//        case "NE":
-//            // Right-turn Avenue -> Street (North-facing Avenue Right Curb to East-facing Street Right Curb)
-//            connectStations(corner.getAvenueLeg().getRightCurb(), corner.getStreetLeg().getRightCurb());
-//
-//            // Left-turn Street -> Avenue (East-facing Street Left Curb to North-facing Avenue Left Curb)
-//            connectStations(corner.getStreetLeg().getLeftCurb(), corner.getAvenueLeg().getLeftCurb());
-//            break;
-//
-//        case "SE":
-//            // Left-turn Avenue -> Street (South-facing Avenue Left Curb to West-facing Street Left Curb)
-//            connectStations(corner.getAvenueLeg().getLeftCurb(), corner.getStreetLeg().getLeftCurb());
-//
-//            // Right-turn Street -> Avenue (East-facing Street Right Curb to North-facing Avenue Right Curb)
-//            connectStations(corner.getStreetLeg().getRightCurb(), corner.getAvenueLeg().getRightCurb());
-//            break;
-//
-//        case "SW":
-//            // Right-turn Avenue -> Street (North-facing Avenue Right Curb to East-facing Street Right Curb)
-//            connectStations(corner.getAvenueLeg().getRightCurb(), corner.getStreetLeg().getRightCurb());
-//
-//            // Left-turn Street -> Avenue (West-facing Street Left Curb to South-facing Avenue Left Curb)
-//            connectStations(corner.getStreetLeg().getLeftCurb(), corner.getAvenueLeg().getLeftCurb());
-//            break;
-//
-//        default:
-//            throw new IllegalStateException("Unknown corner: " + corner.getName());
-//    }
-//}
-//public class EdgePopulator {
-//
-//    private static AtomicInteger edgeId = new AtomicInteger(0);
-//
-//    public static void populateEdges() throws Exception {
-//        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog().getJunctions()) {
-//            findIntersectionEdges(junction);
-//        }
-//    }
-//
-//    private static void findIntersectionEdges(Junction junction) throws Exception {
-//        // Process outgoing and incoming edges for the right-turn rules
-//        findEdgesForRightTurns(junction);
-//
-//        // Process outgoing and incoming edges for the left-turn rules
-//        findEdgesForLeftTurns(junction);
-//    }
-//
-//    private static void findEdgesForRightTurns(Junction junction) throws Exception {
-//        // From Avenue's right curb to Street's right curb
-//        findEdgesForCurbConnections(junction.avenue().rightCurb(), junction.street().rightCurb());
-//
-//        // From Street's right curb to Avenue's right curb
-//        findEdgesForCurbConnections(junction.getStreet().rightCurb(), junction.getAvenue().rightCurb());
-//    }
-//
-//    private static void findEdgesForLeftTurns(Junction junction) throws Exception {
-//        // From Avenue's left curb to Street's left curb
-//        findEdgesForCurbConnections(junction.getAvenue().leftCurb(), junction.getStreet().leftCurb());
-//
-//        // From Street's left curb to Avenue's left curb
-//        findEdgesForCurbConnections(junction.getStreet().leftCurb(), junction.getAvenue().leftCurb());
-//    }
-//
-//    private static void findEdgesForCurbConnections(Curb fromCurb, Curb toCurb) {
-//        // Get all stations on the "from curb"
-//        for (Station fromStation : fromCurb.getStations().getStations()) {
-//            // Find a matching station on the "to curb"
-//            for (Station toStation : toCurb.getStations().getStations()) {
-//                if (canConnect(fromStation, toStation)) {
-//                    // Calculate distance (if required)
-//                    int distance = Math.abs(fromStation.getBlock().getId() - toStation.getBlock().getId());
-//
-//                    // Create edge
-//                    Edge edge = new Edge(edgeId.incrementAndGet(), fromStation, toStation);
-//
-//                    // Add the edge to the corresponding stations
-//                    fromStation.getOutgoingEdges().add(edge);
-//                    toStation.getIncomingEdges().add(edge);
-//
-//                    // Add the edge to the catalog
-//                    EdgeCatalog.INSTANCE.getCatalog().add(edge);
-//
-//                    // Print debug information (optional)
-//                    System.out.println("Created edge: " + edge);
-//                }
-//            }
-//        }
-//    }
-//
-//    private static boolean canConnect(Station fromStation, Station toStation) {
-//        // Logic for filtering connections between stations
-//        // Example: Check if they are on complementary curbs with valid directions
-//        return fromStation.getRoad() != toStation.getRoad(); // Ensure they are crossing roads
-//    }
-//}
+    private static AtomicInteger edgeId = new AtomicInteger(0);
+
+    public static void populateEdges() throws Exception {
+        // Process each Station in the StationCatalog
+        for (Station station : StationCatalog.INSTANCE.getCatalog().getStations()) {
+            discoverOutgoingEdges(station);
+        }
+    }
+
+    private static void discoverOutgoingEdges(Station station) throws Exception {
+        // Get the curb and road for this station
+        Curb curb = station.getCurb();
+        Road road = curb.getRoad();
+
+        // Use JunctionCatalog to find all relevant Junctions for this road
+        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog().getJunctions()) {
+            if (road instanceof Avenue && junction.avenue().equals(road)) {
+                createEdgesForAvenueStation(station, junction);
+            } else if (road instanceof Street && junction.street().equals(road)) {
+                createEdgesForStreetStation(station, junction);
+            }
+        }
+    }
+
+    private static void createEdgesForAvenueStation(Station station, Junction junction) throws Exception {
+        // Get the connected Street and its corners for navigation
+        Street connectedStreet = junction.street();
+
+        // Get the direction of the curb on the Avenue
+        Direction avenueOrientation = station.getCurb().getOrientation();
+        Curb streetTargetCurb;
+
+        // Determine the target curb based on Avenue orientation
+        switch (avenueOrientation) {
+            case NORTH -> {
+                // NORTH-facing Avenue connects to EAST-facing or WEST-facing Streets
+                streetTargetCurb = getStreetCurbForTurn("NORTHEAST", "NORTHWEST", connectedStreet, junction);
+            }
+            case SOUTH -> {
+                // SOUTH-facing Avenue connects to EAST-facing or WEST-facing Streets
+                streetTargetCurb = getStreetCurbForTurn("SOUTHEAST", "SOUTHWEST", connectedStreet, junction);
+            }
+            default -> throw new IllegalArgumentException("Unexpected Avenue orientation: " + avenueOrientation);
+        }
+
+        if (streetTargetCurb != null) {
+            addEdgesFromStationToCurb(station, streetTargetCurb);
+        }
+    }
+
+    private static void createEdgesForStreetStation(Station station, Junction junction) throws Exception {
+        // Get the connected Avenue and its corners for navigation
+        Avenue connectedAvenue = junction.avenue();
+
+        // Get the direction of the curb on the Street
+        Direction streetOrientation = station.getCurb().getOrientation();
+        Curb avenueTargetCurb;
+
+        // Determine the target curb based on Street orientation
+        switch (streetOrientation) {
+            case EAST -> {
+                // EAST-facing Street connects to NORTH-facing or SOUTH-facing Avenues
+                avenueTargetCurb = getAvenueCurbForTurn("NORTHEAST", "SOUTHEAST", connectedAvenue, junction);
+            }
+            case WEST -> {
+                // WEST-facing Street connects to NORTH-facing or SOUTH-facing Avenues
+                avenueTargetCurb = getAvenueCurbForTurn("NORTHWEST", "SOUTHWEST", connectedAvenue, junction);
+            }
+            default -> throw new IllegalArgumentException("Unexpected Street orientation: " + streetOrientation);
+        }
+
+        if (avenueTargetCurb != null) {
+            addEdgesFromStationToCurb(station, avenueTargetCurb);
+        }
+    }
+
+    private static Curb getStreetCurbForTurn(String corner1, String corner2, Street street, Junction junction) {
+        // Use JunctionCorner and direction to determine the correct curb
+        for (JunctionCorner corner : JunctionCornerCatalog.INSTANCE.filterByJunction(junction)) {
+            if (corner.getCornerOrientation().name().equalsIgnoreCase(corner1) ||
+                corner.getCornerOrientation().name().equalsIgnoreCase(corner2)) {
+                return corner.getStreetLeg().getCurb();
+            }
+        }
+        return null;
+    }
+
+    private static Curb getAvenueCurbForTurn(String corner1, String corner2, Avenue avenue, Junction junction) {
+        // Use JunctionCorner and direction to determine the correct curb
+        for (JunctionCorner corner : JunctionCornerCatalog.INSTANCE.filterByJunction(junction)) {
+            if (corner.getCornerOrientation().name().equalsIgnoreCase(corner1) ||
+                corner.getCornerOrientation().name().equalsIgnoreCase(corner2)) {
+                return corner.getAvenueLeg().getCurb();
+            }
+        }
+        return null;
+    }
+
+    private static void addEdgesFromStationToCurb(Station sourceStation, Curb targetCurb) throws Exception {
+        // Find the closest station on the target curb
+        Station targetStation = findClosestStation(targetCurb, sourceStation);
+
+        if (targetStation != null) {
+            // Create a new edge
+            Edge newEdge = new Edge(edgeId.incrementAndGet(), sourceStation, targetStation);
+
+            // Add the edge to the outgoing and incoming edge lists
+            sourceStation.getOutgoingEdges().add(newEdge);
+            targetStation.getIncomingEdges().add(newEdge);
+            EdgeCatalog.INSTANCE.getCatalog().add(newEdge);
+
+            System.out.println("Created Edge: " + newEdge);
+        }
+    }
+
+    private static Station findClosestStation(Curb targetCurb, Station sourceStation) {
+        // Find the station on the target Curb with the smallest block ID difference
+        Station closestStation = null;
+        int minDistance = Integer.MAX_VALUE;
+
+        for (Station targetStation : targetCurb.getStations().getStations()) {
+            int distance = Math.abs(sourceStation.getBlock().getId() - targetStation.getBlock().getId());
+            if (distance < minDistance) {
+                closestStation = targetStation;
+                minDistance = distance;
+            }
+        }
+
+        return closestStation;
+    }
+}
