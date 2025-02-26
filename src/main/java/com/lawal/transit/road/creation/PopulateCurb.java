@@ -115,7 +115,7 @@ public class PopulateCurb {
     public static void createBlocks (Curb curb, int numberOfBlocks, int addressInterval, int numberOfAddresses, int startingAddressName) {
         int addressName = startingAddressName;
         for (int index = 0; index < numberOfBlocks; index++) {
-            String blockName = (curb.getBlocks().size() + 1) * Constant.MULTIPLICATION_FACTOR + " block";
+            String blockName = "Block-" + (curb.getBlocks().size() + 1) * Constant.MULTIPLICATION_FACTOR;
             Block block = new Block(blockId.incrementAndGet(), blockName, curb);
             addressName = BlockPopulator.populateBlock(block, addressName, addressInterval, numberOfAddresses);
             curb.getBlocks().add(block);
@@ -132,6 +132,10 @@ public class PopulateCurb {
                 StationCatalog.INSTANCE.getCatalog().add(station);
             }
         }
+    }
+
+    public static void buildEdges () {
+
     }
 //    private Stations createStations () throws Exception {
 //        return stationsCreator.targetBlocks(targetBlocks).getProduct();

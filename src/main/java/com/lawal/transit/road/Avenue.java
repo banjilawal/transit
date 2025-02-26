@@ -16,6 +16,8 @@ public final class Avenue implements Road {
     public static final int RIGHTWARD_STATION_BASE_NAME = 2000;
     public static final int LEFTWARD_STATION_BASE_NAME = 4000;
 
+    private final int id;
+    private final String name;
     private final RoadLabel label;
     private final Lanes leftLanes;
     private final Lanes rightLanes;
@@ -24,11 +26,19 @@ public final class Avenue implements Road {
 
     public Avenue (RoadLabel label, int leftCurbId, int rightCurbId) {
         this.label = label;
+        this.id = label.id();
+        this.name = label.name();
         this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
         this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
         this.leftCurb = new Curb(leftCurbId, this, Avenue.LEFT_CURB_ORIENTATION);
         this.rightCurb = new Curb(rightCurbId, this, Avenue.RIGHT_CURB_ORIENTATION);
     }
+
+    @Override
+    public int getId() { return id; }
+
+    @Override
+    public String getName() { return name;}
 
     @Override
     public RoadLabel label () {
@@ -65,9 +75,17 @@ public final class Avenue implements Road {
 
     @Override
     public Curb getCurbByOrientation (Direction curbOrientation) {
-        if (curbOrientation.equals(LEFTWARD_TRAFFIC_DIRECTION))
+        if (curbOrientation.equals(LEFT_CURB_ORIENTATION))
             return leftCurb;
-        if (curbOrientation.equals(RIGHTWARD_TRAFFIC_DIRECTION))
+        if (curbOrientation.equals(RIGHT_CURB_ORIENTATION))
+            return rightCurb;
+        return null;
+    }
+
+    public Curb getCurbByTravelDirection (Direction travelDirection) {
+        if (travelDirection.equals(LEFTWARD_TRAFFIC_DIRECTION))
+            return leftCurb;
+        if (travelDirection.equals(RIGHTWARD_TRAFFIC_DIRECTION))
             return rightCurb;
         return null;
     }
@@ -77,23 +95,13 @@ public final class Avenue implements Road {
         if (this == object) return true;
         if (object == null) return false;
         if (object instanceof Avenue avenue) {
-            return label.equals(avenue.label());
-//                && rightCarriageway.numberOfLanes() == avenue.rightCarriageway().numberOfLanes()
-//                && leftLanes.numberOfLanes() == avenue.leftLanes().numberOfLanes();
+            return id == avenue.getId() && name.equalsIgnoreCase(avenue.getName());
         }
         return false;
     }
 
     @Override
     public String toString () {
-        return label.name() + " " + label.category().abbreviation();
+        return getClass().getSimpleName() + "[id:" + id + " name:" + name + "]";
     }
-//
-//    public int totalStations () {
-//        return leftCurb.stations().size() + rightCurb.stations().size();
-//    }
-//
-//    public int totalPlaces () {
-//        return leftCurb.blocks().size() + rightCurb.blocks().size();
-//    }
 }

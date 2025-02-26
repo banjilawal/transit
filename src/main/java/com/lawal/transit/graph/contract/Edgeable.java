@@ -12,5 +12,4 @@ public interface Edgeable {
     Vertex tail ();
     Weightable weight ();
     ArrayList<EdgeCategory> categories ();
-    RoadLabel roadLabel ();
 }

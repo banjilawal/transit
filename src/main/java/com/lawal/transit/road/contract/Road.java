@@ -8,11 +8,13 @@ import com.lawal.transit.road.RoadLabel;
 
 public interface Road {
 
-    RoadLabel label ();
-    Lanes leftLanes ();
-    Lanes righLanes ();
-    Curb leftCurb ();
-    Curb rightCurb ();
-    Lanes getLanesByDirection (Direction travelDirection);
-    Curb getCurbByOrientation (Direction curbOrientation);
+    int getId();
+    String getName();
+    RoadLabel label();
+    Lanes leftLanes();
+    Lanes righLanes();
+    Curb leftCurb();
+    Curb rightCurb();
+    Lanes getLanesByDirection(Direction travelDirection);
+    Curb getCurbByOrientation(Direction curbOrientation);
 }

@@ -1,13 +1,12 @@
 package com.lawal.transit.road.creation;
 
-import com.lawal.transit.catalog.AvenueCatalog;
-import com.lawal.transit.catalog.CurbCatalog;
-import com.lawal.transit.catalog.JunctionCatalog;
-import com.lawal.transit.catalog.StreetCatalog;
+import com.lawal.transit.catalog.*;
 import com.lawal.transit.global.Constant;
 
+import com.lawal.transit.global.Direction;
 import com.lawal.transit.global.NameGenerator;
 import com.lawal.transit.junction.Junction;
+import com.lawal.transit.junction.JunctionCorner;
 import com.lawal.transit.road.*;
 
 
@@ -25,6 +24,7 @@ public class SystemBuilder {
 
     private AtomicInteger curbId = new AtomicInteger(0);
     private AtomicInteger junctionId = new AtomicInteger(0);
+    private AtomicInteger junctionCornerId = new AtomicInteger(0);
 //    private String roadName;
 //    private int numberOfBlocks;
 //    private int placesPerBlock;
@@ -137,6 +137,27 @@ public class SystemBuilder {
                 Junction junction = new Junction(junctionId.incrementAndGet(), avenue, street);
                 JunctionCatalog.INSTANCE.getCatalog().add(junction);
             }
+        }
+        buildJunctionCorners();
+    }
+
+    public void buildJunctionCorners () {
+        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog().getJunctions()) {
+            JunctionCorner nwCorner = new JunctionCorner(junctionCornerId.incrementAndGet(), junction, Direction.NORTHWEST);
+//            System.out.println("nw corner:" + nwCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(nwCorner);
+
+            JunctionCorner swCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.SOUTHWEST);
+//            System.out.println("sw corner:" + swCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(swCorner);
+
+            JunctionCorner neCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.NORTHEAST);
+//            System.out.println("ne corner:" + neCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(neCorner);
+
+            JunctionCorner seCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.SOUTHEAST);
+//            System.out.println("se corner:" + seCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(seCorner);
         }
     }
 }

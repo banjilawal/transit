@@ -11,10 +11,10 @@ public class Stations {
     public static final String ADDITION_ERROR = "The item is already in the list. It cannot be added again";
     public static final String REMOVAL_ERROR = "The item does not exist in the list so it cannot be removed";
 
-    private final Set<Station> stations;
+    private final List<Station> stations;
 
     public Stations () {
-        this.stations = new HashSet<>();
+        this.stations = new ArrayList<>();
     }
 
     public int size () {
@@ -23,12 +23,8 @@ public class Stations {
 
     public boolean isEmpty () { return stations.isEmpty(); }
 
-    public Set<Station> getStations () {
+    public List<Station> getStations () {
         return stations;
-    }
-
-    public List<Station> getStationsAsList () {
-        return new ArrayList<>(stations);
     }
 
     public Iterator<Station> iterator () {
@@ -36,6 +32,7 @@ public class Stations {
     }
 
     public void add (Station station) {
+        if (stations.contains(station) || station == null) return;
         stations.add(station);
     }
 
@@ -85,12 +82,14 @@ public class Stations {
     }
 
 
-//    public Vertex next (int currentStationId) {
-//        int currentIndex = stations.indexOf(search(currentStationId));
-//        if (currentIndex >= 0 || currentIndex < stations.size() - 1)
-//            return stations.get(currentIndex++);
-//        return null;
-//    }
+    public Station nextStation (int currentStationId) {
+        Station previousStation = null;
+        for (Station station : stations) {
+            if (previousStation != null && previousStation.getId() == currentStationId) return station;
+            previousStation = station;
+        }
+        return null;
+    }
 //
 //    @Override
 //    public Vertex previous (int currentStationId) {

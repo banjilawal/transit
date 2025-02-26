@@ -15,6 +15,8 @@ public final class Street implements Road {
     public static final int RIGHTWARD_STATION_BASE_NAME = 1000;
     public static final int LEFTWARD_STATION_BASE_NAME = 3000;
 
+    private final int id;
+    private final String name;
     private final RoadLabel label;
     private final Curb leftCurb;
     private final Curb rightCurb;
@@ -23,11 +25,19 @@ public final class Street implements Road {
 
     public Street (RoadLabel label, int leftCurbId, int rightCurbId) {
         this.label = label;
+        this.id = label.id();
+        this.name = label.name();
         this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
         this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
         this.leftCurb = new Curb(leftCurbId, this, LEFT_CURB_ORIENTATION);
         this.rightCurb = new Curb(rightCurbId, this, RIGHT_CURB_ORIENTATION);
     }
+
+    @Override
+    public int getId() { return id; }
+
+    @Override
+    public String getName() { return name;}
 
     @Override
     public RoadLabel label () {
@@ -65,6 +75,7 @@ public final class Street implements Road {
     public Curb getCurbByOrientation (Direction curbOrientation) {
         if (curbOrientation.equals(LEFT_CURB_ORIENTATION)) return leftCurb;
         if (curbOrientation.equals(RIGHT_CURB_ORIENTATION)) return rightCurb;
+//        System.out.println("STREEET line 78: No Street curb has the orientation" + curbOrientation.print());
         return null;
     }
 
@@ -73,13 +84,13 @@ public final class Street implements Road {
         if (this == object) return true;
         if (object == null) return false;
         if (object instanceof Street street) {
-            return label.equals(street.label());
+           return id == street.getId() && name.equalsIgnoreCase(street.getName());
         }
         return false;
     }
 
     @Override
     public String toString () {
-        return label.name() + " " + getClass().getSimpleName() + " id:" + label.id();
+        return getClass().getSimpleName() + "[id:"  + id + " name:" + name + "]";
     }
 }

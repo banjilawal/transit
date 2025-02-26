@@ -34,16 +34,19 @@ public final class Curb {
         if (object == this) return true;
         if (object == null) return false;
         if (object instanceof Curb curb) {
-            return id == curb.getId() && marker.equals(curb.marker);
+            return id == curb.getId() && orientation == curb.getOrientation();
         }
         return false;
     }
 
+    public Curb  getOppositeCurb () {
+        return road.getCurbByOrientation(orientation.oppositeDirection());
+    }
+
     @Override
     public String toString () {
-        return road.toString() + " " + orientation.print() + " curbId:" + id + " number of blocks:" + blocks.size()
-            + " number of stations:" + stations.size();
-        //return marker.toString() + " numberOfBlocks:" + blocks.size();
+        return getClass().getSimpleName() + "[id:" + id +  " orientation:" + orientation.print()
+            +  " blocks:" + blocks.size() + " stations:" + stations.size() + "] " + road.toString();
     }
 
     private void setTrafficDirection () {

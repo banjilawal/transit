@@ -6,11 +6,16 @@ import com.lawal.transit.graph.Edges;
 import com.lawal.transit.graph.contract.Edgeables;
 import com.lawal.transit.graph.contract.Vertex;
 import com.lawal.transit.graph.VertexColor;
+import com.lawal.transit.road.Curb;
+import com.lawal.transit.road.contract.Road;
 import lombok.*;
 
 @Data
 @EqualsAndHashCode(of = {"address"})
 public final class Station implements Vertex {
+
+    private final int id;
+    private final String name;
 
     private int discoveryTime;
     private int finishTime;
@@ -22,12 +27,14 @@ public final class Station implements Vertex {
     private final Address address;
 
     @Setter(AccessLevel.NONE)
-    private final Edgeables incomingEdges;
+    private final Edges incomingEdges;
 
     @Setter(AccessLevel.NONE)
-    private final Edgeables outgoingEdges;
+    private final Edges outgoingEdges;
 
     public Station (Address address, Block block) {
+        this.id = address.id();
+        this.name = address.name();
         this.address = address;
         this.block = block;
         this.discoveryTime = -1;
@@ -37,6 +44,10 @@ public final class Station implements Vertex {
         this.incomingEdges = new Edges();
         this.outgoingEdges =new Edges();
     }
+
+    public Curb getCurb () { return block.getCurb(); }
+
+    public Road getRoad () { return block.getCurb().getRoad(); }
 
 //    @Override
 //    public int getDiscoveryTime () { return discoveryTime; }
@@ -101,15 +112,15 @@ public final class Station implements Vertex {
 
     @Override
     public String toString () {
-        String predecessorName = predecessor == null ? " predecessor:null" : " predecessor:" + predecessor.getAddress().name();
+//        String predecessorName = predecessor == null ? " predecessor:null" : " predecessor:" + predecessor.getAddress().name();
         return getClass().getSimpleName()
-            + " id:" + address.id()
-            + " name:" + address.name()
-            + " location:" + block.getName() + " " + block.getCurb().toString()
-//            + " color:" + color.print()
-            + predecessorName
-//            + " predecessor:" + predecessor.getKey().name()
-//            + " blockId:" + address.blockTag().id() + " " + address.blockTag().curbMarker().roadLabel()
-            + " inDegree:" + incomingEdges.getDegree() + " outDegree:" + outgoingEdges.getDegree();
+            + "[id:" + id
+            + " name:" + name
+            + " (" + block.getName()
+            + " blockId:" + block.getId()
+            + ") curbId:" + block.getCurb().getId()
+            + " " + block.getCurb().getRoad().toString()
+            + " " + block.getCurb().getOrientation().print() + "]"
+            + " in degree:" + incomingEdges.getDegree() + " out degree:" + outgoingEdges.getDegree();
     }
 }

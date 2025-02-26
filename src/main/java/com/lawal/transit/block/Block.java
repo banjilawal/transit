@@ -34,9 +34,7 @@ public class Block {
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + " id:" + id + " name:" + name + " " + curb.toString() + "\nAddresses:\n" + addresses.toString() + "\n";
-//        String roadName = tag.curbMarker().roadLabel().name() + " "
-//            + tag.curbMarker().roadLabel().category().print() + " " + tag.curbMarker().travelDirection().print();
-//        return "block:" + tag.id() + " [road:" + roadName + " " + "addresses(" + addresses.toString() + ")]";
+        return getClass().getSimpleName()
+            + " id:" + id + " name:" + name + " " + curb.getRoad().getName() + " " + curb.getOrientation().print();
     }
 }

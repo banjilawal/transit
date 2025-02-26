@@ -7,32 +7,28 @@ import com.lawal.transit.graph.contract.Vertex;
 
 import java.util.*;
 
-public class Edges implements Edgeables {
+public class Edges {
 
     public static final String ADD_EDGE_ERROR = "The edge already exists";
     public static final String ENDPOINT_ERROR = "The vertex does exist on that edge";
     public static final String REMOVE_EDGE_ERROR = "No edge exists at that orientation";
-    private final ArrayList<Edgeable> edges;
+    private final ArrayList<Edge> edges;
 
     public Edges () {
         this.edges = new ArrayList<>();
     }
 
-    @Override
     public int getDegree () {
         return edges.size();
     }
 
-    @Override
-    public Iterator<Edgeable> iterator () {
+    public Iterator<Edge> iterator () {
         return edges.iterator();
     }
 
-    @Override
-    public void add (Edgeable edgeable) throws Exception {
-        if (edges.contains(edgeable))
-            throw new Exception(ADD_EDGE_ERROR);
-        edges.add(edges.size(), edgeable);
+    public void add (Edge edge) throws Exception {
+        if (edges.contains(edge)) throw new Exception(ADD_EDGE_ERROR);
+        edges.add(edge);
     }
 
     public void remove (int edgeId) throws Exception {
@@ -42,18 +38,16 @@ public class Edges implements Edgeables {
         edges.remove(index);
     }
 
-    public Edgeable search (int edgeId) {
-        for (Edgeable edge: edges) {
-            if (edge.id() == edgeId)
-                return edge;
+    public Edge search (int edgeId) {
+        for (Edge edge: edges) {
+            if (edge.getId() == edgeId) return edge;
         }
         return null;
     }
 
-    public Edgeable search (Vertex head, Vertex tail) {
-        for (Edgeable edge: edges) {
-            if (edge.head().equals(head) && edge.tail().equals(tail))
-                return edge;
+    public Edge search (Vertex head, Vertex tail) {
+        for (Edge edge: edges) {
+            if (edge.getHead().equals(head) && edge.getTail().equals(tail)) return edge;
         }
         return null;
     }

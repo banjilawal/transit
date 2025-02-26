@@ -2,6 +2,7 @@ package com.lawal.transit.graph.contract;
 
 import com.lawal.transit.address.Address;
 
+import com.lawal.transit.graph.Edges;
 import com.lawal.transit.graph.VertexColor;
 
 public interface Vertex {
@@ -11,8 +12,8 @@ public interface Vertex {
     Address getAddress();
     VertexColor getColor();
     Vertex getPredecessor ();
-    Edgeables getIncomingEdges();
-    Edgeables getOutgoingEdges();
+    Edges getIncomingEdges();
+    Edges getOutgoingEdges();
     void setDiscoveryTime (int discoveryTIme);
     void setFinishTime (int finishingTime);
     void setColor (VertexColor color);

@@ -8,8 +8,8 @@ public final class Constant {
 
     public static ArrayList<String> AVENUE_NAMES = new ArrayList<>(Arrays.asList(
         "Alpha",
-//        "Bravo",
-//        "Charlie",
+        "Bravo",
+        "Charlie",
 //        "Delta",
 //        "Echo",
 //        "Foxtrot",
