@@ -40,11 +40,10 @@ public class JunctionCorner {
 
     public Junction getJunction() { return junction; }
 
+    public Avenue getAvenue() { return junction.avenue(); }
 
+    public Street getStreet() { return junction.street(); }
 
-//    public Block getAvenueLeg() { return avenueLeg; }
-//
-//    public Block getStreetLeg() { return streetLeg; }
 
     private void setAvenueLeg() {
         int streetId = junction.street().getId();
@@ -77,32 +76,38 @@ public class JunctionCorner {
     }
 
     private void setStreetLeg() {
-        int streetId = junction.street().getId();
-        int avenueId = junction.avenue().getId();
-
-        Street street = junction.street();
-        Avenue avenue = junction.avenue();
-//        System.out.println("avenuedId:" + avenueId + " arrayIndex:" + AvenueCatalog.INSTANCE.getCatalog().getAvenues().indexOf(avenue));
-//        System.out.println("streetId:" + streetId + " arrayIndex:" + StreetCatalog.INSTANCE.getCatalog().getStreets().indexOf(street));
         Curb streetCurb = getStreetCurb();
+        int avenueId = junction.avenue().getId();
         int streetLength = streetCurb.getBlocks().size();
-        switch (cornerOrientation) {
-            case NORTHWEST -> this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-            case NORTHEAST -> {
-                if (avenueId < streetLength) {
-                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
-                } else this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-            }
-            case SOUTHWEST -> this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
-            case SOUTHEAST -> {
-                if (avenueId < streetLength) { this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);}
-                else { this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1); }
-            }
-            default -> {
-                System.out.println("Invalid corner orientation: " + cornerOrientation);
-                this.streetLeg = null;
-            }
+
+        this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
+
+        if (cornerOrientation != Direction.NORTHWEST && cornerOrientation == Direction.SOUTHWEST && avenueId < streetLength) {
+//            this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
+//            if (avenueId < streetLength)
+            this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
         }
+
+//        switch (cornerOrientation) {
+//            case NORTHWEST -> this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
+//            case NORTHEAST -> {
+//                if (avenueId < streetLength)
+//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
+//                else
+//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
+//            }
+//            case SOUTHWEST -> this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
+//            case SOUTHEAST -> {
+//                if (avenueId < streetLength)
+//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId);
+//                else
+//                    this.streetLeg = streetCurb.getBlocks().getList().get(avenueId - 1);
+//            }
+//            default -> {
+//                System.out.println("Invalid corner orientation: " + cornerOrientation);
+//                this.streetLeg = null;
+//            }
+//        }
         System.out.println("streetLeg:" + streetLeg.toString() + " street_curb_arrayIndex:" + streetCurb.getBlocks().getList().indexOf(streetLeg) + " cornerId:" + id + " cornerOrientation:" + cornerOrientation.print() + "");
     }
 
@@ -113,82 +118,21 @@ public class JunctionCorner {
             cornerOrientation == Direction.NORTHWEST;
     }
 
-//    private Block blockFinderUtility(Curb targetCurb, int crossRoadId) {
-//        if (targetCurb == null) {
-//            System.err.println("Target curb is null. Cannot find blocks!");
-//            return null; // Return null if the target curb is not available
-//        }
-//
-//        if (targetCurb.getBlocks() == null || targetCurb.getBlocks().size() == 0) {
-//            System.err.println("No blocks found on the curb: " + targetCurb.toString());
-//            return null; // Return null if the curb has no blocks
-//        }
-//
-//        // Ensure the id falls within the valid range
-////        if (crossRoadBlockId < 0 || crossRoadBlockId >= targetCurb.getBlocks().size()) {
-////            System.err.println("Invalid block ID: " + crossRoadBlockId + ". Range is [0, "
-////                + (targetCurb.getBlocks().size() - 1) + "]");
-////            return null;
-////        }
-//        Block block = null;
-//        for (int i = 0; i < crossRoadId; i++) {
-//            block = targetCurb.getBlocks().getList().get(i);
-//        }
-//        return block; // Return the block if no issues
-//    }
-
-    public Avenue getAvenue() { return junction.avenue(); }
-
-    public Street getStreet() { return junction.street(); }
-
     public Curb getAvenueCurb() {
-        if (junction.avenue() == null) {
-            throw new IllegalStateException("Junction has no associated avenue");
-        }
+        Direction curbOrientation = Direction.NORTH;
 
-        Curb curb = null;
-        if (cornerOrientation == Direction.NORTHEAST || cornerOrientation == Direction.NORTHWEST)
-            curb = junction.avenue().getCurbByOrientation(Direction.NORTH);
-        else
-            curb = junction.avenue().getCurbByOrientation(Direction.SOUTH);
-        if (curb == null) {
-            System.err.println("cornerId:" + id + " Warning: No curb found for corner orientation " + cornerOrientation);
-        }
-//        else {
-//            System.out.println("Found ave Curb: " + curb.toString());
-//        }
-//        System.out.println(curb.toString() + " curbArrayIndex:" + CurbCatalog.INSTANCE.getCatalog().getCurbs().indexOf(curb));
-//        for (Block block : curb.getBlocks().getList()) {
-//            System.out.println("blockId:" + block.getId() + " curbArrayIndex:" + curb.getBlocks().getList().indexOf(block));
-//        }
-        return curb;
+        if (cornerOrientation != Direction.NORTHEAST && cornerOrientation != Direction.NORTHWEST)
+            curbOrientation = Direction.SOUTH;
+        return junction.avenue().getCurbByOrientation(curbOrientation);
     }
 
 
     private Curb getStreetCurb() {
-        if (junction.street() == null) {
-            throw new IllegalStateException("Junction has no associated street");
-        }
-        Street street = junction.street();
-//        System.out.println("cornerOrientation:" + cornerOrientation.print() + " street curb:" + street.leftCurb().toString() );
-//        System.out.println("cornerOrientation:" + cornerOrientation.print() + " street curb:" + street.rightCurb().toString() );
-
-        Curb curb = null;
         Direction curbOrientation = Direction.EAST;
-//        if (cornerOrientation == Direction.NORTHEAST || cornerOrientation == Direction.SOUTHEAST) {
-//            System.out.println("FOUND: " + street.getCurbByOrientation(curbOrientation));
-//
-//        }
-        if (cornerOrientation != Direction.NORTHEAST && cornerOrientation == Direction.SOUTHEAST) //{
+
+        if (cornerOrientation != Direction.NORTHEAST && cornerOrientation == Direction.SOUTHEAST)
             curbOrientation = Direction.WEST;
-        curb = street.getCurbByOrientation(curbOrientation);
-        return curb;
-//        System.out.println("FOUND: " + curb.toString());
-//            System.out.println("FOUND: " + junction.street().getCurbByOrientation(curbOrientation));
-//        }
-//        else
-//            System.err.println("cornerId:" + id +  " Warning: No curb found for orientation " + cornerOrientation.print() + " for street: " + street.toString());
-////        return curb;
+        return junction.street().getCurbByOrientation(curbOrientation);
     }
 
     @Override
