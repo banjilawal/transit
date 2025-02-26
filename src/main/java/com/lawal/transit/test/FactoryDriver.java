@@ -19,7 +19,7 @@ public class FactoryDriver {
 //        CurbCatalog.INSTANCE.getCatalog().getCurbs().forEach(System.out::println);
 //        BlockCatalog.INSTANCE.getCatalog().getList().forEach(System.out::println);
 //        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
-//        JunctionCornerCatalog.INSTANCE.getCorners().forEach(System.out::println);
+        JunctionCornerCatalog.INSTANCE.getCorners().forEach(System.out::println);
 //        EdgePopulator.populateEdges();
 //        JunctionCatalog.INSTANCE.getCatalog().getJunctions().forEach(System.out::println);
 //        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog().getJunctions()) {
