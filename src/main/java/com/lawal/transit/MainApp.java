@@ -1,5 +1,6 @@
 package com.lawal.transit;
 
+import javafx.application.Application;
 import javafx.application.Platform;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,11 +13,11 @@ public class MainApp {
         // Start Spring Boot context
         springContext = SpringApplication.run(SpringAppRunner.class, args);
 
+        // Pass the Spring Context to JavaFX application
+        JavaFXAppRunner.setSpringContext(springContext);
+
         // Launch JavaFX Application
-        Platform.startup(() -> {
-            JavaFXAppRunner.setSpringContext(springContext); // Pass Spring Context to JavaFX
-            JavaFXAppRunner.launch(JavaFXAppRunner.class, args); // Start JavaFX app
-        });
+        Application.launch(JavaFXAppRunner.class, args);
     }
 
     public static void main(String[] args) {

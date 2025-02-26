@@ -11,6 +11,11 @@ module com.lawal.transit {
     requires spring.boot;
     requires spring.boot.autoconfigure;
 
+    requires spring.core;
+    requires spring.beans;
+
+    opens com.lawal.transit to spring.core, javafx.fxml;
+
     exports com.lawal.transit.global;
     opens com.lawal.transit.global;
 
@@ -29,7 +34,6 @@ module com.lawal.transit {
     exports com.lawal.transit.traveler;
     opens com.lawal.transit.traveler;
 
-    opens com.lawal.transit to javafx.fxml;
     exports com.lawal.transit;
 
     exports com.lawal.transit.road.contract;
