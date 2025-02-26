@@ -4,10 +4,12 @@ module com.lawal.transit {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
-    requires org.kordamp.bootstrapfx.core;
 
     requires java.sql;
     requires static lombok;
+    requires spring.context;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
 
     exports com.lawal.transit.global;
     opens com.lawal.transit.global;
