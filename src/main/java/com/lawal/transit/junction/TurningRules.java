@@ -1,8 +1,8 @@
 package com.lawal.transit.junction;
 
 import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.Avenue;
-import com.lawal.transit.road.Street;
+import com.lawal.transit.avenue.model.Avenue;
+import com.lawal.transit.street.model.Street;
 
 public class TurningRules {
 

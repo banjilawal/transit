@@ -1,6 +1,6 @@
 package com.lawal.transit.global;
 
-import com.lawal.transit.address.Address;
+import com.lawal.transit.address.model.Address;
 
 import java.time.*;
 

@@ -1,6 +1,6 @@
 package com.lawal.transit.graph.contract;
 
-import com.lawal.transit.address.Address;
+import com.lawal.transit.address.model.Address;
 
 import com.lawal.transit.graph.Edges;
 import com.lawal.transit.graph.VertexColor;

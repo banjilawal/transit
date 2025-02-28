@@ -47,7 +47,7 @@ public enum NameGenerator {
         }
     }
 
-    public static  String streetName (int infix) {
+    public static  String streetName (long infix) {
         if (infix == 1 || infix == 21 || infix == 31 || infix == 41 || infix == 51 || infix == 61 || infix == 71 || infix == 81 || infix == 91)
             return infix + "st";
         else if (infix == 3 || infix == 23 || infix == 33 || infix == 43 || infix == 53 || infix == 63 || infix == 73 || infix == 83 || infix == 93)

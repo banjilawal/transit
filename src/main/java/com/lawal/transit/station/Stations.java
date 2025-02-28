@@ -1,8 +1,10 @@
 package com.lawal.transit.station;
 
-import com.lawal.transit.block.Block;
+import com.lawal.transit.block.model.Block;
 import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.contract.Road;
+import com.lawal.transit.road.model.Road;
+import com.lawal.transit.roadEntity.contract.RoadEntity;
+import com.lawal.transit.station.model.Station;
 
 import java.util.*;
 
@@ -36,21 +38,21 @@ public class Stations {
         stations.add(station);
     }
 
-    public void remove (int id) {
+    public void remove (Long id) {
         Station station = findById(id);
         if (station != null) stations.remove(station);
     }
 
-    public Station findById (int id) {
+    public Station findById (Long id) {
         for (Station station : stations) {
-            if (station.getAddress().id() == id) return station;
+            if (station.getId().equals(id)) return station;
         }
         return null;
     }
 
     public Station findByName (String name) {
         for (Station station : stations) {
-            if (station.getAddress().name().equalsIgnoreCase(name)) return station;
+            if (station.getName().equalsIgnoreCase(name)) return station;
         }
         return null;
     }

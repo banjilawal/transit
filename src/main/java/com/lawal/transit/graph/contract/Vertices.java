@@ -1,6 +1,6 @@
 package com.lawal.transit.graph.contract;
 
-import com.lawal.transit.address.Address;
+import com.lawal.transit.address.model.Address;
 
 import java.util.Iterator;
 import java.util.List;

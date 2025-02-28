@@ -1,12 +1,12 @@
 package com.lawal.transit.catalog;
 
 
-import com.lawal.transit.block.Block;
+import com.lawal.transit.block.model.Block;
 import com.lawal.transit.global.Direction;
-import com.lawal.transit.junction.Junction;
-import com.lawal.transit.junction.JunctionCorner;
-import com.lawal.transit.road.Avenue;
-import com.lawal.transit.road.Street;
+import com.lawal.transit.junction.model.Junction;
+import com.lawal.transit.junction.model.JunctionCorner;
+import com.lawal.transit.avenue.model.Avenue;
+import com.lawal.transit.street.model.Street;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public enum JunctionCornerCatalog {
     public List<JunctionCorner> filterByAvenue (Avenue avenue) {
         List<JunctionCorner> matches = new ArrayList<>();
         for (JunctionCorner corner : catalog) {
-            if (corner.getJunction().avenue().equals(avenue) && !matches.contains(corner)) matches.add(corner);
+            if (corner.getJunction().getAvenue().equals(avenue) && !matches.contains(corner)) matches.add(corner);
         }
         return matches;
     }
@@ -59,7 +59,7 @@ public enum JunctionCornerCatalog {
     public List<JunctionCorner> filterByStreet (Street street) {
         List<JunctionCorner> matches = new ArrayList<>();
         for (JunctionCorner corner : catalog) {
-            if (corner.getJunction().street().equals(street) && !matches.contains(corner)) matches.add(corner);
+            if (corner.getJunction().getStreet().equals(street) && !matches.contains(corner)) matches.add(corner);
         }
         return matches;
     }

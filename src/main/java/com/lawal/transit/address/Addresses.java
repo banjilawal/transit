@@ -1,8 +1,8 @@
 package com.lawal.transit.address;
 
-import com.lawal.transit.block.Block;
-import com.lawal.transit.global.Direction;
-import com.lawal.transit.road.contract.Road;
+import com.lawal.transit.address.model.Address;
+import com.lawal.transit.block.model.Block;
+import com.lawal.transit.roadEntity.contract.RoadEntity;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,37 +24,37 @@ public class Addresses {
 
     public void add (Address address) { if (address != null) this.addresses.add(address); }
 
-    public void remove (int id) {
+    public void remove (Long id) {
         Address address = findById(id);
         if (address != null) { this.addresses.remove(address); }
     }
 
-    public Address findById (int id) {
+    public Address findById(Long id) {
         for (Address address : this.addresses) {
-            if (address.id() == id) return address;
+            if (address.getId().equals(id)) return address;
         }
         return null;
     }
 
-    Addresses filterByBlock (Block block) {
+    public Addresses filterByBlock (Block block) {
         if (block == null) return null;
         Addresses matches = new Addresses();
         for (Address address : this.addresses) {
-            if (address.block().equals(block)) matches.add(address);
+            if (address.getBlock().equals(block)) matches.add(address);
         }
         return matches;
     }
 
-    Addresses filterByRoad (Road road) {
-        if (road == null) return null;
+    public Addresses filterByRoad (Long roadId) {
+        if (roadId == null) return null;
         Addresses matches = new Addresses();
         for (Address address : this.addresses) {
-            if (address.block().getCurb().getRoad().equals(road)) matches.add(address);
+            if (address.getBlock().getCurb().getRoad().getId().equals(roadId)) matches.add(address);
         }
         return matches;
     }
 
-//    Addresses filterByOrientation(Road road, Direction travelDirection) {
+//    Addresses filterByOrientation(RoadEntity road, Direction travelDirection) {
 //        if (road == null || travelDirection == null) return null;
 //        Addresses matches = new Addresses();
 //        for (Address address : this.addresses) {

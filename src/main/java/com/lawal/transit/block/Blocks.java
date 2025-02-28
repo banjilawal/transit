@@ -1,6 +1,7 @@
 package com.lawal.transit.block;
 
-import com.lawal.transit.address.Address;
+import com.lawal.transit.address.model.Address;
+import com.lawal.transit.block.model.Block;
 
 import java.util.*;
 
@@ -49,13 +50,13 @@ public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
         return null;
     }
 
-    public Address findAddressById (int addressId) {
-        for (Block block: blocks) {
-            Address address = block.getAddresses().findById(addressId);
-            if (address != null) return address;
-        }
-        return null;
-    }
+//    public Address findAddressById (Long addressId) {
+//        for (Block block: blocks) {
+//            Address address = block.getAddresses();
+//            if (address != null) return address;
+//        }
+//        return null;
+//    }
 
 //    public Address findAddressByName(String name) {
 //        for (Block block: blocks) {

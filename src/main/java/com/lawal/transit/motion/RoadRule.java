@@ -1,9 +1,8 @@
 package com.lawal.transit.motion;
 
-import com.lawal.transit.block.Block;
+import com.lawal.transit.block.model.Block;
 import com.lawal.transit.global.TurnCategory;
-import com.lawal.transit.junction.Junction;
-import com.lawal.transit.road.Curb;
+import com.lawal.transit.junction.model.Junction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class RoadRule {
 //        }
 //    }
 //
-//    private Curb getOppositeCurb () {
+//    private OldCurb getOppositeCurb () {
 //
 //    }
 }

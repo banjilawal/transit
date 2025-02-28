@@ -1,9 +1,8 @@
 package com.lawal.transit.test;
 
 import com.lawal.transit.catalog.*;
-import com.lawal.transit.junction.Junction;
 //import com.lawal.transit.road.creation.EdgePopulator;
-import com.lawal.transit.road.creation.SystemBuilder;
+import com.lawal.transit.roadEntity.creation.SystemBuilder;
 
 public class FactoryDriver {
 
@@ -11,15 +10,15 @@ public class FactoryDriver {
         SystemBuilder systemBuilder = new SystemBuilder();
         systemBuilder.buildAvenues();
         systemBuilder.buildStreets();
-        systemBuilder.curbHelper();
-        systemBuilder.buildJunctions();
+//        systemBuilder.curbHelper();
+//        systemBuilder.buildJunctions();
 
         AvenueCatalog.INSTANCE.getCatalog().getAvenues().forEach(System.out::println);
 //        StreetCatalog.INSTANCE.getCatalog().getStreets().forEach(System.out::println);
-//        CurbCatalog.INSTANCE.getCatalog().getCurbs().forEach(System.out::println);
+//        CurbCatalog.INSTANCE.getCatalog().getOldCurbs().forEach(System.out::println);
 //        BlockCatalog.INSTANCE.getCatalog().getList().forEach(System.out::println);
-        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
-        EdgeCatalog.INSTANCE.getCatalog().getEdges().forEach(System.out::println);
+//        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
+//        EdgeCatalog.INSTANCE.getCatalog().getEdges().forEach(System.out::println);
 //        JunctionCornerCatalog.INSTANCE.getCorners().forEach(System.out::println);
 //        EdgePopulator.populateEdges();
 //        JunctionCatalog.INSTANCE.getCatalog().getJunctions().forEach(System.out::println);

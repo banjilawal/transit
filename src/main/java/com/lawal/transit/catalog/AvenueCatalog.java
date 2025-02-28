@@ -1,7 +1,7 @@
 package com.lawal.transit.catalog;
 
 
-import com.lawal.transit.road.Avenues;
+import com.lawal.transit.roadEntity.Avenues;
 import lombok.Getter;
 
 @Getter

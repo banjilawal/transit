@@ -1,8 +1,7 @@
 package com.lawal.transit.graph;
 
-import com.lawal.transit.graph.contract.Edgeable;
-import com.lawal.transit.graph.contract.Edgeables;
 import com.lawal.transit.graph.contract.Vertex;
+import com.lawal.transit.edge.model.Edge;
 
 
 import java.util.*;
@@ -48,11 +47,11 @@ public class Edges {
         }
         return null;
     }
-
-    public Edge search (Vertex head, Vertex tail) {
-        for (Edge edge: edges) {
-            if (edge.getHead().equals(head) && edge.getTail().equals(tail)) return edge;
-        }
-        return null;
-    }
+//
+//    public Edge search (Vertex head, Vertex tail) {
+//        for (Edge edge: edges) {
+//            if (edge.getHead().equals(head) && edge.getTail().equals(tail)) return edge;
+//        }
+//        return null;
+//    }
 }

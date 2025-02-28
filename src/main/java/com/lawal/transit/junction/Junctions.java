@@ -1,8 +1,8 @@
 package com.lawal.transit.junction;
 
-import com.lawal.transit.block.Block;
-import com.lawal.transit.road.Avenue;
-import com.lawal.transit.road.Street;
+import com.lawal.transit.avenue.model.Avenue;
+import com.lawal.transit.junction.model.Junction;
+import com.lawal.transit.street.model.Street;
 import lombok.Getter;
 
 import java.util.*;
@@ -29,14 +29,14 @@ public  class Junctions {
         if (junction != null && !junctions.contains(junction)) { junctions.add(junctions.size(), junction); }
     }
 
-    public void remove(int junctionId) throws Exception {
+    public void remove(Long junctionId) throws Exception {
         Junction junction = findById(junctionId);
         if (junction != null) { junctions.remove(junction); }
     }
 
-    public Junction findById(int id) {
+    public Junction findById(Long id) {
         for (Junction junction : junctions) {
-            if (junction.id() == id) return junction;
+            if (junction.getId().equals(id)) return junction;
         }
         return null;
     }
@@ -44,7 +44,7 @@ public  class Junctions {
     public List<Junction> filterByAvenue(Avenue avenue) {
         Junctions matches = new Junctions();
         for (Junction junction : junctions) {
-            if (junction.avenue().equals(avenue)) { matches.junctions.add(junction); }
+            if (junction.getAvenue().equals(avenue)) { matches.junctions.add(junction); }
         }
         return matches.junctions;
     }
@@ -52,7 +52,7 @@ public  class Junctions {
     public List<Junction> filterByStreet(Street street) {
         Junctions matches = new Junctions();
         for (Junction junction : junctions) {
-            if (junction.street().equals(street)) { matches.junctions.add(junction); }
+            if (junction.getStreet().equals(street)) { matches.junctions.add(junction); }
         }
         return matches.junctions;
     }
