@@ -55,6 +55,7 @@ public final class Avenue {
         this.id = id;
         this.name = name;
         this.road = road;
+        this.road.setAvenue(this);
 //        this.lanes = new ArrayList<>();
 //        this.curbs = new ArrayList<>();
         this.junctions = new ArrayList<>();

@@ -34,14 +34,17 @@ public class SystemBuilder {
         for (String name : Constant.AVENUE_NAMES) {
             Road road = new Road(roadId.incrementAndGet());
             Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, road);
+            RoadCatalog.INSTANCE.getCatalog().add(road);
             AvenueCatalog.INSTANCE.getCatalog().getAvenues().add(avenue);
         }
     }
 
     public void buildStreets () {
         for (int i = 0; i < AvenueCatalog.INSTANCE.getCatalog().getAvenues().size(); i++) {
+            Road road = new Road(roadId.incrementAndGet());
             long id = streetId.incrementAndGet();
-            Street street = new Street(id, NameGenerator.streetName(id), new Road(roadId.incrementAndGet()));
+            Street street = new Street(id, NameGenerator.streetName(id), road);
+            RoadCatalog.INSTANCE.getCatalog().add(road);
             StreetCatalog.INSTANCE.getCatalog().getStreets().add(street);
         }
     }

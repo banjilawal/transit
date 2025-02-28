@@ -7,6 +7,7 @@ import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "roads")
@@ -45,4 +47,11 @@ public class Road {
     private List<Lane> lanes = new ArrayList<>();
 
     public Road (Long id) { this.id = id; }
+
+    @Override
+    public String toString() {
+        String avenueString = avenue == null ? "" : avenue.toString();
+        String streetString = street == null ? "" : street.toString();
+        return getClass().getSimpleName() + "[roadId:" + id + " " + avenueString + " " + streetString +"]";
+    }
 }

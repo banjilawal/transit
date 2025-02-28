@@ -52,6 +52,7 @@ public final class Street {
         this.id = id;
         this.name = name;
         this.road = road;
+        this.road.setStreet(this);
 //        this.lanes = new ArrayList<>();
 //        this.curbs = new ArrayList<>();
 //        this.junctions = new ArrayList<>();

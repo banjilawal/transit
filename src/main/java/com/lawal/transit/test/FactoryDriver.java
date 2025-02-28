@@ -13,8 +13,9 @@ public class FactoryDriver {
 //        systemBuilder.curbHelper();
 //        systemBuilder.buildJunctions();
 
+        RoadCatalog.INSTANCE.getCatalog().forEach(System.out::println);
         AvenueCatalog.INSTANCE.getCatalog().getAvenues().forEach(System.out::println);
-//        StreetCatalog.INSTANCE.getCatalog().getStreets().forEach(System.out::println);
+        StreetCatalog.INSTANCE.getCatalog().getStreets().forEach(System.out::println);
 //        CurbCatalog.INSTANCE.getCatalog().getOldCurbs().forEach(System.out::println);
 //        BlockCatalog.INSTANCE.getCatalog().getList().forEach(System.out::println);
 //        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
