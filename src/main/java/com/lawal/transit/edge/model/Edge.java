@@ -36,7 +36,11 @@ public class Edge {
     public Edge (Long id, Station headStation, Station tailStation, int distance, int actual_time, int heuristic) {
         this.id = id;
         this.headStation = headStation;
+        this.headStation.getOutgoingEdges().add(this);
+
         this.tailStation = tailStation;
+        this.tailStation.getIncomingEdges().add(this);
+
         this.distance = distance;
         this.actual_time = actual_time;
         this.heuristic = heuristic;

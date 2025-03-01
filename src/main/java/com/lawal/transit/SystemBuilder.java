@@ -34,13 +34,14 @@ public class SystemBuilder {
     private static AtomicLong junctionId = new AtomicLong(0);
     private static AtomicLong junctionCornerId = new AtomicLong(0);
 
-    public static void launcher() {
+    public static void launcher() throws Exception {
         buildAvenues();
         buildStreets();
         buildBlocks();
         buildJunctions();
         buildAddresses();
         buildJunctionCorners();;
+        EdgePopulator.populateEdges();
     }
 
     private static void buildAvenues() {
