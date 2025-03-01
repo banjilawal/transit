@@ -7,6 +7,7 @@ import com.lawal.transit.curb.CurbOrientationException;
 import com.lawal.transit.edge.model.Edge;
 
 
+import com.lawal.transit.station.model.exception.StationNameNullException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -18,18 +19,20 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "stations")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class Station {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    @NotBlank(message = CurbOrientationException.MESSAGE)
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = StationNameNullException.MESSAGE)
     String name;
 
     @OneToOne
-    @JoinColumn(name = "block_id", nullable = false)
+    @JoinColumn(name = "block_id")
     private Block block;
 
     @OneToMany(mappedBy = "headStation", cascade = CascadeType.ALL)
@@ -46,6 +49,22 @@ public final class Station {
         this.incomingEdges = new ArrayList<>();
         this.outgoingEdges = new ArrayList<>();
     }
+
+    public void setBlock(Block block) {
+        if (this.block == block) return;
+
+        if (this.block != null) {
+            this.block.setStation(null);
+            this.block = null;
+        }
+
+        if (block != null) {
+            block.setStation(this);
+            this.block = block;
+        }
+    }
+
+
 
     @Override
     public String toString () {

@@ -33,11 +33,17 @@ public class Address {
         this.block.getAddresses().add(this);
     }
 
-    public void setBlock (Block block) {
-        if (block == null) throw new NullBlockException(AddressMessage.BLOCK_PARAMETER_NULL_EXCEPTION);
-        if (this.block.equals(block)) return;
-        this.block.getAddresses().add(this);
+    public void setBlock(Block block) {
+        if (block == null)throw new NullBlockException(AddressMessage.BLOCK_PARAMETER_NULL_EXCEPTION);
+
+        if (this.block == block) return;
+
+        if (this.block != null) {
+            this.block.removeAddress(this); // Avoid direct access; use a dedicated method
+        }
+
         this.block = block;
+        block.addAddress(this);
     }
 
     @Override

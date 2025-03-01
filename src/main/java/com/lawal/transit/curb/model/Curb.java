@@ -3,6 +3,7 @@ package com.lawal.transit.curb.model;
 
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.model.Block;
+import com.lawal.transit.block.model.exception.NullBlockException;
 import com.lawal.transit.curb.CurbOrientationException;
 import com.lawal.transit.global.Direction;
 
@@ -22,9 +23,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "curbs")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class Curb {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -83,15 +86,43 @@ public final class Curb {
         if (getRoad().getStreet() != null) return getRoad().getStreet();
         return null;
     }
+//
+//    @Override
+//    public boolean equals (Object object) {
+//        if (object == this) return true;
+//        if (object == null) return false;
+//        if (object instanceof Curb curb) {
+//            return id.equals(curb.getId()) && orientation == curb.getOrientation();
+//        }
+//        return false;
+//    }
 
-    @Override
-    public boolean equals (Object object) {
-        if (object == this) return true;
-        if (object == null) return false;
-        if (object instanceof Curb curb) {
-            return id.equals(curb.getId()) && orientation == curb.getOrientation();
+    public void setBlocks (List<Block> blocks) {
+        if (blocks == null) throw new NullBlockException(NullBlockException.MESSAGE);
+        if (this.blocks == null) this.blocks = new ArrayList<>();
+
+        for (Block block: blocks) {
+            addBlock(block);
         }
-        return false;
+    }
+
+    public void addBlock(Block block) {
+        if (block == null) throw new NullBlockException(NullBlockException.MESSAGE);
+        if (blocks.contains(block)) return;
+
+        blocks.add(block);
+        if (block.getCurb() != this) {
+            block.setCurb(this);
+        }
+    }
+
+    public void removeBlock(Block block) {
+        if (block == null) throw new NullBlockException(NullBlockException.MESSAGE);
+
+        if (blocks.contains(block)) {
+            blocks.remove(block);
+            if (block.getCurb() == this) { block.setCurb(null); }
+        }
     }
 
     @Override
