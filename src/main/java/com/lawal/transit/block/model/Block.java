@@ -5,7 +5,6 @@ import com.lawal.transit.address.model.Address;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.curb.CurbOrientationException;
 
-import com.lawal.transit.global.StationBlock;
 import com.lawal.transit.station.model.Station;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -43,6 +42,7 @@ public class Block {
         this.id = id;
         this.name = name;
         this.curb = curb;
+        this.curb.getBlocks().add(this);
         this.addresses = new ArrayList<>();
     }
 

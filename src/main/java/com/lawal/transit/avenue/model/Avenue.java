@@ -7,9 +7,7 @@ import com.lawal.transit.global.*;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.lane.model.Lane;
 import com.lawal.transit.road.model.Road;
-import com.lawal.transit.roadEntity.OldCurb;
-import com.lawal.transit.roadEntity.Lanes;
-import com.lawal.transit.roadEntity.RoadCategory;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -24,7 +22,6 @@ import java.util.List;
 @Table(name = "avenues")
 public final class Avenue {
 
-    public static final RoadCategory ROAD_CATEGORY = RoadCategory.AVENUE;
     public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.WEST;
     public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.EAST;
 

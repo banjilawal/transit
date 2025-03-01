@@ -1,16 +1,19 @@
 package com.lawal.transit.catalog;
 
 
-import com.lawal.transit.roadEntity.Curbs;
+import com.lawal.transit.curb.model.Curb;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public enum CurbCatalog {
     INSTANCE;
 
-    private final Curbs catalog;
+    private final List<Curb> catalog;
 
     CurbCatalog () {
-        catalog = new Curbs();
+        catalog = new ArrayList<>();
     }
 }

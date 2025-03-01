@@ -40,24 +40,28 @@ public final class Curb {
     @JoinColumn(name = "right_road_id", nullable = true)
     private Road rightRoadSide;
 
-    @ManyToOne
-    @JoinColumn(name = "avenue_id", nullable = true)
-    private Avenue avenue;
-
-    @ManyToOne
-    @JoinColumn(name = "street_id", nullable = true)
-    private Street street;
+//    @ManyToOne
+//    @JoinColumn(name = "avenue_id", nullable = true)
+//    private Avenue avenue;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "street_id", nullable = true)
+//    private Street street;
 
     @OneToMany(mappedBy = "curb", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> blocks = new ArrayList<>();
 
-    public Curb (Long id, Avenue avenue, Street street, Direction orientation, Road leftRoadSide, Road rightRoadSide) {
+    public Curb (Long id, Direction orientation, Road leftRoadSide, Road rightRoadSide) {//Avenue avenue, Street street, Direction orientation, Road leftRoadSide, Road rightRoadSide) {
         this.id = id;
-        this.avenue = avenue;
-        this.street = street;
+//        this.avenue = avenue;
+//        this.street = street;
         this.orientation = orientation;
+
         this.leftRoadSide = leftRoadSide;
         this.rightRoadSide = rightRoadSide;
+
+        if (leftRoadSide != null) leftRoadSide.setLeftCurb(this);
+        if (rightRoadSide != null) rightRoadSide.setRightCurb(this);
 
         this.blocks = new ArrayList<>();
     }
@@ -66,6 +70,18 @@ public final class Curb {
         if (rightRoadSide != null) return rightRoadSide;
         else if (leftRoadSide != null) return leftRoadSide;
         else return null;
+    }
+
+    public Avenue getAvenue() {
+        if (getRoad() == null) return null;
+        if (getRoad().getAvenue() != null) return getRoad().getAvenue();
+        return null;
+    }
+
+    public Street getStreet() {
+        if (getRoad() == null) return null;
+        if (getRoad().getStreet() != null) return getRoad().getStreet();
+        return null;
     }
 
     @Override
@@ -80,6 +96,8 @@ public final class Curb {
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + "[" + id + " " + orientation.print() + "]";
+        String avenueString = getAvenue() == null ? "" : getAvenue().toString();
+        String streetString = getStreet() == null ? "" : getStreet().toString();
+        return getClass().getSimpleName() + "[" + id + " " + orientation.print() + " "  + avenueString + " " + streetString +"]";
     }
 }

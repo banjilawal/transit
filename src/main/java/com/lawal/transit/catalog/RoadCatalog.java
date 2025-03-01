@@ -1,6 +1,5 @@
 package com.lawal.transit.catalog;
 
-import com.lawal.transit.address.Addresses;
 import com.lawal.transit.road.model.Road;
 import lombok.Getter;
 

@@ -25,6 +25,13 @@ public class Address {
     @JoinColumn(name = "block_id")
     private Block block;
 
+    public Address (Long id, String name, Block block) {
+        this.id = id;
+        this.name = name;
+        this.block = block;
+        this.block.getAddresses().add(this);
+    }
+
 
     @Override
     public String toString () {

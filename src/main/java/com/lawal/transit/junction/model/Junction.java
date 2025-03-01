@@ -36,7 +36,11 @@ public class Junction {
     public Junction(Long id, Avenue avenue, Street street) {
         this.id = id;
         this.avenue = avenue;
+        this.avenue.getJunctions().add(this);
+
         this.street = street;
+        this.street.getJunctions().add(this);
+
         this.name = avenue.getName() + " Ave and " + street.getName() + " St";
         this.corners = new ArrayList<>();
     }

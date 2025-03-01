@@ -1,4 +1,4 @@
-package com.lawal.transit.roadEntity.creation;
+package com.lawal.transit;
 
 
 import com.lawal.transit.catalog.*;

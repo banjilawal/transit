@@ -7,8 +7,7 @@ import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.lane.model.Lane;
 
 import com.lawal.transit.road.model.Road;
-import com.lawal.transit.roadEntity.Lanes;
-import com.lawal.transit.roadEntity.OldCurb;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
