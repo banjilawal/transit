@@ -9,8 +9,10 @@ import com.lawal.transit.curb.CurbGenerator;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.Constant;
 
+import com.lawal.transit.global.Direction;
 import com.lawal.transit.global.NameGenerator;
 import com.lawal.transit.junction.model.Junction;
+import com.lawal.transit.junction.model.JunctionCorner;
 import com.lawal.transit.road.model.Road;
 import com.lawal.transit.street.model.Street;
 
@@ -38,6 +40,7 @@ public class SystemBuilder {
         buildBlocks();
         buildJunctions();
         buildAddresses();
+        buildJunctionCorners();;
     }
 
     private static void buildAvenues() {
@@ -146,23 +149,23 @@ public class SystemBuilder {
 //        EdgePopulator.populateEdges();
 //    }
 //
-//    public void buildJunctionCorners () {
-//        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog().getJunctions()) {
-//            JunctionCorner nwCorner = new JunctionCorner(junctionCornerId.incrementAndGet(), junction, Direction.NORTHWEST);
-////            System.out.println("nw corner:" + nwCorner.toString());
-//            JunctionCornerCatalog.INSTANCE.getCatalog().add(nwCorner);
-//
-//            JunctionCorner swCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.SOUTHWEST);
-////            System.out.println("sw corner:" + swCorner.toString());
-//            JunctionCornerCatalog.INSTANCE.getCatalog().add(swCorner);
-//
-//            JunctionCorner neCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.NORTHEAST);
-////            System.out.println("ne corner:" + neCorner.toString());
-//            JunctionCornerCatalog.INSTANCE.getCatalog().add(neCorner);
-//
-//            JunctionCorner seCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.SOUTHEAST);
-////            System.out.println("se corner:" + seCorner.toString());
-//            JunctionCornerCatalog.INSTANCE.getCatalog().add(seCorner);
-//        }
-//    }
+    private static void buildJunctionCorners () {
+        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog().getJunctions()) {
+            JunctionCorner nwCorner = new JunctionCorner(junctionCornerId.incrementAndGet(), junction, Direction.NORTHWEST);
+//            System.out.println("nw corner:" + nwCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(nwCorner);
+
+            JunctionCorner swCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.SOUTHWEST);
+//            System.out.println("sw corner:" + swCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(swCorner);
+
+            JunctionCorner neCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.NORTHEAST);
+//            System.out.println("ne corner:" + neCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(neCorner);
+
+            JunctionCorner seCorner = new JunctionCorner(junctionId.incrementAndGet(), junction, Direction.SOUTHEAST);
+//            System.out.println("se corner:" + seCorner.toString());
+            JunctionCornerCatalog.INSTANCE.getCatalog().add(seCorner);
+        }
+    }
 }
