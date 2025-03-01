@@ -5,10 +5,7 @@ import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.lane.model.Lane;
 import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "roads")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Road {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
@@ -47,6 +46,20 @@ public class Road {
     private List<Lane> lanes = new ArrayList<>();
 
     public Road (Long id) { this.id = id; }
+
+    public void setStreet(Street street) {
+        if (this.street != null && this.street.equals(street)) return;
+
+        this.street = street;
+        if (street.getRoad() != this) { this.street.setRoad(this); }
+    }
+
+    public void setAvenue(Avenue avenue) {
+        if (this.avenue != null && this.avenue.equals(avenue)) return;
+
+        this.avenue = avenue;
+        if (avenue.getRoad() != this) { this.avenue.setRoad(this); }
+    }
 
     @Override
     public String toString() {

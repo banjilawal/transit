@@ -4,11 +4,13 @@ package com.lawal.transit.curb.model;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.block.model.exception.NullBlockException;
+import com.lawal.transit.block.model.exception.NullBlockListException;
 import com.lawal.transit.curb.CurbOrientationException;
 import com.lawal.transit.global.Direction;
 
 import com.lawal.transit.road.model.Road;
 
+import com.lawal.transit.station.model.Station;
 import com.lawal.transit.street.model.Street;
 
 import jakarta.persistence.*;
@@ -43,21 +45,17 @@ public final class Curb {
     @JoinColumn(name = "right_road_id", nullable = true)
     private Road rightRoadSide;
 
-//    @ManyToOne
-//    @JoinColumn(name = "avenue_id", nullable = true)
-//    private Avenue avenue;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "street_id", nullable = true)
-//    private Street street;
-
     @OneToMany(mappedBy = "curb", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> blocks = new ArrayList<>();
 
     public Curb (Long id, Direction orientation, Road leftRoadSide, Road rightRoadSide) {//Avenue avenue, Street street, Direction orientation, Road leftRoadSide, Road rightRoadSide) {
+        if (leftRoadSide == null && rightRoadSide == null)
+            throw new IllegalArgumentException("Curb cannot have both leftRoadSide and rightRoadSide null");
+
+        if (leftRoadSide == null && rightRoadSide == null || leftRoadSide != null && rightRoadSide != null)
+            throw new IllegalArgumentException("Curb cannot be on both the left and right sides of the road");
+
         this.id = id;
-//        this.avenue = avenue;
-//        this.street = street;
         this.orientation = orientation;
 
         this.leftRoadSide = leftRoadSide;
@@ -86,19 +84,18 @@ public final class Curb {
         if (getRoad().getStreet() != null) return getRoad().getStreet();
         return null;
     }
-//
-//    @Override
-//    public boolean equals (Object object) {
-//        if (object == this) return true;
-//        if (object == null) return false;
-//        if (object instanceof Curb curb) {
-//            return id.equals(curb.getId()) && orientation == curb.getOrientation();
-//        }
-//        return false;
-//    }
+
+    public List<Station> getStations() {
+        List<Station> stations = new ArrayList<>();
+        for (Block block: blocks) {
+            Station station = block.getStation();
+            if (station != null && !stations.contains(station)) stations.add(station);
+        }
+        return stations;
+    }
 
     public void setBlocks (List<Block> blocks) {
-        if (blocks == null) throw new NullBlockException(NullBlockException.MESSAGE);
+        if (blocks == null) throw new NullBlockListException(NullBlockListException.MESSAGE);
         if (this.blocks == null) this.blocks = new ArrayList<>();
 
         for (Block block: blocks) {

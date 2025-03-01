@@ -133,8 +133,8 @@ module com.lawal.transit {
 
     exports com.lawal.transit.path;
     opens com.lawal.transit.path to javafx.fxml, spring.core;
-
-
+    exports com.lawal.transit.road.model.exception;
+    opens com.lawal.transit.road.model.exception;
 
 
 } // close

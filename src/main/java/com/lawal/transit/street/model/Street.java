@@ -1,16 +1,21 @@
 package com.lawal.transit.street.model;
 
+import com.lawal.transit.avenue.model.AvenueMessage;
 import com.lawal.transit.avenue.model.exception.AvenueNameNullException;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.*;
 import com.lawal.transit.junction.model.Junction;
+import com.lawal.transit.junction.model.exception.NullJunctionException;
+import com.lawal.transit.junction.model.exception.NullJunctionListException;
 import com.lawal.transit.lane.model.Lane;
 
 import com.lawal.transit.road.model.Road;
 
+import com.lawal.transit.road.model.exception.NullRoadException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "streets")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class Street {
 
     public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.SOUTH;
@@ -32,10 +38,11 @@ public final class Street {
     public static final int LEFTWARD_STATION_BASE_NAME = 3000;
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank(message = AvenueNameNullException.MESSAGE)
     private String name;
 
@@ -52,13 +59,7 @@ public final class Street {
         this.name = name;
         this.road = road;
         this.road.setStreet(this);
-//        this.lanes = new ArrayList<>();
-//        this.curbs = new ArrayList<>();
-//        this.junctions = new ArrayList<>();
-//        this.leftLanes = new Lanes(LEFTWARD_TRAFFIC_DIRECTION);
-//        this.rightLanes = new Lanes(RIGHTWARD_TRAFFIC_DIRECTION);
-//        this.leftOldCurb = new OldCurb(leftCurbId, this, LEFT_CURB_ORIENTATION);
-//        this.rightOldCurb = new OldCurb(rightCurbId, this, RIGHT_CURB_ORIENTATION);
+        this.junctions = new ArrayList<>();
     }
 
     public Lane getLaneByDirection (Direction direction) {
@@ -73,16 +74,37 @@ public final class Street {
         else return null;
     }
 
-    @Override
-    public boolean equals (Object object) {
-        if (this == object) return true;
-        if (object == null) return false;
-        if (object instanceof Street street) {
-            return id.equals(street.getId()) && name.equalsIgnoreCase(street.getName());
-        }
-        return false;
+
+    public void setRoad(Road road) {
+        if (road == null) throw new NullRoadException("Street cannot exist without a Road");
+        if (this.road != null) { this.road.setStreet(null); }
+
+        this.road = road;
+        if (road.getStreet() != this) { road.setStreet(this); }
     }
 
+    public void setJunctions (List<Junction> junctions) {
+        if (junctions == null) throw new NullJunctionListException(NullJunctionListException.MESSAGE);
+        if (this.junctions == null) this.junctions = new ArrayList<>();
+
+        for (Junction junction : junctions) { addJunction(junction); }
+    }
+
+    public void addJunction(Junction junction) {
+        if (junction == null) throw new NullJunctionException(AvenueMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
+        if (junctions.contains(junction)) { return; }
+
+        junctions.add(junction);
+        if (!junction.getStreet().equals(this)) { junction.setStreet(this); }
+    }
+
+    public void removeJunction(Junction junction) {
+        if (junction == null) throw new NullJunctionException(AvenueMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
+        if (!junctions.contains(junction)) { return; }
+
+        junctions.remove(junction);
+        if (junction.getStreet().equals(this)) { junction.setStreet(null); }
+    }
 
     @Override
     public String toString () {
