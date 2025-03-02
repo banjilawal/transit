@@ -2,7 +2,8 @@ package com.lawal.transit.junction.model;
 
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.avenue.model.exception.NullAvenueException;
-import com.lawal.transit.block.model.Block;
+import com.lawal.transit.global.Direction;
+import com.lawal.transit.junction.JunctionCornerFactory;
 import com.lawal.transit.street.model.Street;
 import com.lawal.transit.street.model.exception.NullStreetException;
 import jakarta.persistence.*;
@@ -54,6 +55,8 @@ public class Junction {
 
         this.name = avenue.getName() + " Ave and " + street.getName() + " St";
         this.corners = new ArrayList<>();
+
+        createCorners();
     }
 
     public void setAvenue(Avenue avenue) {
@@ -78,6 +81,20 @@ public class Junction {
 
         if (street != null && !street.getJunctions().contains(this)) street.getJunctions().add(this);
         this.street = street;
+    }
+
+    private void createCorners() {
+        JunctionCorner northWestCorner = JunctionCornerFactory.createJunctionCorner(null, this, Direction.NORTHWEST);
+        if (!corners.contains(northWestCorner)) corners.add(northWestCorner);
+
+        JunctionCorner northEastCorner = JunctionCornerFactory.createJunctionCorner(null, this, Direction.NORTHEAST);
+        if (!corners.contains(northEastCorner)) corners.add(northEastCorner);
+
+        JunctionCorner southWestCorner = JunctionCornerFactory.createJunctionCorner(null, this, Direction.SOUTHWEST);
+        if (!corners.contains(southWestCorner)) corners.add(southWestCorner);
+
+        JunctionCorner southEastCorner = JunctionCornerFactory.createJunctionCorner(null, this, Direction.SOUTHEAST);
+        if (!corners.contains(southEastCorner)) corners.add(southEastCorner);
     }
 
     @Override

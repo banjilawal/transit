@@ -73,6 +73,23 @@ public final class Curb {
         this.blocks = new ArrayList<>();
     }
 
+    public Avenue getAvenue() {
+        if (leftRoadside != null) return leftRoadside.getAvenue();
+        else if (rightRoadside != null) return rightRoadside.getAvenue();
+        else return null;
+    }
+
+    public Street getStreet() {
+        if (leftRoadside != null) return leftRoadside.getStreet();
+        else if (rightRoadside != null) return rightRoadside.getStreet();
+        return null;
+    }
+
+    public Block getBlockByArrayIndex(int index) {
+        if (index < 0 || index >= blocks.size()) throw new IllegalArgumentException("BlockArrayIndex out of bounds");
+        return blocks.get(index);
+    }
+
     public Road getRoad() {
         if (rightRoadside != null) return rightRoadside;
         else if (leftRoadside != null) return leftRoadside;

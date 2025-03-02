@@ -3,6 +3,7 @@ package com.lawal.transit.block.model;
 import com.lawal.transit.address.model.Address;
 
 import com.lawal.transit.address.model.exception.NullAddressListException;
+import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.curb.CurbOrientationException;
 
@@ -10,6 +11,7 @@ import com.lawal.transit.curb.model.exception.NullCurbException;
 import com.lawal.transit.road.model.Road;
 import com.lawal.transit.road.model.exception.NullRoadException;
 import com.lawal.transit.station.model.Station;
+import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -52,6 +54,10 @@ public class Block {
         this.curb.getBlocks().add(this);
         this.addresses = new ArrayList<>();
     }
+
+    public Avenue getAvenue() { return curb.getAvenue(); }
+
+    public Street getStreet() { return curb.getStreet(); }
 
     public void setAddresses(List<Address> addresses) {
         if (addresses == null) throw new NullAddressListException(NullAddressListException.MESSAGE);
