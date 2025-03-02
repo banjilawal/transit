@@ -133,7 +133,7 @@ public class EdgePopulator {
             tailStation.getIncomingEdges().add(newEdge);
             EdgeCatalog.INSTANCE.getCatalog().add(newEdge);
 
-            System.out.println("Created Edge: " + newEdge);
+//            System.out.println("Created Edge: " + newEdge);
         }
     }
 

@@ -7,7 +7,7 @@ public class FactoryDriver {
     public static void main(String[] args) throws Exception {
         SystemBuilder.launcher();
 
-        RoadCatalog.INSTANCE.getCatalog().forEach(System.out::println);
+//        RoadCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        AvenueCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        StreetCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        CurbCatalog.INSTANCE.getCatalog().forEach(System.out::println);

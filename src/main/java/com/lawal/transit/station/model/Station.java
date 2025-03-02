@@ -2,8 +2,6 @@ package com.lawal.transit.station.model;
 
 import com.lawal.transit.block.model.Block;
 
-import com.lawal.transit.curb.model.Curb;
-import com.lawal.transit.curb.CurbOrientationException;
 import com.lawal.transit.edge.model.Edge;
 
 
