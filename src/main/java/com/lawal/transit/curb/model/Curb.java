@@ -90,6 +90,16 @@ public final class Curb {
         return blocks.get(index);
     }
 
+    public Block getNextBlockByArrayIndex(int index) {
+        if (index < 0 || index >= blocks.size()) throw new IllegalArgumentException("BlockArrayIndex out of bounds");
+        return blocks.get(index + 1);
+    }
+
+    public Block getPreviousBlockByArrayIndex(int index) {
+        if (index <= 0 || index >= blocks.size()) throw new IllegalArgumentException("BlockArrayIndex out of bounds");
+        return blocks.get(index - 1);
+    }
+
     public Road getRoad() {
         if (rightRoadside != null) return rightRoadside;
         else if (leftRoadside != null) return leftRoadside;

@@ -29,11 +29,11 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class Avenue {
 
-    public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.WEST;
-    public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.EAST;
+    public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.EAST;
+    public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.WEST;
 
-    public static final Direction LEFT_CURB_ORIENTATION = Direction.SOUTH;
-    public static final Direction RIGHT_CURB_ORIENTATION = Direction.NORTH;
+    public static final Direction LEFT_CURB_ORIENTATION = Direction.NORTH;
+    public static final Direction RIGHT_CURB_ORIENTATION = Direction.SOUTH;
 
     public static final int RIGHTWARD_STATION_BASE_NAME = 2000;
     public static final int LEFTWARD_STATION_BASE_NAME = 4000;
@@ -72,6 +72,18 @@ public final class Avenue {
     public Curb getCurbByOrientation (Direction orientation) {
         if (road.getLeftCurb().getOrientation() == orientation) return road.getLeftCurb();
         else if (road.getRightCurb().getOrientation() == orientation) return road.getRightCurb();
+        else return null;
+    }
+
+    public Direction getTrafficDirectionByCurbOrientation (Direction curbOrientation) {
+        if (curbOrientation == LEFT_CURB_ORIENTATION) return LEFTWARD_TRAFFIC_DIRECTION;
+        else if (curbOrientation == RIGHT_CURB_ORIENTATION) return RIGHTWARD_TRAFFIC_DIRECTION;
+        else return null;
+    }
+
+    public Direction getCurbOrientationByTrafficDirection (Direction trafficDirection) {
+        if (trafficDirection == LEFTWARD_TRAFFIC_DIRECTION) return LEFT_CURB_ORIENTATION;
+        else if (trafficDirection == RIGHTWARD_TRAFFIC_DIRECTION) return RIGHT_CURB_ORIENTATION;
         else return null;
     }
 

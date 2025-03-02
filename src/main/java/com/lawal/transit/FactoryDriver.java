@@ -15,8 +15,8 @@ public class FactoryDriver {
 //        JunctionCatalog.INSTANCE.getCatalog().getJunctions().forEach(System.out::println);
 //        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
 //        AddressCatalog.INSTANCE.getCatalog().forEach(System.out::println);
-        JunctionCornerCatalog.INSTANCE.getCorners().forEach(System.out::println);
-//        EdgeCatalog.INSTANCE.getCatalog().getEdges().forEach(System.out::println);
+//        JunctionCornerCatalog.INSTANCE.getCorners().forEach(System.out::println);
+        EdgeCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
     }
 }

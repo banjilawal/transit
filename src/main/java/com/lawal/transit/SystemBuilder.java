@@ -9,7 +9,6 @@ import com.lawal.transit.curb.CurbGenerator;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.Constant;
 
-import com.lawal.transit.global.Direction;
 import com.lawal.transit.global.NameGenerator;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
@@ -41,7 +40,7 @@ public class SystemBuilder {
         buildJunctions();
         buildAddresses();
 //        buildJunctionCorners();;
-        EdgePopulator.populateEdges();
+//        JunctionTurnNavigator.populateEdges();
     }
 
     private static void buildAvenues() {
@@ -152,7 +151,7 @@ public class SystemBuilder {
 //            }
 //        }
 //        buildJunctionCorners();
-//        EdgePopulator.populateEdges();
+//        JunctionTurnNavigator.populateEdges();
 //    }
 //
 //    private static void buildJunctionCorners () {

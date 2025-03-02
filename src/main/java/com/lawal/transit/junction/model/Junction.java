@@ -59,6 +59,13 @@ public class Junction {
         createCorners();
     }
 
+    public JunctionCorner getCornerByOrientation(Direction cornerOrientation) {
+        for (JunctionCorner corner : corners) {
+            if (corner.getCornerOrientation().equals(cornerOrientation)) return corner;
+        }
+        return null;
+    }
+
     public void setAvenue(Avenue avenue) {
         if (this.avenue != null && this.avenue.equals(avenue)) return;
 

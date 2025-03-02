@@ -28,8 +28,8 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class Street {
 
-    public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.SOUTH;
-    public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.NORTH;
+    public static final Direction RIGHTWARD_TRAFFIC_DIRECTION = Direction.NORTH;
+    public static final Direction LEFTWARD_TRAFFIC_DIRECTION = Direction.SOUTH;
 
     public static final Direction LEFT_CURB_ORIENTATION = Direction.WEST;
     public static final Direction RIGHT_CURB_ORIENTATION = Direction.EAST;
@@ -71,6 +71,18 @@ public final class Street {
     public Curb getCurbByOrientation (Direction orientation) {
         if (road.getLeftCurb().getOrientation() == orientation) return road.getLeftCurb();
         else if (road.getRightCurb().getOrientation() == orientation) return road.getRightCurb();
+        else return null;
+    }
+
+    public Direction getTrafficDirectionFromByCurbOrientation(Direction curbOrientation) {
+        if (curbOrientation == LEFT_CURB_ORIENTATION) return LEFTWARD_TRAFFIC_DIRECTION;
+        else if (curbOrientation == RIGHT_CURB_ORIENTATION) return RIGHTWARD_TRAFFIC_DIRECTION;
+        else return null;
+    }
+
+    public Direction getCurbOrientationFromByTrafficDirection(Direction trafficDirection) {
+        if (trafficDirection == LEFTWARD_TRAFFIC_DIRECTION) return LEFT_CURB_ORIENTATION;
+        else if (trafficDirection == RIGHTWARD_TRAFFIC_DIRECTION) return RIGHT_CURB_ORIENTATION;
         else return null;
     }
 
