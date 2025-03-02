@@ -2,8 +2,7 @@ package com.lawal.transit.avenue.model;
 
 import com.lawal.transit.avenue.model.exception.AvenueNameNullException;
 
-import com.lawal.transit.block.model.Block;
-import com.lawal.transit.block.model.exception.NullBlockException;
+
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.*;
 import com.lawal.transit.junction.model.Junction;
@@ -15,6 +14,7 @@ import com.lawal.transit.road.model.Road;
 import com.lawal.transit.road.model.exception.NullRoadException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -94,16 +94,16 @@ public final class Avenue {
         if (junction == null) throw new NullJunctionException(AvenueMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
         if (junctions.contains(junction)) { return; }
 
+        if (!this.equals(junction.getAvenue())) { junction.setAvenue(this); }
         junctions.add(junction);
-        if (!junction.getAvenue().equals(this)) { junction.setAvenue(this); }
     }
 
     public void removeJunction(Junction junction) {
         if (junction == null) throw new NullJunctionException(AvenueMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
         if (!junctions.contains(junction)) { return; }
 
+        if (junction.getAvenue() != null && !this.equals(junction.getAvenue())) { junction.setAvenue(null); }
         junctions.remove(junction);
-        if (junction.getAvenue().equals(this)) { junction.setAvenue(null); }
     }
 
     @Override

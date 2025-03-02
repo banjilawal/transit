@@ -44,14 +44,17 @@ public final class Station {
     public Station (Long id, String name, Block block) {
         this.id = id;
         this.name = name;
+
         this.block = block;
-        this.block.setStation(this);
+        if (block != null) {
+            if (!this.equals(block.getStation())) block.setStation(this);
+        }
         this.incomingEdges = new ArrayList<>();
         this.outgoingEdges = new ArrayList<>();
     }
 
     public void setBlock(Block block) {
-        if (this.block == block) return;
+        if (this.block != null && this.block.equals(block)) return;
 
         if (this.block != null) {
             this.block.setStation(null);

@@ -7,6 +7,8 @@ import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.curb.CurbOrientationException;
 
 import com.lawal.transit.curb.model.exception.NullCurbException;
+import com.lawal.transit.road.model.Road;
+import com.lawal.transit.road.model.exception.NullRoadException;
 import com.lawal.transit.station.model.Station;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -79,7 +81,7 @@ public class Block {
     }
 
     public void setStation(Station station) {
-        if (this.station == station) return;
+        if (this.station != null && this.station.equals(station)) return;
 
         if (this.station != null) {
             this.station.setBlock(null);
@@ -93,14 +95,13 @@ public class Block {
     }
 
     public void setCurb(Curb curb) {
-        if (curb == null) throw new NullCurbException(BlockMessage.CURB_PARAMETER_NULL_EXCEPTION);
-
-        if (this.curb == curb) return;
+        if (curb == null || this.curb != null && this.curb.equals(curb)) return;
         if (this.curb != null) { this.curb.removeBlock(this); }
 
         this.curb = curb;
-        if (this.curb.getBlocks().contains(this)) { curb.addBlock(this); }
+        if (!this.curb.getBlocks().contains(this)) { curb.addBlock(this); }
     }
+
 
 //    @Override
 //    public String toString () {

@@ -94,16 +94,16 @@ public final class Street {
         if (junction == null) throw new NullJunctionException(AvenueMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
         if (junctions.contains(junction)) { return; }
 
+        if (!this.equals(junction.getStreet())) { junction.setStreet(this); }
         junctions.add(junction);
-        if (!junction.getStreet().equals(this)) { junction.setStreet(this); }
     }
 
     public void removeJunction(Junction junction) {
-        if (junction == null) throw new NullJunctionException(AvenueMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
+        if (junction == null) throw new NullJunctionException(StreetMessage.JUNCTION_PARAMETER_NULL_EXCEPTION);
         if (!junctions.contains(junction)) { return; }
 
+        if (junction.getStreet() != null && !this.equals(junction.getStreet())) { junction.setAvenue(null); }
         junctions.remove(junction);
-        if (junction.getStreet().equals(this)) { junction.setStreet(null); }
     }
 
     @Override
