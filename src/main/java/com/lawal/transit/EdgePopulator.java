@@ -29,8 +29,8 @@ public class EdgePopulator {
     private static void discoverOutgoingEdges(Station station) throws Exception {
         // Get the curb and road for this station
         Curb curb = station.getBlock().getCurb();
-        Avenue avenue = curb.getAvenue();
-        Street street = curb.getStreet();
+        Avenue avenue = curb.getRoad().getAvenue();
+        Street street = curb.getRoad().getStreet();
 
         if (avenue == null && street == null)
             throw new IllegalArgumentException("The avenue and street are null");

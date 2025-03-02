@@ -2,6 +2,8 @@ package com.lawal.transit.road.model;
 
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.curb.model.Curb;
+import com.lawal.transit.curb.model.exception.CurbAvenueMismatchException;
+import com.lawal.transit.curb.model.exception.CurbStreetMismatchException;
 import com.lawal.transit.lane.model.Lane;
 import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
@@ -47,6 +49,42 @@ public class Road {
 
     public Road (Long id) { this.id = id; }
 
+    public void setLeftCurb(Curb curb) {
+        if (curb == null && this.leftCurb == null) return;
+        if (curb != null && curb.equals(this.leftCurb)) return;
+
+        if (curb != null && avenue == null && curb.getOrientation() == Avenue.LEFT_CURB_ORIENTATION) {
+            throw new CurbAvenueMismatchException(CurbAvenueMismatchException.MESSAGE);
+        }
+
+        if (curb != null && street == null && curb.getOrientation() == Street.LEFT_CURB_ORIENTATION) {
+            throw new CurbStreetMismatchException(CurbStreetMismatchException.MESSAGE);
+        }
+
+        if (curb != null && curb.getLeftRoadside() != null && !this.equals(curb.getLeftRoadside())) {
+            curb.setLeftRoadside(this);
+        }
+        this.leftCurb = curb;
+    }
+
+    public void setRightCurb(Curb curb) {
+        if (curb == null && this.rightCurb == null) return;
+        if (curb != null && curb.equals(this.rightCurb)) return;
+
+        if (curb != null && avenue == null && curb.getOrientation() == Avenue.RIGHT_CURB_ORIENTATION) {
+            throw new CurbAvenueMismatchException(CurbAvenueMismatchException.MESSAGE);
+        }
+
+        if (curb != null && street == null && curb.getOrientation() == Street.RIGHT_CURB_ORIENTATION) {
+            throw new CurbStreetMismatchException(CurbStreetMismatchException.MESSAGE);
+        }
+
+        if (curb != null && curb.getRightRoadside() != null && !this.equals(curb.getRightRoadside())) {
+            curb.setRightRoadside(this);
+        }
+        this.rightCurb = curb;
+    }
+
     public void setStreet(Street street) {
         if (this.street != null && this.street.equals(street)) return;
 
@@ -61,10 +99,29 @@ public class Road {
         if (avenue.getRoad() != this) { this.avenue.setRoad(this); }
     }
 
+    public static String avenueString(Road road) {
+        if (road.getAvenue() == null) return "";
+        return road.getAvenue().toString();
+    }
+
+    public static String leftCurbString(Road road) {
+        if (road.getLeftCurb() == null) return "";
+        return road.getLeftCurb().toString();
+    }
+
+    public static String rightCurbeString(Road road) {
+        if (road.getRightCurb() == null) return "";
+        return " " + road.getRightCurb().toString();
+    }
+
+    public static String streetString(Road road) {
+        if (road.getStreet() == null) return "";
+        return " " + road.getStreet().toString();
+    }
+
     @Override
     public String toString() {
-        String avenueString = avenue == null ? "" : avenue.toString();
-        String streetString = street == null ? "" : street.toString();
-        return getClass().getSimpleName() + "[roadId:" + id + " " + avenueString + " " + streetString +"]";
+        return getClass().getSimpleName() + "[roadId:" + id
+            + " " + leftCurbString(this) + " " + rightCurbeString(this) +"]";
     }
 }

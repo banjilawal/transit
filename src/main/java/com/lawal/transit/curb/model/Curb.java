@@ -6,6 +6,8 @@ import com.lawal.transit.block.model.Block;
 import com.lawal.transit.block.model.exception.NullBlockException;
 import com.lawal.transit.block.model.exception.NullBlockListException;
 import com.lawal.transit.curb.CurbOrientationException;
+import com.lawal.transit.curb.model.exception.CurbAvenueMismatchException;
+import com.lawal.transit.curb.model.exception.CurbStreetMismatchException;
 import com.lawal.transit.global.Direction;
 
 import com.lawal.transit.road.model.Road;
@@ -39,50 +41,80 @@ public final class Curb {
 
     @ManyToOne
     @JoinColumn(name = "left_road_id", nullable = true)
-    private Road leftRoadSide;
+    private Road leftRoadside;
 
     @ManyToOne
     @JoinColumn(name = "right_road_id", nullable = true)
-    private Road rightRoadSide;
+    private Road rightRoadside;
 
     @OneToMany(mappedBy = "curb", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> blocks = new ArrayList<>();
 
-    public Curb (Long id, Direction orientation, Road leftRoadSide, Road rightRoadSide) {//Avenue avenue, Street street, Direction orientation, Road leftRoadSide, Road rightRoadSide) {
-        if (leftRoadSide == null && rightRoadSide == null)
+    public Curb (Long id, Direction orientation, Road leftRoadside, Road rightRoadside) {//Avenue avenue, Street street, Direction orientation, Road leftRoadSide, Road rightRoadSide) {
+        if (leftRoadside == null && rightRoadside == null)
             throw new IllegalArgumentException("Curb cannot have both leftRoadSide and rightRoadSide null");
 
-        if (leftRoadSide == null && rightRoadSide == null || leftRoadSide != null && rightRoadSide != null)
+        if (leftRoadside != null && rightRoadside != null)
             throw new IllegalArgumentException("Curb cannot be on both the left and right sides of the road");
 
         this.id = id;
         this.orientation = orientation;
 
-        this.leftRoadSide = leftRoadSide;
-        this.rightRoadSide = rightRoadSide;
+        this.leftRoadside = leftRoadside;
+        this.rightRoadside = rightRoadside;
 
-        if (leftRoadSide != null) leftRoadSide.setLeftCurb(this);
-        if (rightRoadSide != null) rightRoadSide.setRightCurb(this);
+        if (leftRoadside != null) {
+            if (!this.equals(leftRoadside.getLeftCurb())) leftRoadside.setLeftCurb(this);
+        }
+        if (rightRoadside != null) {
+            if (!this.equals(rightRoadside.getRightCurb())) rightRoadside.setRightCurb(this);
+        }
 
         this.blocks = new ArrayList<>();
     }
 
     public Road getRoad() {
-        if (rightRoadSide != null) return rightRoadSide;
-        else if (leftRoadSide != null) return leftRoadSide;
+        if (rightRoadside != null) return rightRoadside;
+        else if (leftRoadside != null) return leftRoadside;
         else return null;
     }
 
-    public Avenue getAvenue() {
-        if (getRoad() == null) return null;
-        if (getRoad().getAvenue() != null) return getRoad().getAvenue();
-        return null;
+    public void setLeftRoad(Road road) {
+        if (road != null && road.getStreet() == null && orientation == Street.LEFT_CURB_ORIENTATION) {
+            throw new CurbStreetMismatchException(CurbStreetMismatchException.MESSAGE);
+        }
+
+        if (road != null && road.getAvenue() == null && orientation == Avenue.LEFT_CURB_ORIENTATION) {
+            throw new CurbAvenueMismatchException(CurbAvenueMismatchException.MESSAGE);
+        }
+
+        if (this.leftRoadside != null) {
+            this.leftRoadside.setLeftCurb(null);
+        }
+
+        if (road != null && road.getLeftCurb() != null && !this.equals(road.getLeftCurb())) {
+            road.setLeftCurb(this);
+        }
+        this.leftRoadside = road;
     }
 
-    public Street getStreet() {
-        if (getRoad() == null) return null;
-        if (getRoad().getStreet() != null) return getRoad().getStreet();
-        return null;
+    public void setRightRoad(Road road) {
+        if (road != null && road.getStreet() == null && orientation == Street.RIGHT_CURB_ORIENTATION) {
+            throw new CurbStreetMismatchException(CurbStreetMismatchException.MESSAGE);
+        }
+
+        if (road != null && road.getAvenue() == null && orientation == Avenue.RIGHT_CURB_ORIENTATION) {
+            throw new CurbAvenueMismatchException(CurbAvenueMismatchException.MESSAGE);
+        }
+
+        if (this.rightRoadside != null) {
+            this.rightRoadside.setRightCurb(null);
+        }
+
+        if (road != null && road.getRightCurb() != null && !this.equals(road.getRightCurb())) {
+            road.setRightCurb(this);
+        }
+        this.leftRoadside = road;
     }
 
     public List<Station> getStations() {
@@ -122,10 +154,19 @@ public final class Curb {
         }
     }
 
+    public String getAvenueString() {
+        if (getRoad() == null || getRoad().getAvenue() == null) return "";
+        return " " + getRoad().getAvenue().toString();
+    }
+
+    public String getStreetString() {
+        if (getRoad() == null || getRoad().getStreet() == null) return "";
+        return " " + getRoad().getStreet().toString();
+    }
+
     @Override
     public String toString () {
-        String avenueString = getAvenue() == null ? "" : getAvenue().toString();
-        String streetString = getStreet() == null ? "" : getStreet().toString();
-        return getClass().getSimpleName() + "[" + id + " " + orientation.print() + " "  + avenueString + " " + streetString +"]";
+        return getClass().getSimpleName() + "[curbId:" + id + " " + orientation.print()
+            + getAvenueString() + getStreetString() +"]";
     }
 }

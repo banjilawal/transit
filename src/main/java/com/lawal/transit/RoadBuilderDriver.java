@@ -1,4 +1,4 @@
-package com.lawal.transit.test;
+package com.lawal.transit;
 
 public class RoadBuilderDriver {
     public static void main(String[] args) throws Exception {

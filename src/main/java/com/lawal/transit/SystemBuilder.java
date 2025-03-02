@@ -80,8 +80,8 @@ public class SystemBuilder {
 
     private static void buildAddresses() {
         for (Curb curb : CurbCatalog.INSTANCE.getCatalog()) {
-            Avenue avenue = curb.getAvenue();
-            Street street = curb.getStreet();
+            Avenue avenue = curb.getRoad().getAvenue();
+            Street street = curb.getRoad().getStreet();
 
             int currentAddress = 2;
             if (avenue != null)
