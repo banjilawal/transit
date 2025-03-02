@@ -2,9 +2,11 @@ package com.lawal.transit.station.model;
 
 import com.lawal.transit.block.model.Block;
 
+import com.lawal.transit.block.model.exception.NullBlockException;
 import com.lawal.transit.edge.model.Edge;
 
 
+import com.lawal.transit.edge.model.exception.NullEdgeException;
 import com.lawal.transit.station.model.exception.StationNameNullException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -65,6 +67,47 @@ public final class Station {
         }
     }
 
+    public void addOutgoingEdge(Edge edge) {
+        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+
+        if (outgoingEdges == null) this.outgoingEdges = new ArrayList<>();
+        if (outgoingEdges.contains(edge)) return;
+
+        outgoingEdges.add(edge);
+        if (edge.getHeadStation() != null && !this.equals(edge.getHeadStation())) {
+            edge.setHeadStation(this);
+        }
+    }
+
+    public void addIncomingEdge(Edge edge) {
+        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+
+        if (incomingEdges == null) this.incomingEdges = new ArrayList<>();
+        if (incomingEdges.contains(edge)) return;
+
+        incomingEdges.add(edge);
+        if (edge.getTailStation() != null && !this.equals(edge.getTailStation())) {
+            edge.setTailStation(this);
+        }
+    }
+
+    public void removeOutgoingEdge(Edge edge) {
+        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+
+        if (outgoingEdges.contains(edge)) {
+            outgoingEdges.remove(edge);
+            if (edge.getHeadStation() != null && this.equals(edge.getHeadStation())) { edge.setHeadsStation(null); }
+        }
+    }
+
+    public void removeIncoming(Edge edge) {
+        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+
+        if (incomingEdges.contains(edge)) {
+            incomingEdges.remove(edge);
+            if (edge.getTailStation() != null && this.equals(edge.getTailStation())) { edge.setTailStation(null); }
+        }
+    }
 
 
     @Override

@@ -167,7 +167,7 @@ public final class Curb {
 
         if (blocks.contains(block)) {
             blocks.remove(block);
-            if (block.getCurb() == this) { block.setCurb(null); }
+            if (block.getCurb() != null && this.equals(block.getCurb())) { block.setCurb(null); }
         }
     }
 
