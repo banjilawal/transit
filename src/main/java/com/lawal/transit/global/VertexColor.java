@@ -1,4 +1,4 @@
-package com.lawal.transit.graph;
+package com.lawal.transit.global;
 
 public enum VertexColor {
     WHITE,

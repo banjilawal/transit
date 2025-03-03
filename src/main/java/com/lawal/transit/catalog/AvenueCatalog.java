@@ -16,4 +16,15 @@ public enum AvenueCatalog {
     AvenueCatalog () {
         catalog = new ArrayList<>();
     }
+
+    public Avenue findById(Long id) {
+        if (id == null) return null;
+
+        for (Avenue avenue : catalog) {
+            if (avenue.getId().equals(id)) {
+                return avenue;
+            }
+        }
+        return null;
+    }
 }

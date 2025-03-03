@@ -1,4 +1,4 @@
-package com.lawal.transit;
+package com.lawal.transit.navigtion;
 
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.global.Direction;
@@ -13,11 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class JunctionTurnNavigator {
 
-    private static AtomicLong edgeId = new AtomicLong(0);
-
-
     public static Block getDestinationBlockFromAvenue (Junction junction, Block currentAvenueBlock, TurnCategory turnCategory) {
-
         Avenue junctionAvenue = junction.getAvenue();
         Direction currentCurbOrientation = currentAvenueBlock.getCurb().getOrientation();
 

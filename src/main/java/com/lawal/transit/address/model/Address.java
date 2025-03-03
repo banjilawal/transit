@@ -34,7 +34,7 @@ public class Address {
     }
 
     public void setBlock(Block block) {
-        if (block == null)throw new NullBlockException(AddressMessage.BLOCK_PARAMETER_NULL_EXCEPTION);
+//        if (block == null)throw new NullBlockException(AddressMessage.BLOCK_PARAMETER_NULL_EXCEPTION);
 
         if (this.block == block) return;
 
@@ -48,6 +48,6 @@ public class Address {
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + " id:" + id + " mailing:" + name + " " + block.getCurb().toString();
+        return getClass().getSimpleName() + " id:" + id + " mailing:" + name; // + " " + block.getCurb().toString();
     }
 }

@@ -34,7 +34,7 @@ public class BlockGenerator {
 //            Block block = new Block(blockId.incrementAndGet(), blockName, curb, null);
 //            addressName = BlockPopulator.populateBlock(block, addressName, addressInterval, numberOfAddresses);
 //            curb.getBlocks().add(block);
-            BlockCatalog.INSTANCE.getCatalog().getList().add(block);
+            BlockCatalog.INSTANCE.getCatalog().add(block);
         }
     }
 

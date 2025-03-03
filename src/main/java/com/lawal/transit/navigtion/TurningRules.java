@@ -1,4 +1,4 @@
-package com.lawal.transit.junction;
+package com.lawal.transit.navigtion;
 
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.avenue.model.Avenue;

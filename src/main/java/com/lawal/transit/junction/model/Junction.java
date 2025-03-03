@@ -2,8 +2,10 @@ package com.lawal.transit.junction.model;
 
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.avenue.model.exception.NullAvenueException;
+import com.lawal.transit.block.model.Block;
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.junction.JunctionCornerFactory;
+import com.lawal.transit.station.model.Station;
 import com.lawal.transit.street.model.Street;
 import com.lawal.transit.street.model.exception.NullStreetException;
 import jakarta.persistence.*;
@@ -59,9 +61,29 @@ public class Junction {
         createCorners();
     }
 
+    public JunctionCorner getCornerByBlock(Block block) {
+        if (block == null) return null;
+
+        for (JunctionCorner corner : corners) {
+            if (corner.containsBlock(block)) return corner;
+        }
+        return null;
+    }
+
     public JunctionCorner getCornerByOrientation(Direction cornerOrientation) {
+        if (cornerOrientation == null) return null;
+
         for (JunctionCorner corner : corners) {
             if (corner.getCornerOrientation().equals(cornerOrientation)) return corner;
+        }
+        return null;
+    }
+
+    public JunctionCorner getCornerByStation(Station station) {
+        if (station == null) return null;
+
+        for (JunctionCorner corner : corners) {
+            if (corner.findLegByStation(station) != null) return corner;
         }
         return null;
     }

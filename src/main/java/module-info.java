@@ -22,22 +22,8 @@ module com.lawal.transit {
     exports com.lawal.transit.global;
     opens com.lawal.transit.global;
 
-    exports com.lawal.transit.graph;
-    opens com.lawal.transit.graph;
-
-
-
-//    exports com.lawal.transit.transport;
-//    opens com.lawal.transit.transport;
-
     exports com.lawal.transit.traveler;
     opens com.lawal.transit.traveler;
-
-
-
-
-    exports com.lawal.transit.graph.contract;
-    opens com.lawal.transit.graph.contract;
 
     exports com.lawal.transit.address;
     opens com.lawal.transit.address;
@@ -137,6 +123,8 @@ module com.lawal.transit {
     opens com.lawal.transit.road.model.exception;
     exports com.lawal.transit.edge.model.exception;
     opens com.lawal.transit.edge.model.exception;
+    exports com.lawal.transit.navigtion;
+    opens com.lawal.transit.navigtion;
 
 
 } // close

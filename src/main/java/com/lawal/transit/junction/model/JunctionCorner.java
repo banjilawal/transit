@@ -7,6 +7,7 @@ import com.lawal.transit.global.Direction;
 
 import com.lawal.transit.junction.model.exception.NullJunctionException;
 
+import com.lawal.transit.station.model.Station;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -64,6 +65,24 @@ public class JunctionCorner {
 
         this.junction = junction;
         if (!junction.getCorners().contains(this)) junction.getCorners().add(this);
+    }
+
+    public boolean containsBlock(Block block) {
+        if (block == null) return false;
+        return block.equals(avenueLeg) || block.equals(streetLeg);
+    }
+
+    public Block findLegByStation(Station station) {
+        if (station == null) return null;
+        if (avenueLeg.getStation() != null && avenueLeg.getStation().equals(station)) return avenueLeg;
+        if (streetLeg.getStation() != null && streetLeg.getStation().equals(station)) return streetLeg;
+        return null;
+    }
+
+    public Block getLegByOrientation(Direction legOrientation) {
+        if (legOrientation == null) return null;
+        if (legOrientation.equals(Direction.NORTH) || legOrientation.equals(Direction.EAST)) return avenueLeg;
+        else return streetLeg;
     }
 //
 //    private void setAvenueLeg() {
