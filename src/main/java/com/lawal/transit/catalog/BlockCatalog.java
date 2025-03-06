@@ -50,11 +50,11 @@ public enum BlockCatalog {
     }
 
     public List<Block> filterByAvenue(Avenue avenue) {
-        if (avenue == null) return null;
-
         List<Block> matches = new ArrayList<>();
+        if (avenue == null) return matches;
         for (Block block : catalog) {
-            if (block.getCurb().getAvenue().equals(avenue) && !matches.contains(block)) matches.add(block);
+            Avenue blockAvenue = block.getCurb().getAvenue();
+            if (blockAvenue != null && blockAvenue.equals(avenue) && !matches.contains(block)) matches.add(block);
         }
         return matches;
     }

@@ -89,7 +89,7 @@ public enum JunctionCornerCatalog {
 
         List<JunctionCorner> matches = new ArrayList<>();
         for (JunctionCorner corner : catalog) {
-            if (corner.getCornerOrientation() == orientation && !matches.contains(corner)) matches.add(corner);
+            if (corner.getOrientation() == orientation && !matches.contains(corner)) matches.add(corner);
         }
         return matches;
     }
@@ -99,7 +99,7 @@ public enum JunctionCornerCatalog {
 
         List<JunctionCorner> matches = new ArrayList<>();
         for (JunctionCorner corner : catalog) {
-            if (corner.findLegByStation(station) != null && !matches.contains(corner)) matches.add(corner);
+            if (corner.getLegByStation(station) != null && !matches.contains(corner)) matches.add(corner);
         }
         return matches;
     }

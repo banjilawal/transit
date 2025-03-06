@@ -115,11 +115,11 @@ public final class Station {
         return getClass().getSimpleName()
             + "[id:" + id
             + " name:" + name
-            + " (" + block.getName()
-            + " blockId:" + block.getId()
-            + ") curbId:" + block.getCurb().getId()
+//            + " (" + block.getName()
+//            + " blockId:" + block.getId()
+//            + ") curbId:" + block.getCurb().getId()
 //            + " " + block.getCurb().getRoad().toString()
-            + " " + block.getCurb().getOrientation().print() + "]"
+//            + " " + block.getCurb().getOrientation().print() + "]"
             + " in degree:" + incomingEdges.size() + " out degree:" + outgoingEdges.size();
     }
 }

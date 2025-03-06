@@ -1,5 +1,6 @@
 package com.lawal.transit.catalog;
 
+import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.edge.model.Edge;
 import com.lawal.transit.station.model.Station;
 import lombok.Getter;
@@ -24,10 +25,25 @@ public enum EdgeCatalog {
         return null;
     }
 
-    public List<Edge> filterByStation(Station station) {
-        if (station == null) return null;
-
+    public List<Edge> filterByAvenue(Avenue avenue) {
         List<Edge> matches = new ArrayList<>();
+        if (avenue == null) return matches;
+
+        for (Edge edge : catalog) {
+            Avenue headAvenue = edge.getHeadStation().getBlock().getAvenue();
+            Avenue tailAvenue = edge.getTailStation().getBlock().getAvenue();
+
+            if ((headAvenue != null && headAvenue.equals(avenue) || (tailAvenue != null && tailAvenue.equals(avenue))
+                && !matches.contains(edge)))
+                matches.add(edge);
+        }
+        return matches;
+    }
+
+    public List<Edge> filterByStation(Station station) {
+        List<Edge> matches = new ArrayList<>();
+        if (station == null) return matches;
+
         for (Edge edge : catalog) {
             if (edge.getTailStation().equals(station) || edge.getHeadStation().equals(station) && !matches.contains(edge))
                 matches.add(edge);

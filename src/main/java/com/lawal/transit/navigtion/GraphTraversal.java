@@ -55,10 +55,10 @@
 //
 //        if (currentBlock.getCurb().getOrientation().isVertical()) {
 //            // Block is part of an Avenue
-//            destinationBlock = JunctionTurnNavigator.getDestinationBlockFromAvenue(currentJunction, currentBlock, turnCategory);
+//            destinationBlock = TurnNavigator.getDestinationBlockFromAvenue(currentJunction, currentBlock, turnCategory);
 //        } else {
 //            // Block is part of a Street
-//            destinationBlock = JunctionTurnNavigator.getDestinationBlockFromStreet(currentJunction, currentBlock, turnCategory);
+//            destinationBlock = TurnNavigator.getDestinationBlockFromStreet(currentJunction, currentBlock, turnCategory);
 //        }
 //
 //        if (destinationBlock != null && destinationBlock.getStation() != null) {
@@ -97,9 +97,9 @@
 //
 //            // Attempt to find a source block using the reverse turn category
 //            if (currentBlock.getCurb().getOrientation().isVertical()) {
-//                potentialSourceBlock = JunctionTurnNavigator.getDestinationBlockFromAvenue(junction, currentBlock, reverseTurn);
+//                potentialSourceBlock = TurnNavigator.getDestinationBlockFromAvenue(junction, currentBlock, reverseTurn);
 //            } else {
-//                potentialSourceBlock = JunctionTurnNavigator.getDestinationBlockFromStreet(junction, currentBlock, reverseTurn);
+//                potentialSourceBlock = TurnNavigator.getDestinationBlockFromStreet(junction, currentBlock, reverseTurn);
 //            }
 //
 //            if (potentialSourceBlock != null && potentialSourceBlock.getStation() != null) {

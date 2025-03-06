@@ -3,6 +3,7 @@ package com.lawal.transit.junction.model;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.avenue.model.exception.NullAvenueException;
 import com.lawal.transit.block.model.Block;
+import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.junction.JunctionCornerFactory;
 import com.lawal.transit.station.model.Station;
@@ -13,8 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -71,19 +71,64 @@ public class Junction {
     }
 
     public JunctionCorner getCornerByOrientation(Direction cornerOrientation) {
-        if (cornerOrientation == null) return null;
-
+        if (cornerOrientation == null) {
+            System.out.println("junction.getCornerByOrientation() " + cornerOrientation.print() + " is null");
+            return null;
+        }
+//        System.out.println("junction.getCornerByOrientation() " + cornerOrientation.abbreviation() + " is not null proceeding");
+        if (corners == null || corners.isEmpty()) {
+            System.out.println("junction.corners is empty or null cannot find any corners by  " + cornerOrientation);
+            return null;
+        }
         for (JunctionCorner corner : corners) {
-            if (corner.getCornerOrientation().equals(cornerOrientation)) return corner;
+//            System.out.println("junctionCorner.getCornerByOrientation() checking " + corner.toString() + " against " + cornerOrientation.abbreviation() + "");
+            if (corner.getOrientation() == cornerOrientation) {
+//                System.out.println("junction.getCornerByOrientation() found corner matching " + cornerOrientation.abbreviation() + " is " + corner);
+//                System.out.println("returning " + corner.toString());
+                return corner;
+            }
         }
         return null;
+    }
+
+    public Map<Direction, JunctionCorner> getCornersAsMap () {
+        Map<Direction, JunctionCorner> map = new HashMap<>();
+
+        map.put(Direction.NORTHWEST, getCornerByOrientation(Direction.NORTHWEST));
+        map.put(Direction.NORTHEAST, getCornerByOrientation(Direction.NORTHEAST));
+        map.put(Direction.SOUTHWEST, getCornerByOrientation(Direction.SOUTHWEST));
+        map.put(Direction.SOUTHEAST, getCornerByOrientation(Direction.SOUTHEAST));
+
+        return map;
     }
 
     public JunctionCorner getCornerByStation(Station station) {
         if (station == null) return null;
 
         for (JunctionCorner corner : corners) {
-            if (corner.findLegByStation(station) != null) return corner;
+            if (corner.getLegByStation(station) != null) return corner;
+        }
+        return null;
+    }
+
+    public Curb findCurbByBlock (Block block) {
+        if (block == null) return null;
+
+        for (JunctionCorner corner : corners) {
+            if (corner.containsBlock(block)) {
+                Curb curb = corner.findCurbByBlock(block);
+                if (curb != null) return curb;
+            }
+        }
+        return null;
+    }
+
+    public Block findLegByBlockId(Long blockId) {
+        if (blockId == null) return null;
+
+        for (JunctionCorner corner : corners) {
+            Block block = corner.findLegByBlockId(blockId);
+            if (block != null) return block;
         }
         return null;
     }

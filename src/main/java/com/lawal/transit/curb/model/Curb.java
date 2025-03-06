@@ -10,6 +10,7 @@ import com.lawal.transit.curb.model.exception.CurbAvenueMismatchException;
 import com.lawal.transit.curb.model.exception.CurbStreetMismatchException;
 import com.lawal.transit.global.Direction;
 
+import com.lawal.transit.global.RoadCategory;
 import com.lawal.transit.road.model.Road;
 
 import com.lawal.transit.station.model.Station;
@@ -85,9 +86,32 @@ public final class Curb {
         return null;
     }
 
-    public Block getBlockByArrayIndex(int index) {
-        if (index < 0 || index >= blocks.size()) throw new IllegalArgumentException("BlockArrayIndex out of bounds");
-        return blocks.get(index);
+    public Block findBlockById(Long id) {
+        if (id == null) return null;
+        for (Block block : blocks) {
+            if (block.getId().equals(id)) return block;
+        }
+        return null;
+    }
+
+    public Block getNextBlockFrom(Block currentBlock) {
+        if (currentBlock == null) return null;
+        if (!blocks.contains(currentBlock)) return null;
+
+        if (blocks.indexOf(currentBlock) == blocks.size() - 1) return null;
+        else return blocks.get(blocks.indexOf(currentBlock) + 1);
+    }
+
+    public Block getBlockByArrayIndex(int arrayIndex) {
+        if (arrayIndex < 0 || arrayIndex >= blocks.size()) throw new IllegalArgumentException("BlockArrayIndex out of bounds");
+        return blocks.get(arrayIndex);
+    }
+
+    public int getBlockArrayIndex(Long blockId) {
+        if (blockId == null) return -1;
+        Block block = findBlockById(blockId);
+        if (block != null) return blocks.indexOf(block);
+        else return -1;
     }
 
     public Block getNextBlockByArrayIndex(int index) {
@@ -183,17 +207,23 @@ public final class Curb {
 
     public String getAvenueString() {
         if (getRoad() == null || getRoad().getAvenue() == null) return "";
-        return " " + getRoad().getAvenue().toString();
+        return " " + getRoad().getAvenue().getName();
     }
 
     public String getStreetString() {
         if (getRoad() == null || getRoad().getStreet() == null) return "";
-        return " " + getRoad().getStreet().toString();
+        return " " + getRoad().getStreet().getName();
+    }
+
+    public String getRoadName() {
+        if (getRoad() == null) return "";
+        if (getRoad().getStreet() != null) return getRoad().getStreet().getName() + RoadCategory.STREET.abbreviation();
+        if (getRoad().getAvenue() != null) return getRoad().getAvenue().getName() + RoadCategory.AVENUE.abbreviation();
+        else return "";
     }
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + "[curbId:" + id + " " + orientation.print()
-            + getAvenueString() + getStreetString() +"]";
+        return getClass().getSimpleName() + "[curbId:" + id + " " + getRoadName() + " " + orientation.print() + "]";
     }
 }

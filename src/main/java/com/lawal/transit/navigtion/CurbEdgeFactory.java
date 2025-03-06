@@ -1,11 +1,10 @@
 package com.lawal.transit.navigtion;
 
 import com.lawal.transit.block.model.Block;
-import com.lawal.transit.catalog.BlockCatalog;
-import com.lawal.transit.catalog.CurbCatalog;
-import com.lawal.transit.catalog.StationCatalog;
+import com.lawal.transit.catalog.*;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.edge.model.Edge;
+import com.lawal.transit.road.model.Road;
 import com.lawal.transit.station.model.Station;
 
 import java.util.ArrayList;
@@ -28,61 +27,104 @@ public class CurbEdgeFactory {
         return curb.getStations().get(curb.getStations().size() - 1);
     }
 
-    public List<Edge> getCurbEdges(Curb curb) {
-        if (curb == null) return null;
-        if (curb.getStations().isEmpty()) return null;
+    public static List<Edge> getCurbEdges(Curb curb) {
+//        System.out.println("getCurbEdges");
+        List<Edge> edges = new ArrayList<>();
+
+        if (curb == null || curb.getStations().isEmpty()) return edges;
 
         Station previousStation = getFirstStation(curb);
-        if (previousStation == null) return null;
+        if (previousStation == null) return edges;
 
-        List<Edge> edges = new ArrayList<>();
         for (Station station : curb.getStations()) {
             Block block = station.getBlock();
-            int distance = curb.getBlockArrayIndex(station.getBlock().getId())
-                - curb.getBlockArrayIndex(previousStation.getBlock().getId());
-
-            if (distance < 0) {
+//            System.out.println(block.toString());
+            int distance = curb.getBlocks().indexOf(block) - curb.getBlocks().indexOf(previousStation.getBlock());
+            if (distance > 0) {
                 Edge edge = new Edge(edgeId.incrementAndGet(), previousStation, station, distance,0, 0);
                 edges.add(edge);
+//                System.out.println(edge.toString());
             }
             previousStation = station;
         }
         return edges;
     }
 
+    public static Edge createCycleEdge(Curb startingCurb, Curb endingCurb) {
+        if (startingCurb == null || endingCurb == null) return null;
+        if (startingCurb.equals(endingCurb)) return null;
+        if (startingCurb.getRoad() == null || endingCurb.getRoad() == null) return null;
+        if (startingCurb.getStations().isEmpty() || endingCurb.getStations().isEmpty()) return null;
+
+        Station startingStation = getFirstStation(startingCurb);
+        Station endingStation = getLastStation(endingCurb);
+
+//        System.out.println("number of starting blocks: " + startingCurb.getBlocks().size());
+//        System.out.println("number of ending blocks: " + endingCurb.getBlocks().size());
+
+        int startingBlockArrayIndex = startingCurb.getBlocks().indexOf(startingStation.getBlock());
+        int endingBlockArrayIndex = endingCurb.getBlocks().indexOf(endingStation.getBlock());
+//        System.out.println("startingBlockArrayIndex: " + startingBlockArrayIndex);
+//        System.out.println("endingBlockArrayIndex: " + endingBlockArrayIndex);
+
+        int startingIndex = startingCurb.getBlocks().size() - startingCurb.getBlocks().indexOf(startingStation.getBlock()) - 1;
+        int endingIndex = endingCurb.getBlocks().size() - endingCurb.getBlocks().indexOf(endingStation.getBlock()) - 1;
+
+        int roadDistance = Math.abs(endingCurb.getRoad().getId().intValue() - startingCurb.getRoad().getId().intValue());
+        int curbDistance = Math.abs(endingCurb.getId().intValue() - startingCurb.getId().intValue());
+        int blocKDistance = Math.abs(endingIndex - startingIndex);
+
+        int distance = roadDistance + blocKDistance + curbDistance;
+
+//        System.out.println("startingIndex: " + startingIndex);
+//        System.out.println("endingIndex: " + endingIndex);
+//        System.out.println("roadDistance: " + roadDistance);
+//        System.out.println("curbDistance: " + curbDistance);
+//        System.out.println("blocKDistance: " + blocKDistance);
+//        System.out.println("distance: " + distance);
+
+        return new Edge(edgeId.incrementAndGet(), startingStation, endingStation, distance,0, 0);
+    }
+
     public static void processCurbs() {
-        for (Curb curb : CurbCatalog.INSTANCE.getCatalog()) {
-            int distance = 0;
 
-            if
-            Station previousStation = curb.getStations().getFirst();
-            Block previousBlock = previousStation.getBlock();
+//        System.out.println("processCurbs");
+        for (Road road : RoadCatalog.INSTANCE.getCatalog()) {
+            List<Edge> leftEdges = getCurbEdges(road.getLeftCurb());
+            List<Edge> rightEdges = getCurbEdges(road.getRightCurb());
 
-            for (Station station : curb.getStations()) {
-                Block block = station.getBlock();
-                distance = curb.getBlockArrayIndex(block.getId()) - curb.getBlockArrayIndex(previousBlock.getId());
+            if (leftEdges.isEmpty() && rightEdges.isEmpty()) continue;
 
-                if (distance < 0) {
-                    Edge edge = new Edge(edgeId.incrementAndGet(), previousStation, station, distance,0, 0);
-                    System.out.println(edge.toString());
-                }
-                previousBlock = block;
-                previousStation = station;
-            }
+            Edge cycleEdgeA = createCycleEdge(road.getLeftCurb(), road.getRightCurb());
+            Edge cycleEdgeB = createCycleEdge(road.getRightCurb(), road.getLeftCurb());
+
+            if (cycleEdgeA != null) leftEdges.add(cycleEdgeA);
+            if (cycleEdgeB != null) rightEdges.add(cycleEdgeB);
+
+            List<Edge> roadEdges = new ArrayList<>(leftEdges);
+            roadEdges.addAll(rightEdges);
+            EdgeCatalog.INSTANCE.getCatalog().addAll(roadEdges);
+//            for (Edge edge : roadEdges) {
+//                System.out.println(
+//                    "roadId:" + road.getId()
+//                    + " edgeId:" + edge.getId()
+//                    + " headStation(id:"
+//                        + edge.getHeadStation().getId()
+//                        + " inDegree:" + edge.getHeadStation().getIncomingEdges().size()
+//                        + " outDegree:" + edge.getHeadStation().getOutgoingEdges().size() + ")"
+//                    + " headBlockId:" + edge.getHeadStation().getBlock().getId()
+//                    + " headCurbId:" + edge.getHeadStation().getBlock().getCurb().getId()
+//                    + " " + edge.getHeadStation().getBlock().getCurb().getOrientation().abbreviation()
+//                    + " tailStation(id:"
+//                        + edge.getTailStation().getId()
+//                        + " inDegree:" + edge.getTailStation().getIncomingEdges().size()
+//                        + " outDegree:" + edge.getTailStation().getOutgoingEdges().size() + ")"
+//                    + " tailBlockId:" + edge.getTailStation().getBlock().getId()
+//                    + " tailCurbId:" + edge.getTailStation().getBlock().getCurb().getId()
+//                    + " " + edge.getTailStation().getBlock().getCurb().getOrientation().abbreviation()
+//                    + " distance:" + edge.getDistance()
+//                );
+//            }
         }
     }
-
-    public static void processStationBlocks() {
-        for (Block block : BlockCatalog.INSTANCE.getStationBlocks()) {
-            System.out.println("blockId:" + block.getId()
-                + " blockArrayIndex:" + block.getCurb().getBlockArrayIndex(block.getId())
-                + " stationId:" + block.getStation().getId()
-                + " stationCatalogArrayIndex:" + StationCatalog.INSTANCE.getCatalog().indexOf(block.getStation())
-                + " " + block.getCurb().getAvenueString()
-                + block.getCurb().getStreetString()
-                + " " + block.getCurb().getOrientation().print()
-            );
-        }
-    }
-
 }

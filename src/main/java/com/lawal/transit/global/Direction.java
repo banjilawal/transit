@@ -15,100 +15,119 @@ public enum Direction {
         return this.toString().substring(0, 1).toUpperCase() + this.toString().substring(1).toLowerCase();
     }
 
-    public int number () {
-        switch (this) {
-            case NORTH: return 1000;
-            case NORTHEAST: return 1000;
-            case EAST: return 2000;
-            case SOUTHEAST: return 2000;
-            case SOUTH: return 3000;
-            case SOUTHWEST: return 3000;
-            case WEST: return 4000;
-            case NORTHWEST: return 4000;
-            default:
+    public int number() {
+        return switch (this) {
+            case NORTH, NORTHEAST -> 1000;
+            case EAST, SOUTHEAST -> 2000;
+            case SOUTH, SOUTHWEST -> 3000;
+            case WEST, NORTHWEST -> 4000;
+            default -> {
                 System.out.println("Something went wrong");
-                return -1;
-        }
+                yield -1;
+            }
+        };
     }
 
-    public int toDegrees () {
-        switch (this) {
-            case NORTH: return 360;
-            case NORTHEAST: return 45;
-            case EAST: return 90;
-            case SOUTHEAST: return 135;
-            case SOUTH: return 180;
-            case SOUTHWEST: return 225;
-            case WEST: return 270;
-            case NORTHWEST: return 315;
-            default:
+    public int toDegrees() {
+        return switch (this) {
+            case NORTH -> 360;
+            case NORTHEAST -> 45;
+            case EAST -> 90;
+            case SOUTHEAST -> 135;
+            case SOUTH -> 180;
+            case SOUTHWEST -> 225;
+            case WEST -> 270;
+            case NORTHWEST -> 315;
+            default -> {
                 System.out.println("Direction line 59: toDegrees not set");
-                return -1;
-        }
+                yield -1;
+            }
+        };
     }
 
-    public Direction fromDegrees (int degrees) {
-        switch (degrees) {
-            case 0, 360: return NORTH;
-            case 45: return NORTHEAST;
-            case 90: return EAST;
-            case 135: return SOUTHEAST;
-            case 180: return SOUTH;
-            case 225: return SOUTHWEST;
-            case 270: return WEST;
-            case 315: return NORTHWEST;
-            default:
+    public Direction fromDegrees(int degrees) {
+        return switch (degrees) {
+            case 0, 360 -> NORTH;
+            case 45 -> NORTHEAST;
+            case 90 -> EAST;
+            case 135 -> SOUTHEAST;
+            case 180 -> SOUTH;
+            case 225 -> SOUTHWEST;
+            case 270 -> WEST;
+            case 315 -> NORTHWEST;
+            default -> {
                 System.out.println("Direction line 79: toDegrees not set");
-                return NONE;
-        }
+                yield NONE;
+            }
+        };
     }
 
-    public Direction leftTurnFrom () {
-        switch (this) {
-            case NORTH: return this.fromDegrees(360 - 90);
-            case NORTHEAST: return this.fromDegrees(360 - 45);
-            case EAST: return this.fromDegrees(360);
-            case SOUTHEAST: return this.fromDegrees(135 - 90);
-            case SOUTH: return this.fromDegrees(180 - 90);
-            case SOUTHWEST: return this.fromDegrees(225 - 90);
-            case WEST: return this.fromDegrees(270 - 90);
-            case NORTHWEST: return this.fromDegrees(315 - 90);
-            default:
+    public Direction leftTurnFrom() {
+        return switch (this) {
+            case NORTH -> this.fromDegrees(360 - 90);
+            case NORTHEAST -> this.fromDegrees(360 - 45);
+            case EAST -> this.fromDegrees(360);
+            case SOUTHEAST -> this.fromDegrees(135 - 90);
+            case SOUTH -> this.fromDegrees(180 - 90);
+            case SOUTHWEST -> this.fromDegrees(225 - 90);
+            case WEST -> this.fromDegrees(270 - 90);
+            case NORTHWEST -> this.fromDegrees(315 - 90);
+            default -> {
                 System.out.println("Direction line 31: oppositeDirection not set");
-                return NONE;
-        }
+                yield NONE;
+            }
+        };
     }
 
-    public Direction rightTurnFrom () {
-        switch (this) {
-            case NORTH: return this.fromDegrees(90);
-            case NORTHEAST: return this.fromDegrees(45 + 90);
-            case EAST: return this.fromDegrees(90 + 90);
-            case SOUTHEAST: return this.fromDegrees(135 + 90);
-            case SOUTH: return this.fromDegrees(180 + 90);
-            case SOUTHWEST: return this.fromDegrees(225 + 90);
-            case WEST: return this.fromDegrees(360);
-            case NORTHWEST: return this.fromDegrees(315 - 270);
-            default:
+    public Direction rightTurnFrom() {
+        return switch (this) {
+            case NORTH -> this.fromDegrees(90);
+            case NORTHEAST -> this.fromDegrees(45 + 90);
+            case EAST -> this.fromDegrees(90 + 90);
+            case SOUTHEAST -> this.fromDegrees(135 + 90);
+            case SOUTH -> this.fromDegrees(180 + 90);
+            case SOUTHWEST -> this.fromDegrees(225 + 90);
+            case WEST -> this.fromDegrees(360);
+            case NORTHWEST -> this.fromDegrees(315 - 270);
+            default -> {
                 System.out.println("Direction line 31: oppositeDirection not set");
-                return NONE;
-        }
+                yield NONE;
+            }
+        };
     }
 
-    public Direction reverseTurnCurbDirection () {
-        switch (this) {
-            case NORTH: return this.fromDegrees(360 - 135);
-            case NORTHEAST: return this.fromDegrees(45 + 135);
-            case EAST: return this.fromDegrees(90 + 135);
-            case SOUTHEAST: return this.fromDegrees(135 - 135);
-            case SOUTH: return this.fromDegrees(180 - 135);
-            case SOUTHWEST: return this.fromDegrees(225 - 135);
-            case WEST: return this.fromDegrees(270 - 135);
-            case NORTHWEST: return this.fromDegrees(315 - 135);
-            default:
+    public Direction reverseTo() {
+        return switch (this) {
+            case NORTH -> this.fromDegrees(360 - 135);
+            case NORTHEAST -> SOUTHEAST; //this.fromDegrees(45 + 135);
+            case EAST -> this.fromDegrees(90 + 135);
+            case SOUTHEAST -> NORTHEAST; //this.fromDegrees(135 - 135);
+            case SOUTH -> this.fromDegrees(180 - 135);
+            case SOUTHWEST -> NORTHWEST; //this.fromDegrees(225 - 135);
+            case WEST -> this.fromDegrees(270 - 135);
+            case NORTHWEST -> SOUTHWEST; //this.fromDegrees(315 - 135);
+            default -> {
                 System.out.println("Direction line 31: oppositeDirection not set");
-                return NONE;
-        }
+                yield NONE;
+            }
+        };
+    }
+
+    public Direction forwardTo() {
+        return switch (this) {
+            case NORTH -> this.fromDegrees(360 - 135);
+            case NORTHEAST -> NORTHWEST;
+            case EAST -> EAST;
+            case SOUTHEAST -> SOUTHWEST;
+            case SOUTH -> SOUTH;
+            case SOUTHWEST -> SOUTHEAST;
+            case WEST -> WEST;
+            case NORTHWEST -> NORTHEAST;
+            default -> {
+                System.out.println("Direction line 31: oppositeDirection not set");
+                yield NONE;
+            }
+        };
     }
 
 //    public Direction rightTurnDirection () {
@@ -136,7 +155,7 @@ public enum Direction {
 //    }
 
 
-    public Direction oppositeDirection () {
+    public Direction oppositeDirection() {
         switch (this) {
             case NORTH:
                 return SOUTH;
@@ -158,7 +177,7 @@ public enum Direction {
                 System.out.println("Direction line 31: oppositeDirection not set");
         }
         return NONE;
-    } // close oppositeDirection
+    }
 
     public String abbreviation () {
         String abbreviation = "";

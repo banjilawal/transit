@@ -109,9 +109,9 @@ public class Block {
     }
 
 
-//    @Override
-//    public String toString () {
-//        return getClass().getSimpleName()
-//            + " id:" + id + " name:" + name + " " + curb.getRoad().getName() + " " + curb.getOrientation().print();
-//    }
+    @Override
+    public String toString () {
+        return getClass().getSimpleName()
+            + " id:" + id + " name:" + name + " " + curb.getRoadName() + " " + curb.getOrientation().abbreviation();
+    }
 }

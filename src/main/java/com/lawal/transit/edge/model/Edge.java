@@ -91,4 +91,23 @@ public class Edge {
         this.tailStation = station;
         this.tailStation.getOutgoingEdges().add(this);
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[id:" + id
+            + " head:("
+            + headStation.getName()
+            + headStation.getBlock().getCurb().getOrientation()
+            + " inDegree:" + headStation.getIncomingEdges().size()
+            + " outDegree:" + tailStation.getOutgoingEdges().size()
+            + ")"
+        +
+            " tail:("
+            + tailStation.getName()
+            + tailStation.getBlock().getCurb().getOrientation()
+            + " inDegree:" + tailStation.getIncomingEdges().size()
+            + " outDegree:" + tailStation.getOutgoingEdges().size()
+            + ")"
+            + " distance:" + distance + " actual_time:" + actual_time + " heuristic:" + heuristic + "]";
+    }
 }
