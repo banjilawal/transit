@@ -3,6 +3,7 @@ package com.lawal.transit.catalog;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.edge.model.Edge;
 import com.lawal.transit.station.model.Station;
+import com.lawal.transit.street.model.Street;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -34,6 +35,21 @@ public enum EdgeCatalog {
             Avenue tailAvenue = edge.getTailStation().getBlock().getAvenue();
 
             if ((headAvenue != null && headAvenue.equals(avenue) || (tailAvenue != null && tailAvenue.equals(avenue))
+                && !matches.contains(edge)))
+                matches.add(edge);
+        }
+        return matches;
+    }
+
+    public List<Edge> filterByStreet(Street street) {
+        List<Edge> matches = new ArrayList<>();
+        if (street == null) return matches;
+
+        for (Edge edge : catalog) {
+            Street headStreet = edge.getHeadStation().getBlock().getStreet();
+            Street tailStreet = edge.getTailStation().getBlock().getStreet();
+
+            if ((headStreet != null && headStreet.equals(street) || (tailStreet != null && tailStreet.equals(street))
                 && !matches.contains(edge)))
                 matches.add(edge);
         }

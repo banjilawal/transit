@@ -5,6 +5,7 @@ import com.lawal.transit.catalog.*;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.navigtion.CurbEdgeFactory;
 import com.lawal.transit.navigtion.FindCornerStation;
+import com.lawal.transit.street.model.Street;
 
 
 public class FactoryDriver {
@@ -12,6 +13,7 @@ public class FactoryDriver {
     public static void main(String[] args) throws Exception {
         SystemBuilder.launcher();
 
+        Street street = StreetCatalog.INSTANCE.findById(1L);
         Avenue avenue = AvenueCatalog.INSTANCE.findById(1L);
         Junction junction = JunctionCatalog.INSTANCE.findById(1L);
 
@@ -32,6 +34,7 @@ public class FactoryDriver {
 //        junctions.forEach(j -> {if(j.equals(junction)) j.getCorners().forEach(System.out::println);});
 //        JunctionCornerCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
         EdgeCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
+        EdgeCatalog.INSTANCE.filterByStreet(street).forEach(System.out::println);
  //       StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
     }
 }

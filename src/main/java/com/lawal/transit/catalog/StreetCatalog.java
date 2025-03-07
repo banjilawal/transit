@@ -16,4 +16,14 @@ public enum StreetCatalog {
     StreetCatalog () {
         catalog = new ArrayList<>();
     }
+
+    public Street findById(Long id) {
+        if (id == null) return null;
+        for (Street street : catalog) {
+            if (street.getId().equals(id)) {
+                return street;
+            }
+        }
+        return null;
+    }
 }
