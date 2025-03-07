@@ -99,7 +99,7 @@ public class Edge {
             + headStation.getName()
             + headStation.getBlock().getCurb().getOrientation()
             + " inDegree:" + headStation.getIncomingEdges().size()
-            + " outDegree:" + tailStation.getOutgoingEdges().size()
+            + " outDegree:" + headStation.getOutgoingEdges().size()
             + ")"
         +
             " tail:("

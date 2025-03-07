@@ -4,6 +4,7 @@ import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.catalog.JunctionCatalog;
 import com.lawal.transit.curb.model.Curb;
+import com.lawal.transit.global.Direction;
 import com.lawal.transit.global.TurnCategory;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
@@ -100,14 +101,11 @@ public class JunctionEdgeFactory {
         Curb sharedCurb = getSharedCurb(station, junction);
         if (sharedCurb == null) return;
 
-
         int currentBlockDistance = 0;
         if (sharedCurb.getAvenue() != null) {
             stationLeg = junction.findLegByBlockId(station.getBlock().getId());
 //            currentBlockDistance += sharedCurb.getBlockArrayIndex(sha)
-
         }
-
 
         JunctionCorner corner = findCorner(station, junction);
         if (corner != null) stationLeg = corner.getOppositeLeg(station.getBlock());
@@ -116,44 +114,40 @@ public class JunctionEdgeFactory {
         }
     }
 
-
-
-
-
-    public static void avenueTurningTest() {
-
-        Block destinationBlock = null;
-        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog()) {
-            for (JunctionCorner corner : junction.getCorners()) {
-                Block sourceBlock = corner.getAvenueLeg();
-
-                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.LEFT_TURN);
-                System.out.println(
-                    TurnCategory.LEFT_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
-
-                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.RIGHT_TURN);
-                System.out.println(
-                    TurnCategory.RIGHT_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
-
-                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.REVERSE);
-                System.out.println(
-                    TurnCategory.REVERSE
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
-
-                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.NO_TURN);
-                System.out.println(
-                    TurnCategory.NO_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+//    public static void avenueTurningTest() {
+//        System.out.println("avenueTurningTest");
+//        Block destinationBlock = null;
+//        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog()) {
+//            for (JunctionCorner corner : junction.getCorners()) {
+//                Block sourceBlock = corner.getAvenueLeg();
+//
+//                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.LEFT_TURN);
+//                System.out.println(
+//                    TurnCategory.LEFT_TURN
+//                        + " from corner:" + corner.getOrientation().abbreviation()
+//                        + " " + sourceBlock
+//                        + " onto " + destinationBlock.toString());
+//
+//                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.RIGHT_TURN);
+//                System.out.println(
+//                    TurnCategory.RIGHT_TURN
+//                        + " from corner:" + corner.getOrientation().abbreviation()
+//                        + " " + sourceBlock
+//                        + " onto " + destinationBlock.toString());
+//
+//                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.REVERSE);
+//                System.out.println(
+//                    TurnCategory.REVERSE
+//                        + " from corner:" + corner.getOrientation().abbreviation()
+//                        + " " + sourceBlock
+//                        + " onto " + destinationBlock.toString());
+//
+//                destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.NO_TURN);
+//                System.out.println(
+//                    TurnCategory.NO_TURN
+//                        + " from corner:" + corner.getOrientation().abbreviation()
+//                        + " " + sourceBlock
+//                        + " onto " + destinationBlock.toString());
 
 //                if (leftTurnDestination == null) {
 //                    System.out.println("left turn destination is null: turning test failed.");
@@ -164,7 +158,7 @@ public class JunctionEdgeFactory {
 //                if (rightTurnDestination == null) {
 //                    System.out.println("right turn destination is null: turning test failed.");
 //                }
-            }
+//            }
 //            JunctionCorner corner = junction.getCornerByOrientation(Direction.NORTHEAST);
 //            if (corner == null) {
 //                System.out.println("corner is null: turning test failed.");
@@ -190,14 +184,15 @@ public class JunctionEdgeFactory {
 //                return;
 //            }
 //            System.out.println("JunctionEdgeFactory.turningTest: found block:" + block.toString());
- //           System.out.println(TurnCategory.LEFT_TURN.toString() + " from " + avenueLeg.toString() + " onto " + block.toString());
-        }
-    }
+//            System.out.println(TurnCategory.LEFT_TURN.toString() + " from " + avenueLeg.toString() + " onto " + block.toString());
+//        }
+//    }
 
     public static void launcher(Station station, Junction junction) {
         if (station == null || junction == null) return;
-        Avenue avenue = getSharedAvenue(station, junction);
-        Street street = getSharedStreet(station, junction);
+//        avenueTurningTest();
+//        Avenue avenue = getSharedAvenue(station, junction);
+//        Street street = getSharedStreet(station, junction);
 
 
     }

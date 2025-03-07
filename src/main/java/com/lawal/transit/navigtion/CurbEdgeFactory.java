@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CurbEdgeFactory {
 
-    private static AtomicLong edgeId = new AtomicLong(0);
+    private static final AtomicLong edgeId = new AtomicLong(0);
 
     public static Station getFirstStation(Curb curb) {
         if (curb == null) return null;
@@ -51,6 +51,7 @@ public class CurbEdgeFactory {
     }
 
     public static Edge createCycleEdge(Curb startingCurb, Curb endingCurb) {
+//        System.out.println("createCycleEdge");
         if (startingCurb == null || endingCurb == null) return null;
         if (startingCurb.equals(endingCurb)) return null;
         if (startingCurb.getRoad() == null || endingCurb.getRoad() == null) return null;
@@ -83,7 +84,9 @@ public class CurbEdgeFactory {
 //        System.out.println("blocKDistance: " + blocKDistance);
 //        System.out.println("distance: " + distance);
 
-        return new Edge(edgeId.incrementAndGet(), startingStation, endingStation, distance,0, 0);
+        Edge cycleEdge = new Edge(edgeId.incrementAndGet(), startingStation, endingStation, distance,0, 0);
+//        System.out.println("Cycle Edge"  + cycleEdge.toString());
+        return cycleEdge;
     }
 
     public static void processCurbs() {
@@ -94,13 +97,14 @@ public class CurbEdgeFactory {
             List<Edge> rightEdges = getCurbEdges(road.getRightCurb());
 
             if (leftEdges.isEmpty() && rightEdges.isEmpty()) continue;
-
+//            System.out.println("pre cycle edge addition: # leftedges = " + leftEdges.size() + " # rightedges = " + rightEdges.size());
             Edge cycleEdgeA = createCycleEdge(road.getLeftCurb(), road.getRightCurb());
             Edge cycleEdgeB = createCycleEdge(road.getRightCurb(), road.getLeftCurb());
 
             if (cycleEdgeA != null) leftEdges.add(cycleEdgeA);
             if (cycleEdgeB != null) rightEdges.add(cycleEdgeB);
 
+    //        System.out.println("post cycle edge addition: # leftedges = " + leftEdges.size() + " # rightedges = " + rightEdges.size());
             List<Edge> roadEdges = new ArrayList<>(leftEdges);
             roadEdges.addAll(rightEdges);
             EdgeCatalog.INSTANCE.getCatalog().addAll(roadEdges);

@@ -5,8 +5,7 @@ import com.lawal.transit.catalog.*;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.navigtion.CurbEdgeFactory;
 import com.lawal.transit.navigtion.FindCornerStation;
-import com.lawal.transit.navigtion.JunctionEdgeFactory;
-import com.lawal.transit.navigtion.TurnNavigationTest;
+
 
 public class FactoryDriver {
 
@@ -19,7 +18,7 @@ public class FactoryDriver {
         CurbEdgeFactory.processCurbs();
 //        TurnNavigationTest.avenueTurningTest();
 //        TurnNavigationTest.streetTurningTest();
-//        FindCornerStation.launcher();
+        FindCornerStation.launcher();
 
 //        RoadCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        AvenueCatalog.INSTANCE.getCatalog().forEach(System.out::println);
@@ -33,6 +32,6 @@ public class FactoryDriver {
 //        junctions.forEach(j -> {if(j.equals(junction)) j.getCorners().forEach(System.out::println);});
 //        JunctionCornerCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
         EdgeCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
-//        StationCatalog.INSTANCE.getCatalog().getStations().forEach(System.out::println);
+ //       StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
     }
 }

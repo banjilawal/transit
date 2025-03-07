@@ -69,26 +69,28 @@ public final class Station {
 
     public void addOutgoingEdge(Edge edge) {
         if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+        if(!this.equals(edge.getHeadStation())) throw new IllegalArgumentException();
 
         if (outgoingEdges == null) this.outgoingEdges = new ArrayList<>();
         if (outgoingEdges.contains(edge)) return;
 
         outgoingEdges.add(edge);
-        if (edge.getHeadStation() != null && !this.equals(edge.getHeadStation())) {
-            edge.setHeadStation(this);
-        }
+//        if (edge.getHeadStation() != null && !this.equals(edge.getHeadStation())) {
+//            edge.setHeadStation(this);
+//        }
     }
 
     public void addIncomingEdge(Edge edge) {
         if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+        if (!this.equals(edge.getTailStation())) throw new IllegalArgumentException();
 
         if (incomingEdges == null) this.incomingEdges = new ArrayList<>();
         if (incomingEdges.contains(edge)) return;
 
         incomingEdges.add(edge);
-        if (edge.getTailStation() != null && !this.equals(edge.getTailStation())) {
-            edge.setTailStation(this);
-        }
+//        if (edge.getTailStation() != null && !this.equals(edge.getTailStation())) {
+//            edge.setTailStation(this);
+//        }
     }
 
     public void removeOutgoingEdge(Edge edge) {
@@ -115,11 +117,15 @@ public final class Station {
         return getClass().getSimpleName()
             + "[id:" + id
             + " name:" + name
+            + "-" + block.getCurb().getOrientation().abbreviation()
+            + " inDegree:" + incomingEdges.size()
+            + " outDegree:" + outgoingEdges.size()
+            + "]";
 //            + " (" + block.getName()
 //            + " blockId:" + block.getId()
 //            + ") curbId:" + block.getCurb().getId()
 //            + " " + block.getCurb().getRoad().toString()
 //            + " " + block.getCurb().getOrientation().print() + "]"
-            + " in degree:" + incomingEdges.size() + " out degree:" + outgoingEdges.size();
+//            + " in degree:" + incomingEdges.size() + " out degree:" + outgoingEdges.size();
     }
 }
