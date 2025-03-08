@@ -191,9 +191,7 @@ public final class Curb {
         if (blocks.contains(block)) return;
 
         blocks.add(block);
-        if (block.getCurb() != this) {
-            block.setCurb(this);
-        }
+        if (block.getCurb().equals(this)) { block.setCurb(this); }
     }
 
     public void removeBlock(Block block) {

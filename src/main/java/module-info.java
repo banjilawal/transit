@@ -125,6 +125,10 @@ module com.lawal.transit {
     opens com.lawal.transit.edge.model.exception;
     exports com.lawal.transit.navigtion;
     opens com.lawal.transit.navigtion;
+    exports com.lawal.transit.route;
+    opens com.lawal.transit.route to javafx.fxml, spring.core;
+    exports com.lawal.transit.route.repo;
+    opens com.lawal.transit.route.repo to javafx.fxml, spring.core;
 
 
 } // close

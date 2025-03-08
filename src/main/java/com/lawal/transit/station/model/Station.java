@@ -2,11 +2,13 @@ package com.lawal.transit.station.model;
 
 import com.lawal.transit.block.model.Block;
 
-import com.lawal.transit.block.model.exception.NullBlockException;
 import com.lawal.transit.edge.model.Edge;
 
 
 import com.lawal.transit.edge.model.exception.NullEdgeException;
+import com.lawal.transit.route.model.TransitStop;
+import com.lawal.transit.route.model.exception.NullTransitStopException;
+import com.lawal.transit.station.model.exception.IncompatibleEdgeDirection;
 import com.lawal.transit.station.model.exception.StationNameNullException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -41,35 +43,87 @@ public final class Station {
     @OneToMany(mappedBy = "tailStation", cascade = CascadeType.ALL)
     private List<Edge> incomingEdges = new ArrayList<>();
 
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL)
+    private List<TransitStop> departures = new ArrayList<>();
+
     public Station (Long id, String name, Block block) {
         this.id = id;
         this.name = name;
 
+        if (block != null) { if (!this.equals(block.getStation())) block.setStation(this); }
         this.block = block;
-        if (block != null) {
-            if (!this.equals(block.getStation())) block.setStation(this);
-        }
+
         this.incomingEdges = new ArrayList<>();
         this.outgoingEdges = new ArrayList<>();
+        this.departures = new ArrayList<>();
     }
 
     public void setBlock(Block block) {
         if (this.block != null && this.block.equals(block)) return;
 
         if (this.block != null) {
-            this.block.setStation(null);
+            Block oldBlock = this.block;
             this.block = null;
+            oldBlock.setStation(null);
         }
 
         if (block != null) {
-            block.setStation(this);
             this.block = block;
+
+            if (!this.equals(block.getStation()))
+                block.setStation(this);
         }
+    }
+
+    public void setDepartures(List<TransitStop> departures) {
+        if (departures == null) throw new IllegalArgumentException("Cannot add null stops");
+
+        if (this.departures == null) departures = new ArrayList<>();
+        if (this.departures != null) this.departures.clear();
+
+        for (TransitStop departure : departures) { addDeparture(departure); }
+    }
+
+    public void addDeparture(TransitStop departure) {
+        if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
+
+        if (departures == null) departures = new ArrayList<>();
+        if (departures.contains(departure)) return;
+
+        departures.add(departure);
+        if (!departure.getStation().equals(this)) { departure.setStation(this); }
+    }
+
+    public void removeDeparture (TransitStop departure) {
+        if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
+
+        if (departures.contains(departure)) {
+            departures.remove(departure);
+            if (departure.getStation() != null && this.equals(departure.getStation())) { departure.setRoute(null); }
+        }
+    }
+
+    public void setOutgoingEdges(List<Edge> edges) {
+        if (edges == null) throw new IllegalArgumentException("Cannot add null edges");
+
+        if(this.outgoingEdges == null) outgoingEdges = new ArrayList<>();
+        this.outgoingEdges.clear();
+
+        for (Edge edge : edges) { addOutgoingEdge(edge); }
+    }
+
+    public void setIncomingEdges(List<Edge> edges) {
+        if (edges == null) throw new IllegalArgumentException("Cannot add null edges");
+
+        if (this.incomingEdges == null) incomingEdges = new ArrayList<>();
+        this.incomingEdges.clear();
+
+        for (Edge edge : edges) { addIncomingEdge(edge); }
     }
 
     public void addOutgoingEdge(Edge edge) {
         if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
-        if(!this.equals(edge.getHeadStation())) throw new IllegalArgumentException();
+        if(!this.equals(edge.getHeadStation())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
 
         if (outgoingEdges == null) this.outgoingEdges = new ArrayList<>();
         if (outgoingEdges.contains(edge)) return;
@@ -82,7 +136,7 @@ public final class Station {
 
     public void addIncomingEdge(Edge edge) {
         if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
-        if (!this.equals(edge.getTailStation())) throw new IllegalArgumentException();
+        if (!this.equals(edge.getTailStation())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
 
         if (incomingEdges == null) this.incomingEdges = new ArrayList<>();
         if (incomingEdges.contains(edge)) return;
