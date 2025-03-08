@@ -6,7 +6,7 @@ import com.lawal.transit.edge.model.Edge;
 
 
 import com.lawal.transit.edge.model.exception.NullEdgeException;
-import com.lawal.transit.route.model.TransitStop;
+import com.lawal.transit.route.model.Departure;
 import com.lawal.transit.route.model.exception.NullTransitStopException;
 import com.lawal.transit.station.model.exception.IncompatibleEdgeDirection;
 import com.lawal.transit.station.model.exception.StationNameNullException;
@@ -44,7 +44,7 @@ public final class Station {
     private List<Edge> incomingEdges = new ArrayList<>();
 
     @OneToMany(mappedBy = "station", cascade = CascadeType.ALL)
-    private List<TransitStop> departures = new ArrayList<>();
+    private List<Departure> departures = new ArrayList<>();
 
     public Station (Long id, String name, Block block) {
         this.id = id;
@@ -75,16 +75,16 @@ public final class Station {
         }
     }
 
-    public void setDepartures(List<TransitStop> departures) {
+    public void setDepartures(List<Departure> departures) {
         if (departures == null) throw new IllegalArgumentException("Cannot add null stops");
 
         if (this.departures == null) departures = new ArrayList<>();
         if (this.departures != null) this.departures.clear();
 
-        for (TransitStop departure : departures) { addDeparture(departure); }
+        for (Departure departure : departures) { addDeparture(departure); }
     }
 
-    public void addDeparture(TransitStop departure) {
+    public void addDeparture(Departure departure) {
         if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
 
         if (departures == null) departures = new ArrayList<>();
@@ -94,7 +94,7 @@ public final class Station {
         if (!departure.getStation().equals(this)) { departure.setStation(this); }
     }
 
-    public void removeDeparture (TransitStop departure) {
+    public void removeDeparture (Departure departure) {
         if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
 
         if (departures.contains(departure)) {

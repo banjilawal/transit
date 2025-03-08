@@ -12,9 +12,9 @@ import java.time.LocalTime;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "transit_stops")
+@Table(name = "departures")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class TransitStop  {
+public class Departure {
 
     @Id
     @EqualsAndHashCode.Include
@@ -32,12 +32,12 @@ public class TransitStop  {
     @JoinColumn(name = "station_id", nullable = false)
     private Station station;
 
-    public TransitStop(Long id, LocalTime departureTime, TransitRoute route, Station station) {
+    public Departure (Long id, LocalTime departureTime, TransitRoute route, Station station) {
         this.id = id;
         this.departureTime = departureTime;
 
         this.route = route;
-        this.route.addStop(this);
+        this.route.addDeparture(this);
 
         this.station = station;
         this.station.addDeparture(this);
@@ -45,10 +45,10 @@ public class TransitStop  {
 
     public void setRoute(TransitRoute route) {
         if (this.route != null && this.route.equals(route)) return;
-        if (this.route != null) this.route.removeStop(this);
+        if (this.route != null) this.route.removeDeparture(this);
 
         this.route = route;
-        if (this.route != null) route.addStop(this);
+        if (this.route != null) route.addDeparture(this);
     }
 
     public void setStation(Station station) {

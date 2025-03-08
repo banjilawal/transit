@@ -19,11 +19,21 @@ public enum StreetCatalog {
 
     public Street findById(Long id) {
         if (id == null) return null;
+
         for (Street street : catalog) {
-            if (street.getId().equals(id)) {
-                return street;
-            }
+            if (street.getId().equals(id)) return street;
         }
         return null;
     }
+
+    public Street findByName(String name) {
+        if (name == null) return null;
+
+        for (Street street : catalog) {
+            if (street.getName().equalsIgnoreCase(name)) return street;
+        }
+        return null;
+    }
+
+
 }

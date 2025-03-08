@@ -3,6 +3,7 @@ package com.lawal.transit.catalog;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.junction.model.Junction;
+import com.lawal.transit.road.model.Road;
 import com.lawal.transit.station.Stations;
 import com.lawal.transit.station.model.Station;
 import com.lawal.transit.street.model.Street;
@@ -69,6 +70,17 @@ public enum StationCatalog {
         List<Station> matches = new ArrayList<>();
         for (Station station : catalog) {
             if (junction.getCornerByStation(station) != null && !matches.contains(station)) matches.add(station);
+        }
+        return matches;
+    }
+
+    public List<Station> filterByRoad(Road road) {
+        List<Station> matches = new ArrayList<>();
+        if (road == null) return matches;
+
+        for (Station station : catalog) {
+            Road stationRoad = station.getBlock().getCurb().getRoad();
+            if (stationRoad != null && stationRoad.equals(road) && !matches.contains(station)) matches.add(station);
         }
         return matches;
     }

@@ -13,6 +13,7 @@ import com.lawal.transit.global.NameGenerator;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
 import com.lawal.transit.road.model.Road;
+import com.lawal.transit.route.TransitRouteFactory;
 import com.lawal.transit.street.model.Street;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -38,6 +39,7 @@ public class SystemBuilder {
         buildBlocks();
         buildJunctions();
         buildAddresses();
+        TransitRouteFactory.populate();
 //        buildJunctionCorners();;
 //        TurnNavigator.populateEdges();
     }

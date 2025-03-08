@@ -1,4 +1,4 @@
-package com.lawal.transit.route.sevice;
+package com.lawal.transit.route.service;
 
 import com.lawal.transit.route.repo.TransitRouteRepo;
 import com.lawal.transit.route.repo.TransitStopRepo;

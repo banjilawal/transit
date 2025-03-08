@@ -35,6 +35,7 @@ public class FactoryDriver {
 //        JunctionCornerCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
         EdgeCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
         EdgeCatalog.INSTANCE.filterByStreet(street).forEach(System.out::println);
- //       StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
+        StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
+        RouteCatalog.INSTANCE.getCatalog().forEach(System.out::println);
     }
 }

@@ -1,5 +1,7 @@
 package com.lawal.transit.global;
 
+import java.util.Random;
+
 public enum NameGenerator {
     INSTANCE;
 
@@ -28,14 +30,14 @@ public enum NameGenerator {
 
     public static final String[] REGULAR_BUS_ROUTE_NAMES = {
         "Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet", "Gold", "Olive",
-        "Juno", "Silver", "Pearl", "Oak", "Fig", "Pine", "Elm", "Cedar", "Venus", "Pluto",
+        "Juno", "Silver", "Neon", "Pearl", "Oak", "Fig", "Pine", "Elm", "Cedar", "Venus", "Pluto",
         "Neptune", "Cobalt", "Hemlock", "Saturn", "Mercury", "Mars", "Platinum", "Amber",
         "Teak", "Iroko", "Ebony", "Mahogany", "Fir", "Cypress", "A", "B", "C", "D", "E",
         "F", "G", "H", "J", "k", "M", "N", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
         "Z", "Alpha", "Beta", "Delta", "Epsilon", "Gamma", "Omega", "Sigma", "Theta",
         "Lambda", "Zeta", "Kappa", "Tau", "Micron", "11", "22", "33", "44", "55", "66",
         "77", "88", "99", "2", "3", "4", "5", "6", "7", "9", "10", "12", "13", "14", "15", "16",
-        "17", "18", "19", "Zaria", "Kano", "Yola", "Ogbomosho", "Manzikert"
+        "17", "18", "19", "Zaria", "Kano", "Yola", "Ogbomosho", "Manzikert", "Iron", "Platinum"
     };
 
     public String avenueName () throws Exception {
@@ -74,7 +76,7 @@ public enum NameGenerator {
         return "";
     }
 
-    public String scheduleName () {
-        return REGULAR_BUS_ROUTE_NAMES[(int) (Math.random() * REGULAR_BUS_ROUTE_NAMES.length)];
+    public String randomRouteName() {
+        return REGULAR_BUS_ROUTE_NAMES[new Random().nextInt(REGULAR_BUS_ROUTE_NAMES.length)];
     }
 }

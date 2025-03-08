@@ -27,4 +27,12 @@ public enum AvenueCatalog {
         }
         return null;
     }
+
+    public Avenue findByName(String name) {
+        if (name == null) return null;
+        for (Avenue avenue : catalog) {
+            if (avenue.getName().equalsIgnoreCase(name)) return avenue;
+        }
+        return null;
+    }
 }

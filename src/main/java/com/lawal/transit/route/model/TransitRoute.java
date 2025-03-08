@@ -1,6 +1,5 @@
 package com.lawal.transit.route.model;
 
-import com.lawal.transit.block.model.exception.NullBlockException;
 import com.lawal.transit.route.model.exception.NullTransitStopException;
 import com.lawal.transit.station.model.exception.StationNameNullException;
 import jakarta.persistence.*;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,54 +24,66 @@ public class TransitRoute {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    Integer interArrivalTime;
-
     @Column(nullable = false, unique = true)
     @NotBlank(message = StationNameNullException.MESSAGE)
     String name;
 
-    @OneToMany(mappedBy = "transit_route", cascade = CascadeType.ALL)
-    private List<TransitStop> stops = new ArrayList<>();
+    @Column(nullable = false)
+    private LocalTime openingTime;
 
-    public TransitRoute(Long id, String name, Integer interArrivalTime) {
+    @Column(nullable = false)
+    private LocalTime closingTime;
+
+    @Column(nullable = false)
+    Integer interArrivalTime;
+
+    @OneToMany(mappedBy = "transit_route", cascade = CascadeType.ALL)
+    private List<Departure> departures = new ArrayList<>();
+
+    public TransitRoute(Long id, String name, LocalTime openingTime, LocalTime closingTime, Integer interArrivalTime) {
         this.id = id;
         this.name = name;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
         this.interArrivalTime = interArrivalTime;
 
-        this.stops = new ArrayList<>();
+        this.departures = new ArrayList<>();
     }
 
-    public void setStops(List<TransitStop> stops) {
-        if (stops == null) throw new IllegalArgumentException("Cannot set null stops");
-        if (this.stops == null) this.stops = new ArrayList<>();
-        this.stops.clear();
+    public void setDepartures (List<Departure> departures) {
+        if (departures == null) throw new IllegalArgumentException("Cannot set null stops");
+        if (this.departures == null) this.departures = new ArrayList<>();
+        this.departures.clear();
 
-        for (TransitStop stop : stops) { addStop(stop); }
+        for (Departure stop : departures) { addDeparture(stop); }
     }
 
-    public void addStop(TransitStop stop) {
-        if (stop == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
+    public void addDeparture(Departure departure) {
+        if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
 
-        if (stops == null) stops = new ArrayList<>();
-        if (stops.contains(stop)) return;
+        if (departures == null) departures = new ArrayList<>();
+        if (departures.contains(departure)) return;
 
-        stops.add(stop);
-        if (!stop.getRoute().equals(this)) { stop.setRoute(this); }
+        departures.add(departure);
+        if (!departure.getRoute().equals(this)) { departure.setRoute(this); }
     }
 
-    public void removeStop(TransitStop stop) {
-        if (stop == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
+    public void removeDeparture(Departure departure) {
+        if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
 
-        if (stops.contains(stop)) {
-            stops.remove(stop);
-            if (stop.getRoute() != null && this.equals(stop.getRoute())) { stop.setRoute(null); }
+        if (departures.contains(departure)) {
+            departures.remove(departure);
+            if (departure.getRoute() != null && this.equals(departure.getRoute())) { departure.setRoute(null); }
         }
     }
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "[id:" + id + " name:" + name + " interArrivalTime:" + interArrivalTime + "]";
+        return getClass().getSimpleName()
+            + "[id:" + id
+            + " name:" + name
+            + " interArrivalTime:" + interArrivalTime
+            + " totalStops:" + departures.size() + "]";
     }
 
 }

@@ -22,9 +22,16 @@ public enum RouteCatalog {
         if (id == null) return null;
 
         for (TransitRoute transitRoute : catalog) {
-            if (transitRoute.getId().equals(id)) {
-                return transitRoute;
-            }
+            if (transitRoute.getId().equals(id)) return transitRoute;
+        }
+        return null;
+    }
+
+    public TransitRoute findByName(String name) {
+        if (name == null) return null;
+
+        for (TransitRoute transitRoute : catalog) {
+            if (transitRoute.getName().equalsIgnoreCase(name)) return transitRoute;
         }
         return null;
     }

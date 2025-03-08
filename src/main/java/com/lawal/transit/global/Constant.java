@@ -88,7 +88,7 @@ public final class Constant {
     public static final int STANDARD_BUS_CAPACITY = 50;
     public static final int LONG_BUS_CAPACITY = 70;
 
-    public static LocalTime TRANSIT_START_TIME = LocalTime.of(6,0);
-    public static LocalTime TRANSIT_END_TIME = LocalTime.of(2,30);
+    public static LocalTime TRANSIT_OPENING_TIME = LocalTime.of(6,0);
+    public static LocalTime TRANSIT_CLOSING_TIME = LocalTime.of(2,30);
 
 } // end class GlobalConstant
