@@ -4,6 +4,7 @@ import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.curb.model.exception.CurbAvenueMismatchException;
 import com.lawal.transit.curb.model.exception.CurbStreetMismatchException;
+import com.lawal.transit.global.RoadCategory;
 import com.lawal.transit.lane.model.Lane;
 import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
@@ -47,7 +48,16 @@ public class Road {
     @OneToMany(mappedBy = "road", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lane> lanes = new ArrayList<>();
 
-    public Road (Long id) { this.id = id; }
+    public Road (Long id) {
+        this.id = id;
+        this.leftCurb = null;
+        this.rightCurb = null;
+        this.avenue = null;
+        this.street = null;
+        this.leftLane = null;
+        this.rightLane = null;
+        this.lanes = new ArrayList<>();
+    }
 
     public void setLeftCurb(Curb curb) {
         if (curb == null && this.leftCurb == null) return;
@@ -99,9 +109,9 @@ public class Road {
         if (avenue.getRoad() != this) { this.avenue.setRoad(this); }
     }
 
-    public static String avenueString(Road road) {
-        if (road.getAvenue() == null) return "";
-        return road.getAvenue().toString();
+    public String avenueString() {
+        if (avenue == null) return "";
+        return avenue.getName() + " " + RoadCategory.AVENUE.abbreviation();
     }
 
     public static String leftCurbString(Road road) {
@@ -111,17 +121,29 @@ public class Road {
 
     public static String rightCurbeString(Road road) {
         if (road.getRightCurb() == null) return "";
-        return " " + road.getRightCurb().toString();
+        return road.getRightCurb().toString();
     }
 
-    public static String streetString(Road road) {
-        if (road.getStreet() == null) return "";
-        return " " + road.getStreet().toString();
+    public String streetString() {
+        if (street == null) return "";
+        return street.getName() + " " + RoadCategory.STREET.abbreviation();
     }
+
+    public String getName() {
+        if (avenue != null) return avenueString();
+        if (street != null) return streetString();
+        else return "";
+    }
+
+//    public String getRoadName() {
+//        if (street != null) return streetString();
+//        if (avenue != null) return avenueString();
+//        else return "";
+//    }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "[roadId:" + id
-            + " " + leftCurbString(this) + " " + rightCurbeString(this) +"]";
+            + " " + leftCurbString(this) + " " + getName() + " " + rightCurbeString(this) +"]";
     }
 }

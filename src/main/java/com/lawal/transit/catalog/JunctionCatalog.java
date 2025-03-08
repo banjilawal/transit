@@ -24,6 +24,14 @@ public enum JunctionCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Junction> getCatalog() { return List.copyOf(catalog); }
+
+    public void addJunction(Junction junction) {
+        if (junction == null) return;
+        if (catalog.contains(junction)) return;
+        catalog.add(junction);
+    }
+
     public Junction findById(Long id) {
         if (id == null) return null;
 

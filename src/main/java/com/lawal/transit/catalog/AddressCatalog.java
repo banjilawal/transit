@@ -16,6 +16,14 @@ public enum AddressCatalog {
 
     AddressCatalog () { catalog = new ArrayList<>(); }
 
+    public List<Address> getCatalog() { return List.copyOf(catalog); }
+
+    public void addAddress(Address address) {
+        if (address == null) return;
+        if (catalog.contains(address)) return;
+        catalog.add(address);
+    }
+
     public Address findById(Long id) {
         if (id == null) return null;
         for (Address address : catalog) {

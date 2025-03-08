@@ -15,6 +15,7 @@ module com.lawal.transit {
     requires jakarta.persistence;
     requires jakarta.validation;
     requires spring.data.jpa;
+    requires java.desktop;
 
     exports com.lawal.transit;
     opens com.lawal.transit to spring.core, javafx.fxml;

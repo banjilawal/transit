@@ -17,6 +17,20 @@ public enum EdgeCatalog {
 
     EdgeCatalog () { catalog = new ArrayList<>(); }
 
+//    public List<Edge> getCatalog() {
+//        return List.copyOf(catalog);
+//    }
+
+    public void addEdge(Edge edge) {
+        if (edge == null) {
+            System.out.println("EdgeCatalog.addEdge(): null edge");
+            return;
+        }
+        if (catalog.contains(edge)) return;
+        System.out.println("EdgeCatalog.add():" + edge);
+        catalog.add(edge);
+    }
+
     public Edge findById(Long id) {
         if (id == null) return null;
 

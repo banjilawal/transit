@@ -37,10 +37,14 @@ public class Departure {
         this.departureTime = departureTime;
 
         this.route = route;
-        this.route.addDeparture(this);
+        if (this.route != null && !this.route.getDepartures().contains(this)) {
+            this.route.addDeparture(this);
+        }
 
         this.station = station;
-        this.station.addDeparture(this);
+        if (this.station != null && !this.station.getDepartures().contains(this)) {
+            this.station.addDeparture(this);
+        }
     }
 
     public void setRoute(TransitRoute route) {
@@ -63,9 +67,10 @@ public class Departure {
     @Override
     public String toString() {
         return getClass().getSimpleName()
-            + "[route:" + route.getName()
-            + " station:" + station.getName()
-            + " departure:" + departureTime
+            + "[id:" + id
+            + " route:" + route.getName()
+            + " station:" + station.getName() + "_" + station.getBlock().getCurb().getOrientation().abbreviation()
+            + " time:" + departureTime
             + " stopId:" + id + "]";
     }
 }

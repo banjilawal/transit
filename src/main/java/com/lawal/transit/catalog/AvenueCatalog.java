@@ -17,6 +17,14 @@ public enum AvenueCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Avenue> getCatalog() { return List.copyOf(catalog); }
+
+    public void addAvenue (Avenue avenue) {
+        if (avenue == null) return;
+        if (catalog.contains(avenue)) return;
+        catalog.add(avenue);
+    }
+
     public Avenue findById(Long id) {
         if (id == null) return null;
 

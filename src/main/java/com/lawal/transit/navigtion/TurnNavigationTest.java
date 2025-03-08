@@ -27,30 +27,34 @@ public class TurnNavigationTest {
                 destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.LEFT_TURN);
                 System.out.println(
                     TurnCategory.LEFT_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                    + " from corner:" + corner.getOrientation().abbreviation()
+                    + " " + sourceBlock
+                    + " onto " + destinationBlock
+                );
 
                 destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.RIGHT_TURN);
                 System.out.println(
                     TurnCategory.RIGHT_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                    + " from corner:" + corner.getOrientation().abbreviation()
+                    + " " + sourceBlock
+                    + " onto " + destinationBlock
+                );
 
                 destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.REVERSE);
                 System.out.println(
                     TurnCategory.REVERSE
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                    + " from corner:" + corner.getOrientation().abbreviation()
+                    + " " + sourceBlock
+                    + " onto " + destinationBlock
+                );
 
                 destinationBlock = TurnNavigator.destinationFromAvenue(junction, corner.getOrientation(), TurnCategory.NO_TURN);
                 System.out.println(
                     TurnCategory.NO_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                    + " from corner:" + corner.getOrientation().abbreviation()
+                    + " " + sourceBlock
+                    + " onto " + destinationBlock
+                );
             }
         }
     }
@@ -65,30 +69,34 @@ public class TurnNavigationTest {
                 destinationBlock = TurnNavigator.destinationFromStreet(junction, corner.getOrientation(), TurnCategory.LEFT_TURN);
                 System.out.println(
                     TurnCategory.LEFT_TURN
-                        + " from corner:" + corner.getOrientation().abbreviation()
-                        + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                    + " from corner:" + corner.getOrientation().abbreviation()
+                    + " " + sourceBlock
+                    + " onto " + destinationBlock
+                );
 
                 destinationBlock = TurnNavigator.destinationFromStreet(junction, corner.getOrientation(), TurnCategory.RIGHT_TURN);
                 System.out.println(
                     TurnCategory.RIGHT_TURN
                         + " from corner:" + corner.getOrientation().abbreviation()
                         + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                        + " onto " + destinationBlock
+                );
 
                 destinationBlock = TurnNavigator.destinationFromStreet(junction, corner.getOrientation(), TurnCategory.REVERSE);
                 System.out.println(
                     TurnCategory.REVERSE
                         + " from corner:" + corner.getOrientation().abbreviation()
                         + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                        + " onto " + destinationBlock
+                );
 
                 destinationBlock = TurnNavigator.destinationFromStreet(junction, corner.getOrientation(), TurnCategory.NO_TURN);
                 System.out.println(
                     TurnCategory.NO_TURN
                         + " from corner:" + corner.getOrientation().abbreviation()
                         + " " + sourceBlock
-                        + " onto " + destinationBlock.toString());
+                        + " onto " + destinationBlock
+                );
             }
         }
     }

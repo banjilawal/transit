@@ -1,7 +1,7 @@
 package com.lawal.transit.catalog;
 
 
-import com.lawal.transit.avenue.model.Avenue;
+import com.lawal.transit.road.model.Road;
 import com.lawal.transit.route.model.TransitRoute;
 import lombok.Getter;
 
@@ -16,6 +16,14 @@ public enum RouteCatalog {
 
     RouteCatalog () {
         catalog = new ArrayList<>();
+    }
+
+    public List<TransitRoute> getCatalog() { return List.copyOf(catalog); }
+
+    public void addRoute (TransitRoute transitRoute) {
+        if (transitRoute == null) return;
+        if (catalog.contains(transitRoute)) return;
+        catalog.add(transitRoute);
     }
 
     public TransitRoute findById(Long id) {
@@ -34,5 +42,15 @@ public enum RouteCatalog {
             if (transitRoute.getName().equalsIgnoreCase(name)) return transitRoute;
         }
         return null;
+    }
+
+    public List<TransitRoute> filterByRoad(Road road){
+        List<TransitRoute> matches = new ArrayList<>();
+
+        if (road == null) return matches;
+        for (TransitRoute route : catalog) {
+            if (!route.filterByRoad(road).isEmpty() && !matches.contains(route)) matches.add(route);
+        }
+        return List.copyOf(matches);
     }
 }

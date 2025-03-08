@@ -21,6 +21,16 @@ public enum DepartureCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Departure> getCatalog() {
+        return List.copyOf(catalog);
+    }
+
+    public void addDeparture(Departure departure) {
+        if (departure == null) return;
+        if (catalog.contains(departure)) return;
+        catalog.add(departure);
+    }
+
     public Departure findById(Long id) {
         if (id == null) return null;
 

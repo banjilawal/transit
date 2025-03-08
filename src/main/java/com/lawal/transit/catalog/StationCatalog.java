@@ -22,6 +22,14 @@ public enum StationCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Station> getStations() { return List.copyOf(catalog); }
+
+    public void addStation(Station station) {
+        if (station == null) return;
+        if (catalog.contains(station)) return;
+        catalog.add(station);
+    }
+
     public Station findById(Long id) {
         if (id == null) return null;
 
@@ -80,7 +88,11 @@ public enum StationCatalog {
 
         for (Station station : catalog) {
             Road stationRoad = station.getBlock().getCurb().getRoad();
-            if (stationRoad != null && stationRoad.equals(road) && !matches.contains(station)) matches.add(station);
+            if (stationRoad != null && stationRoad.equals(road) && !matches.contains(station)) {
+//                System.out.println("BINGO!! StationCatalog.(filterByRoad():" + road + "match" + "stationRoad:" + stationRoad);
+                matches.add(station);
+//                System.out.println("matches.size()=" + matches.size());
+            }
         }
         return matches;
     }

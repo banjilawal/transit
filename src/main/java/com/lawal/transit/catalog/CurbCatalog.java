@@ -21,6 +21,17 @@ public enum CurbCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Curb> getCatalog() {
+        return List.copyOf(catalog);
+    }
+
+    public void addCurb(Curb curb) {
+        if (curb == null) return;
+        if (catalog.contains(curb)) return;
+        catalog.add(curb);
+    }
+
+
     public Curb findById(Long id) {
         if (id == null) return null;
 

@@ -20,8 +20,8 @@ public class CurbGenerator {
 
             Curb leftCurb = new Curb(curbId.incrementAndGet(), Avenue.LEFT_CURB_ORIENTATION, road, null);
             Curb rightCurb = new Curb(curbId.incrementAndGet(), Avenue.RIGHT_CURB_ORIENTATION, null, road);
-            CurbCatalog.INSTANCE.getCatalog().add(leftCurb);
-            CurbCatalog.INSTANCE.getCatalog().add(rightCurb);
+            CurbCatalog.INSTANCE.addCurb(leftCurb);
+            CurbCatalog.INSTANCE.addCurb(rightCurb);
         }
     }
 
@@ -31,8 +31,8 @@ public class CurbGenerator {
 
             Curb leftCurb = new Curb(curbId.incrementAndGet(), Street.LEFT_CURB_ORIENTATION, road, null);
             Curb rightCurb = new Curb(curbId.incrementAndGet(), Street.RIGHT_CURB_ORIENTATION, null, road);
-            CurbCatalog.INSTANCE.getCatalog().add(leftCurb);
-            CurbCatalog.INSTANCE.getCatalog().add(rightCurb);
+            CurbCatalog.INSTANCE.addCurb(leftCurb);
+            CurbCatalog.INSTANCE.addCurb(rightCurb);
         }
     }
 }

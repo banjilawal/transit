@@ -24,13 +24,15 @@ public enum JunctionCornerCatalog {
         catalog = new ArrayList<>();
     }
 
-    public List<JunctionCorner> getCorners() { return catalog; }
+    public List<JunctionCorner> getCatalog() { return List.copyOf(catalog); }
 
     public int size() { return catalog.size(); }
 
     public Iterator<JunctionCorner> iterator() { return catalog.iterator(); }
 
-    public void addJunctionCorner(JunctionCorner corner) {
+    public void addCorner (JunctionCorner corner) {
+        if (corner == null) return;
+        if (catalog.contains(corner)) return;
         catalog.add(corner);
     }
 

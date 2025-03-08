@@ -17,10 +17,11 @@ public class FactoryDriver {
         Avenue avenue = AvenueCatalog.INSTANCE.findById(1L);
         Junction junction = JunctionCatalog.INSTANCE.findById(1L);
 
-        CurbEdgeFactory.processCurbs();
+//        CurbEdgeFactory.processCurbs();
 //        TurnNavigationTest.avenueTurningTest();
 //        TurnNavigationTest.streetTurningTest();
-        FindCornerStation.launcher();
+//        FindCornerStation.launcher();
+//        TransitRouteFactory.populate();
 
 //        RoadCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        AvenueCatalog.INSTANCE.getCatalog().forEach(System.out::println);
@@ -34,8 +35,12 @@ public class FactoryDriver {
 //        junctions.forEach(j -> {if(j.equals(junction)) j.getCorners().forEach(System.out::println);});
 //        JunctionCornerCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
         EdgeCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
+        System.out.println(EdgeCatalog.INSTANCE.filterByAvenue(avenue).size());
         EdgeCatalog.INSTANCE.filterByStreet(street).forEach(System.out::println);
-        StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
-        RouteCatalog.INSTANCE.getCatalog().forEach(System.out::println);
+        System.out.println(EdgeCatalog.INSTANCE.filterByStreet(street).size());
+//        StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
+        RouteCatalog.INSTANCE.filterByRoad(avenue.getRoad()).forEach(System.out::println);
+        RouteCatalog.INSTANCE.filterByRoad(street.getRoad()).forEach(System.out::println);
+//        System.out.println(RouteCatalog.INSTANCE.getCatalog().size());
     }
 }

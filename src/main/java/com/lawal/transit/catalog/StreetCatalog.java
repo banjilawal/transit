@@ -17,6 +17,14 @@ public enum StreetCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Street> getCatalog() { return List.copyOf(catalog); }
+
+    public void addStreet (Street street) {
+        if (street == null) return;
+        if (catalog.contains(street)) return;
+        catalog.add(street);
+    }
+
     public Street findById(Long id) {
         if (id == null) return null;
 

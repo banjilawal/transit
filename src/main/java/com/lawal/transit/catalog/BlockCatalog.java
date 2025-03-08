@@ -22,6 +22,16 @@ public enum BlockCatalog {
         catalog = new ArrayList<>();
     }
 
+    public List<Block> getCatalog() {
+        return List.copyOf(catalog);
+    }
+
+    public void addBlock(Block block) {
+        if (block == null) return;
+        if (catalog.contains(block)) return;
+        catalog.add(block);
+    }
+
     public Block findById(Long id) {
         if (id == null) return null;
 

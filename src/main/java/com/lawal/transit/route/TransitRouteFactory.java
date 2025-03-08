@@ -36,11 +36,12 @@ public class TransitRouteFactory {
 
 
     public static Integer randomInterarrivalTime() {
-        return random.nextInt(MINIMUM_INTERARRIVAL_TIME, MAXIMUM_INTERARRIVAL_TIME - MINIMUM_INTERARRIVAL_TIME) + 1;
+        return new Random().nextInt(MINIMUM_INTERARRIVAL_TIME, MAXIMUM_INTERARRIVAL_TIME);
     }
 
     public static void populate() {
         for (Road road : RoadCatalog.INSTANCE.getCatalog()) {
+//            System.out.println("TransitRouteFactory.populate():" + road);
             TransitRoute transitRoute = new TransitRoute(
                 routeId.incrementAndGet(),
                 randomName(), 
@@ -48,23 +49,38 @@ public class TransitRouteFactory {
                 Constant.TRANSIT_CLOSING_TIME,
                 randomInterarrivalTime()
             );
+//            System.out.println("TransitRouteFactory.populate() invoking populateStops:" + transitRoute + " " + road);
             populateStops(transitRoute, road);
-            RouteCatalog.INSTANCE.getCatalog().add(transitRoute);
         }
     }
     
     public static void populateStops(TransitRoute transitRoute, Road road) {
         List<Station> stations = StationCatalog.INSTANCE.filterByRoad(road);
+//        System.out.println("TransitRouteFactory.populateStops() total stations:" + stations.size());
+        if (stations.isEmpty()) {
+            System.out.println("TransitRouteFactory.populate(): There's no road stations");
+            return;
+        }
 
         LocalTime departureTime = Constant.TRANSIT_OPENING_TIME;
-        while (departureTime.isBefore(Constant.TRANSIT_CLOSING_TIME)) {
+//        System.out.println("TransitRouteFactory.populateStops() starting time:" + departureTime);
+        int counter = 1;
+        while (!departureTime.isBefore(Constant.TRANSIT_CLOSING_TIME.plusMinutes(120))) {
             for (Station station : stations) {
+//                System.out.println("TransitRouteFactory.populateStops():" + station);
+                if (departureTime.isBefore(Constant.TRANSIT_CLOSING_TIME)) break;
+//                System.out.println("TransitRouteFactory.populateStops():" + station);
                 Departure departure = new Departure(stopId.incrementAndGet(), departureTime, transitRoute, station);
-                System.out.println("departure:" + departure);
-                DepartureCatalog.INSTANCE.getCatalog().add(departure);
+//                transitRoute.getDepartures().add(departure);
+//                station.getDepartures().add(departure);
+
+                RouteCatalog.INSTANCE.addRoute(transitRoute);
+//                System.out.println(counter + " TransitRouteFactory.populateStops():" + departure);
+                DepartureCatalog.INSTANCE.addDeparture(departure);
                 departureTime = departureTime.plusMinutes(transitRoute.getInterArrivalTime());
+                counter++;
             }
-            System.out.println("departure:" + departureTime);
+//            System.out.println("TransitRouteFactory.populateStops():" + departureTime);
             departureTime = departureTime.plusMinutes(transitRoute.getInterArrivalTime());
         }
     }

@@ -34,7 +34,7 @@ public class BlockGenerator {
 //            Block block = new Block(blockId.incrementAndGet(), blockName, curb, null);
 //            addressName = BlockPopulator.populateBlock(block, addressName, addressInterval, numberOfAddresses);
 //            curb.getBlocks().add(block);
-            BlockCatalog.INSTANCE.getCatalog().add(block);
+            BlockCatalog.INSTANCE.addBlock(block);
         }
     }
 
@@ -42,7 +42,7 @@ public class BlockGenerator {
         for (Block block : curb.getBlocks()) {
             if (new Random().nextInt(101) <= percentStationDensity) {
                 Station station = new Station(stationId.incrementAndGet(), NameGenerator.INSTANCE.stationName(curb.getOrientation()), block);
-                StationCatalog.INSTANCE.getCatalog().add(station);
+                StationCatalog.INSTANCE.addStation(station);
             }
         }
     }

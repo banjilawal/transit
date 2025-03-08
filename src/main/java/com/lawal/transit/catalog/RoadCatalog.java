@@ -17,6 +17,22 @@ public enum RoadCatalog {
 
     RoadCatalog () { catalog = new ArrayList<>(); }
 
+    public List<Road> getCatalog() { return List.copyOf(catalog); }
+
+    public void addRoad (Road road) {
+        if (road == null) return;
+        if (catalog.contains(road)) return;
+        catalog.add(road);
+    }
+
+    public Road findById(Long id) {
+        if (id == null) return null;
+        for (Road road : catalog) {
+            if (road.getId().equals(id)) return road;
+        }
+        return null;
+    }
+
     public Road findByAvenue(Avenue avenue) {
         for (Road road : catalog) {
             if (road.getAvenue().equals(avenue)) { return road; }

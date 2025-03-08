@@ -126,8 +126,7 @@ public final class Curb {
 
     public Road getRoad() {
         if (rightRoadside != null) return rightRoadside;
-        else if (leftRoadside != null) return leftRoadside;
-        else return null;
+        return leftRoadside;
     }
 
     public void setLeftRoad(Road road) {
@@ -222,6 +221,6 @@ public final class Curb {
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + "[curbId:" + id + " " + getRoadName() + " " + orientation.print() + "]";
+        return getClass().getSimpleName() + "[id:" + id  + " " + orientation.print() + "]";
     }
 }

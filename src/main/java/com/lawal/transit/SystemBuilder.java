@@ -12,6 +12,7 @@ import com.lawal.transit.global.Constant;
 import com.lawal.transit.global.NameGenerator;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
+import com.lawal.transit.navigtion.CurbEdgeFactory;
 import com.lawal.transit.road.model.Road;
 import com.lawal.transit.route.TransitRouteFactory;
 import com.lawal.transit.street.model.Street;
@@ -39,6 +40,7 @@ public class SystemBuilder {
         buildBlocks();
         buildJunctions();
         buildAddresses();
+        CurbEdgeFactory.processCurbs();
         TransitRouteFactory.populate();
 //        buildJunctionCorners();;
 //        TurnNavigator.populateEdges();
@@ -48,8 +50,8 @@ public class SystemBuilder {
         for (String name : Constant.AVENUE_NAMES) {
             Road road = new Road(roadId.incrementAndGet());
             Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, road);
-            RoadCatalog.INSTANCE.getCatalog().add(road);
-            AvenueCatalog.INSTANCE.getCatalog().add(avenue);
+            RoadCatalog.INSTANCE.addRoad(road);
+            AvenueCatalog.INSTANCE.addAvenue(avenue);
         }
         CurbGenerator.generateAvenueCurbs();
     }
@@ -59,8 +61,8 @@ public class SystemBuilder {
             Road road = new Road(roadId.incrementAndGet());
             long id = streetId.incrementAndGet();
             Street street = new Street(id, NameGenerator.streetName(id), road);
-            RoadCatalog.INSTANCE.getCatalog().add(road);
-            StreetCatalog.INSTANCE.getCatalog().add(street);
+            RoadCatalog.INSTANCE.addRoad(road);
+            StreetCatalog.INSTANCE.addStreet(street);
         }
         CurbGenerator.generateStreetCurbs();
     }
@@ -73,11 +75,11 @@ public class SystemBuilder {
         for (Avenue avenue : AvenueCatalog.INSTANCE.getCatalog()) {
             for (Street street : StreetCatalog.INSTANCE.getCatalog()) {
                 Junction junction = new Junction(junctionId.incrementAndGet(), avenue, street);
-                JunctionCatalog.INSTANCE.getCatalog().add(junction);
+                JunctionCatalog.INSTANCE.addJunction(junction);
 
                 for (JunctionCorner junctionCorner : junction.getCorners()) {
                     junctionCorner.setId(junctionCornerId.incrementAndGet());
-                    JunctionCornerCatalog.INSTANCE.getCatalog().add(junctionCorner);
+                    JunctionCornerCatalog.INSTANCE.addCorner(junctionCorner);
                 }
             }
         }
@@ -103,7 +105,7 @@ public class SystemBuilder {
         }
     }
 
-    public static int populateBlock (Block block, int startingAddressName, int addressInterval, int numberOfAddresses)  {
+    public static int populateBlock(Block block, int startingAddressName, int addressInterval, int numberOfAddresses)  {
 
         int addressName = startingAddressName;
 
@@ -111,7 +113,7 @@ public class SystemBuilder {
             Address address = new Address(addressId.incrementAndGet(), (addressName + ""), block);
 
             block.getAddresses().add(address);
-            AddressCatalog.INSTANCE.getCatalog().add(address);
+            AddressCatalog.INSTANCE.addAddress(address);
             addressName += addressInterval;
         }
         return addressName;

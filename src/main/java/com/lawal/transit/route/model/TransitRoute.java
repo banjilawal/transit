@@ -1,5 +1,6 @@
 package com.lawal.transit.route.model;
 
+import com.lawal.transit.road.model.Road;
 import com.lawal.transit.route.model.exception.NullTransitStopException;
 import com.lawal.transit.station.model.exception.StationNameNullException;
 import jakarta.persistence.*;
@@ -60,9 +61,12 @@ public class TransitRoute {
 
     public void addDeparture(Departure departure) {
         if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
-
         if (departures == null) departures = new ArrayList<>();
-        if (departures.contains(departure)) return;
+
+        if (departures.contains(departure)) {
+            System.out.println("TransitRoute.addDeparture(): " + departure + " is already in the list");
+            return;
+        }
 
         departures.add(departure);
         if (!departure.getRoute().equals(this)) { departure.setRoute(this); }
@@ -70,11 +74,36 @@ public class TransitRoute {
 
     public void removeDeparture(Departure departure) {
         if (departure == null) throw new NullTransitStopException(NullTransitStopException.MESSAGE);
+        if (departures == null) {
+            departures = new ArrayList<>();
+            return;
+        }
+        if (departures.isEmpty()) return;
 
         if (departures.contains(departure)) {
             departures.remove(departure);
             if (departure.getRoute() != null && this.equals(departure.getRoute())) { departure.setRoute(null); }
         }
+    }
+
+    public List<Departure> filterByRoad(Road road) {
+        List<Departure> matches = new ArrayList<>();
+
+        if (road == null) return matches;
+        for (Departure departure : departures) {
+            Road departureRoad = departure.getStation().getBlock().getCurb().getRoad();
+            if (departureRoad.equals(road)) matches.add(departure);
+        }
+        return List.copyOf(matches);
+    }
+
+    public String getDepartureTimeString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (departures.isEmpty()) return stringBuilder.toString();
+        for (Departure departure : departures) {
+            stringBuilder.append("\t").append(departure.toString()).append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     @Override
@@ -83,7 +112,8 @@ public class TransitRoute {
             + "[id:" + id
             + " name:" + name
             + " interArrivalTime:" + interArrivalTime
-            + " totalStops:" + departures.size() + "]";
+            + " totalStops:" + departures.size() + "]"
+            + "\nSchedule:\n" + getDepartureTimeString() ;
     }
 
 }

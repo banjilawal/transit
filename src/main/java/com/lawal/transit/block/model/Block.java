@@ -112,6 +112,6 @@ public class Block {
     @Override
     public String toString () {
         return getClass().getSimpleName()
-            + " id:" + id + " name:" + name + " " + curb.getRoadName() + " " + curb.getOrientation().abbreviation();
+            + " id:" + id + " name:" + name + " " + curb.getRoad().getName() + " " + curb.getOrientation().abbreviation();
     }
 }

@@ -21,39 +21,39 @@ public class FindCornerStation {
 
     public static Station findAscendingTail(Block block) {
         if (block == null) {
-            System.out.println("findDescendingTail: block is null nothing to check");
+//            System.out.println("findDescendingTail: block is null nothing to check");
             return null;
         }
 
-        System.out.println("findDescendingTail from block" + block);
+//        System.out.println("findDescendingTail from block" + block);
         int counter = block.getCurb().getBlocks().indexOf(block);
         int sentinel = block.getCurb().getBlocks().size();
 
         Curb curb = block.getCurb();
         Station station = null;
 
-        System.out.println("counter:" + counter + " sentinel:" + sentinel);
+//        System.out.println("counter:" + counter + " sentinel:" + sentinel);
 
         for (int index = counter; index < sentinel; index++) {
             Block crossingBlock = curb.getBlocks().get(index);
             station = crossingBlock.getStation();
-            System.out.println("findDescendingTail: " + index + " checking crossingBlock " + crossingBlock);
+//            System.out.println("findDescendingTail: " + index + " checking crossingBlock " + crossingBlock);
             if (station != null) {
-                System.out.println("Found corner station at index " + index + " station:" + station + " at " + crossingBlock);
+//                System.out.println("Found corner station at index " + index + " station:" + station + " at " + crossingBlock);
                 return station;
             }
         }
-        System.out.println("no descending tail station found from " + block);
+//        System.out.println("no descending tail station found from " + block);
         return station;
     }
 
     public static Station findDescendingTail(Block block) {
         if (block == null) {
-            System.out.println("findAscendingTail: block is null nothing to check");
+//            System.out.println("findAscendingTail: block is null nothing to check");
             return null;
         }
 
-        System.out.println("findAscendingTail from block" + block);
+//        System.out.println("findAscendingTail from block" + block);
         int counter = 0;
         int sentinel = block.getCurb().getBlocks().indexOf(block);
 
@@ -65,9 +65,9 @@ public class FindCornerStation {
         for (int index = counter; index < sentinel; index++) {
             Block crossingBlock = curb.getBlocks().get(index);
             station = crossingBlock.getStation();
-            System.out.println("findAscendingTail: " + index + " checking crossingBlock" + crossingBlock);
+//            System.out.println("findAscendingTail: " + index + " checking crossingBlock" + crossingBlock);
             if (station != null) {
-                System.out.println("Found corner station at index " + index + " station:" + station.toString());
+//                System.out.println("Found corner station at index " + index + " station:" + station);
                 return station;
             }
         }
@@ -121,26 +121,33 @@ public class FindCornerStation {
         if (avenueCurb.getOrientation() == Avenue.LEFT_CURB_ORIENTATION) {
 
             if (junctionAvenueBlockIndex < avenueStationBlockIndex) {
-                System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " junction Avenue Block:" + junctionAvenueBlock);
-
+//                System.out.println("FindCornerStation.processSharedAvenue at"
+//                    + " " + Avenue.LEFT_CURB_ORIENTATION
+//                    + " junction Avenue Block:"
+//                    + junctionAvenueBlock
+//                );
 
                 Station streetStation = findAscendingTail(streetBlock);
                 if (streetStation != null) {
-                    System.out.println(
-                        "FindCornerStation.processSharedAvenue at "
-                            + Avenue.LEFT_CURB_ORIENTATION
-                            + " junctionStreetBlock:" + streetBlock
-                            + " streetStation:" + streetStation
-                    );
+//                    System.out.println(
+//                        "FindCornerStation.processSharedAvenue at "
+//                            + Avenue.LEFT_CURB_ORIENTATION
+//                            + " junctionStreetBlock:" + streetBlock
+//                            + " streetStation:" + streetStation
+//                    );
                     Block streetStationBlock = streetStation.getBlock();
                     int streetStationBlockIndex = streetCurb.getBlocks().indexOf(streetStationBlock);
                     int streetLength = Math.abs(streetBlockIndex - streetStationBlockIndex) + 1;
                     int distance = avenueLength + streetLength;
                     Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, streetStation, distance, 0, 0);
-                    System.out.println("crossEdge:" + crossEdge);
+//                    System.out.println("crossEdge:" + crossEdge);
                     EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
 
-                    System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " DISTANCE[avenueLength:" + avenueLength + " streetLength:" + streetLength + "]");
+//                    System.out.println("FindCornerStation.processSharedAvenue at"
+//                        + " " + Avenue.LEFT_CURB_ORIENTATION
+//                        + " DISTANCE[avenueLength:" + avenueLength
+//                        + " streetLength:" + streetLength + "]"
+//                    );
 //                    if (streetLength > 1) {
 //                        System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " streetLength:" + streetLength);
 //                        return streetStationBlock;
@@ -161,21 +168,25 @@ public class FindCornerStation {
 
                 Station streetStation = findDescendingTail(streetBlock);
                 if (streetStation != null) {
-                    System.out.println(
-                        "FindCornerStation.processSharedAvenue at "
-                            + Avenue.RIGHT_CURB_ORIENTATION
-                            + " junctionStreetBlock:" + streetBlock
-                            + " streetStation:" + streetStation
-                    );
+//                    System.out.println(
+//                        "FindCornerStation.processSharedAvenue at "
+//                            + Avenue.RIGHT_CURB_ORIENTATION
+//                            + " junctionStreetBlock:" + streetBlock
+//                            + " streetStation:" + streetStation
+//                    );
                     Block streetStationBlock = streetStation.getBlock();
                     int streetStationBlockIndex = streetCurb.getBlocks().indexOf(streetStationBlock);
                     int streetLength = Math.abs(streetBlockIndex - streetStationBlockIndex) + 1;
                     int distance = avenueLength + streetLength;
                     Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, streetStation, distance, 0, 0);
-                    System.out.println("crossEdge:" + crossEdge);
+//                    System.out.println("crossEdge:" + crossEdge);
                     EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
 
-                    System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.RIGHT_CURB_ORIENTATION + " DISTANCE[avenueLength:" + avenueLength + " streetLength:" + streetLength + "]");
+//                    System.out.println("FindCornerStation.processSharedAvenue at"
+//                        + " " + Avenue.RIGHT_CURB_ORIENTATION
+//                        + " DISTANCE[avenueLength:" + avenueLength
+//                        + " streetLength:" + streetLength + "]"
+//                    );
 //                    if (streetLength > 1) {
 //                        System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " streetLength:" + streetLength);
 //                        return streetStationBlock;
@@ -212,25 +223,32 @@ public class FindCornerStation {
         if (streetCurb.getOrientation() == Street.LEFT_CURB_ORIENTATION) {
 
             if (junctionStreetBlockIndex < streetStationBlockIndex) {
-                System.out.println("FindCornerStation.processSharedAvenue at " + Street.LEFT_CURB_ORIENTATION + " junction Avenue Block:" + junctionStreetBlock);
+//                System.out.println("FindCornerStation.processSharedAvenue at"
+//                    + " " + Street.LEFT_CURB_ORIENTATION
+//                    + " junction Avenue Block:" + junctionStreetBlock
+//                );
 
                 Station avenueStation = findAscendingTail(avenueBlock);
                 if (avenueStation != null) {
-                    System.out.println(
-                        "FindCornerStation.processSharedAvenue at "
-                            + Street.LEFT_CURB_ORIENTATION
-                            + " junctionAvenueBlock:" + avenueBlock
-                            + " avenueStation:" + avenueStation
-                    );
+//                    System.out.println(
+//                        "FindCornerStation.processSharedAvenue at "
+//                            + Street.LEFT_CURB_ORIENTATION
+//                            + " junctionAvenueBlock:" + avenueBlock
+//                            + " avenueStation:" + avenueStation
+//                    );
                     Block avenueStationBlock = avenueStation.getBlock();
                     int avenueStationBlockIndex = streetCurb.getBlocks().indexOf(avenueStationBlock);
                     int avenueLength = Math.abs(avenueBlockIndex - avenueStationBlockIndex) + 1;
                     int distance = streetLength + avenueLength;
                     Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, avenueStation, distance, 0, 0);
-                    System.out.println("crossEdge:" + crossEdge);
+//                    System.out.println("crossEdge:" + crossEdge);
                     EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
 
-                    System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " DISTANCE[avenueLength:" + avenueLength + " streetLength:" + avenueLength + "]");
+//                    System.out.println("FindCornerStation.processSharedAvenue at"
+//                        + " " + Avenue.LEFT_CURB_ORIENTATION
+//                        + " DISTANCE[avenueLength:" + avenueLength
+//                        + " streetLength:" + avenueLength + "]"
+//                    );
 //                    if (streetLength > 1) {
 //                        System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " streetLength:" + streetLength);
 //                        return streetStationBlock;
@@ -251,21 +269,25 @@ public class FindCornerStation {
 
                 Station avenueStation = findDescendingTail(avenueBlock);
                 if (avenueStation != null) {
-                    System.out.println(
-                        "FindCornerStation.processSharedAvenue at "
-                            + Avenue.RIGHT_CURB_ORIENTATION
-                            + " junctionStreetBlock:" + avenueBlock
-                            + " streetStation:" + avenueStation
-                    );
+//                    System.out.println(
+//                        "FindCornerStation.processSharedAvenue at "
+//                            + Avenue.RIGHT_CURB_ORIENTATION
+//                            + " junctionStreetBlock:" + avenueBlock
+//                            + " streetStation:" + avenueStation
+//                    );
                     Block avenueStationBlock = avenueStation.getBlock();
                     int avenueStationBlockIndex = streetCurb.getBlocks().indexOf(avenueStationBlock);
                     int avenueLength = Math.abs(avenueBlockIndex - avenueStationBlockIndex) + 1;
                     int distance = avenueLength + streetLength;
                     Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, avenueStation, distance, 0, 0);
-                    System.out.println("crossEdge:" + crossEdge);
+//                    System.out.println("crossEdge:" + crossEdge);
                     EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
 
-                    System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.RIGHT_CURB_ORIENTATION + " DISTANCE[avenueLength:" + avenueLength + " streetLength:" + streetLength + "]");
+//                    System.out.println("FindCornerStation.processSharedAvenue at"
+//                        + " " + Avenue.RIGHT_CURB_ORIENTATION
+//                        + " DISTANCE[avenueLength:" + avenueLength
+//                        + " streetLength:" + streetLength
+//                        + "]");
 //                    if (streetLength > 1) {
 //                        System.out.println("FindCornerStation.processSharedAvenue at " + Avenue.LEFT_CURB_ORIENTATION + " streetLength:" + streetLength);
 //                        return streetStationBlock;
@@ -317,7 +339,7 @@ public class FindCornerStation {
         Curb sharedCurb;
         Block adjacentJunctionBlock;
 
-        System.out.println("FindCornerStation.getCornerDistance for STATION:" + station.toString());
+//        System.out.println("FindCornerStation.getCornerDistance for STATION:" + station.toString());
 
         if (station.getBlock().getCurb().getAvenue() != null) {
             adjacentJunctionBlock = processSharedAvenue(station, junction);
@@ -328,30 +350,34 @@ public class FindCornerStation {
         else if (station.getBlock().getCurb().getStreet() != null) {
             adjacentJunctionBlock = processSharedStreet(station, junction);
             if (adjacentJunctionBlock == null) {
-                System.out.println("FindCornerStation.getCornerDistance There is no adjacent block between the junction and station");
+//                System.out.println("FindCornerStation.getCornerDistance There is no adjacent block between the junction and station");
                 return;
             }
         } else {
-            System.out.println("FindCornerStation.getCornerDistance The station is not on a street or avenue");
+//            System.out.println("FindCornerStation.getCornerDistance The station is not on a street or avenue");
             return;
         }
 
         if (adjacentJunctionBlock.getStation() != null) {
             Station junctionStation = adjacentJunctionBlock.getStation();
-            System.out.println("FindCornerStation.getCornerDistance BINGO! junction station at " + adjacentJunctionBlock.toString() + " is " + junctionStation.toString());
+//            System.out.println(
+//                "FindCornerStation.getCornerDistance BINGO! junction station at"
+//                + " " + adjacentJunctionBlock
+//                + " is " + junctionStation
+//            );
         }
 
         sharedCurb = station.getBlock().getCurb();
         int stationBlockIndex = sharedCurb.getBlocks().indexOf(station.getBlock());
         int adjacentJunctionBlockIndex = sharedCurb.getBlocks().indexOf(adjacentJunctionBlock);
 
-        System.out.println(
-            "FindCornerStation.getCornerDistance stationBlock:" + station.getBlock().toString()
-            + "stationBlockIndex:" + stationBlockIndex
-            + "\nadjacentJunctionBlock:" + adjacentJunctionBlock.toString()
-            + " adjacentJunctionBlockIndex:" + adjacentJunctionBlockIndex
-            + "\nsIndex - jIndex = " + (stationBlockIndex - adjacentJunctionBlockIndex)
-        );
+//        System.out.println(
+//            "FindCornerStation.getCornerDistance stationBlock:" + station.getBlock().toString()
+//            + "stationBlockIndex:" + stationBlockIndex
+//            + "\nadjacentJunctionBlock:" + adjacentJunctionBlock.toString()
+//            + " adjacentJunctionBlockIndex:" + adjacentJunctionBlockIndex
+//            + "\nsIndex - jIndex = " + (stationBlockIndex - adjacentJunctionBlockIndex)
+//        );
     }
 
     public static void processStreet(Direction curbOrientation, Street street) {
@@ -362,7 +388,7 @@ public class FindCornerStation {
         for (Station station : curb.getStations()) {
             for (Junction junction : street.getJunctions()) {
                 getCornerStationDistance(station, junction);
-                System.out.println("---------------------------------------");
+//                System.out.println("---------------------------------------");
             }
         }
     }
@@ -375,7 +401,7 @@ public class FindCornerStation {
         for (Station station : curb.getStations()) {
             for (Junction junction : avenue.getJunctions()) {
                 getCornerStationDistance(station, junction);
-                System.out.println("---------------------------------------");
+//                System.out.println("---------------------------------------");
             }
         }
     }
@@ -388,7 +414,7 @@ public class FindCornerStation {
         for (Station station : curb.getStations()) {
             for (Junction junction : street.getJunctions()) {
                 getCornerStationDistance(station, junction);
-                System.out.println("---------------------------------------");
+//                System.out.println("---------------------------------------");
             }
         }
     }

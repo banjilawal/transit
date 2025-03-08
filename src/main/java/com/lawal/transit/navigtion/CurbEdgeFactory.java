@@ -42,6 +42,7 @@ public class CurbEdgeFactory {
             int distance = curb.getBlocks().indexOf(block) - curb.getBlocks().indexOf(previousStation.getBlock());
             if (distance > 0) {
                 Edge edge = new Edge(edgeId.incrementAndGet(), previousStation, station, distance,0, 0);
+                EdgeCatalog.INSTANCE.getCatalog().add(edge);
                 edges.add(edge);
 //                System.out.println(edge.toString());
             }
@@ -85,6 +86,7 @@ public class CurbEdgeFactory {
 //        System.out.println("distance: " + distance);
 
         Edge cycleEdge = new Edge(edgeId.incrementAndGet(), startingStation, endingStation, distance,0, 0);
+        EdgeCatalog.INSTANCE.getCatalog().add(cycleEdge);
 //        System.out.println("Cycle Edge"  + cycleEdge.toString());
         return cycleEdge;
     }
@@ -101,13 +103,16 @@ public class CurbEdgeFactory {
             Edge cycleEdgeA = createCycleEdge(road.getLeftCurb(), road.getRightCurb());
             Edge cycleEdgeB = createCycleEdge(road.getRightCurb(), road.getLeftCurb());
 
-            if (cycleEdgeA != null) leftEdges.add(cycleEdgeA);
-            if (cycleEdgeB != null) rightEdges.add(cycleEdgeB);
+            if (cycleEdgeA != null && !leftEdges.contains(cycleEdgeA)) leftEdges.add(cycleEdgeA);
+            if (cycleEdgeB != null && !rightEdges.contains(cycleEdgeB)) rightEdges.add(cycleEdgeB);
 
     //        System.out.println("post cycle edge addition: # leftedges = " + leftEdges.size() + " # rightedges = " + rightEdges.size());
-            List<Edge> roadEdges = new ArrayList<>(leftEdges);
-            roadEdges.addAll(rightEdges);
-            EdgeCatalog.INSTANCE.getCatalog().addAll(roadEdges);
+//            List<Edge> roadEdges = new ArrayList<>(leftEdges);
+//            roadEdges.addAll(rightEdges);
+//            for (Edge edge : roadEdges) {
+//                System.out.println("curb factory:" + edge);
+//                EdgeCatalog.INSTANCE.getCatalog().add(edge);
+//            }
 //            for (Edge edge : roadEdges) {
 //                System.out.println(
 //                    "roadId:" + road.getId()
