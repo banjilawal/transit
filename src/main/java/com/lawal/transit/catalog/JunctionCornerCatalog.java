@@ -24,7 +24,7 @@ public enum JunctionCornerCatalog {
         catalog = new ArrayList<>();
     }
 
-    public List<JunctionCorner> getCatalog() { return List.copyOf(catalog); }
+//    public List<JunctionCorner> getCatalog() { return List.copyOf(catalog); }
 
     public int size() { return catalog.size(); }
 

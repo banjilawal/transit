@@ -54,4 +54,8 @@ public enum AddressCatalog {
         return matches;
     }
 
+    public Address randomAddress() {
+        return catalog.get((int) (Math.random() * catalog.size()));
+    }
+
 }

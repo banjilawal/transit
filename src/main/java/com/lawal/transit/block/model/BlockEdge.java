@@ -26,41 +26,60 @@ public class BlockEdge {
     @Column(nullable = false)
     private Integer weight = 1; // Default to 1
 
-    public BlockEdge(Block head, Block tail, Integer weight) {
+    public BlockEdge(Long id, Block head, Block tail, Integer weight) {
         if(head == null || tail == null)
             throw new NullPointerException("BlockEdge constructor cannot receive null parameters");
         if(head.equals(tail)) throw new IllegalArgumentException("head and tail blocks cannot be the same");
 
+        this.id = id;
+
+        setHead(head);
+        setTail(tail);
+
         if(weight == null) weight = 1;
-
-        this.head = head;
-        if (!this.head.getOutgoingEdges().contains(this)) this.head.getOutgoingEdges().add(this);
-
-        this.tail = tail;
-        if (!this.head.getOutgoingEdges().contains(this)) this.head.getOutgoingEdges().add(this);
-
         this.weight = weight;
     }
 
     public void setHead(Block head) {
-        if (head != null && head.equals(this.tail)) return;
+        if (head == null) {
+            throw new IllegalArgumentException("Head block cannot be null");
+        }
+        if (head.equals(this.tail)) {
+            throw new IllegalArgumentException("Head and tail blocks cannot be the same");
+        }
 
-        if(this.head != null) {
-            this.head.getOutgoingEdges().remove(this);
+        // Remove this edge from the old head's outgoingEdges
+        if (this.head != null) {
+            this.head.removeOutgoingEdge(this);
         }
 
         this.head = head;
-        if(this.head != null && !this.head.getOutgoingEdges().contains(this)) this.head.getOutgoingEdges().add(this);
+
+        // Add this edge to the new head's outgoingEdges
+        if (!this.head.getOutgoingEdges().contains(this)) {
+            this.head.addOutgoingEdge(this);
+        }
     }
 
     public void setTail(Block tail) {
-        if(tail != null && tail.equals(this.tail)) return;
-
-        if(this.tail != null) {
-            this.tail.getIncomingEdges().remove(this);
+        if (tail == null) {
+            throw new IllegalArgumentException("Tail block cannot be null");
         }
+        if (tail.equals(this.head)) {
+            throw new IllegalArgumentException("Head and tail blocks cannot be the same");
+        }
+
+        // Remove this edge from the old tail's incomingEdges
+        if (this.tail != null) {
+            this.tail.removeIncoming(this);
+        }
+
         this.tail = tail;
-        if(this.tail != null && !this.tail.getIncomingEdges().contains(this)) this.tail.getIncomingEdges().add(this);
+
+        // Add this edge to the new tail's incomingEdges
+        if (!this.tail.getIncomingEdges().contains(this)) {
+            this.tail.addIncomingEdge(this);
+        }
     }
 
 }

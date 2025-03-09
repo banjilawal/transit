@@ -21,9 +21,9 @@ public enum CurbCatalog {
         catalog = new ArrayList<>();
     }
 
-    public List<Curb> getCatalog() {
-        return List.copyOf(catalog);
-    }
+//    public List<Curb> getCatalog() {
+//        return List.copyOf(catalog);
+//    }
 
     public void addCurb(Curb curb) {
         if (curb == null) return;

@@ -133,40 +133,52 @@ public class Block {
     }
 
     public void addOutgoingEdge(BlockEdge edge) {
-        if (edge == null) return;
-        if(!this.equals(edge.getHead())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
-
-        if (outgoingEdges == null) this.outgoingEdges = new ArrayList<>();
-        if (outgoingEdges.contains(edge)) return;
-
-        outgoingEdges.add(edge);
+        if (edge == null) {
+            throw new IllegalArgumentException("Cannot add null edge to outgoingEdges");
+        }
+        if (!this.equals(edge.getHead())) {
+            throw new IllegalStateException("Outgoing edge head does not match this block: " + this);
+        }
+        if (!outgoingEdges.contains(edge)) {
+            outgoingEdges.add(edge);
+        }
     }
 
     public void addIncomingEdge(BlockEdge edge) {
-        if (edge == null) return;
-        if (!this.equals(edge.getTail())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
-
-        if (incomingEdges == null) this.incomingEdges = new ArrayList<>();
-        if (incomingEdges.contains(edge)) return;
-
-        incomingEdges.add(edge);
+        if (edge == null) {
+            throw new IllegalArgumentException("Cannot add null edge to incomingEdges");
+        }
+        if (!this.equals(edge.getTail())) {
+            throw new IllegalStateException("Incoming edge tail does not match this block: " + this);
+        }
+        if (!incomingEdges.contains(edge)) {
+            incomingEdges.add(edge);
+        }
     }
 
     public void removeOutgoingEdge(BlockEdge edge) {
-        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+        if (edge == null) {
+            throw new NullPointerException("Cannot remove null edge");
+        }
 
         if (outgoingEdges.contains(edge)) {
             outgoingEdges.remove(edge);
-            if (edge.getHead() != null && this.equals(edge.getHead())) { edge.setHead(null); }
+            if (edge.getHead() != null && this.equals(edge.getHead())) {
+                edge.setHead(null);
+            }
         }
     }
 
     public void removeIncoming(BlockEdge edge) {
-        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+        if (edge == null) {
+            throw new NullPointerException("Cannot remove null edge");
+        }
 
         if (incomingEdges.contains(edge)) {
             incomingEdges.remove(edge);
-            if (edge.getTail() != null && this.equals(edge.getTail())) { edge.setTail(null); }
+            if (edge.getTail() != null && this.equals(edge.getTail())) {
+                edge.setTail(null);
+            }
         }
     }
 
