@@ -6,6 +6,7 @@ import com.lawal.transit.block.model.Block;
 import com.lawal.transit.junction.Junctions;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
+import com.lawal.transit.road.model.Road;
 import com.lawal.transit.station.model.Station;
 import com.lawal.transit.street.model.Street;
 import lombok.Getter;
@@ -62,11 +63,23 @@ public enum JunctionCatalog {
     }
 
     public List<Junction> filterByBlock(Block block) {
-        if (block == null) return null;
-
         List<Junction> matches = new ArrayList<>();
+        if (block == null) return matches;
+
         for (Junction junction : catalog) {
-            if (junction.getCornerByBlock(block) != null && !matches.contains(junction)) matches.add(junction);
+            for (JunctionCorner corner : junction.getCorners()) {
+                if (corner.getAvenueLeg().equals(block) || corner.getStreetLeg().equals(block)) matches.add(junction);
+            }
+        }
+        return matches;
+    }
+
+    public List<Junction> filterByRoad(Road road) {
+        List<Junction> matches = new ArrayList<>();
+        if (road == null) return matches;
+
+        for (Junction junction : catalog) {
+            if (!junction.filterCornersByRoad(road).isEmpty()) matches.add(junction);
         }
         return matches;
     }

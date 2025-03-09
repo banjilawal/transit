@@ -2,10 +2,8 @@ package com.lawal.transit.station.model;
 
 import com.lawal.transit.block.model.Block;
 
-import com.lawal.transit.edge.model.Edge;
 
-
-import com.lawal.transit.edge.model.exception.NullEdgeException;
+import com.lawal.transit.station.model.exception.NullEdgeException;
 import com.lawal.transit.route.model.Departure;
 import com.lawal.transit.route.model.exception.NullTransitStopException;
 import com.lawal.transit.station.model.exception.IncompatibleEdgeDirection;
@@ -37,11 +35,11 @@ public final class Station {
     @JoinColumn(name = "block_id")
     private Block block;
 
-    @OneToMany(mappedBy = "headStation", cascade = CascadeType.ALL)
-    private List<Edge> outgoingEdges = new ArrayList<>();
+    @OneToMany(mappedBy = "head", cascade = CascadeType.ALL)
+    private List<StationEdge> outgoingEdges = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tailStation", cascade = CascadeType.ALL)
-    private List<Edge> incomingEdges = new ArrayList<>();
+    @OneToMany(mappedBy = "tail", cascade = CascadeType.ALL)
+    private List<StationEdge> incomingEdges = new ArrayList<>();
 
     @OneToMany(mappedBy = "station", cascade = CascadeType.ALL)
     private List<Departure> departures = new ArrayList<>();
@@ -103,65 +101,65 @@ public final class Station {
         }
     }
 
-    public void setOutgoingEdges(List<Edge> edges) {
-        if (edges == null) throw new IllegalArgumentException("Cannot add null edges");
+    public void setOutgoingEdges (List<StationEdge> stationEdges) {
+        if (stationEdges == null) throw new IllegalArgumentException("Cannot add null stationEdges");
 
         if(this.outgoingEdges == null) outgoingEdges = new ArrayList<>();
         this.outgoingEdges.clear();
 
-        for (Edge edge : edges) { addOutgoingEdge(edge); }
+        for (StationEdge stationEdge : stationEdges) { addOutgoingEdge(stationEdge); }
     }
 
-    public void setIncomingEdges(List<Edge> edges) {
-        if (edges == null) throw new IllegalArgumentException("Cannot add null edges");
+    public void setIncomingEdges (List<StationEdge> stationEdges) {
+        if (stationEdges == null) throw new IllegalArgumentException("Cannot add null stationEdges");
 
         if (this.incomingEdges == null) incomingEdges = new ArrayList<>();
         this.incomingEdges.clear();
 
-        for (Edge edge : edges) { addIncomingEdge(edge); }
+        for (StationEdge stationEdge : stationEdges) { addIncomingEdge(stationEdge); }
     }
 
-    public void addOutgoingEdge(Edge edge) {
-        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
-        if(!this.equals(edge.getHeadStation())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
+    public void addOutgoingEdge(StationEdge stationEdge) {
+        if (stationEdge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+        if(!this.equals(stationEdge.getHead())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
 
         if (outgoingEdges == null) this.outgoingEdges = new ArrayList<>();
-        if (outgoingEdges.contains(edge)) return;
+        if (outgoingEdges.contains(stationEdge)) return;
 
-        outgoingEdges.add(edge);
-//        if (edge.getHeadStation() != null && !this.equals(edge.getHeadStation())) {
-//            edge.setHeadStation(this);
+        outgoingEdges.add(stationEdge);
+//        if (stationEdge.getHeadStation() != null && !this.equals(stationEdge.getHeadStation())) {
+//            stationEdge.setHeadStation(this);
 //        }
     }
 
-    public void addIncomingEdge(Edge edge) {
-        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
-        if (!this.equals(edge.getTailStation())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
+    public void addIncomingEdge(StationEdge stationEdge) {
+        if (stationEdge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+        if (!this.equals(stationEdge.getTail())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
 
         if (incomingEdges == null) this.incomingEdges = new ArrayList<>();
-        if (incomingEdges.contains(edge)) return;
+        if (incomingEdges.contains(stationEdge)) return;
 
-        incomingEdges.add(edge);
-//        if (edge.getTailStation() != null && !this.equals(edge.getTailStation())) {
-//            edge.setTailStation(this);
+        incomingEdges.add(stationEdge);
+//        if (stationEdge.getTailStation() != null && !this.equals(stationEdge.getTailStation())) {
+//            stationEdge.setTailStation(this);
 //        }
     }
 
-    public void removeOutgoingEdge(Edge edge) {
-        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+    public void removeOutgoingEdge(StationEdge stationEdge) {
+        if (stationEdge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
 
-        if (outgoingEdges.contains(edge)) {
-            outgoingEdges.remove(edge);
-            if (edge.getHeadStation() != null && this.equals(edge.getHeadStation())) { edge.setHeadsStation(null); }
+        if (outgoingEdges.contains(stationEdge)) {
+            outgoingEdges.remove(stationEdge);
+            if (stationEdge.getHead() != null && this.equals(stationEdge.getHead())) { stationEdge.setHead(null); }
         }
     }
 
-    public void removeIncoming(Edge edge) {
-        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+    public void removeIncoming(StationEdge stationEdge) {
+        if (stationEdge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
 
-        if (incomingEdges.contains(edge)) {
-            incomingEdges.remove(edge);
-            if (edge.getTailStation() != null && this.equals(edge.getTailStation())) { edge.setTailStation(null); }
+        if (incomingEdges.contains(stationEdge)) {
+            incomingEdges.remove(stationEdge);
+            if (stationEdge.getTail() != null && this.equals(stationEdge.getTail())) { stationEdge.setTail(null); }
         }
     }
 
@@ -180,6 +178,6 @@ public final class Station {
 //            + ") curbId:" + block.getCurb().getId()
 //            + " " + block.getCurb().getRoad().toString()
 //            + " " + block.getCurb().getOrientation().print() + "]"
-//            + " in degree:" + incomingEdges.size() + " out degree:" + outgoingEdges.size();
+//            + " in degree:" + incomingStationEdges.size() + " out degree:" + outgoingStationEdges.size();
     }
 }

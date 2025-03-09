@@ -7,10 +7,10 @@ import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.curb.CurbOrientationException;
 
-import com.lawal.transit.curb.model.exception.NullCurbException;
-import com.lawal.transit.road.model.Road;
-import com.lawal.transit.road.model.exception.NullRoadException;
+
 import com.lawal.transit.station.model.Station;
+import com.lawal.transit.station.model.exception.IncompatibleEdgeDirection;
+import com.lawal.transit.station.model.exception.NullEdgeException;
 import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -46,6 +46,12 @@ public class Block {
 
     @OneToMany(mappedBy = "block", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "headBlock", cascade = CascadeType.ALL)
+    private List<BlockEdge> outgoingEdges = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tailBlock", cascade = CascadeType.ALL)
+    private List<BlockEdge> incomingEdges = new ArrayList<>();
 
     public Block (Long id, String name, Curb curb) {
         this.id = id;
@@ -106,6 +112,62 @@ public class Block {
 
         this.curb = curb;
         if (!this.curb.getBlocks().contains(this)) { curb.addBlock(this); }
+    }
+
+    public void setOutgoingEdges (List<BlockEdge> edges) {
+        if (edges == null) throw new IllegalArgumentException("Cannot add null blockEdges");
+
+        if(this.outgoingEdges == null) outgoingEdges = new ArrayList<>();
+        this.outgoingEdges.clear();
+
+        for (BlockEdge edge : edges) { addOutgoingEdge(edge); }
+    }
+
+    public void setIncomingEdges (List<BlockEdge> edges) {
+        if (edges == null) throw new IllegalArgumentException("Cannot add null blockEdges");
+
+        if (this.incomingEdges == null) incomingEdges = new ArrayList<>();
+        this.incomingEdges.clear();
+
+        for (BlockEdge edge : edges) { addIncomingEdge(edge); }
+    }
+
+    public void addOutgoingEdge(BlockEdge edge) {
+        if (edge == null) return;
+        if(!this.equals(edge.getHead())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
+
+        if (outgoingEdges == null) this.outgoingEdges = new ArrayList<>();
+        if (outgoingEdges.contains(edge)) return;
+
+        outgoingEdges.add(edge);
+    }
+
+    public void addIncomingEdge(BlockEdge edge) {
+        if (edge == null) return;
+        if (!this.equals(edge.getTail())) throw new IncompatibleEdgeDirection(IncompatibleEdgeDirection.MESSAGE);
+
+        if (incomingEdges == null) this.incomingEdges = new ArrayList<>();
+        if (incomingEdges.contains(edge)) return;
+
+        incomingEdges.add(edge);
+    }
+
+    public void removeOutgoingEdge(BlockEdge edge) {
+        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+
+        if (outgoingEdges.contains(edge)) {
+            outgoingEdges.remove(edge);
+            if (edge.getHead() != null && this.equals(edge.getHead())) { edge.setHead(null); }
+        }
+    }
+
+    public void removeIncoming(BlockEdge edge) {
+        if (edge == null) throw new NullEdgeException(NullEdgeException.MESSAGE);
+
+        if (incomingEdges.contains(edge)) {
+            incomingEdges.remove(edge);
+            if (edge.getTail() != null && this.equals(edge.getTail())) { edge.setTail(null); }
+        }
     }
 
 

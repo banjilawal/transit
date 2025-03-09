@@ -1,6 +1,6 @@
 package com.lawal.transit.path.model;
 
-import com.lawal.transit.edge.model.Edge;
+import com.lawal.transit.station.model.StationEdge;
 import com.lawal.transit.station.model.Station;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -29,15 +29,15 @@ public class Path {
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderColumn(name = "sequence")
-    private List<Edge> edges = new ArrayList<>();
+    private List<StationEdge> stationEdges = new ArrayList<>();
 
     @Column(nullable = false)
     private int totalWeight; // The total weight (e.g., distance, cost)
 
-    public Path(Station startStation, Station endStation, List<Edge> edges, int totalWeight) {
+    public Path(Station startStation, Station endStation, List<StationEdge> stationEdges, int totalWeight) {
         this.startStation = startStation;
         this.endStation = endStation;
-        this.edges = edges;
+        this.stationEdges = stationEdges;
         this.totalWeight = totalWeight;
     }
 }

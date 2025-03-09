@@ -1,7 +1,7 @@
 package com.lawal.transit.path.service;
 
-import com.lawal.transit.edge.EdgeRepo;
-import com.lawal.transit.edge.model.Edge;
+import com.lawal.transit.station.repo.StationEdgeRepo;
+import com.lawal.transit.station.model.StationEdge;
 import com.lawal.transit.path.model.Path;
 import com.lawal.transit.station.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import java.util.*;
 @Service // Mark this as a Spring service
 public class PathProcessingService {
 
-    private final EdgeRepo edgeRepo;
+    private final StationEdgeRepo stationEdgeRepo;
 
     @Autowired
-    public PathProcessingService(EdgeRepo edgeRepo) {
-        this.edgeRepo = edgeRepo; // Inject the EdgeRepository for querying edges
+    public PathProcessingService(StationEdgeRepo stationEdgeRepo) {
+        this.stationEdgeRepo = stationEdgeRepo; // Inject the EdgeRepository for querying edges
     }
 
     /**
@@ -49,10 +49,10 @@ public class PathProcessingService {
             }
 
             // Fetch outgoing edges from the current station
-            List<Edge> outgoingEdges = edgeRepo.findByHeadStation(currentStation);
-            for (Edge edge : outgoingEdges) {
-                Station tailStation = edge.getTailStation();
-                int newDistance = distances.get(currentStation) + edge.getWeight();
+            List<StationEdge> outgoingStationEdges = stationEdgeRepo.findByHead(currentStation);
+            for (StationEdge stationEdge : outgoingStationEdges) {
+                Station tailStation = stationEdge.getTail();
+                int newDistance = distances.get(currentStation) + stationEdge.getWeight();
 
                 // Relaxation step: If a shorter path to the tailStation is found
                 if (newDistance < distances.get(tailStation)) {
@@ -64,30 +64,30 @@ public class PathProcessingService {
         }
 
         // Backtrack to construct the path
-        List<Edge> pathEdges = new ArrayList<>();
-        int totalWeight = buildPath(predecessors, endStation, pathEdges);
+        List<StationEdge> pathStationEdges = new ArrayList<>();
+        int totalWeight = buildPath(predecessors, endStation, pathStationEdges);
 
         // If no path found, return null
         if (totalWeight < 0) {
             return null; // No path exists
         }
 
-        return new Path(startStation, endStation, pathEdges, totalWeight);
+        return new Path(startStation, endStation, pathStationEdges, totalWeight);
     }
 
-    private int buildPath(Map<Station, Station> predecessors, Station endStation, List<Edge> pathEdges) {
+    private int buildPath(Map<Station, Station> predecessors, Station endStation, List<StationEdge> pathStationEdges) {
         Station current = endStation;
         int totalWeight = 0;
 
         while (predecessors.containsKey(current)) {
             Station predecessor = predecessors.get(current);
-            Edge edge = edgeRepo.findByHeadStationAndTailStation(predecessor, current).get(0); // Simplified to get the first matching edge (can fetch all and filter the shortest)
-            pathEdges.add(0, edge); // Add edge to the front of the path list (reverse order)
-            totalWeight += edge.getWeight();
+            StationEdge stationEdge = stationEdgeRepo.findByHeadAndTail(predecessor, current).get(0); // Simplified to get the first matching stationEdge (can fetch all and filter the shortest)
+            pathStationEdges.add(0, stationEdge); // Add stationEdge to the front of the path list (reverse order)
+            totalWeight += stationEdge.getWeight();
             current = predecessor;
         }
 
-        return pathEdges.isEmpty() ? -1 : totalWeight; // If no edges, no path exists
+        return pathStationEdges.isEmpty() ? -1 : totalWeight; // If no edges, no path exists
     }
 
     // Mocked method to fetch all stations for demonstration. Replace with repository call.

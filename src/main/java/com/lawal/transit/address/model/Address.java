@@ -48,6 +48,6 @@ public class Address {
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + " id:" + id + " mailing:" + name; // + " " + block.getCurb().toString();
+        return getClass().getSimpleName() + " id:" + id + " mailing:" + name + " " + block.getCurb().getRoadName() + " " + block.getCurb().getOrientation().abbreviation(); // + " " + block.getCurb().toString();
     }
 }

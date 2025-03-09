@@ -115,5 +115,4 @@ public class TransitRoute {
             + " totalStops:" + departures.size() + "]"
             + "\nSchedule:\n" + getDepartureTimeString() ;
     }
-
 }

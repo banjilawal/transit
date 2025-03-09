@@ -1,6 +1,6 @@
-package com.lawal.transit.edge;
+package com.lawal.transit.station.repo;
 
-import com.lawal.transit.edge.model.Edge;
+import com.lawal.transit.station.model.StationEdge;
 import com.lawal.transit.station.model.Station;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EdgeRepo extends JpaRepository<Edge, Long> {
+public interface StationEdgeRepo extends JpaRepository<StationEdge, Long> {
 
     // Find edges based on the source and destination stations
-    List<Edge> findByHeadStationAndTailStation(Station headStation, Station tailStation);
+    List<StationEdge> findByHeadAndTail(Station head, Station tail);
 
     // Optional: Find all edges connected to a given station (for path exploration)
-    List<Edge> findByHeadStation(Station headStation);
+    List<StationEdge> findByHead(Station head);
 
-    List<Edge> findByTailStation(Station tailStation);
+    List<StationEdge> findByTail(Station tail);
 }

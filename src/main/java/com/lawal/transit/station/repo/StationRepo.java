@@ -1,4 +1,4 @@
-package com.lawal.transit.station;
+package com.lawal.transit.station.repo;
 
 import com.lawal.transit.station.model.Station;
 import org.springframework.data.jpa.repository.JpaRepository;

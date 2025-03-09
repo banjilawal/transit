@@ -3,10 +3,10 @@ package com.lawal.transit.navigtion;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.catalog.AvenueCatalog;
-import com.lawal.transit.catalog.EdgeCatalog;
+import com.lawal.transit.catalog.StationEdgeCatalog;
 import com.lawal.transit.catalog.StreetCatalog;
 import com.lawal.transit.curb.model.Curb;
-import com.lawal.transit.edge.model.Edge;
+import com.lawal.transit.station.model.StationEdge;
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class FindCornerStation {
 
-    public static AtomicLong edgeId = new AtomicLong(EdgeCatalog.INSTANCE.getCatalog().size());
+    public static AtomicLong edgeId = new AtomicLong(StationEdgeCatalog.INSTANCE.getCatalog().size());
 
     public static Station findAscendingTail(Block block) {
         if (block == null) {
@@ -139,9 +139,9 @@ public class FindCornerStation {
                     int streetStationBlockIndex = streetCurb.getBlocks().indexOf(streetStationBlock);
                     int streetLength = Math.abs(streetBlockIndex - streetStationBlockIndex) + 1;
                     int distance = avenueLength + streetLength;
-                    Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, streetStation, distance, 0, 0);
-//                    System.out.println("crossEdge:" + crossEdge);
-                    EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
+                    StationEdge crossStationEdge = new StationEdge(edgeId.incrementAndGet(), station, streetStation, distance, 0, 0);
+//                    System.out.println("crossStationEdge:" + crossStationEdge);
+                    StationEdgeCatalog.INSTANCE.getCatalog().add(crossStationEdge);
 
 //                    System.out.println("FindCornerStation.processSharedAvenue at"
 //                        + " " + Avenue.LEFT_CURB_ORIENTATION
@@ -178,9 +178,9 @@ public class FindCornerStation {
                     int streetStationBlockIndex = streetCurb.getBlocks().indexOf(streetStationBlock);
                     int streetLength = Math.abs(streetBlockIndex - streetStationBlockIndex) + 1;
                     int distance = avenueLength + streetLength;
-                    Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, streetStation, distance, 0, 0);
-//                    System.out.println("crossEdge:" + crossEdge);
-                    EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
+                    StationEdge crossStationEdge = new StationEdge(edgeId.incrementAndGet(), station, streetStation, distance, 0, 0);
+//                    System.out.println("crossStationEdge:" + crossStationEdge);
+                    StationEdgeCatalog.INSTANCE.getCatalog().add(crossStationEdge);
 
 //                    System.out.println("FindCornerStation.processSharedAvenue at"
 //                        + " " + Avenue.RIGHT_CURB_ORIENTATION
@@ -240,9 +240,9 @@ public class FindCornerStation {
                     int avenueStationBlockIndex = streetCurb.getBlocks().indexOf(avenueStationBlock);
                     int avenueLength = Math.abs(avenueBlockIndex - avenueStationBlockIndex) + 1;
                     int distance = streetLength + avenueLength;
-                    Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, avenueStation, distance, 0, 0);
-//                    System.out.println("crossEdge:" + crossEdge);
-                    EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
+                    StationEdge crossStationEdge = new StationEdge(edgeId.incrementAndGet(), station, avenueStation, distance, 0, 0);
+//                    System.out.println("crossStationEdge:" + crossStationEdge);
+                    StationEdgeCatalog.INSTANCE.getCatalog().add(crossStationEdge);
 
 //                    System.out.println("FindCornerStation.processSharedAvenue at"
 //                        + " " + Avenue.LEFT_CURB_ORIENTATION
@@ -279,9 +279,9 @@ public class FindCornerStation {
                     int avenueStationBlockIndex = streetCurb.getBlocks().indexOf(avenueStationBlock);
                     int avenueLength = Math.abs(avenueBlockIndex - avenueStationBlockIndex) + 1;
                     int distance = avenueLength + streetLength;
-                    Edge crossEdge = new Edge(edgeId.incrementAndGet(), station, avenueStation, distance, 0, 0);
-//                    System.out.println("crossEdge:" + crossEdge);
-                    EdgeCatalog.INSTANCE.getCatalog().add(crossEdge);
+                    StationEdge crossStationEdge = new StationEdge(edgeId.incrementAndGet(), station, avenueStation, distance, 0, 0);
+//                    System.out.println("crossStationEdge:" + crossStationEdge);
+                    StationEdgeCatalog.INSTANCE.getCatalog().add(crossStationEdge);
 
 //                    System.out.println("FindCornerStation.processSharedAvenue at"
 //                        + " " + Avenue.RIGHT_CURB_ORIENTATION

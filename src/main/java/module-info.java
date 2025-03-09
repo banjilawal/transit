@@ -100,15 +100,6 @@ module com.lawal.transit {
     exports com.lawal.transit.block.service;
     opens com.lawal.transit.block.service;
 
-    exports com.lawal.transit.edge;
-    opens com.lawal.transit.edge;
-
-    exports com.lawal.transit.edge.model;
-    opens com.lawal.transit.edge.model;
-
-    exports com.lawal.transit.edge.service;
-    opens com.lawal.transit.edge.service;
-
     exports com.lawal.transit.road;
     opens com.lawal.transit.road;
 
@@ -134,8 +125,9 @@ module com.lawal.transit {
     opens com.lawal.transit.path to javafx.fxml, spring.core;
     exports com.lawal.transit.road.model.exception;
     opens com.lawal.transit.road.model.exception;
-    exports com.lawal.transit.edge.model.exception;
-    opens com.lawal.transit.edge.model.exception;
+
+    exports com.lawal.transit.station.repo;
+    opens com.lawal.transit.station.repo;
 
 
 }

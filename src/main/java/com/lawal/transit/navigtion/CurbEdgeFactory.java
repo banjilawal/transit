@@ -3,7 +3,7 @@ package com.lawal.transit.navigtion;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.catalog.*;
 import com.lawal.transit.curb.model.Curb;
-import com.lawal.transit.edge.model.Edge;
+import com.lawal.transit.station.model.StationEdge;
 import com.lawal.transit.road.model.Road;
 import com.lawal.transit.station.model.Station;
 
@@ -27,31 +27,31 @@ public class CurbEdgeFactory {
         return curb.getStations().get(curb.getStations().size() - 1);
     }
 
-    public static List<Edge> getCurbEdges(Curb curb) {
+    public static List<StationEdge> getCurbEdges(Curb curb) {
 //        System.out.println("getCurbEdges");
-        List<Edge> edges = new ArrayList<>();
+        List<StationEdge> stationEdges = new ArrayList<>();
 
-        if (curb == null || curb.getStations().isEmpty()) return edges;
+        if (curb == null || curb.getStations().isEmpty()) return stationEdges;
 
         Station previousStation = getFirstStation(curb);
-        if (previousStation == null) return edges;
+        if (previousStation == null) return stationEdges;
 
         for (Station station : curb.getStations()) {
             Block block = station.getBlock();
 //            System.out.println(block.toString());
             int distance = curb.getBlocks().indexOf(block) - curb.getBlocks().indexOf(previousStation.getBlock());
             if (distance > 0) {
-                Edge edge = new Edge(edgeId.incrementAndGet(), previousStation, station, distance,0, 0);
-                EdgeCatalog.INSTANCE.getCatalog().add(edge);
-                edges.add(edge);
-//                System.out.println(edge.toString());
+                StationEdge stationEdge = new StationEdge(edgeId.incrementAndGet(), previousStation, station, distance,0, 0);
+                StationEdgeCatalog.INSTANCE.getCatalog().add(stationEdge);
+                stationEdges.add(stationEdge);
+//                System.out.println(stationEdge.toString());
             }
             previousStation = station;
         }
-        return edges;
+        return stationEdges;
     }
 
-    public static Edge createCycleEdge(Curb startingCurb, Curb endingCurb) {
+    public static StationEdge createCycleEdge(Curb startingCurb, Curb endingCurb) {
 //        System.out.println("createCycleEdge");
         if (startingCurb == null || endingCurb == null) return null;
         if (startingCurb.equals(endingCurb)) return null;
@@ -85,49 +85,49 @@ public class CurbEdgeFactory {
 //        System.out.println("blocKDistance: " + blocKDistance);
 //        System.out.println("distance: " + distance);
 
-        Edge cycleEdge = new Edge(edgeId.incrementAndGet(), startingStation, endingStation, distance,0, 0);
-        EdgeCatalog.INSTANCE.getCatalog().add(cycleEdge);
-//        System.out.println("Cycle Edge"  + cycleEdge.toString());
-        return cycleEdge;
+        StationEdge cycleStationEdge = new StationEdge(edgeId.incrementAndGet(), startingStation, endingStation, distance,0, 0);
+        StationEdgeCatalog.INSTANCE.getCatalog().add(cycleStationEdge);
+//        System.out.println("Cycle StationEdge"  + cycleStationEdge.toString());
+        return cycleStationEdge;
     }
 
     public static void processCurbs() {
 
 //        System.out.println("processCurbs");
         for (Road road : RoadCatalog.INSTANCE.getCatalog()) {
-            List<Edge> leftEdges = getCurbEdges(road.getLeftCurb());
-            List<Edge> rightEdges = getCurbEdges(road.getRightCurb());
+            List<StationEdge> leftStationEdges = getCurbEdges(road.getLeftCurb());
+            List<StationEdge> rightStationEdges = getCurbEdges(road.getRightCurb());
 
-            if (leftEdges.isEmpty() && rightEdges.isEmpty()) continue;
-//            System.out.println("pre cycle edge addition: # leftedges = " + leftEdges.size() + " # rightedges = " + rightEdges.size());
-            Edge cycleEdgeA = createCycleEdge(road.getLeftCurb(), road.getRightCurb());
-            Edge cycleEdgeB = createCycleEdge(road.getRightCurb(), road.getLeftCurb());
+            if (leftStationEdges.isEmpty() && rightStationEdges.isEmpty()) continue;
+//            System.out.println("pre cycle edge addition: # leftedges = " + leftStationEdges.size() + " # rightedges = " + rightStationEdges.size());
+            StationEdge cycleStationEdgeA = createCycleEdge(road.getLeftCurb(), road.getRightCurb());
+            StationEdge cycleStationEdgeB = createCycleEdge(road.getRightCurb(), road.getLeftCurb());
 
-            if (cycleEdgeA != null && !leftEdges.contains(cycleEdgeA)) leftEdges.add(cycleEdgeA);
-            if (cycleEdgeB != null && !rightEdges.contains(cycleEdgeB)) rightEdges.add(cycleEdgeB);
+            if (cycleStationEdgeA != null && !leftStationEdges.contains(cycleStationEdgeA)) leftStationEdges.add(cycleStationEdgeA);
+            if (cycleStationEdgeB != null && !rightStationEdges.contains(cycleStationEdgeB)) rightStationEdges.add(cycleStationEdgeB);
 
-    //        System.out.println("post cycle edge addition: # leftedges = " + leftEdges.size() + " # rightedges = " + rightEdges.size());
-//            List<Edge> roadEdges = new ArrayList<>(leftEdges);
-//            roadEdges.addAll(rightEdges);
-//            for (Edge edge : roadEdges) {
+    //        System.out.println("post cycle edge addition: # leftedges = " + leftStationEdges.size() + " # rightedges = " + rightStationEdges.size());
+//            List<StationEdge> roadEdges = new ArrayList<>(leftStationEdges);
+//            roadEdges.addAll(rightStationEdges);
+//            for (StationEdge edge : roadEdges) {
 //                System.out.println("curb factory:" + edge);
-//                EdgeCatalog.INSTANCE.getCatalog().add(edge);
+//                StationEdgeCatalog.INSTANCE.getCatalog().add(edge);
 //            }
-//            for (Edge edge : roadEdges) {
+//            for (StationEdge edge : roadEdges) {
 //                System.out.println(
 //                    "roadId:" + road.getId()
 //                    + " edgeId:" + edge.getId()
 //                    + " headStation(id:"
 //                        + edge.getHeadStation().getId()
-//                        + " inDegree:" + edge.getHeadStation().getIncomingEdges().size()
-//                        + " outDegree:" + edge.getHeadStation().getOutgoingEdges().size() + ")"
+//                        + " inDegree:" + edge.getHeadStation().getIncomingStationEdges().size()
+//                        + " outDegree:" + edge.getHeadStation().getOutgoingStationEdges().size() + ")"
 //                    + " headBlockId:" + edge.getHeadStation().getBlock().getId()
 //                    + " headCurbId:" + edge.getHeadStation().getBlock().getCurb().getId()
 //                    + " " + edge.getHeadStation().getBlock().getCurb().getOrientation().abbreviation()
 //                    + " tailStation(id:"
 //                        + edge.getTailStation().getId()
-//                        + " inDegree:" + edge.getTailStation().getIncomingEdges().size()
-//                        + " outDegree:" + edge.getTailStation().getOutgoingEdges().size() + ")"
+//                        + " inDegree:" + edge.getTailStation().getIncomingStationEdges().size()
+//                        + " outDegree:" + edge.getTailStation().getOutgoingStationEdges().size() + ")"
 //                    + " tailBlockId:" + edge.getTailStation().getBlock().getId()
 //                    + " tailCurbId:" + edge.getTailStation().getBlock().getCurb().getId()
 //                    + " " + edge.getTailStation().getBlock().getCurb().getOrientation().abbreviation()

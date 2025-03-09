@@ -6,6 +6,7 @@ import com.lawal.transit.block.model.Block;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.Direction;
 import com.lawal.transit.junction.JunctionCornerFactory;
+import com.lawal.transit.road.model.Road;
 import com.lawal.transit.station.model.Station;
 import com.lawal.transit.street.model.Street;
 import com.lawal.transit.street.model.exception.NullStreetException;
@@ -155,6 +156,17 @@ public class Junction {
 
         if (street != null && !street.getJunctions().contains(this)) street.getJunctions().add(this);
         this.street = street;
+    }
+
+    public List<JunctionCorner> filterCornersByRoad(Road road) {
+        List<JunctionCorner> matches = new ArrayList<>();
+
+        if (road == null) return matches;
+        for (JunctionCorner corner : corners) {
+            Block block = corner.getLegByRoad(road);
+            if (block != null) matches.add(corner);
+        }
+        return matches;
     }
 
     private void createCorners() {
