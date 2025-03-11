@@ -1,16 +1,13 @@
 package com.lawal.transit.block.model;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.house.model.House;
 
-import com.lawal.transit.address.model.exception.NullAddressListException;
+import com.lawal.transit.house.model.exception.NullAddressListException;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.curb.CurbOrientationException;
 
-
 import com.lawal.transit.station.model.Station;
-import com.lawal.transit.station.model.exception.IncompatibleEdgeDirection;
-import com.lawal.transit.station.model.exception.NullEdgeException;
 import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -45,7 +42,7 @@ public class Block {
     private Station station;
 
     @OneToMany(mappedBy = "block", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses = new ArrayList<>();
+    private List<House> houses = new ArrayList<>();
 
     @OneToMany(mappedBy = "headBlock", cascade = CascadeType.ALL)
     private List<BlockEdge> outgoingEdges = new ArrayList<>();
@@ -59,37 +56,37 @@ public class Block {
         this.curb = curb;
 
         if (this.curb != null && curb.getBlocks() != null) { this.curb.getBlocks().add(this); }
-        this.addresses = new ArrayList<>();
+        this.houses = new ArrayList<>();
     }
 
     public Avenue getAvenue() { return curb.getAvenue(); }
 
     public Street getStreet() { return curb.getStreet(); }
 
-    public void setAddresses(List<Address> addresses) {
-        if (addresses == null) throw new NullAddressListException(NullAddressListException.MESSAGE);
-        if (this.addresses == null) this.addresses = new ArrayList<>();
-        for (Address address : addresses) addAddress(address);
+    public void setHouses (List<House> houses) {
+        if (houses == null) throw new NullAddressListException(NullAddressListException.MESSAGE);
+        if (this.houses == null) this.houses = new ArrayList<>();
+        for (House house : houses) addHouse(house);
     }
 
-    public void addAddress(Address address) {
-        if (address == null) throw new NullPointerException(BlockMessage.ADDRESS_PARAMETER_NULL_EXCEPTION);
+    public void addHouse(House house) {
+        if (house == null) throw new NullPointerException(BlockMessage.ADDRESS_PARAMETER_NULL_EXCEPTION);
 
-        if (addresses.contains(address) && address.getBlock() == this) return;
+        if (houses.contains(house) && house.getBlock() == this) return;
 
-        address.setBlock(this);
+        house.setBlock(this);
 
-        if (!addresses.contains(address)) {
-            addresses.add(address);
+        if (!houses.contains(house)) {
+            houses.add(house);
         }
     }
 
-    public void removeAddress(Address address) {
-        if (address == null) throw new NullPointerException(BlockMessage.ADDRESS_PARAMETER_NULL_EXCEPTION);
+    public void removeHouse(House house) {
+        if (house == null) throw new NullPointerException(BlockMessage.ADDRESS_PARAMETER_NULL_EXCEPTION);
 
-        if (addresses.contains(address) && address.getBlock() == this) {
-            addresses.remove(address);
-            address.setBlock(null);
+        if (houses.contains(house) && house.getBlock() == this) {
+            houses.remove(house);
+            house.setBlock(null);
         }
     }
 
@@ -182,6 +179,9 @@ public class Block {
             }
         }
     }
+
+    public House getFirstHouse() { return houses.get(0); }
+    public House getLastHouse() { return houses.get(houses.size() - 1); }
 
 
     @Override

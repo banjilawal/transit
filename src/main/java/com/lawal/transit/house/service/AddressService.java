@@ -1,6 +1,6 @@
-package com.lawal.transit.address.service;
+package com.lawal.transit.house.service;
 
-import com.lawal.transit.address.AddressRepo;
+import com.lawal.transit.house.AddressRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

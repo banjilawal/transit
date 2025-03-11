@@ -1,6 +1,6 @@
 package com.lawal.transit.search;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.station.model.Station;
 import com.lawal.transit.station.model.StationEdge;
 
@@ -14,28 +14,28 @@ public class AddressPathService {
      * Finds the shortest path between two addresses by computing the closest stations and then
      * finding the shortest path between these stations.
      *
-     * @param fromAddress  The starting address.
-     * @param toAddress    The destination address.
+     * @param fromHouse  The starting house.
+     * @param toHouse    The destination house.
      * @param stationGraph The graph of stations and connections (edges).
      * @return PathResult containing the shortest path including hops and its distance, or an empty collection if no path is possible.
      */
-    public static PathResult findShortestPathBetweenAddresses(Address fromAddress, Address toAddress, Map<Station, List<StationEdge>> stationGraph) {
+    public static PathResult findShortestPathBetweenAddresses(House fromHouse, House toHouse, Map<Station, List<StationEdge>> stationGraph) {
         // Validate input addresses
-        if (fromAddress == null || toAddress == null) {
+        if (fromHouse == null || toHouse == null) {
             throw new IllegalArgumentException("Addresses must not be null.");
         }
 
-        // Find the closest station for the source address
-        StationFinder.ClosestStationResult fromStationResult = StationFinder.findClosestStationWithHops(fromAddress);
+        // Find the closest station for the source house
+        StationFinder.ClosestStationResult fromStationResult = StationFinder.findClosestStationWithHops(fromHouse);
         if (fromStationResult == null) {
-            System.err.println("No reachable station for the source address: " + fromAddress);
+            System.err.println("No reachable station for the source house: " + fromHouse);
             return new PathResult(Collections.emptyList(), 0, 0); // Return empty path result
         }
 
-        // Find the closest station for the destination address
-        StationFinder.ClosestStationResult toStationResult = StationFinder.findClosestStationWithHops(toAddress);
+        // Find the closest station for the destination house
+        StationFinder.ClosestStationResult toStationResult = StationFinder.findClosestStationWithHops(toHouse);
         if (toStationResult == null) {
-            System.err.println("No reachable station for the destination address: " + toAddress);
+            System.err.println("No reachable station for the destination house: " + toHouse);
             return new PathResult(Collections.emptyList(), 0, 0); // Return empty path result
         }
 
@@ -58,7 +58,7 @@ public class AddressPathService {
             return new PathResult(Collections.emptyList(), 0, 0); // Return empty path result
         }
 
-        // Calculate total hops (address-to-station hops + station-to-station path hops)
+        // Calculate total hops (house-to-station hops + station-to-station path hops)
         int totalHops = fromHops + toHops;
         return new PathResult(stationToStationResult.getPath(), stationToStationResult.getDistance(), totalHops);
     }

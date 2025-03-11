@@ -7,5 +7,5 @@ public class BlockMessage {
      public static final String STATION_PARAMETER_NULL_EXCEPTION =
          "Block method cannot receive null station parameter. Operation failed";
      public static final String ADDRESS_PARAMETER_NULL_EXCEPTION =
-         "Block method cannot receive null address parameter. Operation failed";
+         "Block method cannot receive null house parameter. Operation failed";
 }

@@ -1,10 +1,9 @@
 package com.lawal.transit.block;
 
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.catalog.AddressCatalog;
-import com.lawal.transit.address.model.Address;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public final class BlockPopulator {
@@ -17,11 +16,11 @@ public final class BlockPopulator {
         int addressName = startingAddressName;
 
         for (int index = 0; index < numberOfAddresses; index++) {
-            Address address = new Address();
-//            Address address  = new Address(addressId.incrementAndGet(), addressName + "", block);
+            House house = new House();
+//            House house  = new House(addressId.incrementAndGet(), addressName + "", block);
 
-            block.getAddresses().add(address);
-            AddressCatalog.INSTANCE.getCatalog().add(address);
+            block.getHouses().add(house);
+            AddressCatalog.INSTANCE.getCatalog().add(house);
             addressName += addressInterval;
             nextAddressName = addressName;
         }

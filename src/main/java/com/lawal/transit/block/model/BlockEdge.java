@@ -26,6 +26,10 @@ public class BlockEdge {
     @Column(nullable = false)
     private Integer weight = 1; // Default to 1
 
+    public BlockEdge(Long id,Block head, Block tail) {
+        this(id, head, tail, 1);
+    }
+
     public BlockEdge(Long id, Block head, Block tail, Integer weight) {
         if(head == null || tail == null)
             throw new NullPointerException("BlockEdge constructor cannot receive null parameters");

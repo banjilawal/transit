@@ -1,6 +1,6 @@
 package com.lawal.transit.search;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
@@ -10,12 +10,12 @@ import java.util.*;
 public class ClosestStationFinder {
 
     // Find the closest block with a station using a radius-based search
-    public static Block findClosestBlockWithStation(Address address, List<Junction> allJunctions) {
-        if (address == null || address.getBlock() == null) {
-            throw new IllegalArgumentException("Address or its associated block cannot be null.");
+    public static Block findClosestBlockWithStation(House house, List<Junction> allJunctions) {
+        if (house == null || house.getBlock() == null) {
+            throw new IllegalArgumentException("House or its associated block cannot be null.");
         }
 
-        Block startingBlock = address.getBlock();
+        Block startingBlock = house.getBlock();
 
         // Set to track already visited blocks to prevent redundant searches
         Set<Block> visitedBlocks = new HashSet<>();

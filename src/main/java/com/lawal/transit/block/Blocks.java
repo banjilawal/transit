@@ -1,6 +1,5 @@
 package com.lawal.transit.block;
 
-import com.lawal.transit.address.model.Address;
 import com.lawal.transit.block.model.Block;
 
 import java.util.*;
@@ -50,18 +49,18 @@ public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
         return null;
     }
 
-//    public Address findAddressById (Long addressId) {
+//    public House findAddressById (Long addressId) {
 //        for (Block block: blocks) {
-//            Address address = block.getAddresses();
-//            if (address != null) return address;
+//            House house = block.getHouses();
+//            if (house != null) return house;
 //        }
 //        return null;
 //    }
 
-//    public Address findAddressByName(String name) {
+//    public House findAddressByName(String name) {
 //        for (Block block: blocks) {
-//            Address address = block.getAddresses().searchByNa(placeName);
-//            if (place != null) return place;
+//            House house = block.getHouses().searchByNa(placeName);
+//            if (house != null) return house;
 //        }
 //        return null;
 //    }
@@ -170,9 +169,9 @@ public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
 //    }
 //
 //    @Override
-//    public Block findBlockByAddress (FormattedAddress address) {
+//    public Block findBlockByAddress (FormattedAddress house) {
 //        for (Block block : blocks) {
-//            if (block.search(address) != null)
+//            if (block.search(house) != null)
 //                return block;
 //        }
 //        return null;
@@ -180,18 +179,18 @@ public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
 //
 //    @Override
 //    public void addBuilding (AddressEntity building) throws Exception {
-//        if (building.address().blockLabel().id() >= blocks.size()) {
+//        if (building.house().blockLabel().id() >= blocks.size()) {
 //            addBlock();
 //        }
-//        blocks.get(building.address().blockLabel().id()).add(building);
+//        blocks.get(building.house().blockLabel().id()).add(building);
 //    }
 //
 //    @Override
-//    public void removeBuilding (FormattedAddress address) throws Exception {
-//        Block block = findBlockById(address.blockLabel().id());
+//    public void removeBuilding (FormattedAddress house) throws Exception {
+//        Block block = findBlockById(house.blockLabel().id());
 //        if (block == null)
 //            throw new Exception(REMOVAL_ERROR);
-//        block.remove(address);
+//        block.remove(house);
 //    }
 //
 //    @Override
@@ -205,9 +204,9 @@ public final class Blocks implements Iterable<Block> { //}, Iterable<Block> {
 //    }
 //
 //    @Override
-//    public AddressEntity findBuildingByAddress (FormattedAddress address) {
+//    public AddressEntity findBuildingByAddress (FormattedAddress house) {
 //        for (Block block : blocks) {
-//            AddressEntity building = block.search(address);
+//            AddressEntity building = block.search(house);
 //            if (building != null)
 //                return building;
 //        }

@@ -1,6 +1,6 @@
 package com.lawal.transit;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.CurbBlockEdgeGenerator;
 import com.lawal.transit.catalog.*;
@@ -97,8 +97,8 @@ public class FactoryDriver {
 //        System.out.println(RouteCatalog.INSTANCE.getCatalog().size());
 //        BlockEdgeCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 
-        Address source = AddressCatalog.INSTANCE.findById(1L);
-        Address destination = AddressCatalog.INSTANCE.findById(20L);
+        House source = AddressCatalog.INSTANCE.findById(1L);
+        House destination = AddressCatalog.INSTANCE.findById(20L);
 
         System.out.println(source + " " + source.getBlock());
         StationFinder.ClosestStationResult sourceResult = StationFinder.findClosestStationWithHops(source);
@@ -108,14 +108,14 @@ public class FactoryDriver {
             System.out.println("Closest source station: " + sourceResult .getStation() + " " + sourceResult.getStation().getBlock());// + " " + result.getStation().getBlock().getCurb().getRoadName());
             System.out.println("Number of hops to source station: " + sourceResult.getHops());
         } else {
-            System.out.println("No station reachable from the source address.");
+            System.out.println("No station reachable from the source house.");
         }
 
         if (destinationResult != null) {
             System.out.println("Closest destination station: " + destinationResult.getStation() + " " + destinationResult.getStation().getBlock());// + " " + result.getStation().getBlock().getCurb().getRoadName());
             System.out.println("Number of hops to destination station: " + destinationResult.getHops());
         } else {
-            System.out.println("No station reachable from the destination address.");
+            System.out.println("No station reachable from the destination house.");
         }
 
 //        Map<Station, List<StationEdge>> stationGraph = new HashMap<>();
@@ -127,9 +127,9 @@ public class FactoryDriver {
 //        } else {
 //            System.out.println("No path exists between the given addresses.");
 //        }
-//        Block block = address.getBlock();
-//        System.out.println(address);
-//        System.out.println(address.getBlock());
+//        Block block = house.getBlock();
+//        System.out.println(house);
+//        System.out.println(house.getBlock());
 //        List<Junction> junctions = JunctionCatalog.INSTANCE.filterByRoad(block.getCurb().getRoad());
     }
 }

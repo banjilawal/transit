@@ -173,7 +173,7 @@ public final class Station {
             + " inDegree:" + incomingEdges.size()
             + " outDegree:" + outgoingEdges.size()
             + "]";
-//            + " (" + block.getName()
+//            + " (" + block.getAddress()
 //            + " blockId:" + block.getId()
 //            + ") curbId:" + block.getCurb().getId()
 //            + " " + block.getCurb().getRoad().toString()

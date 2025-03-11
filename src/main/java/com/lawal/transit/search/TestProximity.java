@@ -1,18 +1,13 @@
 package com.lawal.transit.search;
 
-import com.lawal.transit.FactoryDriver;
-import com.lawal.transit.address.model.Address;
-import com.lawal.transit.block.model.Block;
-import com.lawal.transit.catalog.AddressCatalog;
-
 public class TestProximity {
 
     public static void main(String[] args) {
-        // Set up avenues, streets, blocks, junctions, and address
+        // Set up avenues, streets, blocks, junctions, and house
 
 
-//        Address address = AddressCatalog.INSTANCE.findById(1L);
-//        System.out.println(address);
+//        House house = AddressCatalog.INSTANCE.findById(1L);
+//        System.out.println(house);
 
 //
 //        Avenue avenue1 = new Avenue(1L, "First Avenue");
@@ -36,14 +31,14 @@ public class TestProximity {
 //        // Associated junctions
 //        List<Junction> junctions = List.of(junction);
 //
-//        // Address setup
-//        Address address = new Address(1L, "123 Main St.", avenueBlock);
+//        // House setup
+//        House house = new House(1L, "123 Main St.", avenueBlock);
 //
 //        // Find the closest block with a station
-//        Block closestBlock = ClosestStationFinder.findClosestBlockWithStation(address, junctions);
+//        Block closestBlock = ClosestStationFinder.findClosestBlockWithStation(house, junctions);
 //
 //        if (closestBlock != null) {
-//            System.out.println("Closest block with a station: " + closestBlock.getName());
+//            System.out.println("Closest block with a station: " + closestBlock.getAddress());
 //        } else {
 //            System.out.println("No block with a station found.");
 //        }

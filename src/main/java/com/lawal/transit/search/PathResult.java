@@ -7,7 +7,7 @@ import java.util.List;
 public class PathResult {
     private final List<Station> path; // Ordered list of stations in the shortest path
     private final int distance;      // Total distance or weight of the path
-    private final int totalHops;     // Total hops (address-to-station hops + station-to-station hops)
+    private final int totalHops;     // Total hops (house-to-station hops + station-to-station hops)
 
     // Updated constructor with total hops
     public PathResult(List<Station> path, int distance, int totalHops) {

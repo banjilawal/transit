@@ -219,6 +219,18 @@ public final class Curb {
         else return "";
     }
 
+    public Station getfirstStation() {
+        if (getStations().isEmpty()) return null;
+        return blocks.get(0).getStation();
+    }
+
+    public Station getLastStation() {
+        if (getStations().isEmpty()) return null;
+
+        int numberOfStations = getStations().size();
+        return getStations().get(numberOfStations - 1);
+    }
+
     @Override
     public String toString () {
         return getClass().getSimpleName() + "[id:" + id  + " " + orientation.print() + "]";

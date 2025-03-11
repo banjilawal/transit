@@ -58,8 +58,8 @@ public class Junction {
 
         this.name = avenue.getName() + " Ave and " + street.getName() + " St";
         this.corners = new ArrayList<>();
-
-        createCorners();
+//
+//        createCorners();
     }
 
     public JunctionCorner getCornerByBlock(Block block) {

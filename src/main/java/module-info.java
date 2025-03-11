@@ -26,14 +26,14 @@ module com.lawal.transit {
     exports com.lawal.transit.traveler;
     opens com.lawal.transit.traveler;
 
-    exports com.lawal.transit.address;
-    opens com.lawal.transit.address;
+    exports com.lawal.transit.house;
+    opens com.lawal.transit.house;
 
-    exports com.lawal.transit.address.model;
-    opens com.lawal.transit.address.model;
+    exports com.lawal.transit.house.model;
+    opens com.lawal.transit.house.model;
 
-    exports com.lawal.transit.address.service;
-    opens com.lawal.transit.address.service;
+    exports com.lawal.transit.house.service;
+    opens com.lawal.transit.house.service;
 
     exports com.lawal.transit.station;
     opens com.lawal.transit.station;

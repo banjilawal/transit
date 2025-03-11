@@ -1,6 +1,6 @@
 package com.lawal.transit.search;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.block.model.BlockEdge;
 import com.lawal.transit.station.model.Station;
@@ -13,19 +13,19 @@ import java.util.Set;
 public class StationFinder {
 
     /**
-     * Finds the closest station to the given address
+     * Finds the closest station to the given house
      * using the Block and BlockEdge structure, and returns
      * the station along with the number of hops to reach it.
      *
-     * @param address The starting address
+     * @param house The starting house
      * @return A result containing the station and the number of hops, or null if no station is reachable
      */
-    public static ClosestStationResult findClosestStationWithHops(Address address) {
-        if (address == null || address.getBlock() == null) {
-            throw new IllegalArgumentException("Address or its Block cannot be null");
+    public static ClosestStationResult findClosestStationWithHops(House house) {
+        if (house == null || house.getBlock() == null) {
+            throw new IllegalArgumentException("House or its Block cannot be null");
         }
 
-        Block startBlock = address.getBlock();
+        Block startBlock = house.getBlock();
 
         // If the starting block itself has a station, return it immediately with 0 hops
         if (startBlock.getStation() != null) {

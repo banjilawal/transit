@@ -1,6 +1,6 @@
 package com.lawal.transit;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.BlockEdgeFactory;
 import com.lawal.transit.block.BlockGenerator;
@@ -112,10 +112,10 @@ public class SystemBuilder {
         int addressName = startingAddressName;
 
         for (int index = 0; index < numberOfAddresses; index++) {
-            Address address = new Address(addressId.incrementAndGet(), (addressName + ""), block);
+            House house = new House(addressId.incrementAndGet(), (addressName + ""), block);
 
-            block.getAddresses().add(address);
-            AddressCatalog.INSTANCE.addAddress(address);
+            block.getHouses().add(house);
+            AddressCatalog.INSTANCE.addAddress(house);
             addressName += addressInterval;
         }
         return addressName;

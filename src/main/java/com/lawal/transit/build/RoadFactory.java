@@ -1,16 +1,20 @@
 package com.lawal.transit.build;
 
-import com.lawal.transit.address.model.Address;
+import com.lawal.transit.global.Direction;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.avenue.model.Avenue;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.catalog.*;
 import com.lawal.transit.curb.model.Curb;
 import com.lawal.transit.global.Constant;
 import com.lawal.transit.global.NameGenerator;
+import com.lawal.transit.junction.model.Junction;
+import com.lawal.transit.junction.model.JunctionCorner;
 import com.lawal.transit.road.model.Road;
 import com.lawal.transit.station.model.Station;
 import com.lawal.transit.street.model.Street;
 
+import java.util.EnumSet;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -23,70 +27,44 @@ public enum RoadFactory {
     private final AtomicLong curbId = new AtomicLong(0);
     private final AtomicLong blockId = new AtomicLong(0);
     private final AtomicLong stationId = new AtomicLong(0);
-    private final AtomicLong addressId = new AtomicLong(0);
+    private final AtomicLong houseId = new AtomicLong(0);
+    private final AtomicLong junctionId = new AtomicLong(0);
+    private final AtomicLong junctionCornerId = new AtomicLong(0);
 
     private static final int MAX_STATION_DENSITY = 65;
-    private static final int NUMBER_OF_ADDRESSES_PER_BLOCK = 2;
+    private static final int NUMBER_OF_HOUSES_PER_BLOCK = 2;
     private static final int ADDRESS_INTERVAL = 2;
 
-    private int addressCreationHelper(Block block, int startingAddressName, int addressInterval, int numberOfAddresses)  {
-
-        int addressName = startingAddressName;
-
-        for (int index = 0; index < numberOfAddresses; index++) {
-            Address address = new Address(addressId.incrementAndGet(), (addressName + ""), block);
-
-            block.getAddresses().add(address);
-            AddressCatalog.INSTANCE.addAddress(address);
-            addressName += addressInterval;
-        }
-        return addressName;
+    public void run() {
+        buildAvenues();
+        buildStreets();
+        buildBlocks();
+        buildJunctions();
+        StationEdgeFactory.INSTANCE.run();
     }
 
-    private void buildAddresses(Curb curb) {
-        if (curb == null || curb.getBlocks() == null) return;
-        if (curb.getAvenue() == null && curb.getStreet() == null) return;
+    private void buildAvenues() {
 
-        int addressName = 0;
-        if (curb.getRoad().getAvenue() != null) {
-            addressName = avenueId.intValue() * Constant.MULTIPLICATION_FACTOR;
-        } else {
-            addressName = streetId.intValue() * Constant.MULTIPLICATION_FACTOR;
-        }
+        for (String name : Constant.AVENUE_NAMES) {
+            Road road = new Road(roadId.incrementAndGet());
+            Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, road);
+            buildCurbs(road);
 
-        if (curb.getOrientation() == Avenue.LEFT_CURB_ORIENTATION || curb.getOrientation() == Street.LEFT_CURB_ORIENTATION)
-            addressName += 1;
-
-        for (Block block : curb.getBlocks()) {
-            addressName = addressCreationHelper(block, addressName, ADDRESS_INTERVAL, NUMBER_OF_ADDRESSES_PER_BLOCK);
+            RoadCatalog.INSTANCE.addRoad(road);
+            AvenueCatalog.INSTANCE.addAvenue(avenue);
         }
     }
 
-    private void buildStations(Curb curb, int percentStationDensity) {
-        for (Block block : curb.getBlocks()) {
-            if (new Random().nextInt(101) <= percentStationDensity) {
-                Station station = new Station(stationId.incrementAndGet(), NameGenerator.INSTANCE.stationName(curb.getOrientation()), block);
-                StationCatalog.INSTANCE.addStation(station);
-            }
-        }
-    }
+    private void buildStreets() {
+        for (int index = 0; index < AvenueCatalog.INSTANCE.size(); index++) {
+            Road road = new Road(roadId.incrementAndGet());
 
-    private void blockCreationHelper(Curb curb, int numberOfBlocks) {
-        if (curb == null) return;
+            long id = streetId.incrementAndGet();
+            Street street = new Street(id, NameGenerator.streetName(id), road);
+            buildCurbs(road);
 
-        for (int index = 0; index < numberOfBlocks; index++) {
-            String blockName = "Block-" + (curb.getBlocks().size() + 1) * Constant.MULTIPLICATION_FACTOR;
-            Block block = new Block(blockId.incrementAndGet(), blockName, curb);
-            BlockCatalog.INSTANCE.addBlock(block);
-        }
-        buildStations(curb, MAX_STATION_DENSITY);
-    }
-
-    private void blockBlocks () {
-        if (CurbCatalog.INSTANCE.getCatalog() == null) return;
-
-        for (Curb curb : CurbCatalog.INSTANCE.getCatalog()) {
-            blockCreationHelper(curb, AvenueCatalog.INSTANCE.size());
+            RoadCatalog.INSTANCE.addRoad(road);
+            StreetCatalog.INSTANCE.addStreet(street);
         }
     }
 
@@ -105,38 +83,97 @@ public enum RoadFactory {
             CurbCatalog.INSTANCE.addCurb(leftCurb);
             CurbCatalog.INSTANCE.addCurb(rightCurb);
         } else {
-            System.out.println("Cannot create curbs for a road with avenue and curb null");
+            System.out.println("Cannot build curbs for a road with avenue and curb null");
         }
     }
 
-    private void buildStreets() {
-        for (int index = 0; index < AvenueCatalog.INSTANCE.size(); index++) {
-            Road road = new Road(roadId.incrementAndGet());
+    private void buildBlocks () {
+        if (CurbCatalog.INSTANCE.getCatalog() == null) return;
 
-            long id = streetId.incrementAndGet();
-            Street street = new Street(id, NameGenerator.streetName(id), road);
-            buildCurbs(road);
-
-            RoadCatalog.INSTANCE.addRoad(road);
-            StreetCatalog.INSTANCE.addStreet(street);
+        for (Curb curb : CurbCatalog.INSTANCE.getCatalog()) {
+            blockCreationHelper(curb, AvenueCatalog.INSTANCE.size());
+            buildStations(curb, MAX_STATION_DENSITY);
+            buildHouses(curb);
         }
     }
 
-    private void buildAvenues() {
+    private void blockCreationHelper(Curb curb, int numberOfBlocks) {
+        if (curb == null) return;
 
-        for (String name : Constant.AVENUE_NAMES) {
-            Road road = new Road(roadId.incrementAndGet());
-            Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, road);
-            buildCurbs(road);
-
-            RoadCatalog.INSTANCE.addRoad(road);
-            AvenueCatalog.INSTANCE.addAvenue(avenue);
+        for (int index = 0; index < numberOfBlocks; index++) {
+            String blockName = "Block-" + (curb.getBlocks().size() + 1) * Constant.MULTIPLICATION_FACTOR;
+            Block block = new Block(blockId.incrementAndGet(), blockName, curb);
+            BlockCatalog.INSTANCE.addBlock(block);
         }
     }
 
-    public void run() {
-        buildAvenues();
-        buildStreets();
-        blockBlocks();
+    private void buildStations(Curb curb, int percentStationDensity) {
+        for (Block block : curb.getBlocks()) {
+            if (new Random().nextInt(101) <= percentStationDensity) {
+                Station station = new Station(stationId.incrementAndGet(), NameGenerator.INSTANCE.stationName(curb.getOrientation()), block);
+                StationCatalog.INSTANCE.addStation(station);
+            }
+        }
     }
+
+    private void buildHouses(Curb curb) {
+        if (curb == null || curb.getBlocks() == null) return;
+        if (curb.getAvenue() == null && curb.getStreet() == null) return;
+
+        long address = 0L;
+        if (curb.getRoad().getAvenue() != null) {
+            address = (long) avenueId.intValue() * Constant.MULTIPLICATION_FACTOR;
+        } else {
+            address = (long) streetId.intValue() * Constant.MULTIPLICATION_FACTOR;
+        }
+
+        if (curb.getOrientation() == Avenue.LEFT_CURB_ORIENTATION || curb.getOrientation() == Street.LEFT_CURB_ORIENTATION)
+            address += 1;
+
+        Block previousBlock = curb.getBlocks().get(0);
+        for (Block block : curb.getBlocks()) {
+            putHousesOnBlock(block, address, ADDRESS_INTERVAL, NUMBER_OF_HOUSES_PER_BLOCK);
+            previousBlock = block;
+            address = previousBlock.getLastHouse().getAddress() + ADDRESS_INTERVAL;
+        }
+    }
+
+    private void putHousesOnBlock(Block block, long address, int addressInterval, int numberOfHouses)  {
+        if (block == null) return;
+
+        for (int index = 0; index < numberOfHouses; index++) {
+            House house = new House(houseId.incrementAndGet(), address, block);
+            AddressCatalog.INSTANCE.addAddress(house);
+            address += addressInterval;
+        }
+    }
+
+    private void buildJunctions () {
+        for (Avenue avenue : AvenueCatalog.INSTANCE.getCatalog()) {
+            for (Street street : StreetCatalog.INSTANCE.getCatalog()) {
+                Junction junction = new Junction(junctionId.incrementAndGet(), avenue, street);
+
+                buildJunctionCorners(junction);
+                JunctionCatalog.INSTANCE.addJunction(junction);
+            }
+        }
+    }
+
+    private void buildJunctionCorners (Junction junction) {
+        if (junction == null) return;
+
+        EnumSet<Direction> cornerDirections = EnumSet.of(
+            Direction.NORTHWEST,
+            Direction.NORTHEAST,
+            Direction.SOUTHEAST,
+            Direction.SOUTHWEST
+        );
+
+        for (Direction direction : cornerDirections) {
+            JunctionCorner corner = JunctionCornerBuilder.INSTANCE.build(junction, direction);
+            corner.setId(junctionCornerId.incrementAndGet());
+            JunctionCornerCatalog.INSTANCE.addCorner(corner);
+        }
+    }
+
 }

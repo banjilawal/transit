@@ -1,4 +1,4 @@
-package com.lawal.transit.address.model.exception;
+package com.lawal.transit.house.model.exception;
 
 public class NullAddressListException extends RuntimeException {
     private static final long serialVersionUID = 1L;
