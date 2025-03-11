@@ -4,14 +4,9 @@ import com.lawal.transit.block.model.Block;
 import com.lawal.transit.block.model.BlockEdge;
 import com.lawal.transit.catalog.*;
 import com.lawal.transit.curb.model.Curb;
-import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
 import com.lawal.transit.road.model.Road;
-import com.lawal.transit.station.model.Station;
-import com.lawal.transit.station.model.StationEdge;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CurbBlockEdgeGenerator {
@@ -40,7 +35,7 @@ public class CurbBlockEdgeGenerator {
         for (Block block : curb.getBlocks()) {
             if (block.equals(previousBlock)) continue;
             BlockEdge edge = new BlockEdge(id.incrementAndGet(), previousBlock, block, 1);
-            BLockEdgeCatalog.INSTANCE.addEdge(edge);
+            BlockEdgeCatalog.INSTANCE.addEdge(edge);
 //            System.out.println("Curb Edge:" + edge);
             previousBlock = block;
         }
@@ -49,7 +44,7 @@ public class CurbBlockEdgeGenerator {
     public static void createCornerEdges() {
         for (JunctionCorner corner : JunctionCornerCatalog.INSTANCE.getCatalog()) {
             BlockEdge edge = new BlockEdge(id.incrementAndGet(), corner.getAvenueLeg(), corner.getStreetLeg(), 1);
-            BLockEdgeCatalog.INSTANCE.addEdge(edge);
+            BlockEdgeCatalog.INSTANCE.addEdge(edge);
 //            System.out.println("\tCorner Edge:" + edge);
         }
     }
@@ -65,7 +60,7 @@ public class CurbBlockEdgeGenerator {
 //                    System.out.println("Left blockId:" + leftBlock.getId() + " Right blockId:" + rightBlock.getId());
                     if (leftIndex == rightIndex) {
                         BlockEdge edge = new BlockEdge(id.incrementAndGet(), leftBlock, rightBlock, 1);
-                        BLockEdgeCatalog.INSTANCE.addEdge(edge);
+                        BlockEdgeCatalog.INSTANCE.addEdge(edge);
 //                        System.out.println("\tRoad Edge:" + edge);
                     }
                 }

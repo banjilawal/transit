@@ -57,7 +57,8 @@ public class Block {
         this.id = id;
         this.name = name;
         this.curb = curb;
-        this.curb.getBlocks().add(this);
+
+        if (this.curb != null && curb.getBlocks() != null) { this.curb.getBlocks().add(this); }
         this.addresses = new ArrayList<>();
     }
 

@@ -19,6 +19,8 @@ public enum AvenueCatalog {
 
     public List<Avenue> getCatalog() { return List.copyOf(catalog); }
 
+    public int size () { return catalog.size(); }
+
     public void addAvenue (Avenue avenue) {
         if (avenue == null) return;
         if (catalog.contains(avenue)) return;

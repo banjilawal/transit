@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class CurbEdgeFactory {
+public class CurbStationEdgeFactory {
 
     private static final AtomicLong edgeId = new AtomicLong(0);
 

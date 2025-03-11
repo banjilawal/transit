@@ -2,6 +2,7 @@ package com.lawal.transit;
 
 import com.lawal.transit.address.model.Address;
 import com.lawal.transit.avenue.model.Avenue;
+import com.lawal.transit.block.BlockEdgeFactory;
 import com.lawal.transit.block.BlockGenerator;
 import com.lawal.transit.block.model.Block;
 import com.lawal.transit.catalog.*;
@@ -12,7 +13,7 @@ import com.lawal.transit.global.Constant;
 import com.lawal.transit.global.NameGenerator;
 import com.lawal.transit.junction.model.Junction;
 import com.lawal.transit.junction.model.JunctionCorner;
-import com.lawal.transit.navigtion.CurbEdgeFactory;
+import com.lawal.transit.navigtion.CurbStationEdgeFactory;
 import com.lawal.transit.road.model.Road;
 import com.lawal.transit.route.TransitRouteFactory;
 import com.lawal.transit.street.model.Street;
@@ -40,8 +41,9 @@ public class SystemBuilder {
         buildBlocks();
         buildJunctions();
         buildAddresses();
-        CurbEdgeFactory.processCurbs();
+        CurbStationEdgeFactory.processCurbs();
         TransitRouteFactory.populate();
+        BlockEdgeFactory.INSTANCE.run();
 //        buildJunctionCorners();;
 //        TurnNavigator.populateEdges();
     }

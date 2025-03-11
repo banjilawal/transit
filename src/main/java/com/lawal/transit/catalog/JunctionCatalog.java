@@ -27,6 +27,8 @@ public enum JunctionCatalog {
 
     public List<Junction> getCatalog() { return List.copyOf(catalog); }
 
+    public int size() { return catalog.size(); }
+
     public void addJunction(Junction junction) {
         if (junction == null) return;
         if (catalog.contains(junction)) return;
@@ -92,5 +94,9 @@ public enum JunctionCatalog {
             if (junction.getCornerByStation(station) != null && !matches.contains(junction)) matches.add(junction);
         }
         return matches;
+    }
+
+    public Junction getFirst() {
+        return catalog.get(0);
     }
 }

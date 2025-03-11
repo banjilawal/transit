@@ -106,6 +106,14 @@ public enum JunctionCornerCatalog {
         return matches;
     }
 
+    public JunctionCorner getFirst() {
+        return catalog.get(0);
+    }
+
+    public JunctionCorner getLast() {
+        return catalog.get(catalog.size() - 1);
+    }
+
 
     @Override
     public String toString() {

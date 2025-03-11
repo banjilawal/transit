@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public enum BLockEdgeCatalog {
+public enum BlockEdgeCatalog {
     INSTANCE;
 
     private final List<BlockEdge> catalog;
 
-    BLockEdgeCatalog () { catalog = new ArrayList<>(); }
+    BlockEdgeCatalog () { catalog = new ArrayList<>(); }
 
 
     public void addEdge(BlockEdge blockEdge) {
