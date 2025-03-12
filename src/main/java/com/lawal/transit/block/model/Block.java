@@ -1,5 +1,6 @@
 package com.lawal.transit.block.model;
 
+import com.lawal.transit.global.VertexColor;
 import com.lawal.transit.house.model.House;
 
 import com.lawal.transit.house.model.exception.NullAddressListException;
@@ -34,6 +35,15 @@ public class Block {
     @NotBlank(message = CurbOrientationException.MESSAGE)
     String name;
 
+    @Column(nullable = true)
+    private VertexColor color;
+
+    @Column(nullable = true)
+    private int hopCount;
+
+    @Column(nullable = true)
+    private Long predecessorId;
+
     @ManyToOne
     @JoinColumn(name = "curb_id")
     private Curb curb;
@@ -55,8 +65,15 @@ public class Block {
         this.name = name;
         this.curb = curb;
 
+        this.color = VertexColor.WHITE;
+        this.hopCount = 0;
+        this.predecessorId = null;
+
         if (this.curb != null && curb.getBlocks() != null) { this.curb.getBlocks().add(this); }
         this.houses = new ArrayList<>();
+
+        this.incomingEdges = new ArrayList<>();
+        this.outgoingEdges = new ArrayList<>();
     }
 
     public Avenue getAvenue() { return curb.getAvenue(); }

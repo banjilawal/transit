@@ -97,6 +97,16 @@ public class TransitRoute {
         return List.copyOf(matches);
     }
 
+    public Departure getFirstDeparture() {
+        if (departures == null || departures.isEmpty()) return null;
+        return departures.get(0);
+    }
+
+    public Departure getLastDeparture() {
+        if (departures == null || departures.isEmpty()) return null;
+        return departures.get(departures.size() - 1);
+    }
+
     public String getDepartureTimeString() {
         StringBuilder stringBuilder = new StringBuilder();
         if (departures.isEmpty()) return stringBuilder.toString();
@@ -113,6 +123,8 @@ public class TransitRoute {
             + " name:" + name
             + " interArrivalTime:" + interArrivalTime
             + " totalStops:" + departures.size() + "]"
-            + "\nSchedule:\n" + getDepartureTimeString() ;
+            + "\n\tfirst departure:" + getFirstDeparture()
+            + "\n\tlast departure:" + getLastDeparture();
+//            + "\nSchedule:\n" + getDepartureTimeString() ;
     }
 }

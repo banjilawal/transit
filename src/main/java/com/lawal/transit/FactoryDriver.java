@@ -1,12 +1,15 @@
 package com.lawal.transit;
 
-import com.lawal.transit.house.model.House;
+import com.lawal.transit.block.model.Block;
+import com.lawal.transit.build.TransitSystemBuilder;
 import com.lawal.transit.avenue.model.Avenue;
-import com.lawal.transit.block.CurbBlockEdgeGenerator;
 import com.lawal.transit.catalog.*;
+import com.lawal.transit.house.model.House;
 import com.lawal.transit.junction.model.Junction;
-import com.lawal.transit.search.StationFinder;
+import com.lawal.transit.search.StationSearch;
 import com.lawal.transit.street.model.Street;
+
+import java.util.Queue;
 
 
 public class FactoryDriver {
@@ -63,8 +66,10 @@ public class FactoryDriver {
 //    }
 
     public static void main(String[] args) throws Exception {
-        SystemBuilder.launcher();
-        CurbBlockEdgeGenerator.launcher();
+        TransitSystemBuilder.INSTANCE.run();
+
+//        SystemBuilder.launcher();
+//        CurbBlockEdgeGenerator.launcher();
 
         Street street = StreetCatalog.INSTANCE.findById(1L);
         Avenue avenue = AvenueCatalog.INSTANCE.findById(1L);
@@ -83,7 +88,7 @@ public class FactoryDriver {
 //        BlockCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
 //        JunctionCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
 //        StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
-//        AddressCatalog.INSTANCE.getCatalog().forEach(System.out::println);
+//        HouseCatalog.INSTANCE.getCatalog().forEach(System.out::println);
 //        List<Junction> junctions = JunctionCatalog.INSTANCE.filterByAvenue(avenue);
 //        junctions.forEach(j -> {if(j.equals(junction)) j.getCorners().forEach(System.out::println);});
 //        JunctionCornerCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
@@ -92,31 +97,41 @@ public class FactoryDriver {
 //        StationEdgeCatalog.INSTANCE.filterByStreet(street).forEach(System.out::println);
 //        System.out.println(StationEdgeCatalog.INSTANCE.filterByStreet(street).size());
 //        StationCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
-//        RouteCatalog.INSTANCE.filterByRoad(avenue.getRoad()).forEach(System.out::println);
-//        RouteCatalog.INSTANCE.filterByRoad(street.getRoad()).forEach(System.out::println);
-//        System.out.println(RouteCatalog.INSTANCE.getCatalog().size());
-//        BlockEdgeCatalog.INSTANCE.getCatalog().forEach(System.out::println);
+//        TransitRouteCatalog.INSTANCE.filterByRoad(avenue.getRoad()).forEach(System.out::println);
+//        TransitRouteCatalog.INSTANCE.filterByRoad(street.getRoad()).forEach(System.out::println);
+//        TransitRouteCatalog.INSTANCE.getCatalog().forEach(System.out::println);
+//        System.out.println(TransitRouteCatalog.INSTANCE.getCatalog().size());
+//        BlockEdgeCatalog.INSTANCE.filterByAvenue(avenue).forEach(System.out::println);
+//
+        House source = HouseCatalog.INSTANCE.randomHouse();
+        System.out.println("source:" + source + " " + source.getBlock().getCurb().getRoadName() + source.getBlock().getOutgoingEdges());
+        House destination = HouseCatalog.INSTANCE.findById(20L);
 
-        House source = AddressCatalog.INSTANCE.findById(1L);
-        House destination = AddressCatalog.INSTANCE.findById(20L);
-
-        System.out.println(source + " " + source.getBlock());
-        StationFinder.ClosestStationResult sourceResult = StationFinder.findClosestStationWithHops(source);
-        StationFinder.ClosestStationResult destinationResult = StationFinder.findClosestStationWithHops(destination);
-
-        if (sourceResult  != null) {
-            System.out.println("Closest source station: " + sourceResult .getStation() + " " + sourceResult.getStation().getBlock());// + " " + result.getStation().getBlock().getCurb().getRoadName());
-            System.out.println("Number of hops to source station: " + sourceResult.getHops());
-        } else {
-            System.out.println("No station reachable from the source house.");
+        Queue<Block> path = StationSearch.search(source);
+        for (Block block : path) {
+            System.out.println(block.getStation().getName()
+                + " " +block.getCurb().getRoadName() + block.getCurb().getOrientation() + " predecessor:" +block.getPredecessorId());
         }
-
-        if (destinationResult != null) {
-            System.out.println("Closest destination station: " + destinationResult.getStation() + " " + destinationResult.getStation().getBlock());// + " " + result.getStation().getBlock().getCurb().getRoadName());
-            System.out.println("Number of hops to destination station: " + destinationResult.getHops());
-        } else {
-            System.out.println("No station reachable from the destination house.");
-        }
+//        System.out.println("search path: " + path.size() + " total path=" + path.size() + " total stations="
+//            + StationCatalog.INSTANCE.size());
+//        System.out.println("search bloks: " + BlockCatalog.INSTANCE.size());
+//        System.out.println(source + " " + source.getBlock());
+//        StationFinder.ClosestStationResult sourceResult = StationFinder.findClosestStationWithHops(source);
+//        StationFinder.ClosestStationResult destinationResult = StationFinder.findClosestStationWithHops(destination);
+//
+//        if (sourceResult  != null) {
+//            System.out.println("Closest source station: " + sourceResult .getStation() + " " + sourceResult.getStation().getBlock());// + " " + result.getStation().getBlock().getCurb().getRoadName());
+//            System.out.println("Number of hops to source station: " + sourceResult.getHops());
+//        } else {
+//            System.out.println("No station reachable from the source house.");
+//        }
+//
+//        if (destinationResult != null) {
+//            System.out.println("Closest destination station: " + destinationResult.getStation() + " " + destinationResult.getStation().getBlock());// + " " + result.getStation().getBlock().getCurb().getRoadName());
+//            System.out.println("Number of hops to destination station: " + destinationResult.getHops());
+//        } else {
+//            System.out.println("No station reachable from the destination house.");
+//        }
 
 //        Map<Station, List<StationEdge>> stationGraph = new HashMap<>();
 //        PathResult result1 = AddressPathService.findShortestPathBetweenAddresses(source, destination, stationGraph);

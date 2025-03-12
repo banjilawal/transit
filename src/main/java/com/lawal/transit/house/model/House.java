@@ -5,15 +5,18 @@ import com.lawal.transit.curb.CurbOrientationException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "places")
+@Table(name = "houses")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class House {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

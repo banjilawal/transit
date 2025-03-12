@@ -22,6 +22,8 @@ public enum BlockCatalog {
         catalog = new ArrayList<>();
     }
 
+    public int size() { return catalog.size(); }
+
     public List<Block> getCatalog() {
         return List.copyOf(catalog);
     }

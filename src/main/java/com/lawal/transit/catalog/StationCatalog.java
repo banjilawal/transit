@@ -23,7 +23,9 @@ public enum StationCatalog {
         catalog = new ArrayList<>();
     }
 
-    public List<Station> getStations() { return List.copyOf(catalog); }
+    public int size() {
+        return catalog.size();
+    }
 
     public void addStation(Station station) {
         if (station == null) return;

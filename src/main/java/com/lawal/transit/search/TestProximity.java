@@ -6,7 +6,7 @@ public class TestProximity {
         // Set up avenues, streets, blocks, junctions, and house
 
 
-//        House house = AddressCatalog.INSTANCE.findById(1L);
+//        House house = HouseCatalog.INSTANCE.findById(1L);
 //        System.out.println(house);
 
 //

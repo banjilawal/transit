@@ -18,7 +18,7 @@ import java.util.EnumSet;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
-public enum RoadFactory {
+public enum TransitSystemBuilder {
     INSTANCE;
 
     private final AtomicLong roadId = new AtomicLong(0);
@@ -31,7 +31,7 @@ public enum RoadFactory {
     private final AtomicLong junctionId = new AtomicLong(0);
     private final AtomicLong junctionCornerId = new AtomicLong(0);
 
-    private static final int MAX_STATION_DENSITY = 65;
+    private static final int MAX_STATION_DENSITY = 30;
     private static final int NUMBER_OF_HOUSES_PER_BLOCK = 2;
     private static final int ADDRESS_INTERVAL = 2;
 
@@ -41,6 +41,8 @@ public enum RoadFactory {
         buildBlocks();
         buildJunctions();
         StationEdgeFactory.INSTANCE.run();
+        BlockEdgeFactory.INSTANCE.run();
+        TransitRouteFactory.INSTANCE.run();
     }
 
     private void buildAvenues() {
@@ -109,7 +111,9 @@ public enum RoadFactory {
 
     private void buildStations(Curb curb, int percentStationDensity) {
         for (Block block : curb.getBlocks()) {
-            if (new Random().nextInt(101) <= percentStationDensity) {
+            int outcome = new Random().nextInt(101);
+            if ( outcome < percentStationDensity) {
+                System.out.println("outcome: " + outcome + " adding station");
                 Station station = new Station(stationId.incrementAndGet(), NameGenerator.INSTANCE.stationName(curb.getOrientation()), block);
                 StationCatalog.INSTANCE.addStation(station);
             }
@@ -143,7 +147,7 @@ public enum RoadFactory {
 
         for (int index = 0; index < numberOfHouses; index++) {
             House house = new House(houseId.incrementAndGet(), address, block);
-            AddressCatalog.INSTANCE.addAddress(house);
+            HouseCatalog.INSTANCE.addHouse(house);
             address += addressInterval;
         }
     }

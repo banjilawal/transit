@@ -31,7 +31,10 @@ public enum JunctionCatalog {
 
     public void addJunction(Junction junction) {
         if (junction == null) return;
-        if (catalog.contains(junction)) return;
+        if (catalog.contains(junction)) {
+            System.out.println("Junction already exists: " + junction.getId() + " catalog size: " + catalog.size());
+            return;
+        }
         catalog.add(junction);
     }
 

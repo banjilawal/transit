@@ -17,46 +17,50 @@ public enum BlockEdgeFactory {
     private AtomicLong id = new AtomicLong(0);
 
     public void run() {
-        buildJunctionCornerEdges();
+        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog()) {
+            buildJunctionCornerEdges(junction);
+            buildNorthSouthEdges(junction);
+            buildEastWestEdges(junction);
+        }
     }
 
-    private void buildNorthSourEdges(Junction junction) {
+    private void buildNorthSouthEdges(Junction junction) {
 
         if (junction == null) return;;
 
-        Block u1 = junction.getCornerByOrientation(Direction.NORTHWEST).getAvenueLeg();
-        Block v1 = junction.getCornerByOrientation(Direction.SOUTHWEST   ).getAvenueLeg();
+        Block u = junction.getCornerByOrientation(Direction.NORTHWEST).getAvenueLeg();
+        Block v = junction.getCornerByOrientation(Direction.SOUTHWEST).getAvenueLeg();
 
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u1, v1));
-        BlockEdgeCatalog.INSTANCE.addEdge( new BlockEdge(id.incrementAndGet(), v1, u1));
+        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u, v));
+        BlockEdgeCatalog.INSTANCE.addEdge( new BlockEdge(id.incrementAndGet(), v, u));
 
-        Block u2 = junction.getCornerByOrientation(Direction.NORTHEAST).getAvenueLeg();
-        Block v2 = junction.getCornerByOrientation(Direction.SOUTHEAST ).getAvenueLeg();
+        u = junction.getCornerByOrientation(Direction.NORTHEAST).getAvenueLeg();
+        v = junction.getCornerByOrientation(Direction.SOUTHEAST ).getAvenueLeg();
 
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u2, v2 ));
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v2, u2));
+        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u, v));
+        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v, u));
     }
 
     private void buildEastWestEdges(Junction junction) {
         if (junction == null) return;;
 
-        Block u1 = junction.getCornerByOrientation(Direction.NORTHWEST).getStreetLeg();
-        Block v1 = junction.getCornerByOrientation(Direction.SOUTHWEST).getStreetLeg();
+        Block u = junction.getCornerByOrientation(Direction.NORTHWEST).getStreetLeg();
+        Block v = junction.getCornerByOrientation(Direction.SOUTHWEST).getStreetLeg();
 
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u1, v1));
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v1, u1));
 
-        Block u2 = junction.getCornerByOrientation(Direction.NORTHEAST).getStreetLeg();
-        Block v2 = junction.getCornerByOrientation(Direction.SOUTHEAST ).getStreetLeg();
-
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u2, v2));
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v2, u2));
-    }
-
-    private void buildEdges () {
-        for (Junction junction : JunctionCatalog.INSTANCE.getCatalog()) {
-            buildJunctionCornerEdges(junction);
+        if (!u.equals(v)) {
+//            System.out.println("u:" + u  + " v:" + v);
+            BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u, v));
+            BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v, u));
         }
+
+        u = junction.getCornerByOrientation(Direction.NORTHEAST).getStreetLeg();
+        v = junction.getCornerByOrientation(Direction.SOUTHEAST ).getStreetLeg();
+        if (!u.equals(v)) {
+            BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u, v));
+            BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v, u));
+        }
+
     }
 
     private void buildJunctionCornerEdges (Junction junction) {
@@ -74,10 +78,10 @@ public enum BlockEdgeFactory {
     private void cornerEdgeBuildHelper (Junction junction, Direction cornerOrientation) {
         if (junction == null || cornerOrientation == null) return;;
 
-        Block u = junction.getCornerByOrientation(cornerOrientation).getStreetLeg();
-        Block v = junction.getCornerByOrientation(cornerOrientation).getAvenueLeg();
+        Block a = junction.getCornerByOrientation(cornerOrientation).getStreetLeg();
+        Block b = junction.getCornerByOrientation(cornerOrientation).getAvenueLeg();
 
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), u, v));
-        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), v, u));
+        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), a, b));
+        BlockEdgeCatalog.INSTANCE.addEdge(new BlockEdge(id.incrementAndGet(), b, a));
     }
 }

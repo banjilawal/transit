@@ -1,5 +1,8 @@
 package com.lawal.transit.block.model;
 
+import com.lawal.transit.avenue.model.Avenue;
+import com.lawal.transit.curb.model.Curb;
+import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,10 +11,12 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
+@Table(name = "block_edges")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class BlockEdge {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -36,6 +41,9 @@ public class BlockEdge {
         if(head.equals(tail)) throw new IllegalArgumentException("head and tail blocks cannot be the same");
 
         this.id = id;
+
+//        System.out.println("block head" + head);
+//        System.out.println("block tail" + tail);
 
         setHead(head);
         setTail(tail);
@@ -84,6 +92,38 @@ public class BlockEdge {
         if (!this.tail.getIncomingEdges().contains(this)) {
             this.tail.addIncomingEdge(this);
         }
+    }
+
+    public boolean containsCurb(Curb curb) {
+        if (curb == null) return false;
+        if (head == null || tail == null) return false;
+
+        if (head.getCurb() != null && head.getCurb().equals(curb)) return true;
+        return tail.getCurb() != null && tail.getCurb().equals(curb);
+    }
+
+    public boolean containsStreet(Street street) {
+        if (street == null) return false;
+        if (head == null || tail == null) return false;
+        if (head.getStreet() == null && tail.getStreet() == null) return false;
+
+        if (head.getStreet() != null && head.getStreet().equals(street)) return true;
+        return tail.getStreet() != null && tail.getStreet().equals(street);
+    }
+
+    public boolean containsAvenue(Avenue avenue) {
+        if (avenue == null) return false;
+        if (head == null || tail == null) return false;
+        if (head.getAvenue() == null && tail.getAvenue() == null) return false;
+
+        if (head.getAvenue() != null && head.getAvenue().equals(avenue)) return true;
+        return tail.getAvenue() != null && tail.getAvenue().equals(avenue);
+    }
+
+    public boolean containsBlock(Block block) {
+        if (block == null) return false;
+        if (head == null || tail == null) return false;
+        return block.equals(this.head) || block.equals(tail);
     }
 
 }

@@ -24,8 +24,11 @@ public enum BlockEdgeCatalog {
             System.out.println("BlockEdgeCatalog.addEdge(): null blockEdge");
             return;
         }
-        if (catalog.contains(blockEdge)) return;
-        System.out.println("BlockEdgeCatalog.add():" + blockEdge);
+        if (catalog.contains(blockEdge)) {
+            System.out.println("BlockEdgeCatalog.addEdge(): already contains " + blockEdge.getId() + " catalog size:" + catalog.size());
+            return;
+        }
+//        System.out.println("BlockEdgeCatalog.add():" + blockEdge);
         catalog.add(blockEdge);
     }
 
@@ -43,13 +46,15 @@ public enum BlockEdgeCatalog {
         if (avenue == null) return matches;
 
         for (BlockEdge blockEdge : catalog) {
-            Avenue headAvenue = blockEdge.getHead().getCurb().getAvenue();
-            Avenue tailAvenue = blockEdge.getTail().getCurb().getAvenue();
-
-            if ((headAvenue != null && headAvenue.equals(avenue) || (tailAvenue != null && tailAvenue.equals(avenue))
-                && !matches.contains(blockEdge)))
+            if (blockEdge.containsAvenue(avenue)) {
+//                System.out.println("BlockEdgeCatalog.filterByAvenue():" + blockEdge.getId());
                 matches.add(blockEdge);
+            }
+            else {
+                System.out.println("BlockEdgeCatalog.filterByAvenue() failure:" + blockEdge.getId());
+            }
         }
+        System.out.println("BlockEdgeCatalog.filterByAvenue() filtered:" + catalog.size());
         return matches;
     }
 

@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public enum AddressCatalog {
+public enum HouseCatalog {
     INSTANCE;
 
     private final List<House> catalog;
 
-    AddressCatalog () { catalog = new ArrayList<>(); }
+    HouseCatalog () { catalog = new ArrayList<>(); }
+//
+//    public List<House> getCatalog() { return List.copyOf(catalog); }
 
-    public List<House> getCatalog() { return List.copyOf(catalog); }
-
-    public void addAddress(House house) {
+    public void addHouse(House house) {
         if (house == null) return;
         if (catalog.contains(house)) return;
         catalog.add(house);
@@ -33,9 +33,9 @@ public enum AddressCatalog {
     }
 
     public List<House> filterByAvenue(Avenue avenue) {
-        if (avenue == null) return null;
-
         List<House> matches = new ArrayList<>();
+        if (avenue == null) return matches;
+
         for (House house : catalog) {
             Avenue addressAvenue = house.getBlock().getAvenue();
             if (addressAvenue != null && addressAvenue.equals(avenue) && !matches.contains(house)) matches.add(house);
@@ -44,9 +44,9 @@ public enum AddressCatalog {
     }
 
     public List<House> filterByStreet(Street street) {
-        if (street == null) return null;
-
         List<House> matches = new ArrayList<>();
+        if (street == null) return matches;
+
         for (House house : catalog) {
             Street addressStreet = house.getBlock().getStreet();
             if (addressStreet != null && addressStreet.equals(street) && !matches.contains(house)) matches.add(house);
@@ -54,7 +54,7 @@ public enum AddressCatalog {
         return matches;
     }
 
-    public House randomAddress() {
+    public House randomHouse() {
         return catalog.get((int) (Math.random() * catalog.size()));
     }
 

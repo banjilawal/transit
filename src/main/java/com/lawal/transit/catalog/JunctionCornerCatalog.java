@@ -32,7 +32,9 @@ public enum JunctionCornerCatalog {
 
     public void addCorner (JunctionCorner corner) {
         if (corner == null) return;
-        if (catalog.contains(corner)) return;
+        if (catalog.contains(corner)) {
+            System.out.println("JunctionCorner " + corner.getId() + " already exists catalog size:" + catalog.size() );
+        }
         catalog.add(corner);
     }
 

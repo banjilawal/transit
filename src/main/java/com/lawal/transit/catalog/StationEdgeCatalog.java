@@ -22,12 +22,17 @@ public enum StationEdgeCatalog {
 //        return List.copyOf(catalog);
 //    }
 
+    public int size() { return catalog.size(); }
+
     public void addEdge(StationEdge stationEdge) {
         if (stationEdge == null) {
             System.out.println("StationEdgeCatalog.addEdge(): null stationEdge");
             return;
         }
-        if (catalog.contains(stationEdge)) return;
+        if (catalog.contains(stationEdge)) {
+            System.out.println("StationEdgeCatalog.addEdge() already contains " + stationEdge.getId() + " catalog size:" + catalog.size());
+            return;
+        }
 //        System.out.println("StationEdgeCatalog.add():" + stationEdge);
         catalog.add(stationEdge);
     }

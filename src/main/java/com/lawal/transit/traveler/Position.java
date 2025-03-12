@@ -1,13 +1,13 @@
-package com.lawal.transit.traveler;
-
-import com.lawal.transit.house.model.House;
-import com.lawal.transit.global.*;
-
-import java.time.*;
-
-public record Position(House house, LocalDateTime time) implements Trackable{
-
-//    @Override
+//package com.lawal.transit.traveler;
+//
+//import com.lawal.transit.house.model.House;
+//import com.lawal.transit.global.*;
+//
+//import java.time.*;
+//
+//public record Position(House house, LocalDateTime time) implements Trackable{
+//
+////    @Override
 //    public boolean equals (Object object) {
 //        if (object == this) return true;
 //        if (object == null) return false;
@@ -21,4 +21,4 @@ public record Position(House house, LocalDateTime time) implements Trackable{
 //    public String toString () {
 //        return getClass().getSimpleName() + ":" + house.toString() + " time:" + time.toString();
 //    }
-}
+//}

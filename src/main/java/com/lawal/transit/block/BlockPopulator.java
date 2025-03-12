@@ -2,7 +2,7 @@ package com.lawal.transit.block;
 
 import com.lawal.transit.house.model.House;
 import com.lawal.transit.block.model.Block;
-import com.lawal.transit.catalog.AddressCatalog;
+import com.lawal.transit.catalog.HouseCatalog;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -20,7 +20,7 @@ public final class BlockPopulator {
 //            House house  = new House(addressId.incrementAndGet(), addressName + "", block);
 
             block.getHouses().add(house);
-            AddressCatalog.INSTANCE.getCatalog().add(house);
+            HouseCatalog.INSTANCE.getCatalog().add(house);
             addressName += addressInterval;
             nextAddressName = addressName;
         }

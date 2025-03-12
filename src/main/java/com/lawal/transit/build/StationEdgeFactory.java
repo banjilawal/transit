@@ -101,6 +101,8 @@ public enum StationEdgeFactory {
             0,
             0
         );
+
         StationEdgeCatalog.INSTANCE.getCatalog().add(edge);
+//        System.out.println("cycleEdge:" + edge.getId() + " catalog size:" + StationEdgeCatalog.INSTANCE.size());
     }
 }

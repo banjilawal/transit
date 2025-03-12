@@ -9,16 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public enum RouteCatalog {
+public enum TransitRouteCatalog {
     INSTANCE;
 
     private final List<TransitRoute> catalog;
 
-    RouteCatalog () {
+    TransitRouteCatalog () {
         catalog = new ArrayList<>();
     }
 
     public List<TransitRoute> getCatalog() { return List.copyOf(catalog); }
+
+    public int size() { return catalog.size(); }
 
     public void addRoute (TransitRoute transitRoute) {
         if (transitRoute == null) return;

@@ -15,6 +15,7 @@ import com.lawal.transit.street.model.Street;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.EnumSet;
@@ -24,9 +25,12 @@ import java.util.Map;
 @Data
 @Entity
 @NoArgsConstructor
+@Table(name = "junction_corners")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class JunctionCorner {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

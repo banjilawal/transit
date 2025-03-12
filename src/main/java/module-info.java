@@ -23,9 +23,6 @@ module com.lawal.transit {
     exports com.lawal.transit.global;
     opens com.lawal.transit.global;
 
-    exports com.lawal.transit.traveler;
-    opens com.lawal.transit.traveler;
-
     exports com.lawal.transit.house;
     opens com.lawal.transit.house;
 
