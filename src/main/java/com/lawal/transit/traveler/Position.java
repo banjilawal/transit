@@ -1,6 +1,6 @@
 //package com.lawal.transit.traveler;
 //
-//import com.lawal.transit.house.model.House;
+//import com.lawal.transit.infrastructure.house.House;
 //import com.lawal.transit.global.*;
 //
 //import java.time.*;

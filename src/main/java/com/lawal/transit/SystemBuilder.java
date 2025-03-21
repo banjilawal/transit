@@ -1,22 +1,22 @@
 //package com.lawal.transit;
 //
-//import com.lawal.transit.house.model.House;
-//import com.lawal.transit.avenue.model.Avenue;
-//import com.lawal.transit.block.BlockEdgeFactory;
-//import com.lawal.transit.block.BlockGenerator;
-//import com.lawal.transit.block.model.Block;
-//import com.lawal.transit.catalog.*;
-//import com.lawal.transit.curb.CurbGenerator;
-//import com.lawal.transit.curb.model.Curb;
+//import com.lawal.transit.infrastructure.house.House;
+//import com.lawal.transit.infrastructure.avenue.Avenue;
+//import com.lawal.transit.infrastructure.block.BlockEdgeFactory;
+//import com.lawal.transit.infrastructure.block.BlockGenerator;
+//import com.lawal.transit.infrastructure.block.Block;
+//import com.lawal.transit.infrastructure.catalog.*;
+//import com.lawal.transit.infrastructure.curb.CurbGenerator;
+//import com.lawal.transit.infrastructure.curb.Curb;
 //import com.lawal.transit.global.Constant;
 //
 //import com.lawal.transit.global.NameGenerator;
-//import com.lawal.transit.junction.model.Junction;
-//import com.lawal.transit.junction.model.JunctionCorner;
+//import com.lawal.transit.infrastructure.junction.Junction;
+//import com.lawal.transit.infrastructure.junction.JunctionCorner;
 //import com.lawal.transit.navigtion.CurbStationEdgeFactory;
-//import com.lawal.transit.road.model.Road;
+//import com.lawal.transit.infrastructure.road.Road;
 //import com.lawal.transit.route.TransitRouteFactory;
-//import com.lawal.transit.street.model.Street;
+//import com.lawal.transit.infrastructure.street.Street;
 //
 //import java.util.concurrent.atomic.AtomicLong;
 //

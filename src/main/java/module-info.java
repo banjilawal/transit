@@ -20,111 +20,51 @@ module com.lawal.transit {
     exports com.lawal.transit;
     opens com.lawal.transit to spring.core, javafx.fxml;
 
-    exports com.lawal.transit.global;
-    opens com.lawal.transit.global;
+    exports com.lawal.transit.common;
+    opens com.lawal.transit.common;
 
-    exports com.lawal.transit.house;
-    opens com.lawal.transit.house;
+    exports com.lawal.transit.infrastructure.house;
+    opens com.lawal.transit.infrastructure.house;
 
-    exports com.lawal.transit.house.model;
-    opens com.lawal.transit.house.model;
+    exports com.lawal.transit.infrastructure.station;
+    opens com.lawal.transit.infrastructure.station;
 
-    exports com.lawal.transit.house.service;
-    opens com.lawal.transit.house.service;
+    exports com.lawal.transit.infrastructure.junction;
+    opens com.lawal.transit.infrastructure.junction;
 
-    exports com.lawal.transit.station;
-    opens com.lawal.transit.station;
+    exports com.lawal.transit.infrastructure.avenue;
+    opens com.lawal.transit.infrastructure.avenue;
 
-    exports com.lawal.transit.station.model;
-    opens com.lawal.transit.station.model;
+    exports com.lawal.transit.infrastructure.street;
+    opens com.lawal.transit.infrastructure.street;
 
-    exports com.lawal.transit.station.service;
-    opens com.lawal.transit.station.service;
+    exports com.lawal.transit.infrastructure.lane;
+    opens com.lawal.transit.infrastructure.lane;
 
-    exports com.lawal.transit.curb.model;
-    opens com.lawal.transit.curb.model;
+    exports com.lawal.transit.infrastructure.block;
+    opens com.lawal.transit.infrastructure.block;
 
-    exports com.lawal.transit.curb.repo;
-    opens com.lawal.transit.curb.repo;
+    exports com.lawal.transit.infrastructure.road;
+    opens com.lawal.transit.infrastructure.road;
 
-    exports com.lawal.transit.curb.service;
-    opens com.lawal.transit.curb.service;
+    exports com.lawal.transit.common.traversal;
+    opens com.lawal.transit.common.traversal;
 
-    exports com.lawal.transit.junction;
-    opens com.lawal.transit.junction;
+    exports com.lawal.transit.graph.path;
+    opens com.lawal.transit.graph.path to javafx.fxml, spring.core;
+    exports com.lawal.transit.infrastructure.road.exception;
+    opens com.lawal.transit.infrastructure.road.exception;
 
-    exports com.lawal.transit.junction.model;
-    opens com.lawal.transit.junction.model;
-
-    exports com.lawal.transit.junction.service;
-    opens com.lawal.transit.junction.service;
-    exports com.lawal.transit.junction.service.exception;
-    opens com.lawal.transit.junction.service.exception;
-
-    exports com.lawal.transit.avenue;
-    opens com.lawal.transit.avenue;
-
-    exports com.lawal.transit.avenue.model;
-    opens com.lawal.transit.avenue.model;
-
-    exports com.lawal.transit.avenue.service;
-    opens com.lawal.transit.avenue.service;
-
-    exports com.lawal.transit.street;
-    opens com.lawal.transit.street;
-
-    exports com.lawal.transit.street.model;
-    opens com.lawal.transit.street.model;
-
-    exports com.lawal.transit.street.service;
-    opens com.lawal.transit.street.service;
-
-    exports com.lawal.transit.lane;
-    opens com.lawal.transit.lane;
-
-    exports com.lawal.transit.lane.model;
-    opens com.lawal.transit.lane.model;
-
-    exports com.lawal.transit.lane.service;
-    opens com.lawal.transit.lane.service;
-
-    exports com.lawal.transit.block;
-    opens com.lawal.transit.block;
-
-    exports com.lawal.transit.block.model;
-    opens com.lawal.transit.block.model;
-
-    exports com.lawal.transit.block.service;
-    opens com.lawal.transit.block.service;
-
-    exports com.lawal.transit.road;
-    opens com.lawal.transit.road;
-
-    exports com.lawal.transit.road.model;
-    opens com.lawal.transit.road.model;
-
-    exports com.lawal.transit.road.service;
-    opens com.lawal.transit.road.service;
-
-    exports com.lawal.transit.navigtion;
-    opens com.lawal.transit.navigtion;
-
-    exports com.lawal.transit.route.model;
-    opens com.lawal.transit.route.model;
-
-    exports com.lawal.transit.route.repo;
-    opens com.lawal.transit.route.repo;
-
-    exports com.lawal.transit.route.service;
-    opens com.lawal.transit.route.service;
-
-    exports com.lawal.transit.path;
-    opens com.lawal.transit.path to javafx.fxml, spring.core;
-    exports com.lawal.transit.road.model.exception;
-    opens com.lawal.transit.road.model.exception;
-
-    exports com.lawal.transit.station.repo;
-    opens com.lawal.transit.station.repo;
+    exports com.lawal.transit.infrastructure.avenue.exception;
+    opens com.lawal.transit.infrastructure.avenue.exception;
+    exports com.lawal.transit.common.exception;
+    opens com.lawal.transit.common.exception;
+    opens com.lawal.transit.infrastructure.curb;
+    exports com.lawal.transit.infrastructure.curb;
+    exports com.lawal.transit.infrastructure.junction.exception;
+    opens com.lawal.transit.infrastructure.junction.exception;
+    exports com.lawal.transit.infrastructure.schedule;
+    opens com.lawal.transit.infrastructure.schedule;
 
 
 }
