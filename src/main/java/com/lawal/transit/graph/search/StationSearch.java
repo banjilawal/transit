@@ -3,7 +3,7 @@ package com.lawal.transit.graph.search;
 import com.lawal.transit.infrastructure.block.Block;
 import com.lawal.transit.infrastructure.block.BlockEdge;
 import com.lawal.transit.infrastructure.catalog.BlockCatalog;
-import com.lawal.transit.common.VertexColor;
+import com.lawal.transit.graph.VertexColor;
 import com.lawal.transit.infrastructure.house.House;
 
 import java.util.LinkedList;

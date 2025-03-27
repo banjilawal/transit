@@ -1,6 +1,6 @@
 package com.lawal.transit.infrastructure.block;
 
-import com.lawal.transit.common.VertexColor;
+import com.lawal.transit.graph.VertexColor;
 import com.lawal.transit.infrastructure.house.House;
 
 import com.lawal.transit.infrastructure.house.exception.NullHouseListException;

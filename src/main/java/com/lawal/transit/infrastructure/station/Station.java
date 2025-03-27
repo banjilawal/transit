@@ -3,7 +3,7 @@ package com.lawal.transit.infrastructure.station;
 import com.lawal.transit.infrastructure.block.Block;
 
 
-import com.lawal.transit.common.VertexColor;
+import com.lawal.transit.graph.VertexColor;
 import com.lawal.transit.infrastructure.station.exception.NullEdgeException;
 import com.lawal.transit.infrastructure.schedule.Departure;
 import com.lawal.transit.infrastructure.schedule.exception.NullDepartureException;
