@@ -1,4 +1,4 @@
-package com.lawal.transit.infrastructure.schedule.exception;
+package com.lawal.transit.infrastructure.bus.exception;
 
 public class NullDepartureException extends RuntimeException {
 

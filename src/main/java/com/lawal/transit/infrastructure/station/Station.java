@@ -4,9 +4,10 @@ import com.lawal.transit.infrastructure.block.Block;
 
 
 import com.lawal.transit.graph.VertexColor;
+import com.lawal.transit.infrastructure.bus.BusRoute;
 import com.lawal.transit.infrastructure.station.exception.NullEdgeException;
-import com.lawal.transit.infrastructure.schedule.Departure;
-import com.lawal.transit.infrastructure.schedule.exception.NullDepartureException;
+import com.lawal.transit.infrastructure.bus.Departure;
+import com.lawal.transit.infrastructure.bus.exception.NullDepartureException;
 import com.lawal.transit.infrastructure.station.exception.IncompatibleEdgeDirection;
 import com.lawal.transit.infrastructure.station.exception.StationNameNullException;
 import jakarta.persistence.*;
@@ -14,7 +15,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -111,7 +114,7 @@ public final class Station {
 
         if (departures.contains(departure)) {
             departures.remove(departure);
-            if (departure.getStation() != null && this.equals(departure.getStation())) { departure.setRoute(null); }
+            if (departure.getStation() != null && this.equals(departure.getStation())) { departure.setBusRoute(null); }
         }
     }
 
@@ -175,6 +178,28 @@ public final class Station {
             incomingEdges.remove(stationEdge);
             if (stationEdge.getTail() != null && this.equals(stationEdge.getTail())) { stationEdge.setTail(null); }
         }
+    }
+
+    public Set<BusRoute> getRoutes() {
+        Set<BusRoute> busRoutes = new HashSet<>();
+        for (Departure departure : departures) {
+            if (departure.getBusRoute() != null) {
+                busRoutes.add(departure.getBusRoute());
+            } else {
+                System.out.println("Departure has no route: " + departure);
+            }
+        }
+        return busRoutes;
+    }
+
+    public String getRouteNames() {
+        Set<BusRoute> busRoutes = getRoutes();
+        if (busRoutes.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        for (BusRoute busRoute : busRoutes) {
+            sb.append(busRoute.getName()).append(", ");
+        }
+        return sb.substring(0, sb.length() - 2);
     }
 
 

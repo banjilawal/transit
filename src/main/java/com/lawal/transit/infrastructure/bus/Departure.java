@@ -1,4 +1,4 @@
-package com.lawal.transit.infrastructure.schedule;
+package com.lawal.transit.infrastructure.bus;
 
 import com.lawal.transit.infrastructure.station.Station;
 import jakarta.persistence.*;
@@ -26,19 +26,19 @@ public class Departure {
 
     @ManyToOne
     @JoinColumn(name = "transit_route_id", nullable = false)
-    private Route route;
+    private BusRoute busRoute;
 
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
     private Station station;
 
-    public Departure (Long id, LocalTime departureTime, Route route, Station station) {
+    public Departure (Long id, LocalTime departureTime, BusRoute busRoute, Station station) {
         this.id = id;
         this.departureTime = departureTime;
 
-        this.route = route;
-        if (this.route != null && !this.route.getDepartures().contains(this)) {
-            this.route.addDeparture(this);
+        this.busRoute = busRoute;
+        if (this.busRoute != null && !this.busRoute.getDepartures().contains(this)) {
+            this.busRoute.addDeparture(this);
         }
 
         this.station = station;
@@ -47,12 +47,12 @@ public class Departure {
         }
     }
 
-    public void setRoute(Route route) {
-        if (this.route != null && this.route.equals(route)) return;
-        if (this.route != null) this.route.removeDeparture(this);
+    public void setBusRoute (BusRoute busRoute) {
+        if (this.busRoute != null && this.busRoute.equals(busRoute)) return;
+        if (this.busRoute != null) this.busRoute.removeDeparture(this);
 
-        this.route = route;
-        if (this.route != null) route.addDeparture(this);
+        this.busRoute = busRoute;
+        if (this.busRoute != null) busRoute.addDeparture(this);
     }
 
     public void setStation(Station station) {
@@ -68,7 +68,7 @@ public class Departure {
     public String toString() {
         return getClass().getSimpleName()
             + "[id:" + id
-            + " route:" + route.getName()
+            + " busRoute:" + busRoute.getName()
             + " station:" + station.getName() + "_" + station.getBlock().getCurb().getOrientation().abbreviation()
             + " time:" + departureTime
             + " stopId:" + id + "]";

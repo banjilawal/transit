@@ -7,8 +7,8 @@ import com.lawal.transit.infrastructure.catalog.StationCatalog;
 import com.lawal.transit.common.Constant;
 import com.lawal.transit.common.NameGenerator;
 import com.lawal.transit.infrastructure.road.Road;
-import com.lawal.transit.infrastructure.schedule.Departure;
-import com.lawal.transit.infrastructure.schedule.Route;
+import com.lawal.transit.infrastructure.bus.Departure;
+import com.lawal.transit.infrastructure.bus.BusRoute;
 import com.lawal.transit.infrastructure.station.Station;
 
 import java.time.LocalTime;
@@ -29,15 +29,15 @@ public enum TransitRouteFactory {
 
     public void run() {
         for (Road road : RoadCatalog.INSTANCE.getCatalog()) {
-            Route route = new Route(
+            BusRoute busRoute = new BusRoute(
                 routeId.incrementAndGet(),
                 randomName(),
                 Constant.TRANSIT_OPENING_TIME,
                 Constant.TRANSIT_CLOSING_TIME,
                 randomInterarrivalTime()
             );
-            addDepartures(route, road);
-            TransitRouteCatalog.INSTANCE.addRoute(route);
+            addDepartures(busRoute, road);
+            TransitRouteCatalog.INSTANCE.addRoute(busRoute);
         }
     }
 
@@ -54,11 +54,11 @@ public enum TransitRouteFactory {
         return new Random().nextInt(MINIMUM_INTERARRIVAL_TIME, MAXIMUM_INTERARRIVAL_TIME);
     }
     
-    public void addDepartures(Route route, Road road) {
+    public void addDepartures(BusRoute busRoute, Road road) {
         List<Station> stations = StationCatalog.INSTANCE.filterByRoad(road);
 
-        if (route == null) {
-            System.out.println("Cannot add departures to a null route");
+        if (busRoute == null) {
+            System.out.println("Cannot add departures to a null busRoute");
             return;
         }
 
@@ -77,12 +77,12 @@ public enum TransitRouteFactory {
         while (!departureTime.isBefore(Constant.TRANSIT_CLOSING_TIME)) {
             for (Station station : stations) {
 
-                Departure departure = new Departure(stopId.incrementAndGet(), departureTime, route, station);
+                Departure departure = new Departure(stopId.incrementAndGet(), departureTime, busRoute, station);
                 DepartureCatalog.INSTANCE.addDeparture(departure);
-                departureTime = departureTime.plusMinutes(route.getInterArrivalTime());
+                departureTime = departureTime.plusMinutes(busRoute.getInterArrivalTime());
                 counter++;
             }
-            departureTime = departureTime.plusMinutes(route.getInterArrivalTime());
+            departureTime = departureTime.plusMinutes(busRoute.getInterArrivalTime());
         }
     }
 }

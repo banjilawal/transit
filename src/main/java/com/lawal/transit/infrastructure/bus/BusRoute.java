@@ -1,7 +1,7 @@
-package com.lawal.transit.infrastructure.schedule;
+package com.lawal.transit.infrastructure.bus;
 
 import com.lawal.transit.infrastructure.road.Road;
-import com.lawal.transit.infrastructure.schedule.exception.NullDepartureException;
+import com.lawal.transit.infrastructure.bus.exception.NullDepartureException;
 import com.lawal.transit.infrastructure.station.exception.StationNameNullException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "transit_routes")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Route {
+public class BusRoute {
 
     @Id
     @EqualsAndHashCode.Include
@@ -41,7 +41,7 @@ public class Route {
     @OneToMany(mappedBy = "transit_route", cascade = CascadeType.ALL)
     private List<Departure> departures = new ArrayList<>();
 
-    public Route (Long id, String name, LocalTime openingTime, LocalTime closingTime, Integer interArrivalTime) {
+    public BusRoute (Long id, String name, LocalTime openingTime, LocalTime closingTime, Integer interArrivalTime) {
         this.id = id;
         this.name = name;
         this.openingTime = openingTime;
@@ -64,12 +64,12 @@ public class Route {
         if (departures == null) departures = new ArrayList<>();
 
         if (departures.contains(departure)) {
-            System.out.println("Route.addDeparture(): " + departure + " is already in the list");
+            System.out.println("BusRoute.addDeparture(): " + departure + " is already in the list");
             return;
         }
 
         departures.add(departure);
-        if (!departure.getRoute().equals(this)) { departure.setRoute(this); }
+        if (!departure.getBusRoute().equals(this)) { departure.setBusRoute(this); }
     }
 
     public void removeDeparture(Departure departure) {
@@ -82,7 +82,7 @@ public class Route {
 
         if (departures.contains(departure)) {
             departures.remove(departure);
-            if (departure.getRoute() != null && this.equals(departure.getRoute())) { departure.setRoute(null); }
+            if (departure.getBusRoute() != null && this.equals(departure.getBusRoute())) { departure.setBusRoute(null); }
         }
     }
 

@@ -19,6 +19,8 @@ public enum StreetCatalog {
 
     public List<Street> getCatalog() { return List.copyOf(catalog); }
 
+    public int size() { return catalog.size(); }
+
     public void addStreet (Street street) {
         if (street == null) return;
         if (catalog.contains(street)) return;

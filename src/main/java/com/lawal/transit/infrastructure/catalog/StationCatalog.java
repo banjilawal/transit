@@ -10,7 +10,9 @@ import com.lawal.transit.infrastructure.street.Street;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 public enum StationCatalog {
@@ -109,5 +111,13 @@ public enum StationCatalog {
             }
         }
         return matches;
+    }
+
+    public Set<Station> getDisconnectedStations() {
+        Set<Station> disconnectedStations = new HashSet<>();
+        for (Station station : catalog) {
+            if (station.getIncomingEdges().isEmpty() &&  station.getOutgoingEdges().isEmpty()) disconnectedStations.add(station);
+        }
+        return disconnectedStations;
     }
 }

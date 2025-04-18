@@ -2,8 +2,8 @@ package com.lawal.transit.infrastructure.catalog;
 
 
 import com.lawal.transit.infrastructure.avenue.Avenue;
-import com.lawal.transit.infrastructure.schedule.Departure;
-import com.lawal.transit.infrastructure.schedule.Route;
+import com.lawal.transit.infrastructure.bus.BusRoute;
+import com.lawal.transit.infrastructure.bus.Departure;
 import com.lawal.transit.infrastructure.station.Station;
 import com.lawal.transit.infrastructure.street.Street;
 import lombok.Getter;
@@ -42,12 +42,12 @@ public enum DepartureCatalog {
         return null;
     }
 
-    public List<Departure> filterByRoute(Route route) {
+    public List<Departure> filterByRoute(BusRoute busRoute) {
         List<Departure> matches = new ArrayList<>();
 
-        if (route == null) return matches;
+        if (busRoute == null) return matches;
         for (Departure departure : catalog) {
-            if (departure.getRoute().equals(route) && !matches.contains(departure)) matches.add(departure);
+            if (departure.getBusRoute().equals(busRoute) && !matches.contains(departure)) matches.add(departure);
         }
         return matches;
     }

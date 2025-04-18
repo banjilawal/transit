@@ -63,8 +63,8 @@ module com.lawal.transit {
     exports com.lawal.transit.infrastructure.curb;
     exports com.lawal.transit.infrastructure.junction.exception;
     opens com.lawal.transit.infrastructure.junction.exception;
-    exports com.lawal.transit.infrastructure.schedule;
-    opens com.lawal.transit.infrastructure.schedule;
+    exports com.lawal.transit.infrastructure.bus;
+    opens com.lawal.transit.infrastructure.bus;
     exports com.lawal.transit.graph;
     opens com.lawal.transit.graph;
 
