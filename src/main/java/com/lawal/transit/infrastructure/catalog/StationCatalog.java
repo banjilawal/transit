@@ -1,6 +1,7 @@
 package com.lawal.transit.infrastructure.catalog;
 
 import com.lawal.transit.infrastructure.avenue.Avenue;
+import com.lawal.transit.infrastructure.bus.BusRoute;
 import com.lawal.transit.infrastructure.curb.Curb;
 import com.lawal.transit.common.Direction;
 import com.lawal.transit.infrastructure.junction.Junction;
@@ -137,5 +138,20 @@ public enum StationCatalog {
         report.append("\n\t\t\t\t").append("total ghost stations:").append(ghosts.size());
         report.append("\n------------------------------------------------------");
         return report.toString();
+    }
+
+    public String getOrphansSummary(){
+        StringBuilder summary = new StringBuilder()
+            .append("---------------------- Orphan Stations Summary ----------------------\n");
+        Set<Station> ghosts = getGhostStations();
+
+        if (ghosts.isEmpty()) return summary.append("No ghost stations").toString();
+
+        int counter = 0;
+        for (Station station: getGhostStations()) {
+            summary.append(counter + 1).append(": ").append(station.toString()).append("\n");
+            counter++;
+        }
+        return summary.toString();
     }
 }

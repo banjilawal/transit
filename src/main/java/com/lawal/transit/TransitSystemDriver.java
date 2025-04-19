@@ -43,18 +43,7 @@ public class TransitSystemDriver {
 
 
         Queue<Block> path = StationSearch.search(source);
-//        System.out.println("------------------------------------------------------");
-//        System.out.println("Finding Closest Embarkation Point from source address" + source);
-//        System.out.println("------------------------------------------------------");
-
         Station station = pathToString(StationSearch.search(source));
-//
-//        int i = 1;
-//        for(Block block : path) {
-//            System.out.println("hop count:" + i + " " + block + block.getStation());
-//            if (block.getStation() != null) station = block.getStation();
-//            i++;
-//        }
 
         if (station != null) {
             System.out.println("\nWalk " + path.size() + " blocks from " + source.toString()
@@ -63,14 +52,6 @@ public class TransitSystemDriver {
         } else {
             System.out.println("no embarkation station");
         }
-
-//        System.out.println("Size of path from disembarkation to destination:" + StationSearch.search(destination).size());
-//
-//
-
-//        System.out.println("------------------------------------------------------");
-//        System.out.println("Finding Closest station to destination address" + destination);
-//        System.out.println("------------------------------------------------------");
 
         path = StationSearch.search(destination);
         station = pathToString(StationSearch.search(destination));
@@ -112,7 +93,8 @@ public class TransitSystemDriver {
 //        System.out.println(StationCatalog.INSTANCE.ghostStationReport());
 //        System.out.println(BusRouteCatalog.INSTANCE.ghostBusRoutesReport());
 
-//        System.out.println(BusRouteCatalog.INSTANCE.getSummary());
+        System.out.println(BusRouteCatalog.INSTANCE.getSummary());
+        System.out.println(StationCatalog.INSTANCE.getOrphansSummary());
 
         shortestPathHandler();
     }

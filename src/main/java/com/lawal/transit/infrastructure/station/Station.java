@@ -242,7 +242,7 @@ public final class Station {
             + " location:" + getLocationName()
             + " total_incoming_neighbors:" + incomingEdges.size()
             + " total_outgoing_neighbors:" + outgoingEdges.size()
-            + " routes:" + getRouteNames()
+            + " bus_routes:" + getRouteNames()
             + "]";
     }
 }
