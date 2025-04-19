@@ -1,6 +1,7 @@
 package com.lawal.transit.infrastructure.block;
 
 import com.lawal.transit.graph.VertexColor;
+import com.lawal.transit.infrastructure.catalog.JunctionCatalog;
 import com.lawal.transit.infrastructure.house.House;
 
 import com.lawal.transit.infrastructure.house.exception.NullHouseListException;
@@ -8,6 +9,7 @@ import com.lawal.transit.infrastructure.avenue.Avenue;
 import com.lawal.transit.infrastructure.curb.Curb;
 import com.lawal.transit.infrastructure.curb.exception.CurbOrientationException;
 
+import com.lawal.transit.infrastructure.junction.Junction;
 import com.lawal.transit.infrastructure.station.Station;
 import com.lawal.transit.infrastructure.street.Street;
 import jakarta.persistence.*;
@@ -17,7 +19,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -195,6 +199,11 @@ public class Block {
                 edge.setTail(null);
             }
         }
+    }
+
+    public Set<Junction> getJunctions() {
+        return JunctionCatalog.INSTANCE.filterByBlock(this);
+
     }
 
     public House getFirstHouse() { return houses.get(0); }

@@ -214,8 +214,8 @@ public final class Curb {
 
     public String getRoadName() {
         if (getRoad() == null) return "";
-        if (getRoad().getStreet() != null) return getRoad().getStreet().getName() + Street.ABBREVIATION;
-        if (getRoad().getAvenue() != null) return getRoad().getAvenue().getName() + Avenue.ABBREVIATION;
+        if (getRoad().getStreet() != null) return getRoad().getStreet().getName() + " Street";
+        if (getRoad().getAvenue() != null) return getRoad().getAvenue().getName() + " Avenue";
         else return "";
     }
 

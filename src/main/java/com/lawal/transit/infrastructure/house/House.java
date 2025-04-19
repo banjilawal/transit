@@ -51,9 +51,11 @@ public class House {
 
     @Override
     public String toString () {
-        return getClass().getSimpleName() + "[id:" + id
-            + " mailing:" + address + " "
-            + block.getCurb().getRoadName()
-            + " " + block.getCurb().getOrientation().abbreviation(); // + " " + block.getCurb().toString();
+        String roadName = block.getCurb().getRoadName() + " " + block.getCurb().getOrientation().print();
+        return address + " " + roadName;
+//        return getClass().getSimpleName() + "[id:" + id
+//            + " mailing:" + address + " "
+//            + block.getCurb().getRoadName()
+//            + " " + block.getCurb().getOrientation().abbreviation(); // + " " + block.getCurb().toString();
     }
 }

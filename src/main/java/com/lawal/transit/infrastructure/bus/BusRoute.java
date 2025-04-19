@@ -2,6 +2,7 @@ package com.lawal.transit.infrastructure.bus;
 
 import com.lawal.transit.infrastructure.road.Road;
 import com.lawal.transit.infrastructure.bus.exception.NullDepartureException;
+import com.lawal.transit.infrastructure.station.Station;
 import com.lawal.transit.infrastructure.station.exception.StationNameNullException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +12,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -36,17 +39,17 @@ public class BusRoute {
     private LocalTime closingTime;
 
     @Column(nullable = false)
-    Integer interArrivalTime;
+    Integer interval;
 
     @OneToMany(mappedBy = "transit_route", cascade = CascadeType.ALL)
     private List<Departure> departures = new ArrayList<>();
 
-    public BusRoute (Long id, String name, LocalTime openingTime, LocalTime closingTime, Integer interArrivalTime) {
+    public BusRoute (Long id, String name, LocalTime openingTime, LocalTime closingTime, Integer interval) {
         this.id = id;
         this.name = name;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
-        this.interArrivalTime = interArrivalTime;
+        this.interval = interval;
 
         this.departures = new ArrayList<>();
     }
@@ -116,15 +119,58 @@ public class BusRoute {
         return stringBuilder.toString();
     }
 
+    public Set<Departure> filterBYStation(Station station) {
+        Set<Departure> matches = new HashSet<>();
+
+        if (station == null) return matches;
+        for (Departure departure : departures) {
+            if (departure.getStation().equals(station)) matches.add(departure);
+        }
+        return Set.copyOf(matches);
+    }
+
+    public Set<Station> getStations() {
+        Set<Station> stations = new HashSet<>();
+
+        for (Departure departure : departures) {
+            stations.add(departure.getStation());
+        }
+        return Set.copyOf(stations);
+    }
+
+    public Set<Road> getRoads() {
+        Set<Road> roads = new HashSet<>();
+        for (Departure departure : departures) {
+            Road road = departure.getStation().getBlock().getCurb().getRoad();
+            roads.add(road);
+        }
+        return Set.copyOf(roads);
+    }
+
+    public boolean isGhostBusRoute() {
+        return departures.isEmpty();
+    }
+
+    public String getRoadInfo() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Road road : getRoads()) {
+            stringBuilder.append(road.getName()).append(", ");
+        }
+        return stringBuilder.toString().endsWith(", ") ? stringBuilder.substring(0, stringBuilder.length() - 2) : stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName()
             + "[id:" + id
             + " name:" + name
-            + " interArrivalTime:" + interArrivalTime
-            + " totalStops:" + departures.size() + "]"
-            + "\n\tfirst departure:" + getFirstDeparture()
-            + "\n\tlast departure:" + getLastDeparture();
-//            + "\nSchedule:\n" + getDepartureTimeString() ;
+            + " interArrivalTime:" + interval
+            + " totalStops:" + getStations().size()
+            + " roads:" + getRoadInfo();
+//            +
+//            + "\n\tfirst departure:" + getFirstDeparture()
+//            + "\n\tlast departure:" + getLastDeparture();
+////            + "\nSchedule:\n" + getDepartureTimeString() ;
     }
 }

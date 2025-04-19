@@ -16,6 +16,8 @@ module com.lawal.transit {
     requires jakarta.validation;
     requires spring.data.jpa;
     requires java.desktop;
+    requires org.hibernate.orm.core;
+    requires jdk.xml.dom;
 
     exports com.lawal.transit;
     opens com.lawal.transit to spring.core, javafx.fxml;

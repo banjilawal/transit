@@ -11,7 +11,9 @@ import com.lawal.transit.infrastructure.street.Street;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -46,33 +48,33 @@ public enum JunctionCatalog {
         return null;
     }
 
-    public List<Junction> filterByAvenue(Avenue avenue) {
-        if (avenue == null) return null;
+    public Set<Junction> filterByAvenue(Avenue avenue) {
+        Set<Junction> matches = new HashSet<>();
+        if (avenue == null) return matches;
 
-        List<Junction> matches = new ArrayList<>();
         for (Junction junction : catalog) {
-            if (junction.getAvenue().equals(avenue) && !matches.contains(junction)) matches.add(junction);
+            if (junction.getAvenue().equals(avenue)) matches.add(junction);
         }
         return matches;
     }
 
-    public List<Junction> filterByStreet(Street street) {
-        if (street == null) return null;
+    public Set<Junction> filterByStreet(Street street) {
+        Set<Junction> matches = new HashSet<>();
+        if (street == null) return matches;
 
-        List<Junction> matches = new ArrayList<>();
         for (Junction junction : catalog) {
-            if (junction.getStreet().equals(street) && !matches.contains(junction)) matches.add(junction);
+            if (junction.getStreet().equals(street)) matches.add(junction);
         }
         return matches;
     }
 
-    public List<Junction> filterByBlock(Block block) {
-        List<Junction> matches = new ArrayList<>();
+    public Set<Junction> filterByBlock(Block block) {
+        Set<Junction> matches = new HashSet<>();
         if (block == null) return matches;
 
         for (Junction junction : catalog) {
             for (JunctionCorner corner : junction.getCorners()) {
-                if (corner.getAvenueLeg().equals(block) || corner.getStreetLeg().equals(block)) matches.add(junction);
+                if (corner.containsBlock(block)) matches.add(junction);
             }
         }
         return matches;

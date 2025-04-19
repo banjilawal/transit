@@ -7,6 +7,7 @@ import com.lawal.transit.infrastructure.junction.Junction;
 import com.lawal.transit.infrastructure.road.Road;
 import com.lawal.transit.infrastructure.station.Station;
 import com.lawal.transit.infrastructure.street.Street;
+import com.lawal.transit.report.StationReport;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -113,11 +114,28 @@ public enum StationCatalog {
         return matches;
     }
 
-    public Set<Station> getDisconnectedStations() {
-        Set<Station> disconnectedStations = new HashSet<>();
+    public Set<Station> getGhostStations() {
+        Set<Station> ghosts = new HashSet<>();
         for (Station station : catalog) {
-            if (station.getIncomingEdges().isEmpty() &&  station.getOutgoingEdges().isEmpty()) disconnectedStations.add(station);
+            if (station.isGhostStation()) ghosts.add(station);
         }
-        return disconnectedStations;
+        return ghosts;
+    }
+
+    public String ghostStationReport(){
+        StringBuilder report = new StringBuilder()
+            .append("----------------- GHOST STATIONS REPORT ----------------\n");
+//            .append("------------------------------------------------------\n");
+
+        Set<Station> ghosts = getGhostStations();
+        if (ghosts.isEmpty()) return report.append("No ghost stations").toString();
+
+//        report.append("------------------------------------------------------\n");
+        for (Station station : ghosts) {
+            report.append("\n").append(new StationReport(station).getReport());
+        }
+        report.append("\n\t\t\t\t").append("total ghost stations:").append(ghosts.size());
+        report.append("\n------------------------------------------------------");
+        return report.toString();
     }
 }

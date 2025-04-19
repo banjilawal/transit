@@ -5,6 +5,7 @@ import com.lawal.transit.infrastructure.block.Block;
 
 import com.lawal.transit.graph.VertexColor;
 import com.lawal.transit.infrastructure.bus.BusRoute;
+import com.lawal.transit.infrastructure.junction.Junction;
 import com.lawal.transit.infrastructure.station.exception.NullEdgeException;
 import com.lawal.transit.infrastructure.bus.Departure;
 import com.lawal.transit.infrastructure.bus.exception.NullDepartureException;
@@ -180,8 +181,9 @@ public final class Station {
         }
     }
 
-    public Set<BusRoute> getRoutes() {
+    public Set<BusRoute> getBusRoutes () {
         Set<BusRoute> busRoutes = new HashSet<>();
+
         for (Departure departure : departures) {
             if (departure.getBusRoute() != null) {
                 busRoutes.add(departure.getBusRoute());
@@ -193,7 +195,7 @@ public final class Station {
     }
 
     public String getRouteNames() {
-        Set<BusRoute> busRoutes = getRoutes();
+        Set<BusRoute> busRoutes = getBusRoutes();
         if (busRoutes.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
         for (BusRoute busRoute : busRoutes) {
@@ -202,21 +204,45 @@ public final class Station {
         return sb.substring(0, sb.length() - 2);
     }
 
+    public Set<Station> getIncomingNeighbors() {
+        Set<Station> neighbors = new HashSet<>();
+        for (StationEdge edge : incomingEdges) {
+            neighbors.add(edge.getHead());
+        }
+        return neighbors;
+    }
+
+    public Set<Station> getOutgoingNeighbors() {
+        Set<Station> neighbors = new HashSet<>();
+        for (StationEdge edge : outgoingEdges) {
+            neighbors.add(edge.getTail());
+        }
+        return neighbors;
+    }
+
+    public String getRoadName() {
+        return block.getCurb().getRoadName() + " " + block.getCurb().getOrientation().print();
+    }
+
+    public String getLocationName() {
+        Junction junction = block.getJunctions().stream().findAny().orElse(null);
+        if (junction == null) return "";
+        else return junction.getAvenue().getName() + " and " + junction.getStreet().getName();
+    }
+
+    public boolean isGhostStation() {
+        return incomingEdges.isEmpty() && outgoingEdges.isEmpty();
+    }
 
     @Override
     public String toString () {
         return getClass().getSimpleName()
             + "[id:" + id
             + " name:" + name
-            + "-" + block.getCurb().getRoadName() //block.getCurb().getOrientation().abbreviation()
-            + " inDegree:" + incomingEdges.size()
-            + " outDegree:" + outgoingEdges.size()
+            + " location:" + getLocationName()
+            + " total_incoming_neighbors:" + incomingEdges.size()
+            + " total_outgoing_neighbors:" + outgoingEdges.size()
+            + " routes:" + getRouteNames()
             + "]";
-//            + " (" + block.getAddress()
-//            + " blockId:" + block.getId()
-//            + ") curbId:" + block.getCurb().getId()
-//            + " " + block.getCurb().getRoad().toString()
-//            + " " + block.getCurb().getOrientation().print() + "]"
-//            + " in degree:" + incomingStationEdges.size() + " out degree:" + outgoingStationEdges.size();
     }
 }

@@ -46,7 +46,6 @@ public class StationSearch {
         return bfs(queue, processed);
     }
 
-
     private static Queue<Block> bfs(Queue<Block> queue, Queue<Block> processed) {
         // Add a level marker (null) to indicate the end of the current level
         queue.add(null);
@@ -77,10 +76,10 @@ public class StationSearch {
                     if (v.getStation() != null) {
                         // Stop search once the station is found
                         v.setColor(VertexColor.BLACK);
-                        System.out.println("Found station!! v:" + v.getId()
-                            + " hopCount:" + hopCount
-                            + " predecessorId:" + u.getId()
-                            + " station:" + v.getStation());
+//                        System.out.println("Found station!! v:" + v.getId()
+//                            + " hopCount:" + hopCount
+//                            + " predecessorId:" + u.getId()
+//                            + " station:" + v.getStation());
                         processed.add(v);
                         return processed;
                     }
@@ -89,7 +88,7 @@ public class StationSearch {
             }
             u.setColor(VertexColor.BLACK);
             processed.add(u);
-            System.out.println("Processed:" + u + " hopCount:" + hopCount);
+//            System.out.println("Processed:" + u + " hopCount:" + hopCount);
         }
         return processed;
     }

@@ -15,7 +15,7 @@
 //import com.lawal.transit.infrastructure.junction.JunctionCorner;
 //import com.lawal.transit.navigtion.CurbStationEdgeFactory;
 //import com.lawal.transit.infrastructure.road.Road;
-//import com.lawal.transit.route.TransitRouteFactory;
+//import com.lawal.transit.route.BusRouteFactory;
 //import com.lawal.transit.infrastructure.street.Street;
 //
 //import java.util.concurrent.atomic.AtomicLong;
@@ -42,7 +42,7 @@
 //        buildJunctions();
 //        buildAddresses();
 //        CurbStationEdgeFactory.processCurbs();
-//        TransitRouteFactory.populate();
+//        BusRouteFactory.populate();
 //        BlockEdgeFactory.INSTANCE.run();
 ////        buildJunctionCorners();;
 ////        TurnNavigator.populateEdges();

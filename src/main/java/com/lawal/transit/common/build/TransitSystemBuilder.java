@@ -31,7 +31,7 @@ public enum TransitSystemBuilder {
     private final AtomicLong junctionId = new AtomicLong(0);
     private final AtomicLong junctionCornerId = new AtomicLong(0);
 
-    public static final int MAX_STATION_DENSITY = 9;
+    public static final int MAX_STATION_DENSITY = 8;
     private static final int NUMBER_OF_HOUSES_PER_BLOCK = 4;
     private static final int ADDRESS_INTERVAL = 2;
 
@@ -42,7 +42,7 @@ public enum TransitSystemBuilder {
         buildJunctions();
         StationEdgeFactory.INSTANCE.run();
         BlockEdgeFactory.INSTANCE.run();
-        TransitRouteFactory.INSTANCE.run();
+        BusRouteFactory.INSTANCE.run();
     }
 
     private void buildAvenues() {
