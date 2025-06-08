@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lawal</groupId>
-    <artifactId>transit</artifactId>
+    <artifactId>transitcraft</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>transit</name>
 
@@ -151,7 +151,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.lawal.transit/com.lawal.transit.HelloApplication</mainClass>
+                            <mainClass>com.lawal.transit/com.lawal.transitcraft.HelloApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>
