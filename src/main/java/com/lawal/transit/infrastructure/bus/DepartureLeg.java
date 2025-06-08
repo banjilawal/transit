@@ -26,4 +26,5 @@ public class DepartureLeg {
     @ManyToOne
     @JoinColumn(name = "tail_departure_id", nullable = false)
     private Departure tail;
+
 }
