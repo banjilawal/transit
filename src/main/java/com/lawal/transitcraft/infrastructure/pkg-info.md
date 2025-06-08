@@ -1,38 +1,6 @@
 # Infrastructure Package
-TransitCraft has static infrastructure that defines and creates the world. A mass transit system 
-is overlaid on city grid.
 
 ## Purpose
-
-### 1 The City Grid layer
-Consists of roads, intersections, blocks and houses.
-
-### BlockGraph
-Blocks have:
-- Line-of-sight neighbors.
-- Neighbors at 90 degrees.
-
-### IntersectionGraph
-Vertices are where roads meet. Edges of the IntersectionGraph are avenues and streets.
-Each intersection has a number of corners.
-
-## The Mass Transit Overlay
-The layers here have sub-graphs.
-- StationGraph
-- TransitRouteGraph
-- TransitVehicleGraph
-
-### StationGraph
-The transit stops located on blocks. Edges between stations are blocks on roads. The 
-transit.
-
-### TransitRouteGraph
-A set of sub-graphs that defined a scheduled transit route. Vertices are stations. Edges
-are legs of the route. All the sub-graphs are cycles.
-
-# Infrastructure Package
-
-
 TransitCraft's infrastructure package defines and manages the static infrastructure that creates the world, consisting of a city grid with an overlaid mass transit system.
 
 ## Key Components
