@@ -1,34 +1,38 @@
 # System Architecture
-
+---
 ## Purpose and Scope
 - High level overview of the system architecture's layers
 - Future directions
 - Installation
 
+---
 ### Common Classes
 Foundational classes that:
 - Define shared base functionality
 - Establish standard patterns
 - Provide reusable implementations
 
+---
 ## Build System Vision
 - Jar file builds entire system.
 - Installation and verification success is logged.
 
+---
 ### Factory-Based Construction
 The system employs a factory-based build approach where:
 - Factories handle component creation
 - Construction follows a defined sequence
 - Dependencies are managed systematically
 
+---
 ### Sequential Build Process
 Build sequence ensures:
 - Proper initialization order
 - Dependency satisfaction
 - System integrity
 
+---
 ## Future Directions
-
 ### Planned Enhancements
 - Improve search search features
 - Add modules for dynamic route optimization
@@ -37,6 +41,7 @@ Build sequence ensures:
 - Enhanced build system capabilities
 - Add intuitive UI
 
+---
 ### Growth Areas
 - Performance optimization opportunities
 - Potential new common functions
@@ -47,6 +52,7 @@ Build sequence ensures:
 - Installation 
 - Uninstallation
 
+---
 ## Success Metrics
 
 ### Quality Indicators
@@ -61,3 +67,6 @@ Build sequence ensures:
 - Minimal package dependencies
 - Clear usage patterns
 - Packaged installer
+
+---
+## License

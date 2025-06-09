@@ -8,7 +8,7 @@
 //import com.lawal.transit.infrastructure.catalog.*;
 //import com.lawal.transit.infrastructure.curb.CurbGenerator;
 //import com.lawal.transit.infrastructure.curb.Curb;
-//import com.lawal.transit.global.Constant;
+//import com.lawal.transit.global.Default;
 //
 //import com.lawal.transit.global.NameGenerator;
 //import com.lawal.transit.infrastructure.junction.Junction;
@@ -49,7 +49,7 @@
 //    }
 //
 //    private static void buildAvenues() {
-//        for (String name : Constant.AVENUE_NAMES) {
+//        for (String name : Default.AVENUE_NAMES) {
 //            Road road = new Road(roadId.incrementAndGet());
 //            Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, road);
 //            RoadCatalog.INSTANCE.addRoad(road);
@@ -94,8 +94,8 @@
 //
 //            int currentAddress = 2;
 //            if (avenue != null)
-//                currentAddress = avenue.getId().intValue() * Constant.MULTIPLICATION_FACTOR;
-//            else currentAddress = street.getId().intValue() * Constant.MULTIPLICATION_FACTOR;
+//                currentAddress = avenue.getId().intValue() * Default.MULTIPLICATION_FACTOR;
+//            else currentAddress = street.getId().intValue() * Default.MULTIPLICATION_FACTOR;
 //
 //
 //            if (curb.getOrientation() == Avenue.LEFT_CURB_ORIENTATION || curb.getOrientation() == Street.LEFT_CURB_ORIENTATION)

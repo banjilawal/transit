@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public final class Constant {
+public final class Default {
 
     public static ArrayList<String> AVENUE_NAMES = new ArrayList<>(Arrays.asList(
         "Alpha",
@@ -69,6 +69,8 @@ public final class Constant {
     public static final int MULTIPLICATION_FACTOR = 1000;
     public static final int NAME_INFIX_INTERVAL = 2;
 
+    public final static int MINIMUM_INTERARRIVAL_TIME = 8;
+    public final static int MAXIMUM_INTERARRIVAL_TIME = 45;
 
     public static int REGULAR_INTERARRIVAL_FLOOR = 30;
     public static int REGULAR_INTERARRIVAL_CEILING = 45;
@@ -82,6 +84,10 @@ public final class Constant {
 
     public static final int STANDARD_BUS_CAPACITY = 50;
     public static final int LONG_BUS_CAPACITY = 70;
+
+    public static final int MAX_STATION_DENSITY = 13;
+    public static final int NUMBER_OF_HOUSES_PER_BLOCK = 10;
+    public static final int ADDRESS_INTERVAL = 2;
 
     public static LocalTime TRANSIT_OPENING_TIME = LocalTime.of(6,0);
     public static LocalTime TRANSIT_CLOSING_TIME = LocalTime.of(2,30);

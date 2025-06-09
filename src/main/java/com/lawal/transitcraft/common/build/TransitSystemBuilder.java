@@ -1,12 +1,12 @@
 package com.lawal.transitcraft.common.build;
 
+import com.lawal.transitcraft.common.Default;
 import com.lawal.transitcraft.common.Direction;
 import com.lawal.transitcraft.infrastructure.house.House;
 import com.lawal.transitcraft.infrastructure.avenue.Avenue;
 import com.lawal.transitcraft.infrastructure.block.Block;
 import com.lawal.transitcraft.infrastructure.catalog.*;
 import com.lawal.transitcraft.infrastructure.curb.Curb;
-import com.lawal.transitcraft.common.Constant;
 import com.lawal.transitcraft.common.NameGenerator;
 import com.lawal.transitcraft.infrastructure.junction.Junction;
 import com.lawal.transitcraft.infrastructure.junction.JunctionCorner;
@@ -31,10 +31,6 @@ public enum TransitSystemBuilder {
     private final AtomicLong junctionId = new AtomicLong(0);
     private final AtomicLong junctionCornerId = new AtomicLong(0);
 
-    public static final int MAX_STATION_DENSITY = 13;
-    private static final int NUMBER_OF_HOUSES_PER_BLOCK = 10;
-    private static final int ADDRESS_INTERVAL = 2;
-
     public void run() {
         buildAvenues();
         buildStreets();
@@ -47,7 +43,7 @@ public enum TransitSystemBuilder {
 
     private void buildAvenues() {
 
-        for (String name : Constant.AVENUE_NAMES) {
+        for (String name : Default.AVENUE_NAMES) {
             Road road = new Road(roadId.incrementAndGet());
             Avenue avenue = new Avenue(avenueId.incrementAndGet(), name, road);
             buildCurbs(road);
@@ -94,7 +90,7 @@ public enum TransitSystemBuilder {
 
         for (Curb curb : CurbCatalog.INSTANCE.getCatalog()) {
             blockCreationHelper(curb, AvenueCatalog.INSTANCE.size());
-            buildStations(curb, MAX_STATION_DENSITY);
+            buildStations(curb, Default.MAX_STATION_DENSITY);
             buildHouses(curb);
         }
     }
@@ -103,7 +99,7 @@ public enum TransitSystemBuilder {
         if (curb == null) return;
 
         for (int index = 0; index < numberOfBlocks; index++) {
-            String blockName = "Block-" + (curb.getBlocks().size() + 1) * Constant.MULTIPLICATION_FACTOR;
+            String blockName = "Block-" + (curb.getBlocks().size() + 1) * Default.MULTIPLICATION_FACTOR;
             Block block = new Block(blockId.incrementAndGet(), blockName, curb);
             BlockCatalog.INSTANCE.addBlock(block);
         }
@@ -126,9 +122,9 @@ public enum TransitSystemBuilder {
 
         long address = 0L;
         if (curb.getRoad().getAvenue() != null) {
-            address = (long) avenueId.intValue() * Constant.MULTIPLICATION_FACTOR;
+            address = (long) avenueId.intValue() * Default.MULTIPLICATION_FACTOR;
         } else {
-            address = (long) streetId.intValue() * Constant.MULTIPLICATION_FACTOR;
+            address = (long) streetId.intValue() * Default.MULTIPLICATION_FACTOR;
         }
 
         if (curb.getOrientation() == Avenue.LEFT_CURB_ORIENTATION || curb.getOrientation() == Street.LEFT_CURB_ORIENTATION)
@@ -136,9 +132,9 @@ public enum TransitSystemBuilder {
 
         Block previousBlock = curb.getBlocks().get(0);
         for (Block block : curb.getBlocks()) {
-            putHousesOnBlock(block, address, ADDRESS_INTERVAL, NUMBER_OF_HOUSES_PER_BLOCK);
+            putHousesOnBlock(block, address, Default.ADDRESS_INTERVAL, Default.NUMBER_OF_HOUSES_PER_BLOCK);
             previousBlock = block;
-            address = previousBlock.getLastHouse().getAddress() + ADDRESS_INTERVAL;
+            address = previousBlock.getLastHouse().getAddress() + Default.ADDRESS_INTERVAL;
         }
     }
 

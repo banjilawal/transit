@@ -1,10 +1,10 @@
 package com.lawal.transitcraft.common.build;
 
+import com.lawal.transitcraft.common.Default;
 import com.lawal.transitcraft.infrastructure.catalog.DepartureCatalog;
 import com.lawal.transitcraft.infrastructure.catalog.RoadCatalog;
 import com.lawal.transitcraft.infrastructure.catalog.BusRouteCatalog;
 import com.lawal.transitcraft.infrastructure.catalog.StationCatalog;
-import com.lawal.transitcraft.common.Constant;
 import com.lawal.transitcraft.common.NameGenerator;
 import com.lawal.transitcraft.infrastructure.road.Road;
 import com.lawal.transitcraft.infrastructure.bus.Departure;
@@ -20,20 +20,17 @@ public enum BusRouteFactory {
 
     INSTANCE;
 
-    private final static int MINIMUM_INTERARRIVAL_TIME = 8;
-    private final static int MAXIMUM_INTERARRIVAL_TIME = 45;
     private final static AtomicLong routeId = new AtomicLong(0);
     private final static AtomicLong stopId = new AtomicLong(0);
 
-    private static final Random random = new Random();
 
     public void run() {
         for (Road road : RoadCatalog.INSTANCE.getCatalog()) {
             BusRoute busRoute = new BusRoute(
                 routeId.incrementAndGet(),
                 randomName(),
-                Constant.TRANSIT_OPENING_TIME,
-                Constant.TRANSIT_CLOSING_TIME,
+                Default.TRANSIT_OPENING_TIME,
+                Default.TRANSIT_CLOSING_TIME,
                 randomInterarrivalTime()
             );
             addDepartures(busRoute, road);
@@ -51,7 +48,10 @@ public enum BusRouteFactory {
     }
 
     public Integer randomInterarrivalTime() {
-        return new Random().nextInt(MINIMUM_INTERARRIVAL_TIME, MAXIMUM_INTERARRIVAL_TIME);
+        return new Random().nextInt(
+            Default.MINIMUM_INTERARRIVAL_TIME,
+            Default.MAXIMUM_INTERARRIVAL_TIME
+        );
     }
     
     public void addDepartures(BusRoute busRoute, Road road) {
@@ -72,9 +72,9 @@ public enum BusRouteFactory {
             return;
         }
 
-        LocalTime departureTime = Constant.TRANSIT_OPENING_TIME;
+        LocalTime departureTime = Default.TRANSIT_OPENING_TIME;
         int counter = 1;
-        while (!departureTime.isBefore(Constant.TRANSIT_CLOSING_TIME)) {
+        while (!departureTime.isBefore(Default.TRANSIT_CLOSING_TIME)) {
             for (Station station : stations) {
 
                 Departure departure = new Departure(stopId.incrementAndGet(), departureTime, busRoute, station);
