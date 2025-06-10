@@ -53,15 +53,7 @@ public class AvenueServiceDeleteOperationFailedException extends RuntimeExceptio
 ```
 #### Using an exception an Exception with its Default Message
 ```java
-if (!cascadeDeleResult(avenue)) {
-    throw new AvenueServiceDeleteOperationFaile(
-        AvenueServiceDeleteOperationFailed.MESSAGE
-    );
-}
-```
-#### Using an exception an Avenue Package Exception with a Custom Message
-```java
 if (curb.getAvenue() != NULL) {
-    throw new AvenueSetCurbOperationFailed("Cannot set a curb alreay assigned to an avenue.");
+    throw new AvenueSetCurbOperationFailed(AvenueSetCurbOperationFailed.MESSAGE);
 }
 ```
