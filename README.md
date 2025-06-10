@@ -58,7 +58,8 @@ banji.k.lawal at gmail
 
 ## License
 
-This project is licensed under the Creative Commons License - see the LICENSE.md file for details
+This project is licensed under the GNU General Public License Version 3 - 
+see the [`LICENSE.md`](LICENSE.md) file for details
 
 ## Acknowledgments
 - For structuring my `README.md`
