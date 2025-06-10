@@ -12,9 +12,15 @@ Certain packages must be built before others. The package:
 ## Package Dependencies
 Requires:
 - `com.lawal.transitcraft.infrastructure`
+- 
 
 ---
 ## Class Relationship
+The factories and builder are all enums.
+- Using enum is thread safe unlike Plain Old Singletons (POS).
+- Multiple instances of the factories would cause inconsistent data and circular injections.
+- `Enum`meet all these requirements.
+
 ```plantuml
 @startuml
 package build {
