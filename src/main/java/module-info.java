@@ -1,3 +1,4 @@
+
 module com.lawal.transitcraft {
     requires javafx.controls;
     requires javafx.fxml;
@@ -54,21 +55,25 @@ module com.lawal.transitcraft {
 
     exports com.lawal.transitcraft.graph.path;
     opens com.lawal.transitcraft.graph.path to javafx.fxml, spring.core;
+
     exports com.lawal.transitcraft.infrastructure.road.exception;
     opens com.lawal.transitcraft.infrastructure.road.exception;
 
     exports com.lawal.transitcraft.infrastructure.avenue.exception;
     opens com.lawal.transitcraft.infrastructure.avenue.exception;
-    exports com.lawal.transitcraft.common.exception;
-    opens com.lawal.transitcraft.common.exception;
+
     opens com.lawal.transitcraft.infrastructure.curb;
     exports com.lawal.transitcraft.infrastructure.curb;
+
     exports com.lawal.transitcraft.infrastructure.junction.exception;
     opens com.lawal.transitcraft.infrastructure.junction.exception;
+
     exports com.lawal.transitcraft.infrastructure.bus;
     opens com.lawal.transitcraft.infrastructure.bus;
+
     exports com.lawal.transitcraft.graph;
     opens com.lawal.transitcraft.graph;
 
-
+    exports com.lawal.transitcraft.common.exception;
+    opens com.lawal.transitcraft.common.exception;
 }

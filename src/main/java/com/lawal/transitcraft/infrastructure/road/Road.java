@@ -1,5 +1,7 @@
 package com.lawal.transitcraft.infrastructure.road;
 
+import com.lawal.transitcraft.common.exception.TransitCraftIdNullException;
+import com.lawal.transitcraft.common.exception.TransitCraftNegativeIdException;
 import com.lawal.transitcraft.infrastructure.avenue.Avenue;
 import com.lawal.transitcraft.infrastructure.curb.Curb;
 import com.lawal.transitcraft.infrastructure.curb.exception.CurbAvenueMismatchException;
@@ -48,6 +50,9 @@ public class Road {
     private List<Lane> lanes = new ArrayList<>();
 
     public Road (Long id) {
+        if (id == null) throw new TransitCraftIdNullException(TransitCraftIdNullException.MESSAGE);
+        if (id < 1) throw new TransitCraftNegativeIdException(TransitCraftNegativeIdException.MESSAGE);
+
         this.id = id;
         this.leftCurb = null;
         this.rightCurb = null;
