@@ -90,10 +90,6 @@ public final class Street {
 
 
     public void setRoad(Road road) {
-
-        if (road == null)
-            throw new RoadRequiredException(RoadRequiredException.MESSAGE);
-
         this.road = road;
     }
 
