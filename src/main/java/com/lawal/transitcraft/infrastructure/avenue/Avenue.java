@@ -11,7 +11,7 @@ import com.lawal.transitcraft.infrastructure.junction.exception.NullJunctionList
 import com.lawal.transitcraft.infrastructure.lane.Lane;
 import com.lawal.transitcraft.infrastructure.road.Road;
 
-import com.lawal.transitcraft.infrastructure.road.exception.NullRoadException;
+import com.lawal.transitcraft.infrastructure.road.exception.RoadRequiredException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -90,7 +90,7 @@ public final class Avenue {
     }
 
     public void setRoad(Road road) {
-        if (road == null) throw new NullRoadException("Avenue cannot exist without a Road");
+        if (road == null) throw new RoadRequiredException(RoadRequiredException.MESSAGE);
         if (this.road != null) { this.road.setAvenue(null); }
 
         this.road = road;
