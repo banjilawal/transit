@@ -29,34 +29,45 @@ public class RoadTest {
     }
 
     @Test
-    void idMustBePositive() {
+    @DisplayName("Should return true because the road's id is positive")
+    void roadIdIsPositive() {
         Road road = new Road(1L);
-        assertTrue(road.getId() >= 1L);
+        assertTrue(road.getId() > 0L, "Road's ID must be positive");
     }
 
     @Test
     @DisplayName("💰 Constructing a street should establish a bidirectional relationship between" +
         " the street and the road it's built on")
-    void constructingStreetEstablishedBidirectionalRelationShipWithRoad () {
+    void constructingStreetEstablishesBidirectionalRelationShipWithRoad () {
         Road road = new Road(1L);
         Street street = new Street(1L, "1st Street", road);
 
         assertSame(road.getStreet(), street);
-        assertSame(street, road.getStreet());
     }
 
     @Test
-    @DisplayName("💰Should throw StreetHasConflictingRoadReferenceException")
-    void exchangingStreetHasConflictingRoadReferenceThrowsException() {
+    @DisplayName("Should throw StreetHasConflictingRoadReferenceException when assigning street" +
+        " with existing road reference")
+    void assigningStreetWithExistingRoadReferenceThrowsException() {
         Road roadA = new Road(1L);
         Road roadB = new Road(2L);
-
         Street streetA = new Street(1L, "1st Street", roadA);
 
-        assertThrows(StreetHasConflictingRoadReferenceException.class, () ->
-            roadB.setStreet(streetA)
+        assertAll(
+            // Verify precondition
+            () -> assertSame(roadA, streetA.getRoad(), "Street should be initially assigned to roadA"),
+
+            // Verify exception throwing
+            () -> assertThrows(StreetHasConflictingRoadReferenceException.class, () ->
+                    roadB.setStreet(streetA),
+                "Should throw exception when assigning street with existing road reference"
+            ),
+
+            // Verify postcondition
+            () -> assertSame(roadA, streetA.getRoad(), "Street should still be assigned to original road")
         );
     }
+
 
     @Test
     @DisplayName("Should throw ImmutableStreetModificationException when " +
@@ -77,6 +88,6 @@ public class RoadTest {
         Avenue avenue = new Avenue(1L, "1st Avenue", road);
 
         assertThrows(StreetAssignmentConflictsWithExistingAvenueException.class,
-            () -> new Street(1L, "1st Streete", road));
+            () -> new Street(1L, "1st Street", road));
     }
 }
