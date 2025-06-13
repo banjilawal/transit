@@ -7,6 +7,9 @@ import com.lawal.transitcraft.infrastructure.curb.Curb;
 import com.lawal.transitcraft.infrastructure.curb.exception.CurbAvenueMismatchException;
 import com.lawal.transitcraft.infrastructure.curb.exception.CurbStreetMismatchException;
 import com.lawal.transitcraft.infrastructure.lane.Lane;
+import com.lawal.transitcraft.infrastructure.road.exception.ImmutableStreetModificationException;
+import com.lawal.transitcraft.infrastructure.road.exception.StreetAssignmentConflictsWithExistingAvenueException;
+import com.lawal.transitcraft.infrastructure.road.exception.StreetHasConflictingRoadReferenceException;
 import com.lawal.transitcraft.infrastructure.street.Street;
 import jakarta.persistence.*;
 import lombok.*;
@@ -100,11 +103,33 @@ public class Road {
     }
 
     public void setStreet(Street street) {
-        if (this.street != null && this.street.equals(street)) return;
 
+        // Check immutability - if street is already set, it can't be changed (even to null)
+        if (this.street != null) {
+            throw new ImmutableStreetModificationException("Street reference cannot be modified once set");
+        }
+
+        // Check mutual exclusivity with avenue
+        if (this.avenue != null) {
+            throw new StreetAssignmentConflictsWithExistingAvenueException(
+                StreetAssignmentConflictsWithExistingAvenueException.MESSAGE
+            );
+        }
+
+        // Check bidirectional reference consistency
+        if (street != null && street.getRoad() != null && !street.getRoad().equals(this)) {
+            throw new StreetHasConflictingRoadReferenceException(
+                StreetHasConflictingRoadReferenceException.MESSAGE
+            );
+        }
+
+        // Set new relationship
         this.street = street;
-        if (street.getRoad() != this) { this.street.setRoad(this); }
+        if (street != null) {
+            street.setRoad(this);
+        }
     }
+
 
     public void setAvenue(Avenue avenue) {
         if (this.avenue != null && this.avenue.equals(avenue)) return;
